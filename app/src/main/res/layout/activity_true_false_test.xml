@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="edu.iau.abjad.AbjadApp.TrueFalseTest"
+    tools:layout_editor_absoluteY="25dp">
+
+
+    <!-- drawable/home_icon.xml -->
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar3"
+        android:layout_width="1282dp"
+        android:layout_height="wrap_content"
+        android:background="#C6E5F3"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme" />
+
+    <ImageButton
+        android:id="@+id/homeIcon"
+        android:layout_width="69dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="TODO"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar3"
+        app:layout_constraintEnd_toStartOf="@+id/TestTitle"
+        app:layout_constraintHorizontal_bias="0.061"
+        app:layout_constraintStart_toEndOf="@+id/menuIcon"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/home_icon" />
+
+    <View
+        android:id="@+id/menuIcon"
+        android:layout_width="55dp"
+        android:layout_height="46dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:alpha="0.54"
+        android:background="@drawable/menu"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar3"
+        app:layout_constraintStart_toStartOf="@+id/toolbar3"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/imageButton6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="84dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="368dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imageButton7"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/f" />
+
+
+    <!-- layout/*.xml -->
+
+
+    <!-- drawable/shape.xml -->
+    <vector xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:aapt="http://schemas.android.com/aapt"
+        android:width="18dp"
+        android:height="12dp"
+        android:viewportHeight="12"
+        android:viewportWidth="18">
+
+        <group>
+
+            <clip-path android:pathData="M 0 0L 18 0L 18 12L 0 12L 0 0Z" />
+
+            <path
+                android:fillColor="#000000"
+                android:pathData="M 0 0L 0 12L 18 12L 18 0" />
+
+        </group>
+
+    </vector>
+
+
+    <View
+        android:id="@+id/ListenIcon"
+        android:layout_width="148dp"
+        android:layout_height="148dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="100dp"
+        android:layout_marginEnd="72dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/listen"
+        android:elevation="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/imageButton6"
+        app:layout_constraintEnd_toStartOf="@+id/textView3"
+        app:layout_constraintHorizontal_bias="0.865"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar3"
+        app:layout_constraintVertical_bias="1.0" />
+
+
+    <!-- drawable/rectangle_2.xml -->
+    <vector xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:aapt="http://schemas.android.com/aapt"
+        android:width="42dp"
+        android:height="40dp"
+        android:viewportHeight="40"
+        android:viewportWidth="42">
+
+        <group>
+
+            <clip-path android:pathData="M 20 0L 22 0C 33.0457 0 42 8.95431 42 20C 42 31.0457 33.0457 40 22 40L 20 40C 8.95431 40 0 31.0457 0 20C 0 8.95431 8.95431 0 20 0Z" />
+
+        </group>
+
+    </vector>
+
+    <TextView
+        android:id="@+id/TestTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="34dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="580dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="arabic typesetting"
+        android:text="عنوان الإختبار"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar3"
+        app:layout_constraintEnd_toEndOf="@+id/toolbar3"
+        app:layout_constraintTop_toTopOf="@+id/toolbar3"
+        app:layout_constraintVertical_bias="0.571" />
+
+    <ImageButton
+        android:id="@+id/imageButton7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="84dp"
+        android:layout_marginEnd="408dp"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/t" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="408dp"
+        android:layout_marginTop="244dp"
+        android:fontFamily="arabic typesetting"
+        android:text="أكل أحمد التفاحة"
+        android:textColor="@android:color/black"
+        android:textSize="48sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/TestTitle" />
+
+</android.support.constraint.ConstraintLayout>
