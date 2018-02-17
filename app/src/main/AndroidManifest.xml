@@ -9,19 +9,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="edu.iau.abjad.AbjadApp.Lesson">
+        <activity android:name=".Lesson">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="edu.iau.abjad.AbjadApp.LessonsTests" />
-        <activity android:name="edu.iau.abjad.AbjadApp.TrueFalseTest" />
-        <activity android:name="edu.iau.abjad.AbjadApp.MatchingTest" />
-        <activity android:name="edu.iau.abjad.AbjadApp.ChildProgress" />
-        <activity android:name="edu.iau.abjad.AbjadApp.HeardWordTest" />
-        <activity android:name="edu.iau.abjad.AbjadApp.ReadingTest"></activity>
+        <activity android:name=".LessonsTests" />
+        <activity android:name=".TrueFalseTest" />
+        <activity android:name=".MatchingTest" />
+        <activity android:name=".ChildProgress" />
+        <activity android:name=".HeardWordTest" />
+        <activity android:name=".ReadingTest" />
+        <activity android:name=".MatchingTest$chooseAccount" />
+        <activity android:name=".chooseAccount" />
+        <activity android:name=".DeleteAccount" />
+        <activity android:name="edu.iau.abjad.a1.SignIn" />
+        <activity android:name="edu.iau.abjad.a1.Signin" />
+        <activity android:name=".Signin" />
+        <activity android:name=".SignUp" />
+        <activity android:name="edu.iau.abjad.a1.userTypeSelection" />
+        <activity android:name=".userTypeSelection"></activity>
     </application>
 
 </manifest>

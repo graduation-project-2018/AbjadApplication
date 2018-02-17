@@ -10,4 +10,13 @@ public class MatchingTest extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_matching_test);
     }
+
+    public static class chooseAccount extends AppCompatActivity {
+
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_choose_account);
+        }
+    }
 }
