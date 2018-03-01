@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "379112606768",
+    "firebase_url": "https://abjad-a0f5e.firebaseio.com",
+    "project_id": "abjad-a0f5e",
+    "storage_bucket": "abjad-a0f5e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:379112606768:android:125fbbb7d8b9c4cb",
+        "android_client_info": {
+          "package_name": "edu.iau.abjad.AbjadApp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "379112606768-s5olreeh6o8u7gp5o55li9fbvr9f3ddi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCh96NkEURHWpJTGVjwbro3-jzyBIEXMs8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
