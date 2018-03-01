@@ -16,7 +16,7 @@ public class MatchingTest extends AppCompatActivity {
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_choose_account);
+            setContentView(R.layout.activity_matching_test);
         }
     }
 }

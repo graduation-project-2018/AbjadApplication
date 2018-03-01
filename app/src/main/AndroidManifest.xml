@@ -23,14 +23,14 @@
         <activity android:name=".HeardWordTest" />
         <activity android:name=".ReadingTest" />
         <activity android:name=".MatchingTest$chooseAccount" />
-        <activity android:name=".chooseAccount" />
-        <activity android:name=".DeleteAccount" />
-        <activity android:name="edu.iau.abjad.a1.SignIn" />
-        <activity android:name="edu.iau.abjad.a1.Signin" />
+
+
         <activity android:name=".Signin" />
         <activity android:name=".SignUp" />
-        <activity android:name="edu.iau.abjad.a1.userTypeSelection" />
-        <activity android:name=".userTypeSelection"></activity>
+
+        <activity android:name=".userTypeSelection" />
+
+        <activity android:name=".ResetPassword"></activity>
     </application>
 
 </manifest>
