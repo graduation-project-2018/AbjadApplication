@@ -18,11 +18,10 @@
         </activity>
         <activity android:name=".LessonsTests" />
         <activity android:name=".TrueFalseTest" />
-        <activity android:name=".MatchingTest" />
         <activity android:name=".ChildProgress" />
         <activity android:name=".HeardWordTest" />
         <activity android:name=".ReadingTest" />
-        <activity android:name=".MatchingTest$chooseAccount" />
+
 
 
         <activity android:name=".Signin" />
