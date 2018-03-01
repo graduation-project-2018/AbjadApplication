@@ -11,5 +11,12 @@ public class HeardWordTest extends AppCompatActivity {
         setContentView(R.layout.activity_heard_word_test);
     }
 
+    public static class ChildPhoto extends AppCompatActivity {
 
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_child_photo);
+        }
+    }
 }
