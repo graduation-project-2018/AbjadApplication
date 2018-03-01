@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.iau.abjad.AbjadApp">
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -21,15 +20,9 @@
         <activity android:name=".ChildProgress" />
         <activity android:name=".HeardWordTest" />
         <activity android:name=".ReadingTest" />
-
-
-
         <activity android:name=".Signin" />
         <activity android:name=".SignUp" />
-
         <activity android:name=".userTypeSelection" />
-
         <activity android:name=".ResetPassword"></activity>
     </application>
-
 </manifest>
