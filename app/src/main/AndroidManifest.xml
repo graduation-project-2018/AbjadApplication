@@ -18,7 +18,13 @@
         <activity android:name=".HeardWordTest" />
         <activity android:name=".ReadingTest" />
         <activity android:name=".child_home"/>
-        <activity android:name=".educator_home"/>
+        <activity android:name=".educator_home">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
         <activity android:name=".report_problem"/>
         <activity android:name=".unit_interface"/>
         <activity android:name=".menu_educator"/>
