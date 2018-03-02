@@ -6,21 +6,112 @@
     android:layout_height="match_parent"
     tools:context="edu.iau.abjad.AbjadApp.ChildProgress">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="1257dp"
-        android:layout_height="658dp"
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="909dp"
+        android:layout_height="140dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.38"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <ImageView
+        android:id="@+id/imageView16"
+        android:layout_width="wrap_content"
+        android:layout_height="683dp"
+        android:background="@drawable/cloudswp"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/cloudswp" />
+
+    <ImageView
+        android:id="@+id/imageView15"
+        android:layout_width="wrap_content"
+        android:layout_height="683dp"
+        android:background="@drawable/cloudswp"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/cloudswp" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="658dp"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar2"
         app:srcCompat="@drawable/cloudswp" />
 
+    <LinearLayout
+        android:id="@+id/side"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/scrollView3"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.423">
+
+        <ImageView
+            android:id="@+id/imageView20"
+            android:layout_width="match_parent"
+            android:layout_height="114dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginStart="40dp"
+            app:layout_constraintBottom_toTopOf="@+id/imageView14"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/profile" />
+
+        <ImageView
+            android:id="@+id/imageView19"
+            android:layout_width="match_parent"
+            android:layout_height="114dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginStart="40dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/password" />
+
+        <ImageView
+            android:id="@+id/imageView14"
+            android:layout_width="match_parent"
+            android:layout_height="114dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginStart="40dp"
+            app:layout_constraintBottom_toTopOf="@+id/imageView19"
+            app:layout_constraintStart_toStartOf="@+id/side"
+            app:srcCompat="@drawable/dele" />
+    </LinearLayout>
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar2"
         android:layout_width="1282dp"
-        android:layout_height="51dp"
+        android:layout_height="74dp"
         android:background="#C6E5F3"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
@@ -61,6 +152,7 @@
         app:layout_constraintVertical_bias="0.666"
         app:srcCompat="@drawable/menu" />
 
+
     <ImageButton
         android:id="@+id/imageButton"
         android:layout_width="wrap_content"
@@ -90,5 +182,252 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/home_icon" />
+
+    <ImageView
+        android:id="@+id/imageView21"
+        android:layout_width="289dp"
+        android:layout_height="136dp"
+        android:layout_marginEnd="176dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.982"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView22"
+        app:srcCompat="@drawable/cloud" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/imageView21"
+        android:layout_alignLeft="@id/imageView21"
+        android:layout_alignRight="@id/imageView21"
+        android:layout_alignTop="@id/imageView21"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="Arabic Typesetting"
+        android:text="مـعلومـات أداء الطـفل"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView21"
+        app:layout_constraintEnd_toEndOf="@+id/imageView21"
+        app:layout_constraintStart_toStartOf="@+id/imageView21"
+        app:layout_constraintTop_toTopOf="@+id/imageView21" />
+
+    <ImageView
+        android:id="@+id/imageView22"
+        android:layout_width="168dp"
+        android:layout_height="121dp"
+        android:layout_marginBottom="504dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.752"
+        app:layout_constraintStart_toStartOf="@+id/imageView21"
+        app:srcCompat="@drawable/bird" />
+
+    <ScrollView
+        android:id="@+id/scrollView3"
+        android:layout_width="736dp"
+        android:layout_height="0dp"
+        android:layout_gravity="right"
+        android:layout_marginBottom="268dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layoutDirection="rtl"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView21"
+        app:layout_constraintVertical_bias="0.53999996">
+
+        <TableLayout
+            android:id="@+id/table1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="3dp"
+            android:layoutDirection="rtl"
+            android:stretchColumns="*"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView21"
+            app:layout_constraintVertical_bias="0.0">
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+
+                <TextView
+                    android:id="@+id/textView28"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="Arabic Typesetting"
+                    android:paddingLeft="5dp"
+                    android:text="الدروس التي تم فتحها"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/textView37"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+
+                    android:fontFamily="Arabic Typesetting"
+                    android:padding="0dp"
+                    android:text="١٣"
+                    android:textDirection="rtl"
+                    android:textSize="20sp" />
+            </TableRow>
+
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/textView38"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="Arabic Typesetting"
+                    android:paddingLeft="5dp"
+                    android:text="الدروس التي أتمها الطفل"
+                    android:textDirection="rtl"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/textView27"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_gravity="right"
+                    android:fontFamily="Arabic Typesetting"
+                    android:padding="0dp"
+                    android:text="٥"
+                    android:textDirection="rtl"
+                    android:textSize="24sp" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/textView20"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="Arabic Typesetting"
+                    android:paddingLeft="5dp"
+                    android:text="أعلى درجة بالدروس"
+                    android:textDirection="rtl"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/textView19"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="Arabic Typesetting"
+                    android:padding="0dp"
+                    android:text="٩/١٠"
+                    android:textDirection="rtl"
+                    android:textSize="20sp" />
+
+
+                <TextView
+                    android:id="@+id/textView49"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="Arabic Typesetting"
+                    android:text="في درس حرف:"
+                    android:textDirection="rtl"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/textView99"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="Arabic Typesetting"
+                    android:padding="0dp"
+                    android:text="م "
+                    android:textDirection="rtl"
+                    android:textSize="24sp" />
+
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/textView22"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="الإختبارات التي اجتازها الطـفل"
+                    android:textSize="24dp" />
+
+                <TextView
+                    android:id="@+id/textView21"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text=" ٣"
+                    android:textDirection="rtl"
+                    android:textSize="24dp" />
+
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/textView24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="أعلى درجة بالإختبـارات"
+                    android:textDirection="rtl"
+                    android:textSize="24dp" />
+
+                <TextView
+                    android:id="@+id/textView23"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="١٠/١٠"
+                    android:textSize="20dp" />
+
+
+                <TextView
+                    android:id="@+id/textView59"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="Arabic Typesetting"
+                    android:padding="0dp"
+                    android:text="في اختبار:"
+                    android:textDirection="rtl"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/textView69"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="Arabic Typesetting"
+                    android:padding="0dp"
+                    android:text="م،ب"
+                    android:textDirection="rtl"
+                    android:textSize="20sp" />
+
+
+            </TableRow>
+
+        </TableLayout>
+
+    </ScrollView>
 
 </android.support.constraint.ConstraintLayout>
