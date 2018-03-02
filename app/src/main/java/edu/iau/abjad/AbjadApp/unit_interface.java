@@ -22,6 +22,6 @@ public class unit_interface extends child_menu {
         //inflate your activity layout here!
         View contentView = inflater.inflate(R.layout.activity_unit_interface, null, false);
 
-        m.mDrawerLayout.addView(contentView, 0);
+        myDrawerLayout.addView(contentView, 0);
     }
 }

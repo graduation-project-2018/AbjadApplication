@@ -10,9 +10,7 @@ import android.widget.TextView;
  */
 
 public class menu_variables {
-    protected DrawerLayout mDrawerLayout;
-    protected ActionBarDrawerToggle mToggle;
-    protected Toolbar mToolBar;
+
 
     TextView title;
 }
