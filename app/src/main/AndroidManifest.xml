@@ -13,42 +13,21 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Lesson"></activity>
-        <activity android:name=".LessonsTests" />
-        <activity android:name=".TrueFalseTest" />
-        <activity android:name=".MatchingTest" />
+        <activity android:name=".Lesson"/>
         <activity android:name=".ChildProgress" />
         <activity android:name=".HeardWordTest" />
         <activity android:name=".ReadingTest" />
-        <activity android:name=".child_home">
-
-        </activity>
-        <activity android:name=".educator_home">
-
-
-
-        </activity>
-        <activity android:name=".report_problem">
-
-        </activity>
-        <activity android:name=".unit_interface">
-        <activity android:name=".Lesson">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".menu_educator"></activity>
-        <activity android:name=".child_menu"></activity>
+        <activity android:name=".child_home"/>
+        <activity android:name=".educator_home"/>
+        <activity android:name=".report_problem"/>
+        <activity android:name=".unit_interface"/>
+        <activity android:name=".menu_educator"/>
+        <activity android:name=".child_menu"/>
         <activity android:name=".LessonsTests" />
         <activity android:name=".TrueFalseTest" />
-        <activity android:name=".ChildProgress" />
-        <activity android:name=".HeardWordTest" />
-        <activity android:name=".ReadingTest" />
         <activity android:name=".Signin" />
         <activity android:name=".SignUp" />
         <activity android:name=".userTypeSelection" />
-        <activity android:name=".ResetPassword"></activity>
+        <activity android:name=".ResetPassword"/>
     </application>
 </manifest>
