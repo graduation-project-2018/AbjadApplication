@@ -14,7 +14,7 @@ public class unit_interface extends child_menu {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-         m.title = (TextView) findViewById(R.id.interface_title);
+        m.title = (TextView) findViewById(R.id.interface_title);
         m.title.setText("مدرستي");
 
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
