@@ -18,11 +18,7 @@
         <activity android:name=".TrueFalseTest" />
         <activity android:name=".MatchingTest" />
         <activity android:name=".ChildProgress">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".HeardWordTest" />
         <activity android:name=".ReadingTest" />
@@ -30,7 +26,11 @@
 
         </activity>
         <activity android:name=".educator_home">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
 
         </activity>
