@@ -20,6 +20,6 @@ public class child_home extends child_menu {
         //inflate your activity layout here!
         View contentView = inflater.inflate(R.layout.activity_child_home, null, false);
 
-        m.mDrawerLayout.addView(contentView, 0);
+        myDrawerLayout.addView(contentView, 0);
     }
 }
