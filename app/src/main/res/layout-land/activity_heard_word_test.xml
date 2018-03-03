@@ -4,68 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffffff"
     tools:context="edu.iau.abjad.AbjadApp.HeardWordTest">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar4"
-        android:layout_width="1282dp"
-        android:layout_height="51dp"
-        android:background="#C6E5F3"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:layout_constraintBottom_toTopOf="@+id/imageView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <include
+        layout="@layout/navigation_action_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
-    <ImageButton
-        android:id="@+id/menuIcon3"
-        android:layout_width="69dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        android:background="@android:color/transparent"
-        android:contentDescription="TODO"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
-        app:layout_constraintStart_toStartOf="@+id/toolbar"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.666"
-        app:srcCompat="@drawable/menu" />
 
-    <TextView
-        android:id="@+id/testTitle3"
-        android:layout_width="wrap_content"
-        android:layout_height="34dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:fontFamily="arabic typesetting"
-        android:text="اختبار الكلمة المسموعة"
-        android:textColor="#0b365c"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar5"
-        app:layout_constraintEnd_toEndOf="@+id/toolbar4"
-        app:layout_constraintHorizontal_bias="0.421"
-        app:layout_constraintStart_toEndOf="@+id/homeIcon4"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <ImageButton
-        android:id="@+id/homeIcon4"
-        android:layout_width="68dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="4dp"
-        android:layout_marginStart="12dp"
-        android:background="@android:color/transparent"
-        android:contentDescription="TODO"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar4"
-        app:layout_constraintStart_toEndOf="@+id/menuIcon3"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/home_icon" />
 
     <TextView
         android:id="@+id/textView8"
@@ -73,12 +20,13 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="140dp"
         android:layout_marginStart="272dp"
+        android:layout_marginTop="224dp"
         android:fontFamily="arabic typesetting"
         android:text="سورة"
         android:textSize="72sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView10"
         app:layout_constraintEnd_toStartOf="@+id/textView10"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView10"
@@ -86,26 +34,30 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="140dp"
         android:layout_marginStart="140dp"
-        android:layout_marginTop="184dp"
+        android:layout_marginTop="224dp"
         android:fontFamily="arabic typesetting"
         android:text="سبورة"
         android:textSize="72sp"
         app:layout_constraintEnd_toStartOf="@+id/textView9"
         app:layout_constraintStart_toEndOf="@+id/textView8"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar4" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="404dp"
         android:layout_marginEnd="222dp"
         android:layout_marginStart="140dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="arabic typesetting"
         android:text="صورة"
         android:textSize="72sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView10"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView10" />
+        app:layout_constraintStart_toEndOf="@+id/textView10"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.995" />
 
     <LinearLayout
         android:id="@+id/fff"

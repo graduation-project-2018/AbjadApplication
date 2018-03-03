@@ -8,7 +8,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 public class menu_educator extends AppCompatActivity {
-
     protected DrawerLayout mDrawerLayout;
     protected ActionBarDrawerToggle mToggle;
     protected Toolbar mToolBar;
@@ -18,7 +17,7 @@ public class menu_educator extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_educator);
 
-        mDrawerLayout=(DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerLayout=(DrawerLayout) findViewById(R.id.menu_edu_drawer_layout);
         mToggle= new ActionBarDrawerToggle(this,mDrawerLayout,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
         mToolBar = (Toolbar) findViewById(R.id.nav_action_bar);
         setSupportActionBar(mToolBar);
@@ -36,4 +35,5 @@ public class menu_educator extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-}
+    }
+

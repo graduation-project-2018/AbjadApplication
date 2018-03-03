@@ -103,18 +103,6 @@
         </TableLayout>
     </ScrollView>
 
-    <!--<TextView
-        android:id="@+id/textView14"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="65dp"
-        android:layout_marginTop="16dp"
-        android:text="الرئيسية"
-        android:textColor="#0B365C"
-        android:textSize="20pt"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.36"
-        app:layout_constraintStart_toEndOf="@+id/button3"
-        app:layout_constraintTop_toTopOf="parent" /> -->
+
 
 </android.support.constraint.ConstraintLayout>

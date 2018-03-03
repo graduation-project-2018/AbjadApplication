@@ -13,8 +13,10 @@ public class child_home extends child_menu {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       m.title = (TextView) findViewById(R.id.interface_title);
-        m.title.setText("الرئيسية");
+
+        m.title = (TextView) findViewById(R.id.interface_title);
+        m.title.setText("مدرستي");
+
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         //inflate your activity layout here!
@@ -23,3 +25,4 @@ public class child_home extends child_menu {
         myDrawerLayout.addView(contentView, 0);
     }
 }
+

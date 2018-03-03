@@ -4,74 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ChildProgress$AddingChild">
+     android:background="@drawable/educator_backgrpund"
+    tools:context=".adding_child">
 
-
-    <android.support.v7.widget.Toolbar
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/toolbar"
+    <include
+        layout="@layout/navigation_action_bar"
         android:layout_width="match_parent"
-        android:layout_height="54dp"
-        android:background="?attr/colorPrimary"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        >
+        android:layout_height="wrap_content" />
 
-
-        <ImageButton
-            android:id="@+id/home_icon"
-            android:layout_width="69dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="4dp"
-            android:layout_gravity="left"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="0dp"
-            android:padding="3dp"
-            android:src="@drawable/menu"/>
-        <ImageButton
-            android:id="@+id/menu_icon"
-            android:layout_width="69dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="4dp"
-            android:layout_gravity="left"
-            android:layout_marginLeft="0dp"
-            android:layout_marginRight="16dp"
-            android:src="@drawable/home_icon"/>
-
-        <TextView
-            android:id="@+id/testTitle4"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="20dp"
-            android:layout_marginEnd="6dp"
-            android:layout_marginTop="6dp"
-            android:paddingLeft="420dp"
-            android:gravity="center"
-            android:fontFamily="arabic typesetting"
-            android:text="إضـافة طـفل"
-            android:textColor="@android:color/black"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="@+id/toolbar5" />
-
-    </android.support.v7.widget.Toolbar>
-
-    <ImageView
-        android:id="@+id/imageView28"
-        android:layout_width="wrap_content"
-        android:layout_height="683dp"
-        android:background="@drawable/cloudswp"
-        android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/cloudswp" />
 
     <ScrollView
         android:id="@+id/scrollView2"
@@ -103,7 +43,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="4dp"
-                    app:srcCompat="@drawable/child" />
+                    app:srcCompat="@drawable/child_gray" />
 
                 <TextView
                     android:id="@+id/textView111"
@@ -135,7 +75,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="4dp"
-                    app:srcCompat="@drawable/child" />
+                    app:srcCompat="@drawable/child_gray" />
 
                 <TextView
                     android:id="@+id/textView11"
@@ -220,7 +160,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="4dp"
-                    app:srcCompat="@drawable/passwordi" />
+                    app:srcCompat="@drawable/password_gray" />
 
                 <TextView
                     android:id="@+id/textView16"
@@ -253,7 +193,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="4dp"
-                    app:srcCompat="@drawable/passwordi" />
+                    app:srcCompat="@drawable/password_gray" />
 
                 <TextView
                     android:id="@+id/textView17"
@@ -311,18 +251,23 @@
         </TableLayout>
     </ScrollView>
 
-    <ImageButton
+    <Button
         android:id="@+id/imageButton3"
-        android:layout_width="909dp"
-        android:layout_height="140dp"
-        android:layout_marginBottom="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/button"
+        android:layout_marginTop="35dp"
+        android:background="@drawable/circle_button"
+        android:text="التـالي"
+        android:textColor="#ffffff"
+        android:textSize="18pt"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2"
+
+        android:gravity="center"/>
+
 
 </android.support.constraint.ConstraintLayout>

@@ -26,21 +26,5 @@ public class ChildProgress extends menu_educator {
 
     }
 
-    /*public static class AddChild extends AppCompatActivity {
 
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_child_progress);
-        }
-    }*/
-
-    public static class AddingChild extends AppCompatActivity {
-
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_adding_child);
-        }
-    }
 }

@@ -1,22 +1,25 @@
 package edu.iau.abjad.AbjadApp;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.TextView;
 
-public class HeardWordTest extends AppCompatActivity {
+public class HeardWordTest extends child_menu {
+    menu_variables m = new menu_variables();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_heard_word_test);
-    }
+        m.title = (TextView) findViewById(R.id.interface_title);
+        m.title.setText("اختبار الكلمة المسموعة");
+        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-    public static class ChildPhoto extends AppCompatActivity {
+        //inflate your activity layout here!
+        View contentView = inflater.inflate(R.layout.activity_heard_word_test, null, false);
 
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_child_photo);
-        }
+        myDrawerLayout.addView(contentView, 0);
     }
 }

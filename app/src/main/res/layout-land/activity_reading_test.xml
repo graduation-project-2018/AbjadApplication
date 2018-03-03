@@ -4,74 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffffff"
     tools:context="edu.iau.abjad.AbjadApp.ReadingTest"
     android:layout_gravity="center">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar6"
-        android:layout_width="1282dp"
-        android:layout_height="wrap_content"
-        android:background="#C6E5F3"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
-
-
-    <ImageButton
-        android:id="@+id/menuIcon6"
-        android:layout_width="69dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
-        android:background="@android:color/transparent"
-        android:contentDescription="TODO"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
-        app:layout_constraintStart_toStartOf="@+id/toolbar"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.666"
-        app:srcCompat="@drawable/menu" />
-
-    <ImageButton
-        android:id="@+id/homeIcon7"
-        android:layout_width="69dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
-        android:background="@android:color/transparent"
-        android:contentDescription="TODO"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
-        app:layout_constraintStart_toEndOf="@+id/menuIcon6"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/home_icon" />
-
-        <TextView
-            android:id="@+id/testTitle4"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="20dp"
-            android:layout_marginEnd="6dp"
-            android:layout_marginTop="6dp"
-            android:paddingLeft="420dp"
-            android:gravity="center"
-            android:fontFamily="arabic typesetting"
-            android:text="عنـوان الإختبار"
-            android:textColor="@android:color/black"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="@+id/toolbar5" />
-
-</android.support.v7.widget.Toolbar>
+    <include
+        layout="@layout/navigation_action_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/textView6"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="311dp"
+        android:layout_marginBottom="364dp"
         android:layout_marginEnd="396dp"
         android:layout_marginStart="453dp"
         android:layout_marginTop="132dp"
@@ -81,7 +27,7 @@
         android:textSize="64sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.017"
+        app:layout_constraintHorizontal_bias="0.104"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar6"
         app:layout_constraintVertical_bias="0.328" />

@@ -6,66 +6,11 @@
     android:layout_height="match_parent"
     tools:context="edu.iau.abjad.AbjadApp.MatchingTest">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar5"
-        android:layout_width="1282dp"
-        android:layout_height="wrap_content"
-        android:background="#C6E5F3"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <include
+        layout="@layout/navigation_action_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
-    <TextView
-        android:id="@+id/testTitle4"
-        android:layout_width="wrap_content"
-        android:layout_height="34dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="580dp"
-        android:layout_marginTop="8dp"
-        android:fontFamily="arabic typesetting"
-        android:text="اختبار التوصيل"
-        android:textColor="@android:color/black"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <ImageButton
-        android:id="@+id/menuIcon4"
-        android:layout_width="69dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:background="@android:color/transparent"
-        android:contentDescription="TODO"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
-        app:layout_constraintStart_toStartOf="@+id/toolbar"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.666"
-        app:srcCompat="@drawable/menu" />
-
-    <ImageButton
-        android:id="@+id/homeIcon5"
-        android:layout_width="69dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@android:color/transparent"
-        android:contentDescription="TODO"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
-        app:layout_constraintEnd_toStartOf="@+id/testTitle4"
-        app:layout_constraintHorizontal_bias="0.079"
-        app:layout_constraintStart_toEndOf="@+id/menuIcon4"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/home_icon" />
 
     <ImageView
         android:id="@+id/imageView3"
@@ -73,38 +18,39 @@
         android:layout_height="190dp"
         android:layout_marginEnd="24dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="124dp"
+        android:layout_marginTop="172dp"
+
         android:background="@color/colorAccent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView7"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar5"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/rab" />
 
     <ImageView
         android:id="@+id/imageView7"
         android:layout_width="260dp"
         android:layout_height="190dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="132dp"
+        android:layout_marginTop="172dp"
         android:background="@color/colorAccent"
         app:layout_constraintEnd_toStartOf="@+id/imageView3"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView5"
-        app:layout_constraintTop_toBottomOf="@+id/testTitle4"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/owl" />
 
     <ImageView
         android:id="@+id/imageView5"
         android:layout_width="260dp"
         android:layout_height="190dp"
+        android:layout_marginBottom="52dp"
         android:layout_marginEnd="24dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="132dp"
         android:background="@color/colorAccent"
+        app:layout_constraintBottom_toTopOf="@+id/editText"
         app:layout_constraintEnd_toStartOf="@+id/imageView7"
         app:layout_constraintHorizontal_bias="0.531"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/testTitle4"
         app:srcCompat="@drawable/gbird" />
 
     <EditText

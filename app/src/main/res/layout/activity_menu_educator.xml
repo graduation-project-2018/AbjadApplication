@@ -4,18 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".menu_educator"
-    android:id="@+id/drawer_layout">
+    android:id="@+id/menu_edu_drawer_layout"
+    tools:context="edu.iau.abjad.AbjadApp.menu_educator">
 
-  <android.support.constraint.ConstraintLayout
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      >
-      <include layout="@layout/navigation_action_bar"
-          android:layout_height="wrap_content"
-          android:layout_width="match_parent"/>
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <include layout="@layout/navigation_action_bar"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"/>
 
-  </android.support.constraint.ConstraintLayout>
+    </android.support.constraint.ConstraintLayout>
 
     <android.support.design.widget.NavigationView
         android:layout_width="wrap_content"
@@ -23,8 +23,11 @@
         tools:ignore="ExtraText"
         app:menu="@menu/navigation_menu"
         app:headerLayout="@layout/navigation_header"
-        android:layout_gravity="start">
+        android:layout_gravity="start"
+        android:id="@+id/menu_educator"
+        >
 
     </android.support.design.widget.NavigationView>
+
 
 </android.support.v4.widget.DrawerLayout>

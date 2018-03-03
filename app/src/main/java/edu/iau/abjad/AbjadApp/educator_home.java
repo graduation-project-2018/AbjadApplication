@@ -25,12 +25,10 @@ public class educator_home extends menu_educator {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //setContentView(R.layout.activity_educator_home);
 
-
-        final firebase_connection r = new firebase_connection();
-
-         m.title = (TextView) findViewById(R.id.interface_title);
-        m.title.setText("الرئيسية");
+        m.title = (TextView) findViewById(R.id.interface_title);
+        m.title.setText("الدرس الأول");
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         //inflate your activity layout here!
@@ -38,7 +36,11 @@ public class educator_home extends menu_educator {
 
         mDrawerLayout.addView(contentView, 0);
 
-        final Button btn = (Button) findViewById(R.id.add_new_child_btn);
+
+
+
+        /*final Button btn = (Button) findViewById(R.id.add_new_child_btn);
+         final firebase_connection r = new firebase_connection();
         final DatabaseReference read = r.ref.child("Children").child("childID").child("first_name");
 
         read.addValueEventListener(new ValueEventListener() {
@@ -75,7 +77,7 @@ public class educator_home extends menu_educator {
                 });
                 r.ref.child("Children").child("childID").child("gender").setValue("female");
             }
-        });
+        });*/
 
 
 
