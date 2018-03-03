@@ -28,7 +28,7 @@ public class educator_home extends menu_educator {
         //setContentView(R.layout.activity_educator_home);
 
         m.title = (TextView) findViewById(R.id.interface_title);
-        m.title.setText("الدرس الأول");
+        m.title.setText("الرئيسية");
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         //inflate your activity layout here!

@@ -15,7 +15,7 @@ public class child_home extends child_menu {
         super.onCreate(savedInstanceState);
 
         m.title = (TextView) findViewById(R.id.interface_title);
-        m.title.setText("مدرستي");
+        m.title.setText("الرئيسية");
 
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 

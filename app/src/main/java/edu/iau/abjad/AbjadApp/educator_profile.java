@@ -15,7 +15,7 @@ public class educator_profile extends menu_educator {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         m.title = (TextView) findViewById(R.id.interface_title);
-        m.title.setText("إضافة طفل");
+        m.title.setText("الملف الشخصي");
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         //inflate your activity layout here!
