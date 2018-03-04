@@ -16,21 +16,20 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Lesson" />
-        <activity android:name=".educator_home" />
+        <activity android:name=".educator_home">
+
+        </activity>
         <activity android:name=".TrueFalseTest" />
         <activity android:name=".MatchingTest" />
         <activity android:name=".child_photo"></activity>
         <activity android:name=".ChildProgress" />
         <activity android:name=".adding_child">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".HeardWordTest" />
         <activity android:name=".ReadingTest" />
         <activity android:name=".child_home">
+
 
         </activity>
         <activity android:name=".report_problem" />
@@ -40,9 +39,18 @@
         <activity android:name=".SignUp" />
         <activity android:name=".userTypeSelection" />
         <activity android:name=".ResetPassword" />
-        <activity android:name=".child_profile"></activity>
+        <activity android:name=".child_profile">
+
+        </activity>
         <activity android:name=".educator_profile"></activity>
-        <activity android:name=".change_password"></activity>
+        <activity android:name=".change_password">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
         <activity android:name=".menu_educator" />
         <activity android:name=".change_profile_photo">
 
