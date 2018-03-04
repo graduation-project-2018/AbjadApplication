@@ -16,15 +16,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Lesson" />
-        <activity android:name=".educator_home">
-
-        </activity>
+        <activity android:name=".educator_home" />
         <activity android:name=".TrueFalseTest" />
         <activity android:name=".MatchingTest" />
         <activity android:name=".child_photo"></activity>
         <activity android:name=".ChildProgress" />
         <activity android:name=".adding_child">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".HeardWordTest" />
         <activity android:name=".ReadingTest" />
@@ -52,9 +54,8 @@
 
         </activity>
         <activity android:name=".menu_educator" />
-        <activity android:name=".change_profile_photo">
-
-        </activity>
+        <activity android:name=".change_profile_photo"></activity>
+        <activity android:name=".SigninEducator"></activity>
     </application>
 
 </manifest>
