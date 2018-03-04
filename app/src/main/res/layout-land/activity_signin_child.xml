@@ -102,20 +102,6 @@
         app:layout_constraintVertical_bias="0.277" />
 
     <TextView
-        android:id="@+id/NewAccount"
-        android:layout_width="wrap_content"
-        android:layout_height="29dp"
-        android:layout_marginBottom="48dp"
-        android:layout_marginStart="164dp"
-        android:fontFamily="casual"
-        android:text="تسجيل حساب جديد"
-        android:textColor="@android:color/black"
-        android:textSize="18sp"
-        android:typeface="normal"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-        app:layout_constraintStart_toStartOf="@+id/imageView2" />
-
-    <TextView
         android:id="@+id/ResetPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -137,31 +123,12 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:drawablePadding="15dp"
         android:drawableRight="@drawable/user_male"
-        android:ems="10"
+        android:ems="100"
         android:hint="اسم المستخدم"
         android:inputType="textPersonName"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/password"
-        app:layout_constraintEnd_toEndOf="@+id/imageView2"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/imageView2"
-        app:layout_constraintTop_toTopOf="@+id/imageView2"
-        app:layout_constraintVertical_bias="0.927" />
-
-    <EditText
-        android:id="@+id/email"
-        android:layout_width="654dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:drawableRight="@drawable/email_icon"
-        android:ems="10"
-        android:hint="البريد الإلكتروني"
-        android:inputType="textPersonName"
+        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/password"
         app:layout_constraintEnd_toEndOf="@+id/imageView2"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -178,6 +145,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:drawablePadding="15dp"
         android:drawableRight="@drawable/password_gray"
         android:ems="10"
         android:hint="كلمة المرور"
@@ -206,8 +174,11 @@
         android:layout_width="45dp"
         android:layout_height="35dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginTop="140dp"
-        app:layout_constraintEnd_toStartOf="@+id/email"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="148dp"
+        app:layout_constraintEnd_toStartOf="@+id/Username"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/imageView2"
         app:layout_constraintTop_toTopOf="@+id/imageView2"
         app:srcCompat="@drawable/sshape" />
 

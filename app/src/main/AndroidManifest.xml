@@ -19,7 +19,7 @@
         <activity android:name=".educator_home" />
         <activity android:name=".TrueFalseTest" />
         <activity android:name=".MatchingTest" />
-        <activity android:name=".child_photo"></activity>
+        <activity android:name=".child_photo" />
         <activity android:name=".ChildProgress" />
         <activity android:name=".adding_child">
             <intent-filter>
@@ -30,23 +30,20 @@
         </activity>
         <activity android:name=".HeardWordTest" />
         <activity android:name=".ReadingTest" />
-        <activity android:name=".child_home">
-
-        </activity>
+        <activity android:name=".child_home"></activity>
         <activity android:name=".report_problem" />
-        <activity android:name=".unit_interface"></activity>
+        <activity android:name=".unit_interface" />
         <activity android:name=".child_menu" />
         <activity android:name=".Signin" />
         <activity android:name=".SignUp" />
         <activity android:name=".userTypeSelection" />
         <activity android:name=".ResetPassword" />
-        <activity android:name=".child_profile"></activity>
-        <activity android:name=".educator_profile"></activity>
-        <activity android:name=".change_password"></activity>
+        <activity android:name=".child_profile" />
+        <activity android:name=".educator_profile" />
+        <activity android:name=".change_password" />
         <activity android:name=".menu_educator" />
-        <activity android:name=".change_profile_photo">
-
-        </activity>
+        <activity android:name=".change_profile_photo"></activity>
+        <activity android:name=".SigninEducator"></activity>
     </application>
 
 </manifest>
