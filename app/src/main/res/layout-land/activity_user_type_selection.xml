@@ -22,7 +22,7 @@
         app:layout_constraintVertical_bias="0.497" />
 
     <ImageView
-        android:id="@+id/imageView11"
+        android:id="@+id/child_btn"
         android:layout_width="199dp"
         android:layout_height="192dp"
         android:layout_marginBottom="8dp"
@@ -35,7 +35,7 @@
         app:srcCompat="@drawable/child" />
 
     <ImageView
-        android:id="@+id/imageView12"
+        android:id="@+id/educator_Btn"
         android:layout_width="199dp"
         android:layout_height="192dp"
         android:layout_marginBottom="8dp"
@@ -59,7 +59,7 @@
         android:textSize="25sp"
         android:typeface="normal"
         app:layout_constraintStart_toStartOf="@+id/imageView2"
-        app:layout_constraintTop_toBottomOf="@+id/imageView12" />
+        app:layout_constraintTop_toBottomOf="@+id/educator_Btn" />
 
 
     <TextView
@@ -74,6 +74,6 @@
         android:textSize="25sp"
         android:typeface="normal"
         app:layout_constraintEnd_toEndOf="@+id/imageView2"
-        app:layout_constraintTop_toBottomOf="@+id/imageView11" />
+        app:layout_constraintTop_toBottomOf="@+id/child_btn" />
 
 </android.support.constraint.ConstraintLayout>

@@ -227,7 +227,7 @@
         app:srcCompat="@drawable/sshape" />
 
     <ImageView
-        android:id="@+id/imageView12"
+        android:id="@+id/educator_Btn"
         android:layout_width="45dp"
         android:layout_height="35dp"
         android:layout_marginEnd="12dp"

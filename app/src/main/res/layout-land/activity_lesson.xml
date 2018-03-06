@@ -23,19 +23,19 @@
         android:layout_marginTop="190dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView11"
+        app:layout_constraintStart_toEndOf="@+id/child_btn"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.64"
         app:srcCompat="@drawable/junge" />
 
     <ImageView
-        android:id="@+id/imageView11"
+        android:id="@+id/child_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="114dp"
         app:layout_constraintEnd_toStartOf="@+id/imageView10"
         app:layout_constraintStart_toEndOf="@+id/textView7"
-        app:layout_constraintTop_toTopOf="@+id/imageView12"
+        app:layout_constraintTop_toTopOf="@+id/educator_Btn"
         app:srcCompat="@drawable/refresh" />
 
     <ImageView
@@ -51,11 +51,11 @@
         app:srcCompat="@drawable/mic" />
 
     <ImageView
-        android:id="@+id/imageView12"
+        android:id="@+id/educator_Btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="47dp"
-        app:layout_constraintEnd_toStartOf="@+id/imageView11"
+        app:layout_constraintEnd_toStartOf="@+id/child_btn"
         app:layout_constraintTop_toTopOf="@+id/imageView13"
         app:srcCompat="@drawable/listen" />
 
@@ -69,8 +69,8 @@
         android:fontFamily="Arabic Typestting"
         android:text="أنـا عـمـر"
         android:textSize="72dp"
-        app:layout_constraintBottom_toTopOf="@+id/imageView12"
-        app:layout_constraintEnd_toStartOf="@+id/imageView11"
+        app:layout_constraintBottom_toTopOf="@+id/educator_Btn"
+        app:layout_constraintEnd_toStartOf="@+id/child_btn"
         app:layout_constraintStart_toEndOf="@+id/imageView13"
         app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>

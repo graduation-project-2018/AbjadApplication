@@ -160,7 +160,7 @@
         app:layout_constraintVertical_bias="0.794" />
 
     <ImageView
-        android:id="@+id/imageView11"
+        android:id="@+id/child_btn"
         android:layout_width="45dp"
         android:layout_height="35dp"
         android:layout_marginEnd="8dp"

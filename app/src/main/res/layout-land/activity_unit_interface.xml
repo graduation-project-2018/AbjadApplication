@@ -189,7 +189,7 @@
         android:text="س"
         android:textColor="#91AD57"
         android:textSize="32pt"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView11"
+        app:layout_constraintBottom_toBottomOf="@+id/child_btn"
         app:layout_constraintStart_toEndOf="@+id/button21" />
 
 
@@ -217,7 +217,7 @@
         android:scaleType="fitXY"
         android:src="@drawable/cloud_icon"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView12" />
+        app:layout_constraintStart_toEndOf="@+id/educator_Btn" />
 
     <ImageView
         android:id="@+id/imageView13"
@@ -233,7 +233,7 @@
         app:layout_constraintStart_toEndOf="@+id/imageView10" />
 
     <ImageView
-        android:id="@+id/imageView12"
+        android:id="@+id/educator_Btn"
         android:layout_width="300dp"
         android:layout_height="200dp"
         android:layout_marginBottom="264dp"
@@ -247,7 +247,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView11"
+        android:id="@+id/child_btn"
         android:layout_width="300dp"
         android:layout_height="200dp"
         android:layout_marginStart="288dp"
@@ -282,7 +282,7 @@
         android:scaleType="fitXY"
         android:src="@drawable/cloud_icon"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView11" />
+        app:layout_constraintStart_toEndOf="@+id/child_btn" />
 
     <Button
         android:id="@+id/button16"
@@ -396,9 +396,9 @@
         android:layout_marginTop="8dp"
         android:src="@drawable/look_for_lesson"
         app:layout_constraintBottom_toTopOf="@+id/imageView33"
-        app:layout_constraintEnd_toEndOf="@+id/imageView12"
+        app:layout_constraintEnd_toEndOf="@+id/educator_Btn"
         app:layout_constraintHorizontal_bias="0.54"
-        app:layout_constraintStart_toStartOf="@+id/imageView12"
+        app:layout_constraintStart_toStartOf="@+id/educator_Btn"
         app:layout_constraintTop_toBottomOf="@+id/imageView31"
         app:layout_constraintVertical_bias="0.855" />
 
@@ -419,7 +419,7 @@
         android:layout_marginStart="120dp"
         android:layout_marginTop="100dp"
         android:src="@drawable/look_for_lesson"
-        app:layout_constraintStart_toStartOf="@+id/imageView11"
+        app:layout_constraintStart_toStartOf="@+id/child_btn"
         app:layout_constraintTop_toBottomOf="@+id/imageView33" />
 
     <ImageView

@@ -22,11 +22,7 @@
         <activity android:name=".child_photo" />
         <activity android:name=".ChildProgress" />
         <activity android:name=".adding_child">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".HeardWordTest" />
         <activity android:name=".ReadingTest" />
@@ -36,7 +32,13 @@
         <activity android:name=".child_menu" />
         <activity android:name=".Signin" />
         <activity android:name=".SignUp" />
-        <activity android:name=".userTypeSelection" />
+        <activity android:name=".userTypeSelection">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".ResetPassword" />
         <activity android:name=".child_profile" />
         <activity android:name=".educator_profile" />
