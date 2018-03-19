@@ -36,11 +36,12 @@ public class educator_home extends menu_educator {
 
         mDrawerLayout.addView(contentView, 0);
 
+        String unit_id = "unit1";
 
 
 
-        /*final Button btn = (Button) findViewById(R.id.add_new_child_btn);
-         final firebase_connection r = new firebase_connection();
+        final Button btn = (Button) findViewById(R.id.add_new_child_btn);
+        final firebase_connection r = new firebase_connection();
         final DatabaseReference read = r.ref.child("Children").child("childID").child("first_name");
 
         read.addValueEventListener(new ValueEventListener() {
@@ -53,16 +54,14 @@ public class educator_home extends menu_educator {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                Log.w(" ", "loadPost:onCancelled", databaseError.toException());
             }
         });
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 read.addValueEventListener(new ValueEventListener() {
-
                     @Override
-
                     public void onDataChange(DataSnapshot dataSnapshot) {
                      String value = dataSnapshot.getValue().toString();
                      m.title.setText(value);
@@ -75,9 +74,9 @@ public class educator_home extends menu_educator {
                         Log.w(null, "Failed to read value.", error.toException());
                     }
                 });
-                r.ref.child("Children").child("childID").child("gender").setValue("female");
+
             }
-        });*/
+        });
 
 
 
