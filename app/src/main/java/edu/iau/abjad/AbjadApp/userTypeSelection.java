@@ -11,6 +11,7 @@ public class userTypeSelection extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_type_selection);
         Intent intentOfChild=new Intent(this, Signin.class );
@@ -24,9 +25,6 @@ public class userTypeSelection extends AppCompatActivity {
         }
         else if(EduIcon.isClickable()){
             startActivity(intentOfEdu);
-
         }
-
-
     }
 }
