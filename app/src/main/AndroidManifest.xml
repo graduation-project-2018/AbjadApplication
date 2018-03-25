@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.iau.abjad.AbjadApp">
-
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <supports-screens
         android:largeScreens="true"
         android:normalScreens="true"
@@ -26,18 +26,22 @@
         </activity>
         <activity android:name=".HeardWordTest" />
         <activity android:name=".ReadingTest" />
-        <activity android:name=".child_home"></activity>
-        <activity android:name=".report_problem" />
-        <activity android:name=".unit_interface" />
-        <activity android:name=".child_menu" />
-        <activity android:name=".Signin" />
-        <activity android:name=".SignUp" />
-        <activity android:name=".userTypeSelection">
+        <activity android:name=".child_home">
+
+        </activity>
+        <activity android:name=".report_problem">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".unit_interface" />
+        <activity android:name=".child_menu" />
+        <activity android:name=".Signin" />
+        <activity android:name=".SignUp" />
+        <activity android:name=".userTypeSelection">
+
         </activity>
         <activity android:name=".ResetPassword" />
         <activity android:name=".child_profile" />

@@ -7,6 +7,6 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class firebase_connection {
 
-    DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+     DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
 
 }
