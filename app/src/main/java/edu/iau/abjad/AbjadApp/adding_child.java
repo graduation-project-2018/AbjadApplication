@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class adding_child  extends menu_educator {
@@ -21,8 +22,29 @@ public class adding_child  extends menu_educator {
         View contentView = inflater.inflate(R.layout.activity_adding_child, null, false);
 
         mDrawerLayout.addView(contentView, 0);
+        Button addBtn = (Button)findViewById(R.id.imageButton3);
+
+        addBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+
+                //check fields
+          addChild();
+            }
+
+
+        });
+
+    }//end ofk oknCreate function
+
+    public void addChild(){
+        
+
+    }//end of addChild function
 
 
 
-    }
+
+
+
 }
