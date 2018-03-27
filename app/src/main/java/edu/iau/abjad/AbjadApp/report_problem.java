@@ -13,6 +13,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +34,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.HashMap;
 
 public class report_problem extends menu_educator {
     public static final int PIC_GALLERY_REQUIST = 20;
@@ -39,8 +43,15 @@ public class report_problem extends menu_educator {
     private Button reportBtn;
     private StorageReference mStorge;
     private TextView ImgNameTextView;
-    private  DatabaseReference report;
-    private  String daownloadURL;
+    private firebase_connection report;
+    private String daownloadURL;
+    private RadioGroup  rg;
+    private RadioButton problemType;
+    private String ProbType;
+    private String dis;
+    private EditText moreDetails;
+    private HashMap<String,String> dataMap;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,17 +64,28 @@ public class report_problem extends menu_educator {
         //inflate your activity layout here!
         View contentView = inflater.inflate(R.layout.activity_report_problem, null, false);
         mDrawerLayout.addView(contentView, 0);
-
+        //initialization
         uplodImgbtn = findViewById(R.id.uplodBtn);
         reportBtn= findViewById(R.id.reportButn );
         ImgNameTextView=(TextView) findViewById(R.id.imgname);
+        rg= findViewById(R.id.radioButtonsGroup);
+        dataMap=new HashMap<String, String>();
+
+        moreDetails=findViewById(R.id.moredetails);
         //firbase storge refrance
         mStorge = FirebaseStorage.getInstance().getReference();
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-        report=ref.child("Reports");
+        report=new firebase_connection();
         reportBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //uploading screenshot
+            System.out.println(ProbType);
+            System.out.println(dis);
+
+                dataMap.put("report_type",ProbType);
+                dataMap.put("report_description",dis);
+                dataMap.put("reporter_email","ala2.hpapa@gmail.com");
+                report.ref.child("Reports").push().setValue(dataMap);
 
             }
         });
@@ -82,7 +104,7 @@ public class report_problem extends menu_educator {
     protected void onActivityResult(int requestCode, int resultCode, final Intent data) {
         if (resultCode == RESULT_OK) {
             if (requestCode == PIC_GALLERY_REQUIST) {
-                final Uri imgURI = data.getData();
+                Uri imgURI  = data.getData();
                 final StorageReference filePath = mStorge.child("ReportProblemScreenshots").child(imgURI.getLastPathSegment());
                 StorageTask<UploadTask.TaskSnapshot> taskSnapshotStorageTask = filePath.putFile(imgURI).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
@@ -96,7 +118,7 @@ public class report_problem extends menu_educator {
                             }
                         });
                         ImgNameTextView.setText(filePath.getName());
-                        report.push().child("screenshot_url").setValue(daownloadURL);
+                        report.ref.child("Reports").push().child("screenShots").setValue(daownloadURL);
 
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -107,6 +129,21 @@ public class report_problem extends menu_educator {
                 });
             }
         }
+
     }
+
+    public void isChosed(View view ){
+        int radioId=rg.getCheckedRadioButtonId();
+        problemType=findViewById(radioId);
+        ProbType=(String) problemType.getText();
+        RadioButton more=findViewById(R.id.more);
+        if(more.isChecked()){
+            moreDetails.setEnabled(true);
+            dis=moreDetails.getText().toString();
+        } else { moreDetails.setEnabled(false);}
+
+
+    }
+
 
 }

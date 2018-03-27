@@ -126,135 +126,134 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <RadioButton
-                    android:id="@+id/radioButton5"
+                    android:id="@+id/Problem_type_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:button="@null"
                     android:drawableRight="@android:drawable/btn_radio"
                     android:gravity="right"
                     android:layoutDirection="rtl"
+                    android:onClick="isChosed"
                     android:paddingRight="102dp"
                     android:text=" عدم تطابق الصوت مع الكلمة أو الجملة"
-                    android:textSize="30dp"
 
-                    />
+                    android:textSize="30dp" />
 
                 <RadioButton
-                    android:id="@+id/radioButton6"
+                    android:id="@+id/Problem_type_2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:button="@null"
                     android:drawableRight="@android:drawable/btn_radio"
                     android:gravity="right"
                     android:layoutDirection="rtl"
+                    android:onClick="isChosed"
                     android:paddingRight="102dp"
                     android:text=" عدم وضوح الصوت"
                     android:textSize="30dp" />
 
                 <RadioButton
-                    android:id="@+id/radioButton7"
+                    android:id="@+id/Problem_type_3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:button="@null"
                     android:drawableRight="@android:drawable/btn_radio"
                     android:gravity="right"
                     android:layoutDirection="rtl"
+                    android:onClick="isChosed"
                     android:paddingRight="102dp"
                     android:text=" الصوت لا يعمل"
-                    android:textSize="30dp"
 
-                    />
+                    android:textSize="30dp" />
 
                 <RadioButton
+                    android:id="@+id/Problem_type_4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:button="@null"
                     android:drawableRight="@android:drawable/btn_radio"
                     android:gravity="right"
                     android:layoutDirection="rtl"
+                    android:onClick="isChosed"
                     android:paddingRight="102dp"
                     android:text=" تم تقييم الطفل بشكل خاطئ"
                     android:textSize="30dp" />
 
-                <EditText
-                    android:id="@+id/editText4"
-                    android:layout_width="500dp"
-                    android:layout_height="180dp"
-                    android:layout_marginRight="102dp"
-                    android:background="#F2F2F2"
-                    android:ems="10"
-                    android:gravity="start"
-                    android:inputType="textMultiLine"
-                    android:scrollbarAlwaysDrawVerticalTrack="true"
-                    android:text=" الوصف"
-                    android:textColor="#7D7C7C"
-                    android:tooltipText="وصف مشكلة الخطأ بالتقييم بشكل دقيق"
-                    tools:layout_editor_absoluteX="170dp"
-                    tools:layout_editor_absoluteY="192dp" />
-
-
                 <RadioButton
+                    android:id="@+id/Problem_type_5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:button="@null"
                     android:drawableRight="@android:drawable/btn_radio"
                     android:gravity="right"
                     android:layoutDirection="rtl"
+                    android:onClick="isChosed"
                     android:paddingRight="102dp"
                     android:text=" المحتوى لا يتطابق مع الصورة المعروضة"
                     android:textSize="30dp" />
 
                 <RadioButton
+                    android:id="@+id/Problem_type_6"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:button="@null"
                     android:drawableRight="@android:drawable/btn_radio"
                     android:gravity="right"
                     android:layoutDirection="rtl"
+                    android:onClick="isChosed"
                     android:paddingRight="102dp"
                     android:text=" لم يتم سماع تقييم الطفل"
                     android:textSize="30dp" />
 
                 <RadioButton
+                    android:id="@+id/Problem_type_7"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:button="@null"
                     android:drawableRight="@android:drawable/btn_radio"
                     android:gravity="right"
                     android:layoutDirection="rtl"
+                    android:onClick="isChosed"
                     android:paddingRight="102dp"
                     android:text=" زر التسجيل لا يعمل"
                     android:textSize="30dp" />
 
                 <RadioButton
+                    android:id="@+id/Problem_type_8"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:button="@null"
                     android:drawableRight="@android:drawable/btn_radio"
                     android:gravity="right"
                     android:layoutDirection="rtl"
+                    android:onClick="isChosed"
                     android:paddingRight="102dp"
                     android:text=" الصوت غير واضح"
                     android:textSize="30dp" />
 
                 <RadioButton
+                    android:id="@+id/more"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:button="@null"
                     android:drawableRight="@android:drawable/btn_radio"
                     android:gravity="right"
                     android:layoutDirection="rtl"
+                    android:onClick="isChosed"
                     android:paddingRight="102dp"
                     android:text="أخرى"
-                    android:textSize="30dp" />
+                    android:textSize="30dp"
+                    tools:ignore="OnClick" />
 
                 <EditText
-                    android:id="@+id/editText5"
+                    android:id="@+id/moredetails"
                     android:layout_width="500dp"
                     android:layout_height="180dp"
                     android:layout_marginRight="102dp"
                     android:background="#F2F2F2"
+                    android:editable="true"
                     android:ems="10"
+                    android:enabled="false"
                     android:gravity="top"
                     android:inputType="textMultiLine"
                     android:scrollbarAlwaysDrawVerticalTrack="true"

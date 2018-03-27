@@ -22,11 +22,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Lesson">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
 
         </activity>
@@ -49,7 +45,14 @@
 
 
         </activity>
-        <activity android:name=".report_problem" />
+        <activity android:name=".report_problem">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <activity android:name=".unit_interface">
 
         </activity>
@@ -58,7 +61,10 @@
         </activity>
         <activity android:name=".Signin" />
         <activity android:name=".SignUp" />
-        <activity android:name=".userTypeSelection" />
+        <activity android:name=".userTypeSelection">
+
+        </activity>
+
         <activity android:name=".ResetPassword" />
         <activity android:name=".child_profile">
 
