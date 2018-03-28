@@ -1,6 +1,7 @@
 package edu.iau.abjad.AbjadApp;
 
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,15 +26,28 @@ public class menu_educator extends AppCompatActivity {
         mDrawerLayout.addDrawerListener(mToggle);
 
         mToggle.syncState();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ActionBar actionBar = getSupportActionBar();
+
+        if(actionBar != null){
+            actionBar.setHomeButtonEnabled(true);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(mToggle.onOptionsItemSelected(item)){
+
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
+    @Override
+    public boolean onSupportNavigateUp(){
+        finish();
+        return true;
     }
+    }
+
+
 
