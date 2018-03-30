@@ -1,6 +1,7 @@
 package edu.iau.abjad.AbjadApp;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -62,9 +63,9 @@ public class report_problem extends menu_educator {
     private EditText moreDetails;
     private HashMap<String,String> dataMap;
     private Uri imgURI;
-    private ProgressBar loding;
     private boolean uploded=false;
     private int storagePermCode=1;
+    private ProgressDialog mProgressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,31 +84,31 @@ public class report_problem extends menu_educator {
         ImgNameTextView= findViewById(R.id.imgname);
         rg= findViewById(R.id.radioButtonsGroup);
         dataMap=new HashMap<String, String>();
-        loding= findViewById(R.id.loading);
-        loding.setVisibility(View.GONE);
         moreDetails=findViewById(R.id.moredetails);
+        mProgressDialog=new ProgressDialog(this);
         //firbase storge refrance
         mStorge = FirebaseStorage.getInstance().getReference();
         report=new firebase_connection();
         reportBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loding.setVisibility(View.VISIBLE);
                 final StorageReference filePath = mStorge.child("ReportProblemScreenshots").child(imgURI.getLastPathSegment());
                     StorageTask<UploadTask.TaskSnapshot> taskSnapshotStorageTask = filePath.putFile(imgURI).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(final UploadTask.TaskSnapshot taskSnapshot) {
-
+                            mProgressDialog.setMessage("Uploading...");
+                            mProgressDialog.show();
                             filePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
                                     Uri downloadUri=uri;
                                     daownloadURL=downloadUri.toString();
+                                    mProgressDialog.dismiss();
                                 }
                             });
                             dataMap.put("screenShots",daownloadURL);
                             uploded=true;
-                            loding.setVisibility(View.GONE);
+
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -133,10 +134,7 @@ public class report_problem extends menu_educator {
                 else if(rg.getCheckedRadioButtonId()==-1){
                     Toast.makeText(report_problem.this,"الرجاء تحديد نوع المشكلة",Toast.LENGTH_LONG).show();
                 }
-                else if(!uploded){
-                    Toast.makeText(report_problem.this," يتم رفع الصورة",Toast.LENGTH_LONG).show();
 
-                }
 
             }
         });
