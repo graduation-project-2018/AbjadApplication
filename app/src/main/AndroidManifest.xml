@@ -21,24 +21,26 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Lesson">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
 
         </activity>
         <activity android:name=".educator_home">
 
         </activity>
-        <activity android:name=".TrueFalseTest" />
+        <activity android:name=".TrueFalseTest">
+
+        </activity>
         <activity android:name=".MatchingTest" />
         <activity android:name=".child_photo">
 
         </activity>
         <activity android:name=".ChildProgress" />
         <activity android:name=".adding_child">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
         </activity>
         <activity android:name=".HeardWordTest" />
@@ -56,7 +58,10 @@
 
         </activity>
         <activity android:name=".Signin" />
-        <activity android:name=".SignUp" />
+        <activity android:name=".SignUp">
+
+
+        </activity>
         <activity android:name=".userTypeSelection" />
         <activity android:name=".ResetPassword" />
         <activity android:name=".child_profile">
