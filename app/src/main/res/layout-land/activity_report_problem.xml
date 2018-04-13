@@ -47,7 +47,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="112dp"
                 android:background="@drawable/upload_icon"
-                app:layout_constraintBottom_toTopOf="@+id/imageView9"
+                app:layout_constraintBottom_toTopOf="@+id/Wuser"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.349"
                 app:layout_constraintStart_toEndOf="@+id/textView13"
@@ -89,7 +89,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/imageView9"
+                android:id="@+id/Wuser"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginEnd="100dp"
@@ -107,7 +107,7 @@
                 android:text="نوع المشكلة"
                 android:textColor="#0B365C"
                 android:textSize="18pt"
-                app:layout_constraintEnd_toStartOf="@+id/imageView9"
+                app:layout_constraintEnd_toStartOf="@+id/Wuser"
                 app:layout_constraintTop_toBottomOf="@+id/button15" />
 
             <RadioGroup

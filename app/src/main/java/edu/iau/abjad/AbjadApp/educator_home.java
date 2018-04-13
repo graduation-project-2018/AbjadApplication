@@ -42,8 +42,7 @@ public class educator_home extends menu_educator {
 
         final Button btn = (Button) findViewById(R.id.add_new_child_btn);
         final firebase_connection r = new firebase_connection();
-        final DatabaseReference read = r.ref.child("Children").child("childID").child("first_name");
-        r.ref.child("Units").child("unit2").child("unit letters").child("L1").setValue("ص");
+        /*r.ref.child("Units").child("unit2").child("unit letters").child("L1").setValue("ص");
         r.ref.child("Units").child("unit2").child("unit letters").child("L2").setValue("ف");
         r.ref.child("Units").child("unit2").child("unit letters").child("L3").setValue("س");
         r.ref.child("Units").child("unit2").child("unit letters").child("L4").setValue("ق");
@@ -51,40 +50,16 @@ public class educator_home extends menu_educator {
         r.ref.child("Units").child("unit2").child("unit letters").child("L6").setValue("ح");
 
         r.ref.child("Units").child("unit2").child("unit pic").setValue("-");
-        r.ref.child("Units").child("unit2").child("unit title").setValue("مدرستي");
+        r.ref.child("Units").child("unit2").child("unit title").setValue("مدرستي");*/
 
 
 
-        read.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String val = dataSnapshot.getKey().toString();
-                m.title.setText(val);
 
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.w(" ", "loadPost:onCancelled", databaseError.toException());
-            }
-        });
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                read.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                     String value = dataSnapshot.getValue().toString();
-                     m.title.setText(value);
-
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError error) {
-                        // Failed to read value
-                        Log.w(null, "Failed to read value.", error.toException());
-                    }
-                });
+          String id = SigninEducator.id_edu;
+          String id_child = Signin.id_child;
 
             }
         });
