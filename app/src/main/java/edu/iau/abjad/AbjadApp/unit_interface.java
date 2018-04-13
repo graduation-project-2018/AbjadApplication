@@ -141,7 +141,6 @@ public class unit_interface extends child_menu {
     }
     private void setScore(){
 
-        unitConnicetion.ref.child("child_takes_lesson").child(childID);
     }
 
     private void fillTest() {
