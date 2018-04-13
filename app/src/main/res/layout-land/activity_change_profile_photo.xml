@@ -15,7 +15,7 @@
 
 
     <ImageView
-        android:id="@+id/childPhoto"
+        android:id="@+id/lesson1Stars"
         android:layout_width="wrap_content"
         android:layout_height="400dp"
         android:layout_marginBottom="240dp"
@@ -33,14 +33,14 @@
         android:layout_marginBottom="380dp"
         android:src="@drawable/prev_btn"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/childPhoto"
+        app:layout_constraintEnd_toStartOf="@+id/lesson1Stars"
         app:layout_constraintHorizontal_bias="0.828"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
     <ImageView
-        android:id="@+id/pre"
+        android:id="@+id/lesson2Stars"
         android:layout_width="131dp"
         android:layout_height="105dp"
         android:layout_marginBottom="380dp"
@@ -48,7 +48,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/childPhoto" />
+        app:layout_constraintStart_toEndOf="@+id/lesson1Stars" />
 
     <Button
         android:id="@+id/button"
@@ -66,7 +66,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.453"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/childPhoto"
+        app:layout_constraintTop_toBottomOf="@+id/lesson1Stars"
         app:layout_constraintVertical_bias="0.602" />
 
 

@@ -44,17 +44,17 @@
         app:layout_constraintVertical_bias="0.231">
 
         <ImageView
-            android:id="@+id/imageView20"
+            android:id="@+id/ChildProfile"
             android:layout_width="match_parent"
             android:layout_height="114dp"
             android:layout_marginBottom="4dp"
             android:layout_marginStart="40dp"
-            app:layout_constraintBottom_toTopOf="@+id/imageView14"
+            app:layout_constraintBottom_toTopOf="@+id/deleteChild"
             app:layout_constraintStart_toStartOf="parent"
             app:srcCompat="@drawable/profile" />
 
         <ImageView
-            android:id="@+id/imageView19"
+            android:id="@+id/changePass"
             android:layout_width="match_parent"
             android:layout_height="114dp"
             android:layout_marginBottom="4dp"
@@ -64,12 +64,12 @@
             app:srcCompat="@drawable/password" />
 
         <ImageView
-            android:id="@+id/imageView14"
+            android:id="@+id/deleteChild"
             android:layout_width="match_parent"
             android:layout_height="114dp"
             android:layout_marginBottom="16dp"
             android:layout_marginStart="40dp"
-            app:layout_constraintBottom_toTopOf="@+id/imageView19"
+            app:layout_constraintBottom_toTopOf="@+id/changePass"
             app:layout_constraintStart_toStartOf="@+id/side"
             app:srcCompat="@drawable/dele" />
     </LinearLayout>
@@ -157,12 +157,12 @@
             app:layout_constraintVertical_bias="0.0">
 
             <TableRow
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
 
                 <TextView
-                    android:id="@+id/textView28"
+                    android:id="@+id/hUnlokedLesson"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="Arabic Typesetting"
@@ -171,7 +171,7 @@
                     android:textSize="24sp" />
 
                 <TextView
-                    android:id="@+id/textView37"
+                    android:id="@+id/nUnlokedLesson"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
 
@@ -182,13 +182,12 @@
                     android:textSize="20sp" />
             </TableRow>
 
-
             <TableRow
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/textView38"
+                    android:id="@+id/hDoneLesson"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="Arabic Typesetting"
@@ -198,7 +197,7 @@
                     android:textSize="24sp" />
 
                 <TextView
-                    android:id="@+id/textView27"
+                    android:id="@+id/nDoneLesson"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
@@ -215,7 +214,42 @@
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/textView20"
+                    android:id="@+id/hTimer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="أقل وقت باجتياز الدرس"
+                    android:textSize="24dp" />
+
+                <TextView
+                    android:id="@+id/nTimer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="٥ دقائق"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/hLessonNameTimer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="في درس حرف: "
+                    android:textSize="24dp" />
+
+                <TextView
+                    android:id="@+id/LessonNameTimer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ل"
+                    android:textSize="20sp" />
+
+            </TableRow>
+
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/hHighestScoreLesson"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="Arabic Typesetting"
@@ -225,7 +259,7 @@
                     android:textSize="24sp" />
 
                 <TextView
-                    android:id="@+id/textView19"
+                    android:id="@+id/highestScoreLesson"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="Arabic Typesetting"
@@ -236,7 +270,7 @@
 
 
                 <TextView
-                    android:id="@+id/textView49"
+                    android:id="@+id/hLessonNameScore"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="Arabic Typesetting"
@@ -245,7 +279,7 @@
                     android:textSize="24sp" />
 
                 <TextView
-                    android:id="@+id/textView99"
+                    android:id="@+id/LessonNameScore"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="Arabic Typesetting"
@@ -262,14 +296,14 @@
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/textView22"
+                    android:id="@+id/hDoneTest"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="الإختبارات التي اجتازها الطـفل"
                     android:textSize="24dp" />
 
                 <TextView
-                    android:id="@+id/textView21"
+                    android:id="@+id/nDoneTest"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text=" ٣"
@@ -284,7 +318,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/textView24"
+                    android:id="@+id/hHighestScoreTest"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="أعلى درجة بالإختبـارات"
@@ -292,7 +326,7 @@
                     android:textSize="24dp" />
 
                 <TextView
-                    android:id="@+id/textView23"
+                    android:id="@+id/highestScoreTest"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="١٠/١٠"
@@ -300,17 +334,17 @@
 
 
                 <TextView
-                    android:id="@+id/textView59"
+                    android:id="@+id/hTestName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="Arabic Typesetting"
                     android:padding="0dp"
                     android:text="في اختبار:"
                     android:textDirection="rtl"
-                    android:textSize="20sp" />
+                    android:textSize="24dp" />
 
                 <TextView
-                    android:id="@+id/textView69"
+                    android:id="@+id/testName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="Arabic Typesetting"

@@ -39,7 +39,7 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/imageView31"
+                    android:id="@+id/lesson4Stars"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="4dp"
@@ -102,7 +102,7 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/imageView33"
+                    android:id="@+id/lesson5Stars"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="4dp"
@@ -156,7 +156,7 @@
             <TableRow>
 
                 <ImageView
-                    android:id="@+id/imageView34"
+                    android:id="@+id/lesson6Stars"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="4dp"

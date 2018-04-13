@@ -13,7 +13,7 @@
 
 
     <ImageView
-        android:id="@+id/childPhoto"
+        android:id="@+id/lesson1Stars"
         android:layout_width="518dp"
         android:layout_height="400dp"
         android:layout_marginBottom="236dp"
@@ -30,14 +30,14 @@
         android:layout_marginBottom="380dp"
         android:src="@drawable/prev_btn"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/childPhoto"
+        app:layout_constraintEnd_toStartOf="@+id/lesson1Stars"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
     <ImageView
-        android:id="@+id/pre"
+        android:id="@+id/lesson2Stars"
         android:layout_width="131dp"
         android:layout_height="105dp"
         android:layout_marginBottom="372dp"
@@ -45,7 +45,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/childPhoto" />
+        app:layout_constraintStart_toEndOf="@+id/lesson1Stars" />
 
     <Button
         android:id="@+id/addChild"
@@ -63,7 +63,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.453"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/childPhoto"
+        app:layout_constraintTop_toBottomOf="@+id/lesson1Stars"
         app:layout_constraintVertical_bias="0.602" />
 
     <ProgressBar
@@ -75,10 +75,10 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/childPhoto"
-        app:layout_constraintEnd_toEndOf="@+id/childPhoto"
+        app:layout_constraintBottom_toBottomOf="@+id/lesson1Stars"
+        app:layout_constraintEnd_toEndOf="@+id/lesson1Stars"
         app:layout_constraintStart_toEndOf="@+id/next"
-        app:layout_constraintTop_toTopOf="@+id/childPhoto"
+        app:layout_constraintTop_toTopOf="@+id/lesson1Stars"
         android:theme="@style/ProgressTheem"
         />
 

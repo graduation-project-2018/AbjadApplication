@@ -30,14 +30,12 @@
         <activity android:name=".TrueFalseTest" />
         <activity android:name=".MatchingTest" />
         <activity android:name=".child_photo">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
         </activity>
-        <activity android:name=".ChildProgress" />
+        <activity android:name=".ChildProgress" >
+
+
+        </activity>
         <activity android:name=".adding_child">
 
         </activity>
@@ -53,7 +51,11 @@
         </activity>
 
         <activity android:name=".unit_interface">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".child_menu">
 

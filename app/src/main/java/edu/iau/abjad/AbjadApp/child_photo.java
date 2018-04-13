@@ -1,15 +1,13 @@
 package edu.iau.abjad.AbjadApp;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.google.firebase.analytics.FirebaseAnalytics;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -42,8 +40,8 @@ public class child_photo  extends menu_educator {
 
         //Intiilaization
         next=findViewById(R.id.next);
-        pre=findViewById(R.id.pre);
-        childImg=findViewById(R.id.childPhoto);
+        pre=findViewById(R.id.lesson2Stars);
+        childImg=findViewById(R.id.lesson1Stars);
         imgsUri=new ArrayList<String>();
         FBchildPhotoUri=new firebase_connection();
         imgIndex=0;
