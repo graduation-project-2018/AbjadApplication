@@ -129,19 +129,23 @@
             app:layout_constraintTop_toBottomOf="parent"
             app:layout_constraintVertical_bias="1.0">
 
-         <!--   <RadioGroup
+            <RadioGroup
                 android:id="@+id/genderRadioGroup"
-                android:layout_width="121dp"
-                android:layout_height="0dp"
+                android:layout_width="119dp"
+                android:layout_height="33dp"
                 android:layout_margin="4dp"
-                android:layout_marginEnd="36dp"
-                android:layout_marginStart="8dp"
+                android:layout_marginBottom="91dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginStart="607dp"
+                android:layout_marginTop="31dp"
                 android:gravity="bottom"
                 android:orientation="horizontal"
-                app:layout_constraintEnd_toStartOf="@+id/imageView35"
-                app:layout_constraintHorizontal_bias="0.973"
-                app:layout_constraintStart_toEndOf="@+id/imageView44"
-                tools:layout_editor_absoluteY="677dp">
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/genderIcon"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/genderErIcon"
+                app:layout_constraintTop_toBottomOf="@+id/conPasswordEr"
+                app:layout_constraintVertical_bias="0.342">
 
 
                 <RadioButton
@@ -169,7 +173,7 @@
                     android:textSize="18sp" />
 
             </RadioGroup>
--->
+
             <EditText
                 android:id="@+id/conPasswordTxt"
                 android:layout_width="728dp"
