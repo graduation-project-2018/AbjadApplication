@@ -43,6 +43,7 @@ public class adding_child  extends menu_educator {
     String user_id;
     String userName;
     childInformation child;
+    Intent intent;
     /*
     TextView fnameError;
     TextView lnameError;
@@ -72,14 +73,15 @@ public class adding_child  extends menu_educator {
        rf = db.getReference();
         r = new firebase_connection();
       // child = new childInformation();
-        firstName = (TextView)findViewById(R.id.editText18);
-        lastName = (TextView)findViewById(R.id.editText8);
-        male = (RadioButton)findViewById(R.id.radioButton2);
-        female = (RadioButton)findViewById(R.id.radioButton);
-        password = (TextView)findViewById(R.id.editText6);
-        confirmedPassword = (TextView)findViewById(R.id.editText26);
-        username = (TextView)findViewById(R.id.editText226);
-        addBtn = (Button)findViewById(R.id.imageButton3);
+      /*  firstName = (TextView)findViewById(R.id.fnameTxt);
+        lastName = (TextView)findViewById(R.id.lnameTxt);
+        male = (RadioButton)findViewById(R.id.maleRadioButton);
+        female = (RadioButton)findViewById(R.id.femaleRadioButton);
+        password = (TextView)findViewById(R.id.passwordTxt);
+        confirmedPassword = (TextView)findViewById(R.id.conPasswordTxt);
+        username = (TextView)findViewById(R.id.unameTxt);
+        addBtn = (Button)findViewById(R.id.addBtn);
+        intent = new Intent(this, child_photo.class);*/
         /*fnameError = (TextView)findrViewById(R.id.fnameEr);
         lnameError = (TextView)findrViewById(R.id.lnameEr);;
        genderError = (TextView)findrViewById(R.id.genderEr);;
@@ -112,7 +114,7 @@ public class adding_child  extends menu_educator {
     private void addChild(){
 //I NEED TO ADD THE CHILD ID TO THE EDUCATOR NODE IN DB
   //   DatabaseReference read = r.ref.child("Lessons").child(lessonID).child("Words")ك
-      userName = username.getText().toString().trim();
+      userName = username.getText().toString().trim()+"abjad.com";
        // userName = userName.concat("abjad.sa");
         String pass = password.getText().toString().trim();
 
@@ -134,9 +136,9 @@ public class adding_child  extends menu_educator {
                            current_user_db.child(user_id).setValue(child); */
 
                           //  Toast.makeText(adding_child.this, "child added", Toast.LENGTH_LONG).show();
-                          /*  Intent intent = new Intent(this,child_photo.class);
-                            Bundle extras = new Bundle();
-                            extras.putString("Educator_ID",educator_id);//should be passed from previous activity
+
+                         /*   Bundle extras = new Bundle();
+                          extras.putString("Educator_ID",educator_id);//should be passed from previous activity
                             extras.putString("Child_ID",user_id);
                             extras.putSerializable("object",child);
                             intent.putExtras(extras);
@@ -145,7 +147,8 @@ public class adding_child  extends menu_educator {
 
                         else{
                             FirebaseAuthException e  = (FirebaseAuthException) task.getException();
-                            //Toast.makeText(adding_child.this, "لم تتم إضافة الطفل، الرجاء المحاولة لاحقا", Toast.LENGTH_LONG).show();
+                            //Toast.makeText(adding_child.this, "لم تتم إضافة الطفل، الرجاء المحاولة لاحقا", Toast.LENGTH_LONG).show();//
+                            //user added previously
                             Toast.makeText(adding_child.this, "" + e.getMessage(), Toast.LENGTH_LONG).show();
 
                         }

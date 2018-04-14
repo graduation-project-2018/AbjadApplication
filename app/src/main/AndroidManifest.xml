@@ -35,7 +35,8 @@
 
         </activity>
         <activity android:name=".ChildProgress" />
-        <activity android:name=".adding_child">
+        <activity android:name=".adding_child"
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -67,7 +68,10 @@
         <activity android:name=".child_profile">
 
         </activity>
-        <activity android:name=".educator_profile"></activity>
+        <activity android:name=".educator_profile"
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan">
+
+        </activity>
         <activity android:name=".change_password">
 
 
