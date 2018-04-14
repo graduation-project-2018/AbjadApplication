@@ -26,8 +26,8 @@
 
     <TextView
         android:id="@+id/Signup"
-        android:layout_width="262dp"
-        android:layout_height="63dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -45,8 +45,8 @@
 
     <ImageButton
         android:id="@+id/Next"
-        android:layout_width="27dp"
-        android:layout_height="36dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
