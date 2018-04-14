@@ -7,7 +7,9 @@
     </item>
     <item android:id="@+id/report_problem"
         android:title="الإبلاغ عن مشكلة"
-        android:icon="@drawable/report_icon"></item>
+        android:icon="@drawable/report_icon"
+        >
+    </item>
 
 
     <item android:id="@+id/sign_out"
