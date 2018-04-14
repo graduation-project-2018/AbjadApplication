@@ -4,7 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="edu.iau.abjad.AbjadApp.SignUp">
+    tools:context="edu.iau.abjad.AbjadApp.SignUp"
+    android:background="@drawable/educator_backgrpund">
+
+
+
+
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar8"
@@ -12,17 +17,17 @@
         android:layout_height="97dp"
         android:layout_marginBottom="632dp"
         android:background="@color/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/Signup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="262dp"
+        android:layout_height="63dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -32,75 +37,90 @@
         android:textColor="@android:color/black"
         android:textSize="36sp"
         android:typeface="normal"
-        app:layout_constraintBottom_toTopOf="@+id/imageView10"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar8"
         app:layout_constraintEnd_toEndOf="@+id/toolbar8"
         app:layout_constraintStart_toStartOf="@+id/toolbar8"
-        app:layout_constraintTop_toTopOf="@+id/toolbar8" />
+        app:layout_constraintTop_toTopOf="@+id/toolbar8"
+        app:layout_constraintVertical_bias="0.444" />
 
     <ImageButton
         android:id="@+id/Next"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="27dp"
+        android:layout_height="36dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="80dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="@color/colorPrimary"
-        app:layout_constraintBottom_toTopOf="@+id/imageView10"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar8"
         app:layout_constraintEnd_toEndOf="@+id/toolbar8"
-        app:layout_constraintTop_toTopOf="@+id/toolbar8"
-        app:layout_constraintVertical_bias="0.545"
+        app:layout_constraintHorizontal_bias="0.875"
+        app:layout_constraintStart_toEndOf="@+id/Signup"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/next" />
 
-    <ImageView
-        android:id="@+id/imageView10"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/cloudswp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar8"
-        app:layout_constraintVertical_bias="0.0" />
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="1010dp"
-        android:layout_height="482dp"
-        android:layout_marginBottom="8dp"
+    <Button
+
+        android:id="@+id/SignUpButton"
+        android:layout_width="657dp"
+        android:layout_height="104dp"
+        android:layout_marginBottom="37dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/transbg"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView10"
+        android:background="@drawable/rectanglee"
+        android:fontFamily="casual"
+        android:text="تسجيل حساب"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
+        android:typeface="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/imageView10"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar8" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView4"
+        app:layout_constraintVertical_bias="1.0" />
 
     <ScrollView
+        android:id="@+id/scrollView4"
+        style="@android:style/Widget.Holo.Light.ScrollView"
         android:layout_width="1010dp"
-        android:layout_height="482dp"
+        android:layout_height="384dp"
+        android:layout_marginBottom="68dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/transbg"
+        android:foregroundGravity="bottom"
+        android:gravity="bottom"
+        android:scrollbarStyle="outsideOverlay"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.693">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar8"
+        app:layout_constraintVertical_bias="0.52"
+        app:layout_editor_absoluteX="50dp"
+        app:layout_editor_absoluteY="50dp">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="parent"
+            app:layout_constraintVertical_bias="1.0">
 
             <EditText
                 android:id="@+id/CPassFieldSU"
                 android:layout_width="728dp"
-                android:layout_height="wrap_content"
+                android:layout_height="69dp"
                 android:layout_marginTop="60dp"
                 android:drawablePadding="15dp"
                 android:drawableRight="@drawable/password_gray"
                 android:ems="100"
+                android:gravity="bottom"
                 android:hint="     تأكيد كلمة المرور"
                 android:inputType="textPassword"
-                android:textAlignment="textEnd"
+
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/PassFieldSU" />
@@ -108,31 +128,33 @@
             <TextView
                 android:id="@+id/FNErrorMsgSU"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="28dp"
                 android:layout_marginBottom="8dp"
                 android:layout_marginEnd="140dp"
                 android:layout_marginTop="8dp"
                 android:fontFamily="casual"
+                android:gravity="bottom"
                 android:text="TextView"
                 android:textColor="@android:color/holo_red_dark"
                 android:textSize="16sp"
                 android:typeface="normal"
+                android:visibility="invisible"
                 app:layout_constraintBottom_toTopOf="@+id/LNFieldSU"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/FNFieldSU"
-                android:visibility="invisible"/>
+                app:layout_constraintTop_toBottomOf="@+id/FNFieldSU" />
 
             <EditText
                 android:id="@+id/PassFieldSU"
                 android:layout_width="728dp"
-                android:layout_height="wrap_content"
+                android:layout_height="69dp"
                 android:layout_marginTop="60dp"
                 android:drawablePadding="15dp"
                 android:drawableRight="@drawable/password_gray"
                 android:ems="100"
+                android:gravity="bottom"
                 android:hint="               كلمة المرور"
                 android:inputType="textPassword"
-                android:textAlignment="textEnd"
+
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/EmailFieldSU" />
@@ -140,25 +162,28 @@
             <TextView
                 android:id="@+id/PassErrorMsgSU"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="19dp"
                 android:layout_marginBottom="8dp"
                 android:layout_marginEnd="140dp"
                 android:layout_marginTop="8dp"
+                android:gravity="bottom"
                 android:text="TextView"
                 android:textColor="@android:color/holo_red_dark"
+                android:textSize="16sp"
+                android:visibility="invisible"
                 app:layout_constraintBottom_toTopOf="@+id/CPassFieldSU"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/PassFieldSU"
-                android:visibility="invisible"/>
+                app:layout_constraintTop_toBottomOf="@+id/PassFieldSU" />
 
             <EditText
                 android:id="@+id/EmailFieldSU"
                 android:layout_width="728dp"
-                android:layout_height="wrap_content"
+                android:layout_height="66dp"
                 android:layout_marginTop="60dp"
                 android:drawablePadding="10dp"
                 android:drawableRight="@drawable/email_icon"
                 android:ems="100"
+                android:gravity="bottom"
                 android:hint="البريد الإلكتروني"
                 android:inputType="textPersonName"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -168,28 +193,47 @@
             <TextView
                 android:id="@+id/CPassErrorMsgSU"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="28dp"
                 android:layout_marginBottom="8dp"
                 android:layout_marginEnd="140dp"
                 android:layout_marginTop="8dp"
                 android:fontFamily="casual"
+                android:gravity="bottom"
                 android:text="TextView"
                 android:textColor="@android:color/holo_red_dark"
                 android:textSize="16sp"
                 android:typeface="normal"
-                app:layout_constraintBottom_toTopOf="@+id/SignUpButton"
+                android:visibility="invisible"
+
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/CPassFieldSU"
-                android:visibility="invisible"/>
+                app:layout_constraintVertical_bias="0.088" />
+
+            <TextView
+                android:id="@+id/CPassErrorMsgSU2"
+                android:layout_width="65dp"
+                android:layout_height="28dp"
+                android:layout_marginEnd="72dp"
+                android:layout_marginTop="128dp"
+                android:fontFamily="casual"
+                android:gravity="bottom"
+                android:text="TextView"
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="16sp"
+                android:typeface="normal"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/CPassErrorMsgSU" />
 
             <EditText
                 android:id="@+id/LNFieldSU"
                 android:layout_width="728dp"
-                android:layout_height="wrap_content"
+                android:layout_height="66dp"
                 android:layout_marginTop="60dp"
                 android:drawablePadding="1dp"
                 android:drawableRight="@drawable/user_male"
                 android:ems="100"
+                android:gravity="bottom"
                 android:hint="     اللقب"
                 android:inputType="textPersonName"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -199,29 +243,31 @@
             <TextView
                 android:id="@+id/LNErrorMsgSU"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="28dp"
                 android:layout_marginBottom="8dp"
                 android:layout_marginEnd="140dp"
                 android:fontFamily="casual"
+                android:gravity="bottom"
                 android:text="TextView"
                 android:textColor="@android:color/holo_red_dark"
                 android:textSize="16sp"
                 android:typeface="normal"
+                android:visibility="invisible"
                 app:layout_constraintBottom_toTopOf="@+id/EmailFieldSU"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/LNFieldSU"
-                android:visibility="invisible"/>
+                app:layout_constraintTop_toBottomOf="@+id/LNFieldSU" />
 
             <EditText
                 android:id="@+id/FNFieldSU"
                 android:layout_width="728dp"
-                android:layout_height="wrap_content"
+                android:layout_height="66dp"
                 android:layout_marginRight="152dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="32dp"
                 android:drawablePadding="15dp"
                 android:drawableRight="@drawable/user_male"
                 android:ems="100"
+                android:gravity="bottom"
                 android:hint="اسم المربي"
                 android:inputType="textPersonName"
                 app:layout_constraintRight_toRightOf="parent"
@@ -232,18 +278,19 @@
             <TextView
                 android:id="@+id/EmailErrorMsgSU"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="28dp"
                 android:layout_marginBottom="8dp"
                 android:layout_marginEnd="140dp"
                 android:fontFamily="casual"
+                android:gravity="bottom"
                 android:text="TextView"
                 android:textColor="@android:color/holo_red_dark"
                 android:textSize="16sp"
                 android:typeface="normal"
+                android:visibility="invisible"
                 app:layout_constraintBottom_toTopOf="@+id/PassFieldSU"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/EmailFieldSU"
-                android:visibility="invisible"/>
+                app:layout_constraintTop_toBottomOf="@+id/EmailFieldSU" />
 
             <ImageView
                 android:id="@+id/PassErrorIconSU"
@@ -251,21 +298,23 @@
                 android:layout_height="35dp"
                 android:layout_marginEnd="48dp"
                 android:layout_marginTop="92dp"
+                android:gravity="bottom"
+                android:visibility="invisible"
                 app:layout_constraintEnd_toStartOf="@+id/PassFieldSU"
                 app:layout_constraintTop_toBottomOf="@+id/EmailErrorIconSU"
-                app:srcCompat="@drawable/sshape"
-                android:visibility="invisible"/>
+                app:srcCompat="@drawable/sshape" />
 
             <ImageView
                 android:id="@+id/CPassErrorIconSU"
                 android:layout_width="45dp"
                 android:layout_height="35dp"
                 android:layout_marginEnd="48dp"
-                android:layout_marginTop="92dp"
+                android:layout_marginTop="28dp"
+                android:gravity="bottom"
+                android:visibility="invisible"
                 app:layout_constraintEnd_toStartOf="@+id/CPassFieldSU"
                 app:layout_constraintTop_toBottomOf="@+id/PassErrorMsgSU"
-                app:srcCompat="@drawable/sshape"
-                android:visibility="invisible"/>
+                app:srcCompat="@drawable/sshape" />
 
             <ImageView
                 android:id="@+id/EmailErrorIconSU"
@@ -273,10 +322,11 @@
                 android:layout_height="35dp"
                 android:layout_marginEnd="48dp"
                 android:layout_marginTop="92dp"
+                android:gravity="bottom"
+                android:visibility="invisible"
                 app:layout_constraintEnd_toStartOf="@+id/EmailFieldSU"
                 app:layout_constraintTop_toBottomOf="@+id/LNErrorIconSU"
-                app:srcCompat="@drawable/sshape"
-                android:visibility="invisible"/>
+                app:srcCompat="@drawable/sshape" />
 
             <ImageView
                 android:id="@+id/FNErrorIconSU"
@@ -284,10 +334,11 @@
                 android:layout_height="35dp"
                 android:layout_marginEnd="52dp"
                 android:layout_marginTop="48dp"
+                android:gravity="bottom"
+                android:visibility="invisible"
                 app:layout_constraintEnd_toStartOf="@+id/FNFieldSU"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/sshape"
-                android:visibility="invisible"/>
+                app:srcCompat="@drawable/sshape" />
 
             <ImageView
                 android:id="@+id/LNErrorIconSU"
@@ -295,26 +346,11 @@
                 android:layout_height="35dp"
                 android:layout_marginEnd="48dp"
                 android:layout_marginTop="88dp"
+                android:gravity="bottom"
+                android:visibility="invisible"
                 app:layout_constraintEnd_toStartOf="@+id/LNFieldSU"
                 app:layout_constraintTop_toBottomOf="@+id/FNErrorIconSU"
-                app:srcCompat="@drawable/sshape"
-                android:visibility="invisible"/>
-
-            <Button
-                android:id="@+id/SignUpButton"
-                android:layout_width="657dp"
-                android:layout_height="104dp"
-                android:layout_marginTop="60dp"
-                android:background="@drawable/rectanglee"
-                android:fontFamily="casual"
-                android:text="تسجيل حساب"
-                android:textAlignment="center"
-                android:textColor="@android:color/white"
-                android:textSize="24sp"
-                android:typeface="normal"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/CPassFieldSU" />
+                app:srcCompat="@drawable/sshape" />
 
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
