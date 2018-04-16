@@ -74,13 +74,14 @@ public class child_profile extends menu_educator{
         saveChanges = (Button) findViewById(R.id.button6);
         ArabicLetters = Pattern.compile("^[أ-ي ]+$");
         ChildID = "child1";
-        child = new childInformation("FN","gn","ln","photo","uname");
+
         r= new firebase_connection();
 
 read=r.ref.child("Children").child(ChildID);
 read.addValueEventListener(new ValueEventListener() {
     @Override
     public void onDataChange(DataSnapshot dataSnapshot) {
+        child = new childInformation("FN","gn","ln","photo","uname");
         child.first_name=(String) dataSnapshot.child("first_name").getValue();
         child.gender = (String) dataSnapshot.child("gender").getValue();
         child.last_name = (String) dataSnapshot.child("last_name").getValue();
@@ -134,7 +135,7 @@ read.addValueEventListener(new ValueEventListener() {
          if(counter==2){
              child.first_name=FNChild.getText().toString();
              child.last_name=LNChild.getText().toString();
-             r.ref.child("Educators").child(ChildID).setValue(child);
+             r.ref.child("Children").child(ChildID).setValue(child);
 
          }
 
