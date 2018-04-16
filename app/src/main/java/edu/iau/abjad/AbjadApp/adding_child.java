@@ -110,12 +110,13 @@ public class adding_child  extends menu_educator {
         addBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-              checkInputs();
+                checkExistingAccount();
+            /*  checkInputs();
               if (errorCounts == 0){
 
                   addChild();
               }
-
+*/
             }
 
 
@@ -244,11 +245,11 @@ public class adding_child  extends menu_educator {
                 else {
 
                     if(errorCounts == 0){
-                        Bundle extras = new Bundle();
+                     /*   Bundle extras = new Bundle();
                         extras.putSerializable("object",child);
                         extras.putString("password",pass);
                         intent.putExtras(extras);
-                        startActivity(intent);
+                        startActivity(intent);*/
 
                     }
                 }

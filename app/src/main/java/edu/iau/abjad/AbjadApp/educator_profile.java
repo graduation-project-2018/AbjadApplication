@@ -68,7 +68,7 @@ public class educator_profile extends menu_educator {
          fnameErrorIcon = (ImageView) findViewById(R.id.fnErIcon);
          lnameErrorIcon = (ImageView) findViewById(R.id.lnErIcon);
          emailErrorIcon = (ImageView) findViewById(R.id.emailErIcon);
-         getCurrentEducatorInfo();
+       //  getCurrentEducatorInfo();
         saveBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -157,7 +157,25 @@ public class educator_profile extends menu_educator {
 
     public void getCurrentEducatorInfo(){
         //educator ID need to be changed
-       DatabaseReference read = r.ref.child("Educators").child("educator22");
+
+     /*   ValueEventListener eventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                    oldEmail = ds.child("email").getValue(String.class);
+                   oldFname = ds.child("first_name").getValue(String.class);
+                    oldLname = ds.child("last_name").getValue(String.class);
+
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        };
+        r.ref.child("Educators").child("educator22").addListenerForSingleValueEvent(eventListener);*/
+     /*  DatabaseReference read = r.ref.child("Educators").child("educator22");
         read.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -166,8 +184,11 @@ public class educator_profile extends menu_educator {
                   oldFname = educatorInfo.child("first_name").getValue().toString();
                   oldLname = educatorInfo.child("last_name").getValue().toString();
                    oldEmail = educatorInfo.child("email").getValue().toString();
+                   break;
 
                 } //end of for loop
+                Toast.makeText(educator_profile.this, "first name is " +  oldFname , Toast.LENGTH_LONG).show();
+
             }
 
             @Override
@@ -175,6 +196,7 @@ public class educator_profile extends menu_educator {
 
             }
         });//end of read listener
+        */
         email.setText(oldEmail);
         firstName.setText(oldFname);
         lastName.setText(oldLname);
