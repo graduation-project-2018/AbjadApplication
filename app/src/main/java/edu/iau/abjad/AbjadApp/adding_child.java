@@ -232,6 +232,7 @@ public class adding_child  extends menu_educator {
     }//end of checkInputs function
 
     public void checkExistingAccount(){
+
         Query q = r.ref.child("Children").orderByChild("username").equalTo(userName);
         q.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -243,8 +244,9 @@ public class adding_child  extends menu_educator {
                     errorCounts++;
                 }
                 else {
-
+                    Toast.makeText(adding_child.this, "NOT EXIST", Toast.LENGTH_LONG).show();
                     if(errorCounts == 0){
+
                      /*   Bundle extras = new Bundle();
                         extras.putSerializable("object",child);
                         extras.putString("password",pass);

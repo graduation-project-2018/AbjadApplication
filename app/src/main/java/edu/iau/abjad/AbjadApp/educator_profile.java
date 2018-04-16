@@ -212,7 +212,7 @@ public class educator_profile extends menu_educator {
         r.ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                //educator ID need to  be changed
+                //educator ID need to  be changed + choose educator object
                 r.ref.child("Educators").child("educator22").child("email").setValue(newEmail);
                 r.ref.child("Educators").child("educator22").child("first_name").setValue(newFname);
                 r.ref.child("Educators").child("educator22").child("last_name").setValue(newLname);

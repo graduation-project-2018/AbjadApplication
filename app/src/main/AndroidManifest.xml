@@ -37,7 +37,10 @@
         <activity android:name=".ChildProgress" />
         <activity android:name=".adding_child"
             android:windowSoftInputMode="stateHidden|adjustResize|adjustPan">
-
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
 
         </activity>
@@ -67,10 +70,7 @@
         </activity>
         <activity android:name=".educator_profile"
             android:windowSoftInputMode="stateHidden|adjustResize|adjustPan">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
         <activity android:name=".change_password">
 
