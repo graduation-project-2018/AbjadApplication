@@ -36,7 +36,7 @@ public class MatchingTest extends child_menu {
     int[]  WordsNumber ;
     String PicDB , WordDB;
     Random r ;
-    MediaPlayer MatchingTestInst ;
+    MediaPlayer MatchingTest ;
     MatchingTestContent[] Checking;
     audio_URLs voice;
     boolean correct ;
@@ -72,7 +72,7 @@ public class MatchingTest extends child_menu {
         TestNum=1;
         r = new Random();
         WordsNumber = new int[3];
-        MatchingTestInst = new MediaPlayer();
+        MatchingTest = new MediaPlayer();
         correct=false;
         counter=0;
         Word1.setOnLongClickListener(longClickListener);
@@ -405,11 +405,11 @@ View.OnDragListener dragListener1 = new View.OnDragListener() {
     public void playAudio(String url){
         try {
 
-            MatchingTestInst.reset();
-            MatchingTestInst.setAudioStreamType(AudioManager.STREAM_MUSIC);
-            MatchingTestInst.setDataSource(url);
-            MatchingTestInst.prepare();
-            MatchingTestInst.start();
+            MatchingTest.reset();
+            MatchingTest.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            MatchingTest.setDataSource(url);
+            MatchingTest.prepare();
+            MatchingTest.start();
 
         }
         catch (IOException e){
@@ -429,14 +429,14 @@ View.OnDragListener dragListener1 = new View.OnDragListener() {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        MatchingTestInst.release();
+        MatchingTest.release();
     }
 
     @Override
     protected void onStop() {
        try {
            super.onStop();
-           MatchingTestInst.release();
+           MatchingTest.release();
        }
     catch (Exception e){
 
