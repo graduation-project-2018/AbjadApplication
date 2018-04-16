@@ -9,6 +9,7 @@ public class childInformation implements Serializable{
     String photo_URL;
     String username;
 
+
     public childInformation( String fname, String lname, String cgender, String photo, String uname){
 
        this.first_name =fname;

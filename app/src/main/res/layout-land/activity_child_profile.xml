@@ -20,21 +20,23 @@
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/circle_button"
+        android:fontFamily="casual"
         android:text="حفظ التغييرات"
         android:textColor="#ffffff"
-        android:textSize="18pt"
+        android:textSize="24sp"
+        android:typeface="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include"
-        app:layout_constraintVertical_bias="0.6" />
+        app:layout_constraintVertical_bias="0.721" />
 
     <ImageView
-        android:id="@+id/imageView23"
+        android:id="@+id/ChildImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="52dp"
-        android:layout_marginTop="108dp"
+        android:layout_marginTop="96dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/child_gray" />
@@ -44,23 +46,35 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="52dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="80dp"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView23"
+        app:layout_constraintTop_toBottomOf="@+id/ChildImage"
         app:srcCompat="@drawable/child_gray" />
 
     <ImageView
-        android:id="@+id/imageView25"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="52dp"
-        android:layout_marginTop="32dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView24"
-        app:srcCompat="@drawable/username" />
+        android:id="@+id/LNErrorIcon"
+        android:layout_width="45dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginTop="88dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toStartOf="@+id/LNFieldCP"
+        app:layout_constraintTop_toBottomOf="@+id/FNErrorIcon"
+        app:srcCompat="@drawable/sshape" />
+
+    <ImageView
+        android:id="@+id/FNErrorIcon"
+        android:layout_width="45dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginTop="44dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toStartOf="@+id/FNFieldCP"
+        app:layout_constraintTop_toBottomOf="@+id/include"
+        app:srcCompat="@drawable/sshape" />
 
     <EditText
-        android:id="@+id/editText7"
+        android:id="@+id/LNFieldCP"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -69,7 +83,23 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="أحمد"
+        app:layout_constraintBottom_toBottomOf="@+id/textView25"
+        app:layout_constraintEnd_toStartOf="@+id/textView25"
+        app:layout_constraintHorizontal_bias="0.851"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/FNFieldCP"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <EditText
+        android:id="@+id/FNFieldCP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="@+id/textView18"
         app:layout_constraintEnd_toStartOf="@+id/textView18"
         app:layout_constraintHorizontal_bias="0.953"
@@ -77,42 +107,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
-    <EditText
-        android:id="@+id/editText9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="سامي"
-        app:layout_constraintBottom_toBottomOf="@+id/textView25"
-        app:layout_constraintEnd_toStartOf="@+id/textView25"
-        app:layout_constraintHorizontal_bias="0.963"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText7"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <EditText
-        android:id="@+id/editText10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Ahmad977"
-        android:gravity="right"
-        app:layout_constraintBottom_toBottomOf="@+id/textView26"
-        app:layout_constraintEnd_toStartOf="@+id/textView26"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText9"
-        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/textView18"
@@ -120,10 +114,10 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
         android:layout_marginTop="108dp"
-        android:text="الإسم الأول "
+        android:text="الاسم الأول "
         android:textColor="#0B365C"
         android:textSize="18pt"
-        app:layout_constraintEnd_toStartOf="@+id/imageView23"
+        app:layout_constraintEnd_toStartOf="@+id/ChildImage"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -131,23 +125,54 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
-        android:layout_marginTop="32dp"
-        android:text="الإسم الأخير "
+        android:layout_marginTop="60dp"
+        android:text="اللقب"
         android:textColor="#0B365C"
         android:textSize="18pt"
         app:layout_constraintEnd_toStartOf="@+id/imageView24"
         app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
+    <ImageView
+        android:id="@+id/ChildImageCP"
+        android:layout_width="233dp"
+        android:layout_height="220dp"
+        android:layout_marginStart="156dp"
+        android:layout_marginTop="60dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include"
+        app:srcCompat="@drawable/childicon" />
+
     <TextView
-        android:id="@+id/textView26"
+        android:id="@+id/FNErrorMsgCP"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="32dp"
-        android:text="إسم المستخدم "
-        android:textColor="#0B365C"
-        android:textSize="18pt"
-        app:layout_constraintEnd_toStartOf="@+id/imageView25"
-        app:layout_constraintTop_toBottomOf="@+id/textView25" />
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="320dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="casual"
+        android:text="TextView"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="16sp"
+        android:typeface="normal"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/LNFieldCP"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/FNFieldCP"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/LNErrorMsgCP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="320dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="casual"
+        android:text="TextView"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="16sp"
+        android:typeface="normal"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LNFieldCP" />
 
 </android.support.constraint.ConstraintLayout>

@@ -10,9 +10,7 @@
         android:id="@+id/toolbar7"
         android:layout_width="match_parent"
         android:layout_height="97dp"
-        android:background="@color/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme" />
+        android:background="@color/colorPrimary"/>
 
     <ImageView
         android:id="@+id/imageView10"
