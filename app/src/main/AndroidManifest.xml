@@ -28,7 +28,10 @@
 
         </activity>
         <activity android:name=".TrueFalseTest">
-
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".MatchingTest" />
         <activity android:name=".child_photo">
@@ -38,10 +41,7 @@
         <activity android:name=".adding_child"
             android:windowSoftInputMode="stateHidden|adjustResize|adjustPan">
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
 
         </activity>
         <activity android:name=".HeardWordTest" />

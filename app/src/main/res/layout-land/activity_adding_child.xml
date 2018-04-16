@@ -116,7 +116,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar8"
-        app:layout_constraintVertical_bias="0.52"
+        app:layout_constraintVertical_bias="0.652"
         app:layout_editor_absoluteX="50dp"
         app:layout_editor_absoluteY="50dp">
 
@@ -144,7 +144,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/genderIcon"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toEndOf="@+id/genderErIcon"
-                app:layout_constraintTop_toBottomOf="@+id/conPasswordEr"
+                app:layout_constraintTop_toBottomOf="@+id/missPassEr"
                 app:layout_constraintVertical_bias="0.342">
 
 
@@ -204,9 +204,9 @@
                 android:textSize="16sp"
                 android:typeface="normal"
                 android:visibility="invisible"
-                app:layout_constraintBottom_toTopOf="@+id/lnameTxt"
+                app:layout_constraintBottom_toTopOf="@+id/lnTxt"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fnameTxt" />
+                app:layout_constraintTop_toBottomOf="@+id/fnTxt" />
 
             <EditText
                 android:id="@+id/passwordTxt"
@@ -216,8 +216,8 @@
                 android:drawablePadding="15dp"
                 android:drawableRight="@drawable/password_gray"
                 android:ems="100"
-                android:hint="كلمة المرور"
                 android:gravity="bottom"
+                android:hint="كلمة المرور"
                 android:inputType="textPassword"
                 app:layout_constraintHorizontal_bias="0.514"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -225,7 +225,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/emailTxt" />
 
             <TextView
-                android:id="@+id/passwordEr"
+                android:id="@+id/passEr"
                 android:layout_width="wrap_content"
                 android:layout_height="19dp"
                 android:layout_marginBottom="8dp"
@@ -253,10 +253,10 @@
                 android:inputType="textPersonName"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lnameTxt" />
+                app:layout_constraintTop_toBottomOf="@+id/lnTxt" />
 
             <TextView
-                android:id="@+id/conPasswordEr"
+                android:id="@+id/missPassEr"
                 android:layout_width="wrap_content"
                 android:layout_height="28dp"
                 android:layout_marginBottom="8dp"
@@ -273,7 +273,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/conPasswordTxt"
                 app:layout_constraintVertical_bias="0.088" />
-<!--
+            <!--
             <TextView
                 android:id="@+id/ErrorMsgSU2"
                 android:layout_width="65dp"
@@ -293,7 +293,7 @@
                 tools:layout_editor_absoluteY="808dp" />-->
 
             <EditText
-                android:id="@+id/lnameTxt"
+                android:id="@+id/lnTxt"
                 android:layout_width="728dp"
                 android:layout_height="66dp"
                 android:layout_marginTop="60dp"
@@ -305,7 +305,7 @@
                 android:inputType="textPersonName"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fnameTxt" />
+                app:layout_constraintTop_toBottomOf="@+id/fnTxt" />
 
             <TextView
                 android:id="@+id/lnameEr"
@@ -322,10 +322,10 @@
                 android:visibility="invisible"
                 app:layout_constraintBottom_toTopOf="@+id/emailTxt"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lnameTxt" />
+                app:layout_constraintTop_toBottomOf="@+id/lnTxt" />
 
             <EditText
-                android:id="@+id/fnameTxt"
+                android:id="@+id/fnTxt"
                 android:layout_width="728dp"
                 android:layout_height="66dp"
                 android:layout_marginRight="152dp"
@@ -380,7 +380,7 @@
                 android:gravity="bottom"
                 android:visibility="invisible"
                 app:layout_constraintEnd_toStartOf="@+id/conPasswordTxt"
-                app:layout_constraintTop_toBottomOf="@+id/passwordEr"
+                app:layout_constraintTop_toBottomOf="@+id/passEr"
                 app:srcCompat="@drawable/sshape" />
 
             <ImageView
@@ -392,31 +392,31 @@
                 android:gravity="bottom"
                 android:visibility="invisible"
                 app:layout_constraintEnd_toStartOf="@+id/emailTxt"
-                app:layout_constraintTop_toBottomOf="@+id/lnameErIcon"
+                app:layout_constraintTop_toBottomOf="@+id/lnErIcon"
                 app:srcCompat="@drawable/sshape" />
 
             <ImageView
-                android:id="@+id/fnameErIcon"
+                android:id="@+id/fnErIcon"
                 android:layout_width="45dp"
                 android:layout_height="35dp"
                 android:layout_marginEnd="52dp"
                 android:layout_marginTop="48dp"
                 android:gravity="bottom"
                 android:visibility="invisible"
-                app:layout_constraintEnd_toStartOf="@+id/fnameTxt"
+                app:layout_constraintEnd_toStartOf="@+id/fnTxt"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/sshape" />
 
             <ImageView
-                android:id="@+id/lnameErIcon"
+                android:id="@+id/lnErIcon"
                 android:layout_width="45dp"
                 android:layout_height="35dp"
                 android:layout_marginEnd="48dp"
                 android:layout_marginTop="88dp"
                 android:gravity="bottom"
                 android:visibility="invisible"
-                app:layout_constraintEnd_toStartOf="@+id/lnameTxt"
-                app:layout_constraintTop_toBottomOf="@+id/fnameErIcon"
+                app:layout_constraintEnd_toStartOf="@+id/lnTxt"
+                app:layout_constraintTop_toBottomOf="@+id/fnErIcon"
                 app:srcCompat="@drawable/sshape" />
 
             <ImageView
@@ -426,7 +426,7 @@
                 android:layout_marginEnd="140dp"
                 android:layout_marginTop="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/conPasswordEr"
+                app:layout_constraintTop_toBottomOf="@+id/missPassEr"
                 app:srcCompat="@drawable/gender" />
 
             <ImageView
@@ -437,19 +437,35 @@
                 android:layout_marginTop="32dp"
                 android:visibility="invisible"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/conPasswordEr"
+                app:layout_constraintTop_toBottomOf="@+id/missPassEr"
                 app:srcCompat="@drawable/sshape" />
 
             <TextView
-                android:id="@+id/textView7"
-                android:layout_width="63dp"
-                android:layout_height="33dp"
-                android:layout_marginEnd="136dp"
-                android:layout_marginTop="20dp"
-                android:text=" "
+                android:id="@+id/genderEr"
+                android:layout_width="wrap_content"
+                android:layout_height="28dp"
+                android:layout_marginEnd="140dp"
+                android:layout_marginTop="128dp"
+                android:fontFamily="casual"
+                android:gravity="bottom"
+                android:text="TextView"
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="16sp"
+                android:typeface="normal"
                 android:visibility="invisible"
+
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/genderIcon" />
+                app:layout_constraintTop_toBottomOf="@+id/conPasswordTxt" />
+
+            <TextView
+                android:id="@+id/empty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="141dp"
+                android:layout_marginTop="25dp"
+                android:text="       "
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/genderEr" />
 
 
         </android.support.constraint.ConstraintLayout>

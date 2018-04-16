@@ -130,7 +130,7 @@
             app:layout_constraintVertical_bias="1.0">
 
             <TextView
-                android:id="@+id/fnameEr"
+                android:id="@+id/fnEr"
                 android:layout_width="wrap_content"
                 android:layout_height="28dp"
                 android:layout_marginBottom="8dp"
@@ -143,9 +143,9 @@
                 android:textSize="16sp"
                 android:typeface="normal"
                 android:visibility="invisible"
-                app:layout_constraintBottom_toTopOf="@+id/lnameTxt"
+                app:layout_constraintBottom_toTopOf="@+id/lnTxt"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fnameTxt" />
+                app:layout_constraintTop_toBottomOf="@+id/fnTxt" />
 
 
             <EditText
@@ -161,12 +161,12 @@
                 android:inputType="textPersonName"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lnameTxt" />
+                app:layout_constraintTop_toBottomOf="@+id/lnTxt" />
 
 
 
             <EditText
-                android:id="@+id/lnameTxt"
+                android:id="@+id/lnTxt"
                 android:layout_width="728dp"
                 android:layout_height="66dp"
                 android:layout_marginTop="60dp"
@@ -178,7 +178,7 @@
                 android:inputType="textPersonName"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fnameTxt" />
+                app:layout_constraintTop_toBottomOf="@+id/fnTxt" />
 
             <TextView
                 android:id="@+id/lnameEr"
@@ -195,10 +195,10 @@
                 android:visibility="invisible"
                 app:layout_constraintBottom_toTopOf="@+id/emailTxt"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lnameTxt" />
+                app:layout_constraintTop_toBottomOf="@+id/lnTxt" />
 
             <EditText
-                android:id="@+id/fnameTxt"
+                android:id="@+id/fnTxt"
                 android:layout_width="728dp"
                 android:layout_height="66dp"
                 android:layout_marginRight="152dp"
@@ -255,31 +255,31 @@
                 android:gravity="bottom"
                 android:visibility="invisible"
                 app:layout_constraintEnd_toStartOf="@+id/emailTxt"
-                app:layout_constraintTop_toBottomOf="@+id/lnameErIcon"
+                app:layout_constraintTop_toBottomOf="@+id/lnErIcon"
                 app:srcCompat="@drawable/sshape" />
 
             <ImageView
-                android:id="@+id/fnameErIcon"
+                android:id="@+id/fnErIcon"
                 android:layout_width="45dp"
                 android:layout_height="35dp"
                 android:layout_marginEnd="52dp"
                 android:layout_marginTop="48dp"
                 android:gravity="bottom"
                 android:visibility="invisible"
-                app:layout_constraintEnd_toStartOf="@+id/fnameTxt"
+                app:layout_constraintEnd_toStartOf="@+id/fnTxt"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/sshape" />
 
             <ImageView
-                android:id="@+id/lnameErIcon"
+                android:id="@+id/lnErIcon"
                 android:layout_width="45dp"
                 android:layout_height="35dp"
                 android:layout_marginEnd="48dp"
                 android:layout_marginTop="88dp"
                 android:gravity="bottom"
                 android:visibility="invisible"
-                app:layout_constraintEnd_toStartOf="@+id/lnameTxt"
-                app:layout_constraintTop_toBottomOf="@+id/fnameErIcon"
+                app:layout_constraintEnd_toStartOf="@+id/lnTxt"
+                app:layout_constraintTop_toBottomOf="@+id/fnErIcon"
                 app:srcCompat="@drawable/sshape" />
 
 
