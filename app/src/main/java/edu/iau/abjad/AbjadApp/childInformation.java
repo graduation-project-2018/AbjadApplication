@@ -9,14 +9,14 @@ public class childInformation implements Serializable{
     String photo_URL;
     String username;
 
-    public childInformation( String fname, String cgender, String lname ,String photo, String uname){
 
-        this.first_name =fname;
-        this.gender=cgender;
-        this.last_name=lname;
-        this.photo_URL=photo;
-        this.username = uname;
-        this.last_name=lname;
+    public childInformation( String fname, String lname, String cgender, String photo, String uname){
+
+       this.first_name =fname;
+       this.last_name=lname;
+       this.gender=cgender;
+       this.photo_URL=photo;
+       this.username = uname;
 
     }//end of constructor
     public void setPhoto(String photo)
