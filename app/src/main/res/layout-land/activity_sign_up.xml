@@ -43,21 +43,6 @@
         app:layout_constraintTop_toTopOf="@+id/toolbar8"
         app:layout_constraintVertical_bias="0.444" />
 
-    <ImageButton
-        android:id="@+id/Next"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/colorPrimary"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar8"
-        app:layout_constraintEnd_toEndOf="@+id/toolbar8"
-        app:layout_constraintHorizontal_bias="0.875"
-        app:layout_constraintStart_toEndOf="@+id/Signup"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/next" />
-
 
     <Button
 

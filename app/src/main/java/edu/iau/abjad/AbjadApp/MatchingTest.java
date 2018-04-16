@@ -34,10 +34,11 @@ public class MatchingTest extends child_menu {
     int TestNum,counter,score ;
     DatabaseReference read;
     int[]  WordsNumber ;
-    String PicDB , WordDB,TestInst;
+    String PicDB , WordDB;
     Random r ;
     MediaPlayer MatchingTestInst ;
     MatchingTestContent[] Checking;
+    audio_URLs voice;
     boolean correct ;
 
     @Override
@@ -74,7 +75,6 @@ public class MatchingTest extends child_menu {
         MatchingTestInst = new MediaPlayer();
         correct=false;
         counter=0;
-        TestInst = "https://firebasestorage.googleapis.com/v0/b/abjad-a0f5e.appspot.com/o/%D9%87%D9%84%20%D9%82%D8%B1%D8%A7%D8%A1%D8%A9%20%D8%A3%D8%A8%D8%AC%D8%AF%20%D9%84%D9%85%D8%A7%20%D8%AA%D8%B1%D8%A7%D9%87%20%D8%B9%D9%84%D9%89%20%D8%A7%D9%84%D8%B4%D8%A7%D8%B4%D8%A9%20%D8%B5%D8%AD%D9%8A%D8%AD%D8%A9%20%20%D8%A3%D9%85%20%D8%AE%D8%A7%D8%B7%D8%A6%D8%A9.mp3?alt=media&token=0be949b0-1b2f-40fa-bc9d-956227529b0f";
         Word1.setOnLongClickListener(longClickListener);
         Word2.setOnLongClickListener(longClickListener);
         Word3.setOnLongClickListener(longClickListener);
@@ -137,7 +137,7 @@ public class MatchingTest extends child_menu {
             }
             Picasso.get().load(Content.get(WordsNumber[2]).Pic).into(Pic3);
 
-            playAudio(TestInst);
+            playAudio(voice.MatchingTestInst);
 for (int i =0 ; i<Checking.length ; i++){
 
     Checking[i]= new MatchingTestContent(Content.get(WordsNumber[i]).Pic,"");
@@ -201,16 +201,16 @@ for (int i =0 ; i<Checking.length ; i++){
                            }
 
                        if(counter==3){
-                          playAudio("https://firebasestorage.googleapis.com/v0/b/abjad-a0f5e.appspot.com/o/%D8%B1%D8%A7%D8%A6%D8%B9%20%D8%B1%D8%A7%D8%A6%D8%B9%20%D8%A3%D8%AD%D8%B3%D9%86%D8%AA.mp3?alt=media&token=9c5b93a5-d921-4f75-832f-cc558270b810");
-                          score=10;
+                          playAudio(voice.excellent);
+                                  score=10;
                        }
                        else if(counter==1){
-                       playAudio("https://firebasestorage.googleapis.com/v0/b/abjad-a0f5e.appspot.com/o/%D8%AC%D9%8A%D8%AF.mp3?alt=media&token=11ce846f-c8c4-49f0-a394-73ba2c869380");
-                       score=3;
+                       playAudio(voice.good_feedback);
+                               score=3;
                        }
                        else{
-                       playAudio("https://firebasestorage.googleapis.com/v0/b/abjad-a0f5e.appspot.com/o/%D8%AD%D8%A7%D9%88%D9%84%20%D9%85%D8%B1%D8%A7%D8%AC%D8%B9%D8%A9%20%D8%A7%D9%84%D8%AF%D8%B1%D9%88%D8%B3%20%D8%A7%D9%84%D8%B3%D8%A7%D8%A8%D9%82%D8%A9.mp3?alt=media&token=1518ad0b-213f-44ef-b198-9a0cc75a26f4");
-                       score=0;
+                       playAudio(voice.revise_previous_lessons);
+                               score=0;
                        }
                }
 
@@ -434,8 +434,13 @@ View.OnDragListener dragListener1 = new View.OnDragListener() {
 
     @Override
     protected void onStop() {
-        super.onStop();
-        MatchingTestInst.release();
+       try {
+           super.onStop();
+           MatchingTestInst.release();
+       }
+    catch (Exception e){
+
+    }
     }
 
 }

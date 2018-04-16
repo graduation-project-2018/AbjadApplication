@@ -26,14 +26,14 @@ public class SignUp extends AppCompatActivity {
     EditText FN ,LN,Email,Pass,Cpass;
     TextView FNMsg,LNMsg,EmailMsg,PassMsg,CpassMsg;
     ImageView FNIcon,LNIcon,EmailIcon,PassIcon,CpassIcon;
-    String email,password,user_id;
+    String email,password,educator_id;
     int counter;
     private FirebaseAuth mAuth;
     firebase_connection r;
     Pattern ArabicLetters;
     Pattern EnglishLetters;
     Educator educator;
-    Intent educatorHome;
+ private   Intent educatorHome;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +57,9 @@ public class SignUp extends AppCompatActivity {
         ArabicLetters = Pattern.compile("^[أ-ي ]+$");
         EnglishLetters = Pattern.compile("^[a-zA-Z ]+$");
         r = new firebase_connection();
-        educatorHome= new Intent();
+        educatorHome= new Intent(this,educator_home.class);
+
+
 
         mAuth = FirebaseAuth.getInstance();
         SignUpBtn.setOnClickListener(new View.OnClickListener() {
@@ -111,7 +113,7 @@ public class SignUp extends AppCompatActivity {
                 }
 
 
-                email = Email.getText().toString()+"@abjad.com";
+                email = Email.getText().toString();
                 password = Pass.getText().toString();
 
                 if (email.isEmpty()) {
@@ -181,15 +183,17 @@ public class SignUp extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()) {
                             Toast.makeText(SignUp.this, "تمت إضافة حساب المربي بنجاح", Toast.LENGTH_LONG).show();
-                            user_id = mAuth.getCurrentUser().getUid();
+                            educator_id = mAuth.getCurrentUser().getUid();
                             educator = new Educator(Email.getText().toString(),FN.getText().toString(),LN.getText().toString());
+                            finish();
+                            startActivity(educatorHome);
 
 
 
                             r.ref.addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
-                                    r.ref.child("Educators").child(user_id).setValue(educator);
+                                    r.ref.child("Educators").child(educator_id).setValue(educator);
                                 }@Override
                                 public void onCancelled(DatabaseError databaseError) {
 
@@ -219,4 +223,6 @@ public class SignUp extends AppCompatActivity {
 
 
 
-}
+    }
+
+
