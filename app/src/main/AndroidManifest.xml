@@ -22,31 +22,12 @@
         <activity android:name=".Lesson"/>
         <activity android:name=".educator_home"/>
         <activity android:name=".TrueFalseTest" />
-        <activity android:name=".Lesson">
-
-
-        </activity>
-        <activity android:name=".educator_home">
-
-        </activity>
-        <activity android:name=".TrueFalseTest">
-
-        </activity>
         <activity android:name=".MatchingTest" />
         <activity android:name=".child_photo"/>
-        <activity android:name=".child_photo">
-
-        </activity>
         <activity android:name=".ChildProgress" />
         <activity android:name=".adding_child"
-            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"
-            />
-        <activity android:name=".adding_child"
-            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan">
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan" />
 
-
-
-        </activity>
         <activity android:name=".HeardWordTest" />
         <activity android:name=".ReadingTest" />
         <activity android:name=".child_home"/>
@@ -58,54 +39,22 @@
             android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
         <activity android:name=".SignUp"
             android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
-        <activity android:name=".child_home">
-
-
-
-        </activity>
-        <activity android:name=".report_problem" />
-        <activity android:name=".unit_interface">
-
-        </activity>
-        <activity android:name=".child_menu">
-
-        </activity>
-        <activity android:name=".Signin" />
-        <activity android:name=".SignUp">
-
-
-        </activity>
         <activity android:name=".userTypeSelection" />
         <activity android:name=".ResetPassword"
             android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
         <activity android:name=".child_profile"
-            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan">
-        <activity android:name=".ResetPassword" />
-        <activity android:name=".child_profile">
-
-        </activity>
-        <activity android:name=".educator_profile"
             android:windowSoftInputMode="stateHidden|adjustResize|adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".change_password">
-
-
-        </activity>
-        <activity android:name=".menu_educator" />
-        <activity android:name=".change_profile_photo"></activity>
-        <activity android:name=".SigninEducator">
-
-        </activity>
         <activity android:name=".educator_profile"
             android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
+        <activity android:name=".menu_educator" />
+        <activity android:name=".change_profile_photo"/>
         <activity android:name=".change_password"
             android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
-        <activity android:name=".menu_educator" />
-        <activity android:name=".change_profile_photo" />
         <activity android:name=".SigninEducator"
             android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
         <activity android:name=".popUp_repert_problem"

@@ -30,8 +30,7 @@ public class SignUp extends AppCompatActivity {
     int counter;
     private FirebaseAuth mAuth;
     firebase_connection r;
-    Pattern ArabicLetters;
-    Pattern EnglishLetters;
+    Pattern ArabicLetters,EnglishLetters;
     Educator educator;
  private   Intent educatorHome;
     @Override
@@ -95,12 +94,12 @@ public class SignUp extends AppCompatActivity {
                 }
 
                 if (LN.getText().toString().isEmpty()) {
-                    LNMsg.setText("قم بتعبئة الحقل باللقب");
+                    LNMsg.setText("قم بتعبئة الحقل بلقب المربي");
                     LNMsg.setVisibility(View.VISIBLE);
                     LNIcon.setVisibility(View.VISIBLE);
                 } else if (!LN.getText().toString().contains(" ") || LN.getText().toString().contains(" ")) {
                     if (!ArabicLetters.matcher(LN.getText().toString()).matches()) {
-                        LNMsg.setText("قم بكتابة اسم المربي باللغة العربية ");
+                        LNMsg.setText("قم بكتابة لقب المربي باللغة العربية ");
                         LNMsg.setVisibility(View.VISIBLE);
                         LNIcon.setVisibility(View.VISIBLE);
                     } else {

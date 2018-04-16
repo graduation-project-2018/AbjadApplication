@@ -29,6 +29,7 @@ import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.regex.Pattern;
 
 public class child_profile extends menu_educator{
 
@@ -43,6 +44,8 @@ public class child_profile extends menu_educator{
     childInformation child;
     DatabaseReference read;
     Button saveChanges;
+    int counter;
+    Pattern ArabicLetters;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,20 +63,21 @@ public class child_profile extends menu_educator{
 
         FNChild = (EditText) findViewById(R.id.FNFieldCP);
         LNChild = (EditText) findViewById(R.id.LNFieldCP);
-        Username = (EditText) findViewById(R.id.UsernameFieldCP);
+        //Username = (EditText) findViewById(R.id.UsernameFieldCP);
         FNChildIcon = (ImageView) findViewById(R.id.FNErrorIcon);
         LNChildIcon = (ImageView) findViewById(R.id.LNErrorIcon);
-        UsernameIcon = (ImageView) findViewById(R.id.UsernameErrorIcon);
+        //UsernameIcon = (ImageView) findViewById(R.id.UsernameErrorIcon);
         ChildImage = (ImageView) findViewById(R.id.ChildImageCP);
         FNChildMsg = (TextView) findViewById(R.id.FNErrorMsgCP);
         LNChildMsg = (TextView) findViewById(R.id.LNErrorMsgCP);
-        UsernameMsg = (TextView) findViewById(R.id.UsernameErrorMsgCP);
+        //UsernameMsg = (TextView) findViewById(R.id.UsernameErrorMsgCP);
         saveChanges = (Button) findViewById(R.id.button6);
-        ChildID = "";
+        ArabicLetters = Pattern.compile("^[أ-ي ]+$");
+        ChildID = "child1";
         child = new childInformation("FN","gn","ln","photo","uname");
         r= new firebase_connection();
 
-read=r.ref.child("Children").child("childID");
+read=r.ref.child("Children").child(ChildID);
 read.addValueEventListener(new ValueEventListener() {
     @Override
     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -82,11 +86,61 @@ read.addValueEventListener(new ValueEventListener() {
         child.last_name = (String) dataSnapshot.child("last_name").getValue();
         child.photo_URL = (String) dataSnapshot.child("photo_URL").getValue();
         child.username = (String) dataSnapshot.child("username").getValue();
-
         FNChild.setText(child.first_name);
         LNChild.setText(child.last_name);
         Username.setText(child.username);
         Picasso.get().load(child.photo_URL).into(ChildImage);
+ saveChanges.setOnClickListener(new View.OnClickListener() {
+     @Override
+     public void onClick(View v) {
+         FNChildMsg.setVisibility(View.INVISIBLE);
+         LNChildMsg.setVisibility(View.INVISIBLE);
+         FNChildIcon.setVisibility(View.INVISIBLE);
+         LNChildIcon.setVisibility(View.INVISIBLE);
+         counter=0;
+         if (FNChild.getText().toString().isEmpty()) {
+             FNChildMsg.setText("قم بتعبئة الحقل باسم الطفل");
+             FNChildMsg.setVisibility(View.VISIBLE);
+             FNChildIcon.setVisibility(View.VISIBLE);
+         } else if (!FNChild.getText().toString().contains(" ") || FNChild.getText().toString().contains(" ")) {
+             if (!ArabicLetters.matcher(FNChild.getText().toString()).matches()) {
+                 FNChildMsg.setText("قم بكتابة اسم الطفل باللغة العربية ");
+                 FNChildMsg.setVisibility(View.VISIBLE);
+                 FNChildIcon.setVisibility(View.VISIBLE);
+             } else {
+                 counter++;
+             }
+
+         }
+
+         if (LNChild.getText().toString().isEmpty()) {
+             LNChildMsg.setText("قم بتعبئة الحقل بلقب الطفل");
+             LNChildMsg.setVisibility(View.VISIBLE);
+             LNChildIcon.setVisibility(View.VISIBLE);
+         } else if (!LNChild.getText().toString().contains(" ") || LNChild.getText().toString().contains(" ")) {
+             if (!ArabicLetters.matcher(LNChild.getText().toString()).matches()) {
+                 LNChildMsg.setText("قم بكتابة لقب الطفل باللغة العربية ");
+                 LNChildMsg.setVisibility(View.VISIBLE);
+                 LNChildIcon.setVisibility(View.VISIBLE);
+             } else {
+                 counter++;
+
+
+
+             }
+
+         }
+
+         if(counter==2){
+             child.first_name=FNChild.getText().toString();
+             child.last_name=LNChild.getText().toString();
+             r.ref.child("Educators").child(ChildID).setValue(child);
+
+         }
+
+     }
+ });
+
     }
 
     @Override
