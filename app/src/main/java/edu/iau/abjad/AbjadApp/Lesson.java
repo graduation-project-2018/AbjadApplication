@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.AudioManager;
@@ -65,6 +66,8 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
     ImageView abjad;
     AnimationDrawable anim;
     MediaPlayer a1= new MediaPlayer();
+    String letter ;
+    ImageView score_img;
 
 
     @SuppressLint("ClickableViewAccessibility")
@@ -72,7 +75,9 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         m.title = (TextView) findViewById(R.id.interface_title);
-        m.title.setText("حرف ( م )");
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
+
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         //inflate your activity layout here!
@@ -83,6 +88,8 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
         ActivityCompat.requestPermissions(this,permissions , REQUEST_RECORD_AUDIO_PERMISSION);
 
         r = new firebase_connection();
+        letter = "ش";
+        m.title.setText(  "حرف "+"( " +letter+ " ) " );
         next_lesson_btn = (Button) findViewById(R.id.next_lesson);
         word_label = (TextView) findViewById(R.id.word_label);
         sentence_label = (TextView) findViewById(R.id.sentence_label);
@@ -93,11 +100,13 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
         abjad = (ImageView) findViewById(R.id.abjad);
         abjad.setBackgroundResource(R.drawable.abjad_speak);
         anim =(AnimationDrawable) abjad.getBackground();
+        score_img = (ImageView) findViewById(R.id.score_img);
+
 
 
 
         //getting the lesson ID of the selected letter in Unit interface.
-        Query query = r.ref.child("Lessons").orderByChild("lesson_letter").equalTo("م");
+        Query query = r.ref.child("Lessons").orderByChild("lesson_letter").equalTo(letter);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -183,6 +192,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                                         @Override
                                         public void onClick(View view) {
                                             words_counter++;
+                                            score_img.setVisibility(View.INVISIBLE);
 
                                             if(words_counter == 4){
                                                 word_label.setVisibility(View.INVISIBLE);
@@ -370,6 +380,8 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                             anim.start();
                             playAudioInstructions(audio_URLs.perfect_top_feedback);
                             setOnCompleteListener(audio_instruction);
+                            score_img.setVisibility(View.VISIBLE);
+                            score_img.setImageResource(R.drawable.seven);
                             found = true;
                             child_score =7;
                             break;
@@ -387,6 +399,8 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                                         anim.start();
                                         playAudioInstructions(audio_URLs.perfect_top_feedback);
                                         setOnCompleteListener(audio_instruction);
+                                        score_img.setVisibility(View.VISIBLE);
+                                        score_img.setImageResource(R.drawable.seven);
                                         found_with_repetion = true;
                                         child_score =7;
                                         break;
@@ -661,7 +675,9 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
         super.onRestart();
         System.out.println("onRestart function");
         audio_instruction = new MediaPlayer();
+        anim.start();
         playAudioInstructions(audio_URLs.cannot_complete);
+        setOnCompleteListener(audio_instruction);
     }
 
     @Override
@@ -675,6 +691,8 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
             anim.start();
             playAudioInstructions(audio_URLs.perfect_only_one_mistake);
             setOnCompleteListener(audio_instruction);
+            score_img.setVisibility(View.VISIBLE);
+            score_img.setImageResource(R.drawable.six);
             child_score =6;
         }
         //very bad
@@ -682,6 +700,8 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
             anim.start();
             playAudioInstructions(audio_URLs.listen_to_abjad);
             setOnCompleteListener(audio_instruction);
+            score_img.setVisibility(View.VISIBLE);
+            score_img.setImageResource(R.drawable.one);
             child_score = 1;
 
         }
@@ -690,11 +710,15 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
             anim.start();
             playAudioInstructions(audio_URLs.excellent);
             setOnCompleteListener(audio_instruction);
+            score_img.setVisibility(View.VISIBLE);
+            score_img.setImageResource(R.drawable.six);
         }
         else if(max_match>=0.49 && word_length > 3){
             anim.start();
             playAudioInstructions(audio_URLs.good_feedback);
             setOnCompleteListener(audio_instruction);
+            score_img.setVisibility(View.VISIBLE);
+            score_img.setImageResource(R.drawable.four);
             child_score = 4;
 
         }
@@ -702,12 +726,16 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
             anim.start();
             playAudioInstructions(audio_URLs.good_with_revision);
             setOnCompleteListener(audio_instruction);
+            score_img.setVisibility(View.VISIBLE);
+            score_img.setImageResource(R.drawable.three);
             child_score =3;
         }
         else if(max_match<0.39 && word_length>3){
             anim.start();
             playAudioInstructions(audio_URLs.listen_to_abjad);
             setOnCompleteListener(audio_instruction);
+            score_img.setVisibility(View.VISIBLE);
+            score_img.setImageResource(R.drawable.one);
             child_score=1;
         }
 
@@ -723,12 +751,16 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
             anim.start();
             playAudioInstructions(audio_URLs.perfect_top_feedback);
             setOnCompleteListener(audio_instruction);
+            score_img.setVisibility(View.VISIBLE);
+            score_img.setImageResource(R.drawable.seven);
         }
         else if(max_match>=0.89){
             anim.start();
             playAudioInstructions(audio_URLs.excellent);
             setOnCompleteListener(audio_instruction);
             child_score =6;
+            score_img.setVisibility(View.VISIBLE);
+            score_img.setImageResource(R.drawable.six);
 
         }
         else if(max_match>=0.75){
@@ -736,12 +768,16 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
             anim.start();
             playAudioInstructions(audio_URLs.excellent);
             setOnCompleteListener(audio_instruction);
+            score_img.setVisibility(View.VISIBLE);
+            score_img.setImageResource(R.drawable.five);
         }
         else if(max_match <= 0.75 && max_match>=0.5){
             child_score=4;
             anim.start();
             playAudioInstructions(audio_URLs.good_feedback);
             setOnCompleteListener(audio_instruction);
+            score_img.setVisibility(View.VISIBLE);
+            score_img.setImageResource(R.drawable.four);
 
         }
         else if(max_match<=0.5 && max_match>=0.4){
@@ -749,6 +785,8 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
             anim.start();
             playAudioInstructions(audio_URLs.good_with_revision);
             setOnCompleteListener(audio_instruction);
+            score_img.setVisibility(View.VISIBLE);
+            score_img.setImageResource(R.drawable.three);
         }
         else if (max_match>=0.25){
             child_score=2;
@@ -761,6 +799,8 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
             anim.start();
             playAudioInstructions(audio_URLs.listen_to_abjad);
             setOnCompleteListener(audio_instruction);
+            score_img.setVisibility(View.VISIBLE);
+            score_img.setImageResource(R.drawable.one);
         }
 
     }
