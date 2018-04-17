@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
-        android:textSize="30pt"
+        android:textSize="25pt"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -59,16 +59,15 @@
         app:layout_constraintVertical_bias="0.716" />
 
     <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="242dp"
-        android:layout_height="216dp"
+        android:id="@+id/abjad_reading_test"
+        android:layout_width="290dp"
+        android:layout_height="385dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginStart="44dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.935"
-        />
+        app:layout_constraintVertical_bias="0.935" />
 
 </android.support.constraint.ConstraintLayout>

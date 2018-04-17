@@ -4,10 +4,8 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -25,7 +23,7 @@ public class Signin extends AppCompatActivity  implements View.OnClickListener{
 
     private FirebaseAuth Uath;
     private EditText ChildUsername, ChildPassword;//ResetPassword; for navgation to the activity
-    //private ImageButton enter,back;
+
     private ImageView Wuser,Wpas;
     private ProgressBar PB;
     private Intent Itn;
@@ -52,7 +50,7 @@ public class Signin extends AppCompatActivity  implements View.OnClickListener{
         Wpas=(ImageView) findViewById(R.id.Wpas);
         Itn =new Intent(this,child_home.class);
         //adding listeners to the buttons:
-        findViewById(R.id.SendButton).setOnClickListener(this);
+        findViewById(R.id.submit_btn_reset).setOnClickListener(this);
         findViewById(R.id.back).setOnClickListener(this);
         findViewById(R.id.ResetPassword).setOnClickListener(this);
 
@@ -81,7 +79,7 @@ public class Signin extends AppCompatActivity  implements View.OnClickListener{
 
         else {
             //check username pattern and append domain
-            username=username(username); //ja?
+            //username=username(username); //ja?
         }
 
         //check password is not empty
@@ -124,14 +122,13 @@ public class Signin extends AppCompatActivity  implements View.OnClickListener{
     private String username(String usr){
         if(! usr.matches("\\b[a-zA-Z][a-zA-Z0-9\\-._]{4,}\\b"))
         {
-            ChildUsername.setError("تحقق من اسم المستخدم من فضلك ");
+            ChildUsername.setError("تحقق من البريد الالكتروني من فضلك ");
             ChildUsername.requestFocus();
             Wuser.setVisibility(View.VISIBLE);
             return null;
         }
         else
         {
-            usr = usr +"@abjad.com";
             return usr;
         }
     }
@@ -142,7 +139,9 @@ public class Signin extends AppCompatActivity  implements View.OnClickListener{
 
             case R.id.ResetPassword:
                 finish();
-                startActivity(new Intent(this,ResetPassword.class));
+                Intent intent = new Intent(Signin.this, ResetPassword.class);
+                intent.putExtra("child", "yes");
+                startActivity(intent);
                 break;
 
             case R.id.back:
@@ -150,7 +149,7 @@ public class Signin extends AppCompatActivity  implements View.OnClickListener{
                 startActivity(new Intent(this,userTypeSelection.class));
                 break;
 
-            case R.id.SendButton:
+            case R.id.submit_btn_reset:
                 signIn();
                 break;
         }

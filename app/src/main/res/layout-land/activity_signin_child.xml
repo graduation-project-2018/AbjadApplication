@@ -71,7 +71,7 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar7" />
 
     <ImageButton
-        android:id="@+id/SendButton"
+        android:id="@+id/submit_btn_reset"
         android:layout_width="657dp"
         android:layout_height="104dp"
         android:layout_marginBottom="64dp"
@@ -94,12 +94,12 @@
         android:textColor="#ffffff"
         android:textSize="24sp"
         android:typeface="normal"
-        app:layout_constraintBottom_toBottomOf="@+id/SendButton"
-        app:layout_constraintEnd_toEndOf="@+id/SendButton"
+        app:layout_constraintBottom_toBottomOf="@+id/submit_btn_reset"
+        app:layout_constraintEnd_toEndOf="@+id/submit_btn_reset"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/SendButton"
-        app:layout_constraintTop_toTopOf="@+id/SendButton"
+        app:layout_constraintStart_toStartOf="@+id/submit_btn_reset"
+        app:layout_constraintTop_toTopOf="@+id/submit_btn_reset"
         app:layout_constraintVertical_bias="0.277" />
 
     <TextView
@@ -113,7 +113,7 @@
         android:textColor="@android:color/black"
         android:textSize="18sp"
         android:typeface="normal"
-        app:layout_constraintBottom_toTopOf="@+id/SendButton"
+        app:layout_constraintBottom_toTopOf="@+id/submit_btn_reset"
         app:layout_constraintStart_toStartOf="@+id/imageView2" />
 
     <EditText
@@ -127,8 +127,8 @@
         android:drawablePadding="15dp"
         android:drawableRight="@drawable/user_male"
         android:ems="100"
-        android:hint="اسم المستخدم"
-        android:inputType="textPersonName"
+        android:hint="البريد الإلكتروني"
+        android:inputType="textEmailAddress"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/password"
         app:layout_constraintEnd_toEndOf="@+id/imageView2"
@@ -151,8 +151,7 @@
         android:ems="10"
         android:hint="كلمة المرور"
         android:inputType="textPassword"
-        android:textAlignment="textEnd"
-        app:layout_constraintBottom_toTopOf="@+id/SendButton"
+        app:layout_constraintBottom_toTopOf="@+id/submit_btn_reset"
         app:layout_constraintEnd_toEndOf="@+id/imageView2"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -193,7 +192,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/SendButton"
+        app:layout_constraintTop_toBottomOf="@+id/submit_btn_reset"
         app:layout_constraintVertical_bias="0.891" />
 
 </android.support.constraint.ConstraintLayout>

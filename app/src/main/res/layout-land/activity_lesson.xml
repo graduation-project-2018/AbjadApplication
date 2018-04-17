@@ -56,18 +56,17 @@
 
     <ImageView
         android:id="@+id/abjad"
-        android:layout_width="242dp"
-        android:layout_height="216dp"
+        android:layout_width="290dp"
+        android:layout_height="385dp"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="376dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.937"
-        app:srcCompat="@drawable/abjad_mouth_open" />
+        app:layout_constraintVertical_bias="0.937" />
 
     <ImageView
         android:id="@+id/lesson_pic"

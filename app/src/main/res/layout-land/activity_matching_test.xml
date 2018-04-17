@@ -24,7 +24,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView7"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/rab" />
+         />
 
     <ImageView
         android:id="@+id/imageView7"
@@ -37,7 +37,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView5"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/owl" />
+        />
 
     <ImageView
         android:id="@+id/imageView5"
@@ -51,7 +51,7 @@
         app:layout_constraintEnd_toStartOf="@+id/imageView7"
         app:layout_constraintHorizontal_bias="0.531"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/gbird" />
+         />
 
     <EditText
         android:id="@+id/editText"

@@ -40,7 +40,7 @@ public class SigninEducator extends AppCompatActivity  implements View.OnClickLi
         Wpas=(ImageView) findViewById(R.id.Wpas);
 
         //adding listeners to the buttons:
-        findViewById(R.id.SendButton).setOnClickListener(this);
+        findViewById(R.id.submit_btn_reset).setOnClickListener(this);
         findViewById(R.id.ResetPassword).setOnClickListener(this);
         findViewById(R.id.rgs).setOnClickListener(this);
         Itn =new Intent(this,educator_home.class);
@@ -98,13 +98,6 @@ public class SigninEducator extends AppCompatActivity  implements View.OnClickLi
                                 startActivity(Itn);
                             }
 
-               /* else if(task.getException() instanceof FirebaseAuthUserCollisionException)
-                {
-                    Toast.makeText(getApplicationContext(), "Email already exisets!", Toast.LENGTH_SHORT).show();
-                }
-
-                //this one must be about the password, that it doesn't match out email
-                */
 
 
                             else {
@@ -131,7 +124,7 @@ public class SigninEducator extends AppCompatActivity  implements View.OnClickLi
                 startActivity(new Intent(this,ResetPassword.class));
                 break;
 
-            case R.id.SendButton:
+            case R.id.submit_btn_reset:
                 signIn();
                 break;
         }
