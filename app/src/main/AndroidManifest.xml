@@ -2,10 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.iau.abjad.AbjadApp">
 
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- to keep the screen on while using the app (no sleep ) -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+
 
     <supports-screens
         android:largeScreens="true"
@@ -17,6 +16,7 @@
         android:allowBackup="true"
         android:hardwareAccelerated="false"
         android:label="@string/app_name"
+
         android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -62,6 +62,31 @@
         <activity
             android:name=".Signin"
             android:screenOrientation="landscape">
+        <activity android:name=".Lesson"/>
+        <activity android:name=".educator_home"/>
+        <activity android:name=".TrueFalseTest" />
+        <activity android:name=".MatchingTest" />
+        <activity android:name=".child_photo"/>
+        <activity android:name=".ChildProgress" />
+        <activity android:name=".adding_child"
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan" />
+
+        <activity android:name=".HeardWordTest" />
+        <activity android:name=".ReadingTest" />
+        <activity android:name=".child_home"/>
+        <activity android:name=".report_problem"
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
+        <activity android:name=".unit_interface"/>
+        <activity android:name=".child_menu"/>
+        <activity android:name=".Signin"
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
+        <activity android:name=".SignUp"
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
+        <activity android:name=".userTypeSelection" />
+        <activity android:name=".ResetPassword"
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
+        <activity android:name=".child_profile"
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -102,6 +127,16 @@
             android:name=".splash_screen"
             android:screenOrientation="landscape"></activity>
         <activity android:name=".child_change_password"></activity>
+        <activity android:name=".educator_profile"
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
+        <activity android:name=".menu_educator" />
+        <activity android:name=".change_profile_photo"/>
+        <activity android:name=".change_password"
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
+        <activity android:name=".SigninEducator"
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
+        <activity android:name=".popUp_repert_problem"
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
     </application>
 
 </manifest>
