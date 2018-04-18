@@ -2,6 +2,7 @@ package edu.iau.abjad.AbjadApp;
 
 import android.content.ClipData;
 import android.content.Context;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.DragEvent;
@@ -36,10 +37,13 @@ public class MatchingTest extends child_menu {
     int[]  WordsNumber ;
     String PicDB , WordDB;
     Random r ;
-    MediaPlayer MatchingTest ;
+    MediaPlayer MatchingTest =  new MediaPlayer();
     MatchingTestContent[] Checking;
-    audio_URLs voice;
+    audio_URLs voice = new audio_URLs();
     boolean correct ;
+    AnimationDrawable anim;
+    ImageView abjad ;
+    boolean flag2 = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +67,9 @@ public class MatchingTest extends child_menu {
          Text1 = (TextView) findViewById(R.id.Text1);
          Text2 = (TextView) findViewById(R.id.Text2);
          Text3 = (TextView) findViewById(R.id.Text3);
+         abjad = (ImageView) findViewById(R.id.abjad_matching);
+        abjad.setBackgroundResource(R.drawable.abjad_speak);
+        anim =(AnimationDrawable) abjad.getBackground();
         Next = (ImageView) findViewById(R.id.NextTest);
         Restart = (ImageButton) findViewById(R.id.Restart);
         Content =  new ArrayList<MatchingTestContent>();
@@ -72,7 +79,7 @@ public class MatchingTest extends child_menu {
         TestNum=1;
         r = new Random();
         WordsNumber = new int[3];
-        MatchingTest = new MediaPlayer();
+
         correct=false;
         counter=0;
         Word1.setOnLongClickListener(longClickListener);
@@ -136,8 +143,10 @@ public class MatchingTest extends child_menu {
                 WordsNumber[2]=r.nextInt(3);
             }
             Picasso.get().load(Content.get(WordsNumber[2]).Pic).into(Pic3);
-
+            anim.start();
             playAudio(voice.MatchingTestInst);
+            setOnCompleteListener(MatchingTest);
+
 for (int i =0 ; i<Checking.length ; i++){
 
     Checking[i]= new MatchingTestContent(Content.get(WordsNumber[i]).Pic,"");
@@ -201,15 +210,23 @@ for (int i =0 ; i<Checking.length ; i++){
                            }
 
                        if(counter==3){
-                          playAudio(voice.excellent);
+                           abjad.setBackgroundResource(R.drawable.abjad_happy);
+                           anim =(AnimationDrawable) abjad.getBackground();
+                          anim.start();
+                          playAudio(voice.perfect_top_feedback);
+                          setOnCompleteListener(MatchingTest);
                                   score=10;
                        }
                        else if(counter==1){
+                           anim.start();
                        playAudio(voice.good_feedback);
+                       setOnCompleteListener(MatchingTest);
                                score=3;
                        }
-                       else{
+                       else if(counter==0){
+                       anim.start();
                        playAudio(voice.revise_previous_lessons);
+                       setOnCompleteListener(MatchingTest);
                                score=0;
                        }
                }
@@ -441,6 +458,26 @@ View.OnDragListener dragListener1 = new View.OnDragListener() {
     catch (Exception e){
 
     }
+    }
+
+    public void setOnCompleteListener(MediaPlayer obj){
+        obj.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                //this flag to prevent calling this method multiple times.
+                if (flag2 == false) {
+                    return;
+                }
+                anim.stop();
+                flag2 = false;
+                abjad.setBackgroundResource(R.drawable.abjad_speak);
+                anim =(AnimationDrawable) abjad.getBackground();
+
+            }
+
+        });
+        flag2 = true;
+
     }
 
 }

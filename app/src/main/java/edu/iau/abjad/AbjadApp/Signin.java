@@ -77,10 +77,6 @@ public class Signin extends AppCompatActivity  implements View.OnClickListener{
             counter++;
         }
 
-        else {
-            //check username pattern and append domain
-            //username=username(username); //ja?
-        }
 
         //check password is not empty
         if (password.isEmpty()) {
