@@ -12,7 +12,7 @@
         android:layout_height="97dp"
         android:layout_marginBottom="632dp"
         android:background="@color/colorPrimary"
-      
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
