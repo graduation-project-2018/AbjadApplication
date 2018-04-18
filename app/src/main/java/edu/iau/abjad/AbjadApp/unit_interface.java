@@ -1,6 +1,7 @@
 package edu.iau.abjad.AbjadApp;
 import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
@@ -38,7 +39,11 @@ public class unit_interface extends child_menu {
     private audio_URLs audio;
     public ArrayList<Intent>  Rand;
     private ArrayList<childUnitInfo> lessonsInfo,testInfo;
+    private MediaPlayer instructions;
     String un,le;
+    boolean flag = true;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -115,7 +120,24 @@ public class unit_interface extends child_menu {
         lesson4Stars=findViewById(R.id.lesson4Stars);
         lesson5Stars=findViewById(R.id.lesson5Stars);
         lesson6Stars=findViewById(R.id.lesson6Stars);
-        if(unitID=="unit1"){
+        instructions=new MediaPlayer();
+        Log.i("dsdjcgjsd",unitID);
+        if(unitID.equals("unit1")){
+            playAudio(audio.unit_Tip_One);
+
+            instructions.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mediaPlayer) {
+                    //this flag to prevent calling this method multiple times.
+                    if(flag == false){
+                        return;
+                    }
+                    flag = false;
+                    playAudio(audio.unit_Tip_Two);
+
+                }
+            });
+
         }
         final MediaPlayer r=new MediaPlayer();
         try {
@@ -266,6 +288,10 @@ public class unit_interface extends child_menu {
                                                                                   childUnitInfo_lessonID.getLesson().bringToFront();
                                                                                   childUnitInfo_lessonID.getNextLesson().setClickable(true);
                                                                                   childUnitInfo_lessonID.getNextLesson().bringToFront();
+                                                                              }
+                                                                              if(childUnitInfo_lessonID.getLesson().isClickable() && childUnitInfo_lessonID.getLock()!=null){
+                                                                                  childUnitInfo_lessonID.getLock().setVisibility(View.GONE);
+                                                                                  childUnitInfo_lessonID.getLock().getVisibility();
                                                                               }
 
                                                                           }
@@ -420,9 +446,30 @@ public class unit_interface extends child_menu {
 
         });
         unedatble();
-        //playAduioInstructions(audio.unit_Tip_One);
-        //playAduioInstructions(audio.unit_Tip_Two);
-       // playAduioInstructions(audio.unit_Tip_three);
+
+    }
+    public void playAudio(String url){
+        try {
+
+            instructions.reset();
+            instructions.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            instructions.setDataSource(url);
+            instructions.prepare();
+            instructions.start();
+
+        }
+        catch (IOException e){
+            Log.d("5","inside IOException ");
+        }
+
+        catch (IllegalArgumentException e){
+            Log.d("5"," inside IllegalArgumentException");
+        }
+
+        catch (Exception e) {
+            e.printStackTrace();
+            Log.d("5","Inside exception");
+        }
     }
     private void unedatble(){
         for (childUnitInfo j:lessonsInfo){
@@ -435,24 +482,17 @@ public class unit_interface extends child_menu {
         lessonsInfo.get(0).getLesson().bringToFront();
 
     }
-    private void playInstructions(String aduio1,String aduio2){
+    @Override
+    protected void onStop() {
+        super.onStop();
+        try{
+            instructions.stop();
+        }catch (Exception e){
+            System.err.println("Unable to stop activity");
+        }
 
     }
-    private void playAduioInstructions(String unit_tip_one) {
-         final MediaPlayer instruction1=new MediaPlayer();
-         try {
-            instruction1.setDataSource(unit_tip_one);
-           instruction1.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-               @Override
-               public void onCompletion(MediaPlayer mediaPlayer) {
-                   instruction1.start();
-                   Log.i("soCooOL","play");
-               }
-           });
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+
     private ArrayList<Intent> fillTest(int random,int random2,int rand){
         ArrayList<Intent> rTest=new ArrayList<Intent>();
         Intent [] arr=new Intent[4];
@@ -501,6 +541,7 @@ public class unit_interface extends child_menu {
         }
         return null;
     }
+
     public void setLessons(ArrayList<String> lessons) {
         this.lessons = lessons;
     }
@@ -573,9 +614,6 @@ public class unit_interface extends child_menu {
     }
     public void clickedLesson(View view){
         Log.i("f",view.isInTouchMode()+" "+view.isClickable()+" ");
-        if(view.isInTouchMode()&& !(view.isClickable()) ){
-            playAduioInstructions(audio.unit_Tip_three);
-        }
         if (view.getId() == R.id.lesson1) {
             lessonIntent.putExtra("Lessonltr",lesson1.getText().toString());
         } else if (view.getId() == R.id.lesson2) {
@@ -595,6 +633,7 @@ public class unit_interface extends child_menu {
         startActivity(lessonIntent);
 
     }
+
 
 
 }
