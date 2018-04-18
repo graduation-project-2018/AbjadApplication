@@ -62,7 +62,6 @@ public class child_home extends child_menu {
                 String unitId = "unit3";
                 intentOfUnit.putExtra("id",unitId);
                 intentOfUnit.putExtra("Unitname","مدينتي");
-
                 startActivity(intentOfUnit);
             }
         });

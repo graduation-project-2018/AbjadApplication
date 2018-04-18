@@ -90,7 +90,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
         ActivityCompat.requestPermissions(this,permissions , REQUEST_RECORD_AUDIO_PERMISSION);
 
         r = new firebase_connection();
-        letter = "ش";
+        letter = h.getStringExtra("Lessonltr");
         m.title.setText(  "حرف "+"( " +letter+ " ) " );
         next_lesson_btn = (Button) findViewById(R.id.next_lesson);
         word_label = (TextView) findViewById(R.id.word_label);
@@ -222,7 +222,9 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                                                 // move to unit interface
                                                 computeChildScore();
                                                 Intent intent = new Intent(Lesson.this, unit_interface.class);
-                                                startActivity(intent);
+                                                intent.putExtra("unitID",unit_interface.unitID);
+                                                setResult(RESULT_OK, intent);
+                                                finish();
                                             }
                                             check_alef();
                                             check_ta();
@@ -441,9 +443,6 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
 
                             }
                         }
-
-
-
                         if(child_score> wordsArrayList.get(words_counter).child_score ){
                             System.out.println("Prevois score: "+  wordsArrayList.get(words_counter).child_score);
                             System.out.println("New score: "+child_score);
@@ -826,4 +825,5 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
         flag2 = true;
 
     }
+
 }

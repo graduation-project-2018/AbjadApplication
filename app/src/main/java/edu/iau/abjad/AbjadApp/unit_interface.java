@@ -35,12 +35,12 @@ public class unit_interface extends child_menu {
     private ArrayList<String> openLessons;
     private ArrayList<String> lessons;
     private ArrayList<String> lessonsScore;
-    private String unitID,childID;
     private audio_URLs audio;
     public ArrayList<Intent>  Rand;
     private ArrayList<childUnitInfo> lessonsInfo,testInfo;
     private MediaPlayer instructions;
-    String un,le;
+    String un;
+    public  static String unitID;
     boolean flag = true;
 
 
@@ -53,7 +53,7 @@ public class unit_interface extends child_menu {
         View contentView = inflater.inflate(R.layout.activity_unit_interface, null, false);
         myDrawerLayout.addView(contentView, 0);
         //initilization
-        childID = "childID";//Signin.id_child;
+        final String  childID = "childID";//Signin.id_child;
         lessons=new ArrayList<String>();
         childTests=new ArrayList<String>();
         innerScore=new firebase_connection();
@@ -72,6 +72,7 @@ public class unit_interface extends child_menu {
         testgetSq2=new firebase_connection();
         chilHomeIntent=getIntent();
         unitID=chilHomeIntent.getStringExtra("id");
+
         openLessons=new ArrayList<String>();
         childLessons=new ArrayList<String>();
         TestStringForTesting=new ArrayList<String>();
@@ -121,7 +122,8 @@ public class unit_interface extends child_menu {
         lesson5Stars=findViewById(R.id.lesson5Stars);
         lesson6Stars=findViewById(R.id.lesson6Stars);
         instructions=new MediaPlayer();
-        Log.i("dsdjcgjsd",unitID);
+       // Log.i("dsdjcgjsd",unitID);
+
         if(unitID.equals("unit1")){
             playAudio(audio.unit_Tip_One);
 
@@ -402,6 +404,86 @@ public class unit_interface extends child_menu {
                                                                            l.getLock().getVisibility();
                                                                        }
                                                                    }
+
+                                                                View.OnClickListener v=new View.OnClickListener() {
+                                                                    @Override
+                                                                    public void onClick(View view) {
+                                                                        if (view.getId() == R.id.lesson1) {
+                                                                            Log.i("putExtra",lesson1.getText().toString());
+                                                                            lessonIntent.putExtra("Lessonltr",lesson1.getText().toString());
+
+                                                                        } else if (view.getId() == R.id.lesson2) {
+                                                                            lessonIntent.putExtra("Lessonltr",lessonsInfo.get(1).getLesson().getText().toString());
+                                                                        } else if (view.getId() == R.id.lesson3){
+                                                                            lessonIntent.putExtra("Lessonltr",lessonsInfo.get(2).getLesson().getText().toString());
+                                                                        }else if (view.getId() == R.id.lesson4) {
+                                                                            lessonIntent.putExtra("Lessonltr",lessonsInfo.get(3).getLesson().getText().toString());
+
+                                                                        } else if (view.getId() == R.id.lesson5) {
+                                                                            lessonIntent.putExtra("Lessonltr",lessonsInfo.get(4).getLesson().getText().toString());
+
+                                                                        } else if (view.getId() == R.id.lesson6) {
+                                                                            Log.i("putExtra",lessonsInfo.get(5).getLesson().getText().toString());
+                                                                            lessonIntent.putExtra("Lessonltr",lessonsInfo.get(5).getLesson().getText().toString());
+                                                                        }
+                                                                        startActivity(lessonIntent);
+                                                                    }
+                                                                };
+                                                                lesson1.setOnClickListener(v);
+                                                                lesson2.setOnClickListener(v);
+                                                                lesson3.setOnClickListener(v);
+                                                                lesson4.setOnClickListener(v);
+                                                                lesson5.setOnClickListener(v);
+                                                                lesson6.setOnClickListener(v);
+                                                                View.OnClickListener clickedTest =new View.OnClickListener() {
+                                                                    @Override
+                                                                    public void onClick(View view) {
+                                                                        Bundle b = new Bundle();
+                                                                        if (view.getId() == R.id.test1|| view.getId()==R.id.ballon1) {
+                                                                            lessonIntent.putExtra("testid","Test1");
+                                                                            int random=randomTestNo.nextInt(4);
+                                                                            int random2=randomTestNo.nextInt(4);
+                                                                            int rand=randomTestNo.nextInt(2);
+                                                                            Log.i("Random1",1+") "+random+" "+random2+" "+rand);
+                                                                            setRand(fillTest(random,random2,rand));
+                                                                            Intent fIntent=Rand.get(0);
+                                                                            Rand.remove(0);
+                                                                            b.putParcelableArrayList("RandomIntent",Rand);
+                                                                            startActivity(fIntent);
+
+                                                                        } else if (view.getId() == R.id.test2|| view.getId()==R.id.ballon2) {
+                                                                            lessonIntent.putExtra("testid","Test2");
+                                                                            int random=randomTestNo.nextInt(4);
+                                                                            int random2=randomTestNo.nextInt(4);
+                                                                            int rand=randomTestNo.nextInt(2);
+                                                                            Log.i("Random1",2+") "+random+" "+random2+" "+rand);
+                                                                            setRand(fillTest(random,random2,rand));
+                                                                            Intent fIntent=Rand.get(0);
+                                                                            Rand.remove(0);
+                                                                            b.putParcelableArrayList("RandomIntent",Rand);
+                                                                            startActivity(fIntent);
+
+                                                                        } else if (view.getId() == R.id.test3 || view.getId()==R.id.ballon3){
+                                                                            lessonIntent.putExtra("testid","Test3");
+                                                                            int random=randomTestNo.nextInt(4);
+                                                                            int random2=randomTestNo.nextInt(4);
+                                                                            int rand=randomTestNo.nextInt(2);
+                                                                            Log.i("Random1",3+") "+random+" "+random2+" "+rand);
+                                                                            setRand(fillTest(random,random2,rand));
+                                                                            Intent fIntent=Rand.get(0);
+                                                                            Rand.remove(0);
+                                                                            b.putParcelableArrayList("RandomIntent",Rand);
+                                                                            startActivity(fIntent);
+                                                                        }
+
+                                                                    }
+                                                                };
+                                                                bal1.setOnClickListener(clickedTest);
+                                                                bal2.setOnClickListener(clickedTest);
+                                                                bal3.setOnClickListener(clickedTest);
+                                                                test1.setOnClickListener(clickedTest);
+                                                                test2.setOnClickListener(clickedTest);
+                                                                test3.setOnClickListener(clickedTest);
                                                             }
 
                                                             @Override
@@ -570,70 +652,11 @@ public class unit_interface extends child_menu {
     public void setRand(ArrayList<Intent> rand) {
         Rand = rand;
     }
-
-    public void clickedTest(View view){
-    Bundle b = new Bundle();
-        if (view.getId() == R.id.test1|| view.getId()==R.id.ballon1) {
-            lessonIntent.putExtra("testid","Test1");
-            int random=randomTestNo.nextInt(4);
-            int random2=randomTestNo.nextInt(4);
-            int rand=randomTestNo.nextInt(2);
-            Log.i("Random1",1+") "+random+" "+random2+" "+rand);
-            setRand(fillTest(random,random2,rand));
-            Intent fIntent=Rand.get(0);
-            Rand.remove(0);
-            b.putParcelableArrayList("RandomIntent",Rand);
-            startActivity(fIntent);
-
-        } else if (view.getId() == R.id.test2) {
-            lessonIntent.putExtra("testid","Test2");
-            int random=randomTestNo.nextInt(4);
-            int random2=randomTestNo.nextInt(4);
-            int rand=randomTestNo.nextInt(2);
-            Log.i("Random1",2+") "+random+" "+random2+" "+rand);
-            setRand(fillTest(random,random2,rand));
-            Intent fIntent=Rand.get(0);
-            Rand.remove(0);
-            b.putParcelableArrayList("RandomIntent",Rand);
-            startActivity(fIntent);
-
-        } else if (view.getId() == R.id.test3){
-            lessonIntent.putExtra("testid","Test3");
-            int random=randomTestNo.nextInt(4);
-            int random2=randomTestNo.nextInt(4);
-            int rand=randomTestNo.nextInt(2);
-            Log.i("Random1",3+") "+random+" "+random2+" "+rand);
-            setRand(fillTest(random,random2,rand));
-            Intent fIntent=Rand.get(0);
-            Rand.remove(0);
-            b.putParcelableArrayList("RandomIntent",Rand);
-            startActivity(fIntent);
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Intent intent=new Intent(this,Lesson.class);
+        if (resultCode == RESULT_OK) {
+            this.unitID=intent.getStringExtra("unitID");
         }
-
-
     }
-    public void clickedLesson(View view){
-        Log.i("f",view.isInTouchMode()+" "+view.isClickable()+" ");
-        if (view.getId() == R.id.lesson1) {
-            lessonIntent.putExtra("Lessonltr",lesson1.getText().toString());
-        } else if (view.getId() == R.id.lesson2) {
-            lessonIntent.putExtra("Lessonltr",lesson2.getText().toString());
-        } else if (view.getId() == R.id.lesson3){
-            lessonIntent.putExtra("Lessonltr",lesson3.getText().toString());
-
-        }else if (view.getId() == R.id.lesson4) {
-            lessonIntent.putExtra("Lessonltr",lesson4.getText().toString());
-
-        } else if (view.getId() == R.id.lesson5) {
-            lessonIntent.putExtra("Lessonltr",lesson5.getText().toString());
-
-        } else if (view.getId() == R.id.lesson6) {
-            lessonIntent.putExtra("Lessonltr", lesson6.getText().toString());
-        }
-        startActivity(lessonIntent);
-
-    }
-
-
-
 }
