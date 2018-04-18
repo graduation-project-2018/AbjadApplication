@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="500dp"
-    android:layout_height="300dp"
+    android:layout_height="230dp"
     tools:context="edu.iau.abjad.AbjadApp.popUp_repert_problem"
     android:background="#c6e5f3"
     android:orientation="vertical"
@@ -14,8 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="0dp"
         android:gravity="right"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/close_btn"
@@ -35,14 +34,15 @@
         android:orientation="horizontal"
         android:gravity="center"
        >
-        <TextView
-            android:id="@+id/textView31"
+
+        <EditText
+            android:id="@+id/edu_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ahmad@gmail.com"
-            android:textColor="#333333"
-            android:textSize="10pt"
-            />
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="textEmailAddress" />
+
         <TextView
             android:id="@+id/textView30"
             android:layout_width="wrap_content"
@@ -65,24 +65,6 @@
         android:gravity="center"
         >
 
-        <EditText
-            android:id="@+id/edu_pass"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPassword"
-          />
-
-        <TextView
-            android:id="@+id/textView7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="كلمة مرور"
-            android:layout_margin="15dp"
-            android:textColor="#333333"
-            android:textSize="10pt"
-            />
-
     </LinearLayout>
 
     <LinearLayout
@@ -90,18 +72,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="right">
-
-        <TextView
-            android:id="@+id/error_msg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="الرجاء إدخال كلمة المرور"
-            android:layout_margin="3dp"
-            android:paddingRight="100dp"
-            android:textColor="#b32a2f"
-            android:textSize="8pt"
-
-            />
 
     </LinearLayout>
 
