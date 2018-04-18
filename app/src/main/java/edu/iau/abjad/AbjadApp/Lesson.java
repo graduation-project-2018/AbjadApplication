@@ -74,6 +74,8 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
         m.title = (TextView) findViewById(R.id.interface_title);
         m.title.setText("حرف ( م )");
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        Intent h=getIntent();
+        Log.i("getExtra",h.getStringExtra("Lessonltr"));
 
         //inflate your activity layout here!
         View contentView = inflater.inflate(R.layout.activity_lesson, null, false);

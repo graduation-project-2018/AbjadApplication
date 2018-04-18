@@ -1,11 +1,14 @@
 package edu.iau.abjad.AbjadApp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 public class ReadingTest extends child_menu {
     menu_variables m = new menu_variables();
@@ -21,5 +24,6 @@ public class ReadingTest extends child_menu {
         View contentView = inflater.inflate(R.layout.activity_reading_test, null, false);
 
         myDrawerLayout.addView(contentView, 0);
+
     }
 }

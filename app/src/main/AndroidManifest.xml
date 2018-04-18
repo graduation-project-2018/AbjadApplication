@@ -30,10 +30,16 @@
         <activity android:name=".HeardWordTest" />
         <activity android:name=".ReadingTest" />
         <activity android:name=".child_home">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".report_problem" />
-        <activity android:name=".unit_interface" />
+        <activity android:name=".unit_interface" >
+
+        </activity>
         <activity android:name=".child_menu" />
         <activity android:name=".Signin" >
 
@@ -48,11 +54,7 @@
         <activity android:name=".menu_educator" />
         <activity android:name=".change_profile_photo" />
         <activity android:name=".SigninEducator" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".popUp_repert_problem" />
     </application>

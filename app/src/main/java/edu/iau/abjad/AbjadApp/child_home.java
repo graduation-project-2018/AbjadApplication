@@ -38,20 +38,36 @@ public class child_home extends child_menu {
         school=findViewById(R.id.schoolButton);
         homeLand=findViewById(R.id.homeButton);
         family=findViewById(R.id.familyButton);
+        school.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String unitId = "unit2";
+                intentOfUnit.putExtra("id",unitId);
+                intentOfUnit.putExtra("Unitname","مدرستي");
+                startActivity(intentOfUnit);
+            }
+        });
+        family.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String unitId = "unit1";
+                intentOfUnit.putExtra("id",unitId);
+                intentOfUnit.putExtra("Unitname","اسرتي");
+                startActivity(intentOfUnit);
+            }
+        });
+        homeLand.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String unitId = "unit3";
+                intentOfUnit.putExtra("id",unitId);
+                intentOfUnit.putExtra("Unitname","مدينتي");
 
+                startActivity(intentOfUnit);
+            }
+        });
     }
-    public void unitChosed(View view){
-        String unitId = "unit2";
-        if(school.callOnClick()){
-            unitId="unit2";
-        }else if(homeLand.callOnClick()){
-            unitId="unit3";
-        }else if(family.callOnClick()){
-            unitId="unit1";
-        }
-        intentOfUnit.putExtra("id",unitId);
-        startActivity(intentOfUnit);
-    }
+
 }
 
 
