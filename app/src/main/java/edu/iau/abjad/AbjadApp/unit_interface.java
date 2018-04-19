@@ -42,6 +42,7 @@ public class unit_interface extends child_menu {
     String un;
     public  static String unitID;
     boolean flag = true;
+    private  String childID;
 
 
     @Override
@@ -53,7 +54,7 @@ public class unit_interface extends child_menu {
         View contentView = inflater.inflate(R.layout.activity_unit_interface, null, false);
         myDrawerLayout.addView(contentView, 0);
         //initilization
-        final String  childID = "childID";//Signin.id_child;
+        childID = Signin.id_child;
         lessons=new ArrayList<String>();
         childTests=new ArrayList<String>();
         innerScore=new firebase_connection();
