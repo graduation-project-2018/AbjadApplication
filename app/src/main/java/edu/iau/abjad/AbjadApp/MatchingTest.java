@@ -76,7 +76,7 @@ public class MatchingTest extends child_menu {
         Checking=new MatchingTestContent[3];
         rfb=new firebase_connection();
         WordDB=PicDB="";
-        TestNum=1;
+        TestNum=3;
         r = new Random();
         WordsNumber = new int[3];
         flag2 = true;
@@ -174,10 +174,10 @@ for (int i =0 ; i<Checking.length ; i++){
                            }
                            if(correct==true){
                                Text1.setBackgroundColor(getColor(R.color.correct));
-
+                               correct=false;
                            }
                            else {Text1.setBackgroundColor(getColor(R.color.wrong));
-                               correct=false;}
+                               }
                        for(int j = 0 ; j<Checking.length ; j++){
                            if(Checking[1].Pic.equals(Content.get(j).Pic)){
                                if(Text2.getText().toString().equals(Content.get(j).Word)){
@@ -285,6 +285,7 @@ View.OnClickListener RestartListener = new View.OnClickListener() {
             ClipData data = ClipData.newPlainText("","");
             View.DragShadowBuilder myShadowBuilder = new View.DragShadowBuilder(view);
             view.startDrag(data,myShadowBuilder,view,0);
+            view.setBackgroundColor(getColor(R.color.normal));
             return true;
         }
     };
@@ -380,6 +381,7 @@ View.OnDragListener dragListener1 = new View.OnDragListener() {
         public boolean onDrag(View view, DragEvent event) {
             int dragEvent = event.getAction();
             final View v = (View) event.getLocalState();
+
             switch(dragEvent){
                 case DragEvent.ACTION_DRAG_ENTERED:
                 {
