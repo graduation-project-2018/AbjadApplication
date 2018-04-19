@@ -58,11 +58,7 @@
         <activity
             android:name=".child_home"
             android:screenOrientation="landscape">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
         </activity>
 
@@ -88,7 +84,9 @@
 
         <activity android:name=".SignUp"
             android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
-        <activity android:name=".userTypeSelection" />
+        <activity android:name=".userTypeSelection" >
+
+        </activity>
         <activity android:name=".ResetPassword"
             android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
         <activity android:name=".child_profile"
@@ -104,7 +102,13 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".splash_screen"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".child_change_password"></activity>
         <activity android:name=".educator_profile"
             android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>

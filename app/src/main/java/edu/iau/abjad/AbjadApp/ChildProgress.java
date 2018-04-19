@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,6 +22,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
+
+import java.io.FileInputStream;
 
 import static java.security.AccessController.getContext;
 
@@ -85,7 +89,7 @@ public class ChildProgress extends menu_educator {
             }
         });
 
-
+        final Intent c=new Intent(this,userTypeSelection.class);
         changePass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,8 +99,6 @@ public class ChildProgress extends menu_educator {
         });
 
         //get data from firebase and set Text view
-
-
         test.ref.child("child_takes_test").child("childID").child("testID");
         child.ref.child("Children").child(childID).addValueEventListener(new ValueEventListener() {
             @Override
@@ -115,6 +117,22 @@ public class ChildProgress extends menu_educator {
                                 new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
+
+                                       final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                        AuthCredential credential = EmailAuthProvider
+                                                .getCredential("ala2.hpapa@gmail.com", "abjadAA2468");
+                                       user.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()) {
+                                                    user.delete();
+                                                    finish();
+                                                    startActivity(c);
+                                                } else {
+                                                }
+                                            }
+                                        });
+
                                     }
                                 });
                         builder.setNegativeButton("لا", new DialogInterface.OnClickListener() {
