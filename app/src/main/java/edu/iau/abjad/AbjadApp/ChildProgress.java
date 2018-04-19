@@ -2,16 +2,26 @@ package edu.iau.abjad.AbjadApp;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
+
+import static java.security.AccessController.getContext;
 
 public class ChildProgress extends menu_educator {
     menu_variables m = new menu_variables();
@@ -29,25 +39,23 @@ public class ChildProgress extends menu_educator {
     private TextView testName;
     private firebase_connection lesson;
     private firebase_connection test;
-    private firebase_connection child;
-    private AlertDialog changePassDialog;
+    private firebase_connection child,deleteChildQ;
+    private String childID;
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         m.title = (TextView) findViewById(R.id.interface_title);
-        m.title.setText("أحمد عمر");
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         //inflate your activity layout here!
-        View contentView = inflater.inflate(R.layout.activity_child_progress, null, false);
+        final View contentView = inflater.inflate(R.layout.activity_child_progress, null, false);
 
         mDrawerLayout.addView(contentView, 0);
         //intilization
-         viewChildProfile= findViewById(R.id.ChildProfile);
+        viewChildProfile= findViewById(R.id.ChildProfile);
         deleteChild=findViewById(R.id.deleteChild);
         changePass=findViewById(R.id.changePass);
          nUnlokedLesson=findViewById(R.id.nUnlokedLesson);
@@ -62,24 +70,22 @@ public class ChildProgress extends menu_educator {
          lesson=new firebase_connection();
          test=new firebase_connection();
          child = new firebase_connection();
-         final Intent childProfile =new Intent(this, child_profile.class );
+         childID="childID";//Signin.id_child;
+        deleteChildQ=new firebase_connection();
          final Intent changePassword =new Intent(this, change_password.class );
-        changePassDialog.setMessage("Are you sure you want to delete this cute child :( ");
-        changePassDialog.setTitle("deleting a child");
+
          //set onClickListener for 3 buttons
          viewChildProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                 Intent childProfile =new Intent(ChildProgress.this, child_profile.class );
+                childProfile.putExtra("childID",childID);
+                setResult(RESULT_OK, childProfile);
                 startActivity(childProfile);
             }
         });
 
-        deleteChild.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-            }
-        });
         changePass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,10 +96,38 @@ public class ChildProgress extends menu_educator {
 
         //get data from firebase and set Text view
 
-        lesson.ref.child("child_takes_lesson").child("childID").child("lessonID").child("status").addValueEventListener(new ValueEventListener() {
+
+        test.ref.child("child_takes_test").child("childID").child("testID");
+        child.ref.child("Children").child(childID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String status=dataSnapshot.getValue().toString();
+                final String fName=dataSnapshot.child("first_name").getValue(String.class);
+                final String lName=dataSnapshot.child("last_name").getValue(String.class);
+                m.title.setText(fName+" "+lName);
+                deleteChild.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(contentView.getContext());
+                        builder.setCancelable(true);
+                        builder.setTitle("تأكيد حذف المستخدم");
+                        builder.setMessage("هل أنت متأكد من حذف "+fName+" "+lName);
+                        builder.setPositiveButton("نعم",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                    }
+                                });
+                        builder.setNegativeButton("لا", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                    }
+
+                });
+
             }
 
             @Override
@@ -101,7 +135,6 @@ public class ChildProgress extends menu_educator {
 
             }
         });
-        test.ref.child("child_takes_test").child("childID").child("testID");
 
     }
 

@@ -1,6 +1,7 @@
 package edu.iau.abjad.AbjadApp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -87,7 +88,7 @@ read.addValueEventListener(new ValueEventListener() {
         child.gender = (String) dataSnapshot.child("gender").getValue();
         child.last_name = (String) dataSnapshot.child("last_name").getValue();
         child.photo_URL = (String) dataSnapshot.child("photo_URL").getValue();
-        child.username = (String) dataSnapshot.child("username").getValue();
+        child.username = (String) dataSnapshot.child("email").getValue();
         FNChild.setText(child.first_name);
         LNChild.setText(child.last_name);
         Username.setText(child.username);
@@ -150,5 +151,12 @@ read.addValueEventListener(new ValueEventListener() {
         Log.w(null, "Failed to read value.", error.toException());
     }
 });
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Intent intent=new Intent(this,ChildProgress.class);
+        if (resultCode == RESULT_OK) {
+            this.ChildID=intent.getStringExtra("childID");
+        }
     }
 }
