@@ -37,7 +37,7 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
     String selectedSentence;
     String selectedSentenceAudio;
     static int true_false_test_score;
-    boolean flag = true;
+    boolean flag ;
     int true_or_false;
     int sentence_number;
     private  static CountDownTimer countDownTimer;
@@ -64,6 +64,8 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
         abjad = (ImageView) findViewById(R.id.abjad_true_false);
         abjad.setBackgroundResource(R.drawable.abjad_speak);
         anim =(AnimationDrawable) abjad.getBackground();
+        flag = true;
+        flag2 = true;
 
 
                         //int test_ID = previous_Intent.getStringExtra("test_ID");

@@ -43,7 +43,7 @@ public class MatchingTest extends child_menu {
     boolean correct ;
     AnimationDrawable anim;
     ImageView abjad ;
-    boolean flag2 = true;
+    boolean flag2 ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +79,7 @@ public class MatchingTest extends child_menu {
         TestNum=1;
         r = new Random();
         WordsNumber = new int[3];
+        flag2 = true;
 
         correct=false;
         counter=0;

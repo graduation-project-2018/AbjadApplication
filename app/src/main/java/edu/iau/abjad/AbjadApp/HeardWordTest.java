@@ -44,14 +44,14 @@ public class HeardWordTest extends child_menu  {
     private MediaPlayer test_audio = new MediaPlayer();
     private MediaPlayer audio_feedback = new MediaPlayer();
     private ImageButton speaker;
-    String selected_word = "";
+    String selected_word ;
     String url;
     audio_URLs audio_urLs = new audio_URLs();
-    boolean flag = true, child_amswer;
+    boolean flag , child_amswer;
     static  int final_heard_child_score;
     AnimationDrawable anim;
     ImageView abjad;
-    boolean flag2 = true;
+    boolean flag2;
 
 
     //check if user is signed in or return 'em back a sign in look
@@ -89,6 +89,9 @@ public class HeardWordTest extends child_menu  {
         abjad = (ImageView) findViewById(R.id.abjad_heard_word);
         final_heard_child_score =-1;
         speaker= (ImageButton) findViewById(R.id.speaker);
+        flag = true;
+        flag2 = true;
+        selected_word ="";
 
         abjad.setBackgroundResource(R.drawable.abjad_speak);
         anim =(AnimationDrawable) abjad.getBackground();

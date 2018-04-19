@@ -42,34 +42,34 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
     SpeechRecognizer mSpeechRecognizer ;
     Intent mSpeechRecognizerIntent ;
     Button next_lesson_btn;
-    static int words_counter=0;
+    static int words_counter;
     String word;
     static firebase_connection r;
     ImageView lesson_pic;
     static String lessonID;
-    static ArrayList <lesson_words> wordsArrayList = new ArrayList<lesson_words>();
-    MediaPlayer lesson_audio = new MediaPlayer();
-    MediaPlayer audio_instruction = new MediaPlayer();
+    static ArrayList <lesson_words> wordsArrayList;
+    MediaPlayer lesson_audio;
+    MediaPlayer audio_instruction;
     Button speaker_btn;
-    boolean flag = true, flag2 = true; // to stop on Complete media listener
+    boolean flag , flag2 ; // to stop on Complete media listener
     audio_URLs audio_URLs = new audio_URLs();
     final int REQUEST_RECORD_AUDIO_PERMISSION = 200;
     private boolean permissionToRecordAccepted = false;
     private String [] permissions = {Manifest.permission.RECORD_AUDIO};
-    static int child_score=0,currentScore =0;
-    static String status="",childTime="";
+    static int child_score ,currentScore ;
+    static String status,childTime;
     static long startTime, endTime;
-    static int sum=0;
-    static boolean incomplete = false;
+    static int sum;
+    static boolean incomplete;
     static String acTime;
     boolean isEndOfSpeech ;
     ImageView abjad;
     AnimationDrawable anim;
-    MediaPlayer a1= new MediaPlayer();
+    MediaPlayer a1;
     String letter ;
     ImageView score_img;
     static String unit_id;
-    boolean move_child = false;
+    boolean move_child ;
 
 
     @SuppressLint("ClickableViewAccessibility")
@@ -96,6 +96,8 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
 
         letter = h.getStringExtra("Lessonltr");
         m.title.setText(  "حرف "+"( " +letter+ " ) " );
+        wordsArrayList = new ArrayList<lesson_words>();
+
         next_lesson_btn = (Button) findViewById(R.id.next_lesson);
         word_label = (TextView) findViewById(R.id.word_label);
         sentence_label = (TextView) findViewById(R.id.sentence_label);
@@ -107,6 +109,18 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
         abjad.setBackgroundResource(R.drawable.abjad_speak);
         anim =(AnimationDrawable) abjad.getBackground();
         score_img = (ImageView) findViewById(R.id.score_img);
+        incomplete = false;
+        sum=0;
+        child_score=0;
+        currentScore =0;
+        flag = true;
+        flag2 = true;
+        move_child = false;
+        status="";
+        childTime="";
+        a1= new MediaPlayer();
+        lesson_audio = new MediaPlayer();
+        audio_instruction = new MediaPlayer();
 
 
 
@@ -117,6 +131,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
+                    System.out.println("الحرف "+ letter);
                     for (DataSnapshot letter : dataSnapshot.getChildren()) {
                          lessonID = letter.getKey();
                     }
@@ -603,14 +618,14 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
             }
         }
         sum=sum/7; //get avg
-        Query query =  r.ref.child("child_takes_lesson").child("childID").orderByKey().equalTo(lessonID);
+        Query query =  r.ref.child("child_takes_lesson").child(Signin.id_child).child(unit_interface.unitID).orderByKey().equalTo(lessonID);
        query.addListenerForSingleValueEvent(new ValueEventListener() {
            @Override
            public void onDataChange(DataSnapshot dataSnapshot) {
                if(dataSnapshot.exists()){
                    System.out.println("Eixist!!!!!!!!");
                    try{
-                       DatabaseReference read_score =  r.ref.child("child_takes_lesson").child("childID").child(lessonID);
+                       DatabaseReference read_score =  r.ref.child("child_takes_lesson").child(Signin.id_child).child(unit_interface.unitID).child(lessonID);
                        read_score.addValueEventListener(new ValueEventListener() {
                            @Override
                            public void onDataChange(DataSnapshot dataSnapshot) {
@@ -622,14 +637,14 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                                        childTime = dataSnapshot.child("time").getValue().toString();
                                    }
                                    if(currentScore<sum){
-                                       r.ref.child("child_takes_lesson").child("childID").child(lessonID).child("score").setValue(sum);
+                                       r.ref.child("child_takes_lesson").child(Signin.id_child).child(unit_interface.unitID).child(lessonID).child("score").setValue(sum);
                                    }
                                    if(Double.valueOf(childTime)>Double.valueOf(acTime)){
-                                       r.ref.child("child_takes_lesson").child("childID").child(lessonID).child("time").setValue(acTime);
+                                       r.ref.child("child_takes_lesson").child(Signin.id_child).child(unit_interface.unitID).child(lessonID).child("time").setValue(acTime);
                                    }
 
                                    if(incomplete==false && status != "مكتمل"){
-                                       r.ref.child("child_takes_lesson").child("childID").child(lessonID).child("status").setValue("مكتمل");
+                                       r.ref.child("child_takes_lesson").child(Signin.id_child).child(unit_interface.unitID).child(lessonID).child("status").setValue("مكتمل");
                                    }
                            }
                            @Override
@@ -644,14 +659,14 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                }
                else{
                    if(incomplete){
-                       r.ref.child("child_takes_lesson").child("childID").child(lessonID).child("status").setValue("غير مكتمل");
+                       r.ref.child("child_takes_lesson").child(Signin.id_child).child(unit_interface.unitID).child(lessonID).child("status").setValue("غير مكتمل");
                    }
                    else{
-                       r.ref.child("child_takes_lesson").child("childID").child(lessonID).child("status").setValue("مكتمل");
+                       r.ref.child("child_takes_lesson").child(Signin.id_child).child(unit_interface.unitID).child(lessonID).child("status").setValue("مكتمل");
 
                    }
-                   r.ref.child("child_takes_lesson").child("childID").child(lessonID).child("score").setValue(sum);
-                   r.ref.child("child_takes_lesson").child("childID").child(lessonID).child("time").setValue(acTime);
+                   r.ref.child("child_takes_lesson").child(Signin.id_child).child(unit_interface.unitID).child(lessonID).child("score").setValue(sum);
+                   r.ref.child("child_takes_lesson").child(Signin.id_child).child(unit_interface.unitID).child(lessonID).child("time").setValue(acTime);
                }
            }
            @Override
@@ -827,7 +842,9 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                 anim =(AnimationDrawable) abjad.getBackground();
                 if(move_child){
                     Intent intent = new Intent(Lesson.this, unit_interface.class);
-                    startActivity(intent);
+                    intent.putExtra("unitID",unit_interface.unitID);
+                    setResult(RESULT_OK, intent);
+                    finish();
 
                 }
 
