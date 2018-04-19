@@ -66,7 +66,7 @@ public class child_profile extends menu_educator{
         //Username = (EditText) findViewById(R.id.UsernameFieldCP);
         FNChildIcon = (ImageView) findViewById(R.id.FNErrorIcon);
         LNChildIcon = (ImageView) findViewById(R.id.LNErrorIcon);
-        //UsernameIcon = (ImageView) findViewById(R.id.UsernameErrorIcon);
+        //UsernameIcon = (ImageView) findViewById(R.id.UsernameErrorIcon);iiiiiiiiii
         ChildImage = (ImageView) findViewById(R.id.ChildImageCP);
         FNChildMsg = (TextView) findViewById(R.id.FNErrorMsgCP);
         LNChildMsg = (TextView) findViewById(R.id.LNErrorMsgCP);

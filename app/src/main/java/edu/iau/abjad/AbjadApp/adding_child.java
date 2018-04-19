@@ -64,7 +64,7 @@ public class adding_child  extends menu_educator {
     String fullUsername;
     String pass;
    DatabaseReference rf;
-   int newChildNumber;
+
    int errorCounts;
     Pattern ArabicLetters = Pattern.compile("^[أ-ي ]+$");
     Pattern EnglishLetters = Pattern.compile("^[a-zA-Z ]+$");
@@ -110,13 +110,13 @@ public class adding_child  extends menu_educator {
         addBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                checkExistingAccount();
-            /*  checkInputs();
+             //   checkExistingAccount();
+             checkInputs();
               if (errorCounts == 0){
 
                   addChild();
               }
-*/
+
             }
 
 
@@ -172,7 +172,7 @@ public class adding_child  extends menu_educator {
           radioButton = (RadioButton) findViewById(selectedId);
           String selectedGender = radioButton.getText().toString();
         child = new childInformation(fname,lname,selectedGender,"_",userName);
-        getNewChildNumber();
+
        r.ref.addValueEventListener(new ValueEventListener() {
        @Override
        public void onDataChange(DataSnapshot dataSnapshot) {
@@ -181,7 +181,7 @@ public class adding_child  extends menu_educator {
            r.ref.addValueEventListener(new ValueEventListener(){
                @Override
                public void onDataChange(DataSnapshot dataSnapshot) {
-                   r.ref.child("Educator_has_child").child("educator22").child("childID_" + newChildNumber).setValue(user_id);
+                   r.ref.child("Educator_has_child").child("educator22").child(user_id).setValue(true);
 
                  }
 
@@ -374,56 +374,6 @@ Boolean emptyConPass = false;
         } }
 
     }
-    public void getNewChildNumber(){
-
-
-        r.ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-         //Educator Id need to be changed
-                Query q = r.ref.child("Educator_has_child").child("educator22").orderByKey().limitToLast(1);
-                q.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.exists()) {
-
-                            LastChildKey = dataSnapshot.getValue().toString();
-                            String[] arrayString = LastChildKey.split("=");
-                            String keyPart = arrayString[0];
-                            String [] lastNumber = keyPart.split("_");
-                            int x = Integer.parseInt(lastNumber[1]);
-                            x++;
-                            newChildNumber =x;
-
-
-                        }
-                        else {
-
-                            newChildNumber = 1;
-                        }
-
-
-
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        //Handle possible errors.
-                    }
-                });
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-
-
-
-    }//end of getNewChildNumber function
-
 
 
 
