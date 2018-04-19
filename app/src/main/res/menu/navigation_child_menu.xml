@@ -10,6 +10,10 @@
         android:icon="@drawable/password_blue"
         android:iconTint="#0B365C">
     </item>
+
+    <item android:id="@+id/delete_child"
+        android:title="حذف الحساب"
+        android:icon="@drawable/basket_delete"></item>
     <item android:id="@+id/report_problem"
         android:title="الإبلاغ عن مشكلة"
         android:icon="@drawable/report_icon"

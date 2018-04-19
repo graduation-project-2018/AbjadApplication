@@ -22,6 +22,8 @@
         <activity
             android:name=".Lesson"
             android:screenOrientation="landscape">
+
+
         </activity>
         <activity
             android:name=".educator_home"
@@ -34,13 +36,16 @@
         <activity
             android:name=".MatchingTest"
             android:screenOrientation="landscape">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
         </activity>
         <activity
             android:name=".child_photo"
-            android:screenOrientation="landscape" >
-
-        </activity>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".ChildProgress"
             android:screenOrientation="landscape">
@@ -59,7 +64,6 @@
             android:name=".child_home"
             android:screenOrientation="landscape">
 
-
         </activity>
 
         <activity
@@ -75,18 +79,21 @@
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden|adjustResize|adjustPan" >
 
+
         </activity>
 
         <activity android:name=".report_problem"
             android:windowSoftInputMode="stateHidden|adjustResize|adjustPan" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <activity android:name=".SignUp"
             android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
-        <activity android:name=".userTypeSelection" >
-
-        </activity>
+        <activity android:name=".userTypeSelection" />
         <activity android:name=".ResetPassword"
             android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
         <activity android:name=".child_profile"
@@ -102,13 +109,7 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".splash_screen"
-            android:screenOrientation="landscape">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:screenOrientation="landscape"></activity>
         <activity android:name=".child_change_password"></activity>
         <activity android:name=".educator_profile"
             android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
@@ -117,11 +118,7 @@
             android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
         <activity android:name=".SigninEducator"
             android:windowSoftInputMode="stateHidden|adjustResize|adjustPan">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".popUp_repert_problem"
             android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>

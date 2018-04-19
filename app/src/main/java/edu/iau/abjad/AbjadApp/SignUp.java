@@ -24,13 +24,11 @@ import java.util.regex.Pattern;
 public class SignUp extends AppCompatActivity {
     Button SignUpBtn;
     EditText FN ,LN,Email,Pass,Cpass;
-    TextView FNMsg,LNMsg,EmailMsg,PassMsg,CpassMsg;
-    ImageView FNIcon,LNIcon,EmailIcon,PassIcon,CpassIcon;
     String email,password,educator_id;
-    int counter;
+    boolean condition=true;
     private FirebaseAuth mAuth;
     firebase_connection r;
-    Pattern ArabicLetters,EnglishLetters;
+    Pattern ArabicLetters;
     Educator educator;
  private   Intent educatorHome;
     @Override
@@ -43,18 +41,7 @@ public class SignUp extends AppCompatActivity {
         Email = (EditText) findViewById(R.id.EmailFieldSU);
         Pass = (EditText) findViewById(R.id.PassFieldSU);
         Cpass = (EditText) findViewById(R.id.CPassFieldSU);
-        FNMsg = (TextView) findViewById(R.id.FNErrorMsgSU);
-        LNMsg = (TextView) findViewById(R.id.LNErrorMsgSU);
-        EmailMsg = (TextView) findViewById(R.id.EmailErrorMsgSU);
-        PassMsg = (TextView) findViewById(R.id.PassErrorMsgSU);
-        CpassMsg = (TextView) findViewById(R.id.CPassErrorMsgSU);
-        FNIcon = (ImageView) findViewById(R.id.FNErrorIconSU);
-        LNIcon = (ImageView) findViewById(R.id.LNErrorIconSU);
-        EmailIcon = (ImageView) findViewById(R.id.EmailErrorIconSU);
-        PassIcon = (ImageView) findViewById(R.id.PassErrorIconSU);
-        CpassIcon = (ImageView) findViewById(R.id.CPassErrorIconSU);
         ArabicLetters = Pattern.compile("^[أ-ي ]+$");
-        EnglishLetters = Pattern.compile("^[a-zA-Z ]+$");
         r = new firebase_connection();
         educatorHome= new Intent(this,educator_home.class);
 
@@ -64,49 +51,29 @@ public class SignUp extends AppCompatActivity {
         SignUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FNMsg.setVisibility(View.INVISIBLE);
-                LNMsg.setVisibility(View.INVISIBLE);
-                EmailMsg.setVisibility(View.INVISIBLE);
-                PassMsg.setVisibility(View.INVISIBLE);
-                CpassMsg.setVisibility(View.INVISIBLE);
-                FNIcon.setVisibility(View.INVISIBLE);
-                LNIcon.setVisibility(View.INVISIBLE);
-                EmailIcon.setVisibility(View.INVISIBLE);
-                PassIcon.setVisibility(View.INVISIBLE);
-                CpassIcon.setVisibility(View.INVISIBLE);
-                counter = 0;
+
+                condition = true;
                 if (FN.getText().toString().isEmpty()) {
-                    FNMsg.setText("قم بتعبئة الحقل باسم المربي");
-                    FNMsg.setVisibility(View.VISIBLE);
-                    FNIcon.setVisibility(View.VISIBLE);
+                    FN.setError("قم بتعبئة الحقل باسم المربي");
+                    FN.requestFocus();
+                    condition = false;
                 } else if (!FN.getText().toString().contains(" ") || FN.getText().toString().contains(" ")) {
                     if (!ArabicLetters.matcher(FN.getText().toString()).matches()) {
-                        FNMsg.setText("قم بكتابة اسم المربي باللغة العربية ");
-                        FNMsg.setVisibility(View.VISIBLE);
-                        FNIcon.setVisibility(View.VISIBLE);
-                    } else {
-                        counter++;
-
-
-
+                        FN.setError("قم بكتابة اسم المربي باللغة العربية ");
+                        FN.requestFocus();
+                        condition=false;
                     }
-
                 }
 
                 if (LN.getText().toString().isEmpty()) {
-                    LNMsg.setText("قم بتعبئة الحقل بلقب المربي");
-                    LNMsg.setVisibility(View.VISIBLE);
-                    LNIcon.setVisibility(View.VISIBLE);
+                    LN.setError("قم بتعبئة الحقل بلقب المربي");
+                    LN.requestFocus();
+                    condition= false;
                 } else if (!LN.getText().toString().contains(" ") || LN.getText().toString().contains(" ")) {
                     if (!ArabicLetters.matcher(LN.getText().toString()).matches()) {
-                        LNMsg.setText("قم بكتابة لقب المربي باللغة العربية ");
-                        LNMsg.setVisibility(View.VISIBLE);
-                        LNIcon.setVisibility(View.VISIBLE);
-                    } else {
-                        counter++;
-
-
-
+                        LN.setError("قم بكتابة لقب المربي باللغة العربية ");
+                        LN.requestFocus();
+                        condition=false;
                     }
 
                 }
@@ -116,55 +83,33 @@ public class SignUp extends AppCompatActivity {
                 password = Pass.getText().toString();
 
                 if (email.isEmpty()) {
-                    EmailIcon.setVisibility(View.VISIBLE);
-                    EmailMsg.setText("قم بتعبئة الحقل بالبريد الإلكتروني");
-                    EmailMsg.setVisibility(View.VISIBLE);
-
+                    Email.setError("قم بتعبئة الحقل بالبريد الإلكتروني");
+                    Email.requestFocus();
+                    condition=false;
                 } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                    EmailIcon.setVisibility(View.VISIBLE);
-                    EmailMsg.setText("البريد الإلكتروني ليس على النمط someone@somewhere.com ");
-                    EmailMsg.setVisibility(View.VISIBLE);
-
-
-                } else {
-                    counter++;
-                   ;
-
-
+                    Email.setError("البريد الإلكتروني ليس على النمط someone@somewhere.com ");
+                    Email.requestFocus();
+                    condition = false;
                 }
                 if (password.isEmpty()) {
-                    PassIcon.setVisibility(View.VISIBLE);
-                    PassMsg.setText("قم بتعبئة الحقل بكلمة المرور");
-                    PassMsg.setVisibility(View.VISIBLE);
-
-
+                    Pass.setError("قم بتعبئة الحقل بكلمة المرور");
+                    Pass.requestFocus();
+                    condition =false;
                 } else if (password.length() < 6) {
-                    PassIcon.setVisibility(View.VISIBLE);
-                    PassMsg.setText("كلمة المرور يجب ان تكون اطول من 6 خانات ");
-                    PassMsg.setVisibility(View.VISIBLE);
-
-                } else {
-                    counter++;
-                   ;
-
-
+                    Pass.setError("كلمة المرور يجب ان تكون اطول من 6 خانات ");
+                    Pass.requestFocus();
+                    condition =false;
                 }
-
                 if (Cpass.getText().toString().isEmpty()) {
-                    CpassMsg.setText("قم بتعبئة الحقل بكلمة المرور");
-                    CpassMsg.setVisibility(View.VISIBLE);
-                    CpassIcon.setVisibility(View.VISIBLE);
+                    Cpass.setError("قم بتعبئة الحقل بكلمة المرور");
+                    Cpass.requestFocus();
+                    condition =false;
                 } else if (!Cpass.getText().toString().matches(password)) {
-                    CpassMsg.setText("المدخل في الحقل لا يطابق كلمة المرور المدخلة ");
-                    CpassMsg.setVisibility(View.VISIBLE);
-                    CpassIcon.setVisibility(View.VISIBLE);
-                } else {
-                    counter++;
-                   ;
-
-
+                    Cpass.setError("المدخل في الحقل لا يطابق كلمة المرور المدخلة ");
+                    Cpass.requestFocus();
+                    condition =false;
                 }
-                if(counter==5){
+                if(condition==true){
                     addEducatorInfo();
                 }
             }
@@ -205,9 +150,8 @@ public class SignUp extends AppCompatActivity {
                             //Toast.makeText(adding_child.this, "لم تتم إضافة الطفل، الرجاء المحاولة لاحقا", Toast.LENGTH_LONG).show();//
                             //user added previously
                              if(e.getMessage().contains("email address")){
-                                 EmailMsg.setText("البريد الإلكتروني المدخل مستخدم من قبل مستخدم آخر");
-                                 EmailMsg.setVisibility(View.VISIBLE);
-                                 EmailIcon.setVisibility(View.VISIBLE);
+                                 Email.setError("البريد الإلكتروني المدخل مستخدم من قبل مستخدم آخر");
+                                 Email.requestFocus();
                              }
                              else Toast.makeText(SignUp.this,e.getMessage(), Toast.LENGTH_LONG).show();
 
