@@ -47,7 +47,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
     static firebase_connection r;
     ImageView lesson_pic;
     static String lessonID;
-    static ArrayList <lesson_words> wordsArrayList = new ArrayList<lesson_words>();
+    static ArrayList <lesson_words> wordsArrayList;
     MediaPlayer lesson_audio = new MediaPlayer();
     MediaPlayer audio_instruction = new MediaPlayer();
     Button speaker_btn;
@@ -91,6 +91,8 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
 
         r = new firebase_connection();
         letter = h.getStringExtra("Lessonltr");
+        Log.i("hgsdfjh",letter);
+        wordsArrayList = new ArrayList<lesson_words>();
         m.title.setText(  "حرف "+"( " +letter+ " ) " );
         next_lesson_btn = (Button) findViewById(R.id.next_lesson);
         word_label = (TextView) findViewById(R.id.word_label);

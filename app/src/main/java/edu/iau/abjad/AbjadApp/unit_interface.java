@@ -126,7 +126,6 @@ public class unit_interface extends child_menu {
 
         if(unitID.equals("unit1")){
             playAudio(audio.unit_Tip_One);
-
             instructions.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mediaPlayer) {
@@ -169,7 +168,8 @@ public class unit_interface extends child_menu {
         lesson4.setOnTouchListener(clike);
         lesson5.setOnTouchListener(clike);
         lesson6.setOnTouchListener(clike);
-        final childUnitInfo lesson1obj=new childUnitInfo(0,null,lesson1Stars,lesson1,null);
+        Log.i("Lesson1",lesson1.isClickable()+" ");
+        childUnitInfo lesson1obj=new childUnitInfo(0,null,lesson1Stars,lesson1,null);
         lesson1obj.setNextLesson(lesson2);
         childUnitInfo lesson2obj=new childUnitInfo(0,lock2,lesson2Stars, lesson2 ,null);
         lesson2obj.setNextLesson(lesson3);
@@ -180,6 +180,7 @@ public class unit_interface extends child_menu {
         childUnitInfo lesson5obj=new childUnitInfo(0,lock5,lesson5Stars,lesson5,null);
         lesson5obj.setNextLesson(lesson6);
         childUnitInfo lesson6obj=new childUnitInfo(0,lock6,lesson6Stars,lesson6,null);
+        lesson6obj.setNextLesson(lesson1);
         childUnitInfo test1obj=new childUnitInfo(0,null,test1Stars,test1,null);
         test1obj.setNextLesson(lesson1);
         test1obj.setNext2lesson(lesson2);
@@ -189,6 +190,9 @@ public class unit_interface extends child_menu {
         childUnitInfo test3obj=new childUnitInfo(0,null,test3Stars,test3,null);
         test3obj.setNextLesson(lesson5);
         test3obj.setNext2lesson(lesson6);
+        Log.i("Lesson1",lesson1.isClickable()+" ");
+
+        lesson1.setClickable(true);
         lessonsInfo.add(lesson1obj);
         lessonsInfo.add(lesson2obj);
         lessonsInfo.add(lesson3obj);
@@ -198,7 +202,90 @@ public class unit_interface extends child_menu {
         testInfo.add(test1obj);
         testInfo.add(test2obj);
         testInfo.add(test3obj);
+        final View.OnClickListener v=new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (view.getId() == R.id.lesson1) {
+                    Log.i("putExtra",lesson1.getText().toString());
+                    lessonIntent.putExtra("Lessonltr",lessonsInfo.get(0).getLesson().getText().toString());
+                    Log.i("Lesson1",lesson1.isClickable()+" ");
+
+                }
+                else if (view.getId() == R.id.lesson2) {
+                    lessonIntent.putExtra("Lessonltr",lessonsInfo.get(1).getLesson().getText().toString());
+                    Log.i("Lesson2",lesson2.isClickable()+" ");
+
+                } else if (view.getId() == R.id.lesson3){
+                    lessonIntent.putExtra("Lessonltr",lessonsInfo.get(2).getLesson().getText().toString());
+                }else if (view.getId() == R.id.lesson4) {
+                    lessonIntent.putExtra("Lessonltr",lessonsInfo.get(3).getLesson().getText().toString());
+
+                } else if (view.getId() == R.id.lesson5) {
+                    lessonIntent.putExtra("Lessonltr",lessonsInfo.get(4).getLesson().getText().toString());
+
+                } else if (view.getId() == R.id.lesson6) {
+                    Log.i("putExtra",lessonsInfo.get(5).getLesson().getText().toString());
+                    lessonIntent.putExtra("Lessonltr",lessonsInfo.get(5).getLesson().getText().toString());
+                }
+                startActivity(lessonIntent);
+            }
+        };
+
+        View.OnClickListener clickedTest =new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle b = new Bundle();
+                if (view.getId() == R.id.test1|| view.getId()==R.id.ballon1) {
+                    lessonIntent.putExtra("testid","Test1");
+                    int random=randomTestNo.nextInt(4);
+                    int random2=randomTestNo.nextInt(4);
+                    int rand=randomTestNo.nextInt(2);
+                    Log.i("Random1",1+") "+random+" "+random2+" "+rand);
+                    setRand(fillTest(random,random2,rand));
+                    Intent fIntent=Rand.get(0);
+                    Rand.remove(0);
+                    b.putParcelableArrayList("RandomIntent",Rand);
+                    startActivity(fIntent);
+
+                } else if (view.getId() == R.id.test2|| view.getId()==R.id.ballon2) {
+                    lessonIntent.putExtra("testid","Test2");
+                    int random=randomTestNo.nextInt(4);
+                    int random2=randomTestNo.nextInt(4);
+                    int rand=randomTestNo.nextInt(2);
+                    Log.i("Random1",2+") "+random+" "+random2+" "+rand);
+                    setRand(fillTest(random,random2,rand));
+                    Intent fIntent=Rand.get(0);
+                    Rand.remove(0);
+                    b.putParcelableArrayList("RandomIntent",Rand);
+                    startActivity(fIntent);
+
+                } else if (view.getId() == R.id.test3 || view.getId()==R.id.ballon3){
+                    lessonIntent.putExtra("testid","Test3");
+                    int random=randomTestNo.nextInt(4);
+                    int random2=randomTestNo.nextInt(4);
+                    int rand=randomTestNo.nextInt(2);
+                    Log.i("Random1",3+") "+random+" "+random2+" "+rand);
+                    setRand(fillTest(random,random2,rand));
+                    Intent fIntent=Rand.get(0);
+                    Rand.remove(0);
+                    b.putParcelableArrayList("RandomIntent",Rand);
+                    startActivity(fIntent);
+                }
+
+            }
+        };
+        bal1.setOnClickListener(clickedTest);
+        bal2.setOnClickListener(clickedTest);
+        bal3.setOnClickListener(clickedTest);
+        test1.setOnClickListener(clickedTest);
+        test2.setOnClickListener(clickedTest);
+        test3.setOnClickListener(clickedTest);
+        lesson1.setOnClickListener(v);
         Log.i("Hi",lesson6.isInTouchMode()+" Jojo");
+        Log.i("Lesson1",lesson1.isClickable()+" ");
+
+        unedatble();
+        Log.i("Lesson1",lesson1.isClickable()+" ");
 
         unitConnicetion.ref.child("Units").child(unitID).child("unit letters").addValueEventListener(new ValueEventListener() {
             @Override
@@ -275,21 +362,27 @@ public class unit_interface extends child_menu {
                                                                                   Log.i("allinfogaingh",childUnitInfo_lessonID.getScore()+" "+childUnitInfo_lessonID.getLessonId()+" "+childUnitInfo_lessonID.getLetters());
                                                                                   if(childUnitInfo_lessonID.getScore()<4&& childUnitInfo_lessonID.getScore()>0){
                                                                                       childUnitInfo_lessonID.getStars().setImageResource(R.drawable.one_gold_stars_group);
+                                                                                      childUnitInfo_lessonID.getNextLesson().setClickable(true);
+                                                                                      childUnitInfo_lessonID.getNextLesson().bringToFront();
                                                                                   }else if(childUnitInfo_lessonID.getScore()>3&& childUnitInfo_lessonID.getScore()<6){
                                                                                       childUnitInfo_lessonID.getStars().setImageResource(R.drawable.two_gold_stars_group);
+                                                                                      childUnitInfo_lessonID.getNextLesson().setClickable(true);
+                                                                                      childUnitInfo_lessonID.getNextLesson().bringToFront();
                                                                                   }else if(childUnitInfo_lessonID.getScore()>5&& childUnitInfo_lessonID.getScore()<8){
                                                                                       childUnitInfo_lessonID.getStars().setImageResource(R.drawable.gold_three_stars);
+                                                                                      childUnitInfo_lessonID.getNextLesson().setClickable(true);
+                                                                                      childUnitInfo_lessonID.getNextLesson().bringToFront();
                                                                                   }else if(childUnitInfo_lessonID.getScore()==0){
                                                                                       childUnitInfo_lessonID.getStars().setImageResource(R.drawable.gray_three_stars);
+                                                                                      childUnitInfo_lessonID.getNextLesson().setClickable(true);
+                                                                                      childUnitInfo_lessonID.getNextLesson().bringToFront();
                                                                                   }
                                                                               }
-                                                                              if(childUnitInfo_lessonID.getLock()!=null && childUnitInfo_lessonID.getLessonId()!=null){
+                                                                              if(childUnitInfo_lessonID.getLock()!=null && childUnitInfo_lessonID.getLessonId()!=null&&childUnitInfo_lessonID.getNextLesson()!=null){
                                                                                   childUnitInfo_lessonID.getLock().setVisibility(View.GONE);
                                                                                   childUnitInfo_lessonID.getLock().getVisibility();
                                                                                   childUnitInfo_lessonID.getLesson().setClickable(true);
                                                                                   childUnitInfo_lessonID.getLesson().bringToFront();
-                                                                                  childUnitInfo_lessonID.getNextLesson().setClickable(true);
-                                                                                  childUnitInfo_lessonID.getNextLesson().bringToFront();
                                                                               }
                                                                               if(childUnitInfo_lessonID.getLesson().isClickable() && childUnitInfo_lessonID.getLock()!=null){
                                                                                   childUnitInfo_lessonID.getLock().setVisibility(View.GONE);
@@ -345,6 +438,8 @@ public class unit_interface extends child_menu {
                 testScoreq.ref.child("child_takes_test").child(childID).child(unitID).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+                        Log.i("Lesson1",lesson1.isClickable()+" ");
+
                         for (final DataSnapshot data2:dataSnapshot.getChildren()) {
                             final String childTests = data2.getKey();
                             testIDq.ref.child("Tests").addValueEventListener(new ValueEventListener() {
@@ -400,90 +495,13 @@ public class unit_interface extends child_menu {
                                                                 }
                                                                    for (childUnitInfo l:lessonsInfo){
                                                                        if (l.getLesson().isClickable() &&l.getLock()!=null ){
+                                                                           l.getLesson().setOnClickListener(v);
                                                                            l.getLock().setVisibility(View.GONE);
                                                                            l.getLock().getVisibility();
                                                                        }
                                                                    }
 
-                                                                View.OnClickListener v=new View.OnClickListener() {
-                                                                    @Override
-                                                                    public void onClick(View view) {
-                                                                        if (view.getId() == R.id.lesson1) {
-                                                                            Log.i("putExtra",lesson1.getText().toString());
-                                                                            lessonIntent.putExtra("Lessonltr",lesson1.getText().toString());
 
-                                                                        } else if (view.getId() == R.id.lesson2) {
-                                                                            lessonIntent.putExtra("Lessonltr",lessonsInfo.get(1).getLesson().getText().toString());
-                                                                        } else if (view.getId() == R.id.lesson3){
-                                                                            lessonIntent.putExtra("Lessonltr",lessonsInfo.get(2).getLesson().getText().toString());
-                                                                        }else if (view.getId() == R.id.lesson4) {
-                                                                            lessonIntent.putExtra("Lessonltr",lessonsInfo.get(3).getLesson().getText().toString());
-
-                                                                        } else if (view.getId() == R.id.lesson5) {
-                                                                            lessonIntent.putExtra("Lessonltr",lessonsInfo.get(4).getLesson().getText().toString());
-
-                                                                        } else if (view.getId() == R.id.lesson6) {
-                                                                            Log.i("putExtra",lessonsInfo.get(5).getLesson().getText().toString());
-                                                                            lessonIntent.putExtra("Lessonltr",lessonsInfo.get(5).getLesson().getText().toString());
-                                                                        }
-                                                                        startActivity(lessonIntent);
-                                                                    }
-                                                                };
-                                                                lesson1.setOnClickListener(v);
-                                                                lesson2.setOnClickListener(v);
-                                                                lesson3.setOnClickListener(v);
-                                                                lesson4.setOnClickListener(v);
-                                                                lesson5.setOnClickListener(v);
-                                                                lesson6.setOnClickListener(v);
-                                                                View.OnClickListener clickedTest =new View.OnClickListener() {
-                                                                    @Override
-                                                                    public void onClick(View view) {
-                                                                        Bundle b = new Bundle();
-                                                                        if (view.getId() == R.id.test1|| view.getId()==R.id.ballon1) {
-                                                                            lessonIntent.putExtra("testid","Test1");
-                                                                            int random=randomTestNo.nextInt(4);
-                                                                            int random2=randomTestNo.nextInt(4);
-                                                                            int rand=randomTestNo.nextInt(2);
-                                                                            Log.i("Random1",1+") "+random+" "+random2+" "+rand);
-                                                                            setRand(fillTest(random,random2,rand));
-                                                                            Intent fIntent=Rand.get(0);
-                                                                            Rand.remove(0);
-                                                                            b.putParcelableArrayList("RandomIntent",Rand);
-                                                                            startActivity(fIntent);
-
-                                                                        } else if (view.getId() == R.id.test2|| view.getId()==R.id.ballon2) {
-                                                                            lessonIntent.putExtra("testid","Test2");
-                                                                            int random=randomTestNo.nextInt(4);
-                                                                            int random2=randomTestNo.nextInt(4);
-                                                                            int rand=randomTestNo.nextInt(2);
-                                                                            Log.i("Random1",2+") "+random+" "+random2+" "+rand);
-                                                                            setRand(fillTest(random,random2,rand));
-                                                                            Intent fIntent=Rand.get(0);
-                                                                            Rand.remove(0);
-                                                                            b.putParcelableArrayList("RandomIntent",Rand);
-                                                                            startActivity(fIntent);
-
-                                                                        } else if (view.getId() == R.id.test3 || view.getId()==R.id.ballon3){
-                                                                            lessonIntent.putExtra("testid","Test3");
-                                                                            int random=randomTestNo.nextInt(4);
-                                                                            int random2=randomTestNo.nextInt(4);
-                                                                            int rand=randomTestNo.nextInt(2);
-                                                                            Log.i("Random1",3+") "+random+" "+random2+" "+rand);
-                                                                            setRand(fillTest(random,random2,rand));
-                                                                            Intent fIntent=Rand.get(0);
-                                                                            Rand.remove(0);
-                                                                            b.putParcelableArrayList("RandomIntent",Rand);
-                                                                            startActivity(fIntent);
-                                                                        }
-
-                                                                    }
-                                                                };
-                                                                bal1.setOnClickListener(clickedTest);
-                                                                bal2.setOnClickListener(clickedTest);
-                                                                bal3.setOnClickListener(clickedTest);
-                                                                test1.setOnClickListener(clickedTest);
-                                                                test2.setOnClickListener(clickedTest);
-                                                                test3.setOnClickListener(clickedTest);
                                                             }
 
                                                             @Override
@@ -527,7 +545,7 @@ public class unit_interface extends child_menu {
             }
 
         });
-        unedatble();
+
 
     }
     public void playAudio(String url){
