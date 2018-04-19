@@ -66,15 +66,19 @@ public class Signin extends AppCompatActivity  implements View.OnClickListener{
     private void signIn(){
         username = ChildUsername.getText().toString().trim();
         String password = ChildPassword.getText().toString().trim();
-        int counter =0;
+        boolean flag = true;
+
 
 
         //check username is not empty
         if (username.isEmpty()) {
-            ChildUsername.setError("ادخل اسم المستخدم من فضلك ");
+            ChildUsername.setError("ادخل البريد الإلكتروني من فضلك ");
             ChildUsername.requestFocus();
             Wuser.setVisibility(VISIBLE);
-            counter++;
+           flag = false;
+        }
+        else {
+            Wuser.setVisibility(View.INVISIBLE);
         }
 
 
@@ -83,12 +87,12 @@ public class Signin extends AppCompatActivity  implements View.OnClickListener{
             ChildPassword.setError("ادخل كلمة المرور من فضلك ");
             ChildPassword.requestFocus();
             Wpas.setVisibility(View.VISIBLE);
-            counter++;
+            flag = false;
         }
         else{
             Wpas.setVisibility(View.INVISIBLE);
         }
-        if(counter== 0){
+        if(flag){
 
             PB.setVisibility(View.VISIBLE);
 
@@ -98,7 +102,8 @@ public class Signin extends AppCompatActivity  implements View.OnClickListener{
                     PB.setVisibility(View.GONE);
                     if(task.isSuccessful())
                     {
-
+                        Wuser.setVisibility(View.INVISIBLE);
+                        Wpas.setVisibility(View.INVISIBLE);
                         id_child= Uath.getCurrentUser().getUid();
                         finish();
                         startActivity(Itn);
@@ -106,27 +111,30 @@ public class Signin extends AppCompatActivity  implements View.OnClickListener{
                     }
                     else
                     {
-                        Toast.makeText(getApplicationContext(),task.getException().getMessage(),Toast.LENGTH_SHORT).show();
+                        if(task.getException().getMessage().startsWith("The email address is badly formatted")){
+                            ChildUsername.setError("الرجاء كتابة البريد الإلكتروني بشكل صحيح");
+                            ChildUsername.requestFocus();
+                            Wuser.setVisibility(VISIBLE);
+
+                    }
+                    else if(task.getException().getMessage().startsWith("There is no user record")){
+                            ChildUsername.setError("لا يوجد مستخدم بهذا الحساب ، الرجاء التحقق من البريد الإلكتروني");
+                            ChildUsername.requestFocus();
+                            Wuser.setVisibility(VISIBLE);
+
+                        }
+                        else if (task.getException().getMessage().startsWith("The password is invalid")){
+                            ChildPassword.setError("كلمة المرور خاطئة ، الرجاء التحقق منها");
+                            ChildPassword.requestFocus();
+                            Wpas.setVisibility(View.VISIBLE);
+                        }
+                        //Toast.makeText(getApplicationContext(),task.getException().getMessage(),Toast.LENGTH_SHORT).show();
                     }
                 }
             });
 
         }
 
-    }
-
-    private String username(String usr){
-        if(! usr.matches("\\b[a-zA-Z][a-zA-Z0-9\\-._]{4,}\\b"))
-        {
-            ChildUsername.setError("تحقق من البريد الالكتروني من فضلك ");
-            ChildUsername.requestFocus();
-            Wuser.setVisibility(View.VISIBLE);
-            return null;
-        }
-        else
-        {
-            return usr;
-        }
     }
 
     @Override
