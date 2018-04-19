@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:textAlignment="center"
     tools:context="edu.iau.abjad.AbjadApp.MatchingTest"
     tools:layout_editor_absoluteY="25dp">
 
@@ -13,13 +14,6 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true">
 
-        <ImageView
-            android:id="@+id/abjad_matching"
-            android:layout_width="290dp"
-            android:layout_height="385dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true" />
-
         <include
             android:id="@+id/include3"
             layout="@layout/navigation_action_bar"
@@ -27,6 +21,13 @@
             android:layout_height="wrap_content" />
 
     </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/abjad_matching"
+        android:layout_width="290dp"
+        android:layout_height="385dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true" />
 
     <ImageView
         android:id="@+id/Pic1"
@@ -42,8 +43,9 @@
         android:id="@+id/Pic2"
         android:layout_width="260dp"
         android:layout_height="190dp"
+        android:layout_alignParentEnd="true"
         android:layout_alignTop="@+id/Pic1"
-        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="484dp"
         android:background="@color/colorAccent" />
 
     <ImageView
@@ -60,43 +62,49 @@
         android:id="@+id/Pic3"
         android:layout_width="260dp"
         android:layout_height="190dp"
-        android:layout_alignEnd="@+id/Word3"
-        android:layout_alignTop="@+id/Pic2"
-        android:layout_marginEnd="17dp"
+        android:layout_alignStart="@+id/Text3"
+        android:layout_alignTop="@+id/Pic1"
         android:background="@color/colorAccent" />
 
     <TextView
         android:id="@+id/Word1"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="87dp"
-        android:layout_marginEnd="443dp"
+        android:layout_marginBottom="85dp"
+        android:layout_marginEnd="347dp"
+        android:background="@color/normal"
+        android:textAlignment="center"
         android:textColor="@android:color/black"
-        android:textSize="28dp" />
+        android:textSize="36dp" />
 
 
     <TextView
         android:id="@+id/Word2"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="50dp"
+        android:layout_alignParentEnd="true"
         android:layout_alignTop="@+id/Word1"
-        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="570dp"
+        android:background="@color/normal"
+        android:textAlignment="center"
         android:textColor="@android:color/black"
-        android:textSize="28dp"
+        android:textSize="36dp"
         tools:layout_editor_absoluteX="1398dp"
         tools:layout_editor_absoluteY="406dp" />
 
     <TextView
         android:id="@+id/Word3"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="50dp"
         android:layout_alignParentStart="true"
         android:layout_alignTop="@+id/Word1"
-        android:layout_marginStart="418dp"
+        android:layout_marginStart="326dp"
+        android:background="@color/normal"
+        android:textAlignment="center"
         android:textColor="@android:color/black"
-        android:textSize="28dp" />
+        android:textSize="36dp" />
 
     <TextView
         android:id="@+id/Text1"
@@ -112,14 +120,14 @@
         android:paddingTop="30dp"
         android:textAlignment="center"
         android:textColor="@android:color/black"
-        android:textSize="28dp" />
+        android:textSize="36dp" />
 
     <TextView
         android:id="@+id/Text2"
         android:layout_width="260dp"
         android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/Pic2"
         android:layout_alignTop="@+id/Text1"
-        android:layout_centerHorizontal="true"
         android:background="#e6e6e6"
         android:paddingBottom="30dp"
         android:paddingLeft="50dp"
@@ -127,14 +135,15 @@
         android:paddingTop="30dp"
         android:textAlignment="center"
         android:textColor="@android:color/black"
-        android:textSize="28dp" />
+        android:textSize="36dp" />
 
     <TextView
         android:id="@+id/Text3"
         android:layout_width="260dp"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/Pic3"
+        android:layout_alignParentStart="true"
         android:layout_alignTop="@+id/Text1"
+        android:layout_marginStart="171dp"
         android:background="#e6e6e6"
         android:paddingBottom="30dp"
         android:paddingLeft="50dp"
@@ -142,7 +151,7 @@
         android:paddingTop="30dp"
         android:textAlignment="center"
         android:textColor="@android:color/black"
-        android:textSize="28dp" />
+        android:textSize="36dp" />
 
     <ImageButton
         android:id="@+id/Restart"
