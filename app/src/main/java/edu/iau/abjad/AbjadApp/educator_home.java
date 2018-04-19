@@ -63,17 +63,14 @@ public class educator_home extends menu_educator {
                                         for(DataSnapshot d : dataSnapshot.getChildren()){
                                             String name = d.child("first_name").getValue().toString();
                                             String photo = d.child("photo_URL").getValue().toString();
-
                                           children e = new children(photo, name, childID);
                                           children.add(e);
 
                                           System.out.println("Name: "+ children.get(0).first_name);
                                           System.out.println("Photo: "+ children.get(0).photo_URL);
-
                                         }
                                     }
                                 }
-
                                 @Override
                                 public void onCancelled(DatabaseError databaseError) {
 
@@ -91,12 +88,6 @@ public class educator_home extends menu_educator {
 
             }
         });
-
-
-
-
-
-
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

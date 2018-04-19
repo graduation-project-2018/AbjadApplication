@@ -230,6 +230,8 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
     protected void onStop() {
         super.onStop();
         test_sentence_audio.release();
+        anim.stop();
+
     }
 
     public void setOnCompleteListener(MediaPlayer obj){

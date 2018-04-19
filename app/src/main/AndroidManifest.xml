@@ -23,6 +23,11 @@
         <activity
             android:name=".Lesson"
             android:screenOrientation="landscape">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
         </activity>
         <activity
@@ -100,11 +105,7 @@
             android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
         <activity android:name=".SigninEducator"
             android:windowSoftInputMode="stateHidden|adjustResize|adjustPan">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".popUp_repert_problem"
             android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>

@@ -454,6 +454,7 @@ View.OnDragListener dragListener1 = new View.OnDragListener() {
        try {
            super.onStop();
            MatchingTest.release();
+           anim.stop();
        }
     catch (Exception e){
 
