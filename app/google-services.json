@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "379112606768-hiue1vrgfnog64gso09ils64j561c1p5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.iau.abjad.AbjadApp",
+            "certificate_hash": "53ae0e0b39bce8d85473ae815e4908a90620642e"
+          }
+        },
+        {
+          "client_id": "379112606768-2e3qid9p6muavt7gu2s226580v5ev187.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.iau.abjad.AbjadApp",
+            "certificate_hash": "7697b965ea72d8fcf83640a10ea142b1dfd140c2"
+          }
+        },
+        {
           "client_id": "379112606768-s5olreeh6o8u7gp5o55li9fbvr9f3ddi.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +45,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "379112606768-s5olreeh6o8u7gp5o55li9fbvr9f3ddi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

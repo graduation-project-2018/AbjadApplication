@@ -13,59 +13,74 @@
 
 
     <ImageView
-        android:id="@+id/imageView26"
-        android:layout_width="wrap_content"
+        android:id="@+id/lesson1Stars"
+        android:layout_width="518dp"
         android:layout_height="400dp"
-        android:layout_marginBottom="240dp"
+        android:layout_marginBottom="236dp"
         android:layout_marginEnd="388dp"
-        android:src="@drawable/abjad_logo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.959"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView27"
-        android:layout_width="69dp"
-        android:layout_height="wrap_content"
+        android:id="@+id/next"
+        android:layout_width="131dp"
+        android:layout_height="105dp"
         android:layout_marginBottom="380dp"
         android:src="@drawable/prev_btn"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/imageView26"
-        app:layout_constraintHorizontal_bias="0.828"
+        app:layout_constraintEnd_toStartOf="@+id/lesson1Stars"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
     <ImageView
-        android:id="@+id/imageView29"
+        android:id="@+id/lesson2Stars"
         android:layout_width="131dp"
         android:layout_height="105dp"
-        android:layout_marginBottom="380dp"
+        android:layout_marginBottom="372dp"
         android:src="@drawable/next_btn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/imageView26" />
+        app:layout_constraintStart_toEndOf="@+id/lesson1Stars" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/addChild"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="104dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/circle_button"
         android:fontFamily="Arabic Typesetting"
+        android:gravity="center"
         android:text="إضافة طفل"
         android:textColor="#ffffff"
         android:textSize="18pt"
-        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.453"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView26"
+        app:layout_constraintTop_toBottomOf="@+id/lesson1Stars"
         app:layout_constraintVertical_bias="0.602" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:indeterminate="true"
+        android:layout_width="416dp"
+        android:layout_height="293dp"
+        android:layout_marginBottom="2dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/lesson1Stars"
+        app:layout_constraintEnd_toEndOf="@+id/lesson1Stars"
+        app:layout_constraintStart_toEndOf="@+id/next"
+        app:layout_constraintTop_toTopOf="@+id/lesson1Stars"
+        android:theme="@style/ProgressTheem"
+        />
 
 
 </android.support.constraint.ConstraintLayout>

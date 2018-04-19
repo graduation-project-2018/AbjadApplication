@@ -81,6 +81,8 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
 
 
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        Intent h=getIntent();
+        Log.i("getExtra",h.getStringExtra("Lessonltr"));
 
         //inflate your activity layout here!
         View contentView = inflater.inflate(R.layout.activity_lesson, null, false);
@@ -90,9 +92,9 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
         ActivityCompat.requestPermissions(this,permissions , REQUEST_RECORD_AUDIO_PERMISSION);
 
         r = new firebase_connection();
-        letter = "ح";
         unit_id = "unit2";
 
+        letter = h.getStringExtra("Lessonltr");
         m.title.setText(  "حرف "+"( " +letter+ " ) " );
         next_lesson_btn = (Button) findViewById(R.id.next_lesson);
         word_label = (TextView) findViewById(R.id.word_label);
@@ -224,7 +226,9 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                                                 // move to unit interface
                                                 computeChildScore();
                                                 Intent intent = new Intent(Lesson.this, unit_interface.class);
-                                                startActivity(intent);
+                                                intent.putExtra("unitID",unit_interface.unitID);
+                                                setResult(RESULT_OK, intent);
+                                                finish();
                                             }
                                             check_alef();
                                             check_ta();
@@ -599,13 +603,14 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
             }
         }
         sum=sum/7; //get avg
-        Query query =  r.ref.child("child_takes_lesson").child("childID").child(unit_id).orderByKey().equalTo(lessonID);
+        Query query =  r.ref.child("child_takes_lesson").child("childID").orderByKey().equalTo(lessonID);
        query.addListenerForSingleValueEvent(new ValueEventListener() {
            @Override
            public void onDataChange(DataSnapshot dataSnapshot) {
                if(dataSnapshot.exists()){
+                   System.out.println("Eixist!!!!!!!!");
                    try{
-                       DatabaseReference read_score =  r.ref.child("child_takes_lesson").child(unit_id).child("childID").child(lessonID);
+                       DatabaseReference read_score =  r.ref.child("child_takes_lesson").child("childID").child(lessonID);
                        read_score.addValueEventListener(new ValueEventListener() {
                            @Override
                            public void onDataChange(DataSnapshot dataSnapshot) {
@@ -617,14 +622,14 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                                        childTime = dataSnapshot.child("time").getValue().toString();
                                    }
                                    if(currentScore<sum){
-                                       r.ref.child("child_takes_lesson").child("childID").child(unit_id).child(lessonID).child("score").setValue(sum);
+                                       r.ref.child("child_takes_lesson").child("childID").child(lessonID).child("score").setValue(sum);
                                    }
                                    if(Double.valueOf(childTime)>Double.valueOf(acTime)){
-                                       r.ref.child("child_takes_lesson").child("childID").child(unit_id).child(lessonID).child("time").setValue(acTime);
+                                       r.ref.child("child_takes_lesson").child("childID").child(lessonID).child("time").setValue(acTime);
                                    }
 
                                    if(incomplete==false && status != "مكتمل"){
-                                       r.ref.child("child_takes_lesson").child("childID").child(unit_id).child(lessonID).child("status").setValue("مكتمل");
+                                       r.ref.child("child_takes_lesson").child("childID").child(lessonID).child("status").setValue("مكتمل");
                                    }
                            }
                            @Override
@@ -639,14 +644,14 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                }
                else{
                    if(incomplete){
-                       r.ref.child("child_takes_lesson").child("childID").child(unit_id).child(lessonID).child("status").setValue("غير مكتمل");
+                       r.ref.child("child_takes_lesson").child("childID").child(lessonID).child("status").setValue("غير مكتمل");
                    }
                    else{
-                       r.ref.child("child_takes_lesson").child("childID").child(unit_id).child(lessonID).child("status").setValue("مكتمل");
+                       r.ref.child("child_takes_lesson").child("childID").child(lessonID).child("status").setValue("مكتمل");
 
                    }
-                   r.ref.child("child_takes_lesson").child("childID").child(unit_id).child(lessonID).child("score").setValue(sum);
-                   r.ref.child("child_takes_lesson").child("childID").child(unit_id).child(lessonID).child("time").setValue(acTime);
+                   r.ref.child("child_takes_lesson").child("childID").child(lessonID).child("score").setValue(sum);
+                   r.ref.child("child_takes_lesson").child("childID").child(lessonID).child("time").setValue(acTime);
                }
            }
            @Override
@@ -680,7 +685,6 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
         audio_instruction = new MediaPlayer();
         anim.start();
         playAudioInstructions(audio_URLs.cannot_complete);
-        move_child= true;
         setOnCompleteListener(audio_instruction);
     }
 
