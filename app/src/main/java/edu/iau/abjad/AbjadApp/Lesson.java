@@ -79,6 +79,8 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
 
 
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        Intent h=getIntent();
+        Log.i("getExtra",h.getStringExtra("Lessonltr"));
 
         //inflate your activity layout here!
         View contentView = inflater.inflate(R.layout.activity_lesson, null, false);
@@ -88,7 +90,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
         ActivityCompat.requestPermissions(this,permissions , REQUEST_RECORD_AUDIO_PERMISSION);
 
         r = new firebase_connection();
-        letter = "ط";
+        letter = h.getStringExtra("Lessonltr");
         m.title.setText(  "حرف "+"( " +letter+ " ) " );
         next_lesson_btn = (Button) findViewById(R.id.next_lesson);
         word_label = (TextView) findViewById(R.id.word_label);
@@ -220,7 +222,9 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                                                 // move to unit interface
                                                 computeChildScore();
                                                 Intent intent = new Intent(Lesson.this, unit_interface.class);
-                                                startActivity(intent);
+                                                intent.putExtra("unitID",unit_interface.unitID);
+                                                setResult(RESULT_OK, intent);
+                                                finish();
                                             }
                                             check_alef();
                                             check_ta();
