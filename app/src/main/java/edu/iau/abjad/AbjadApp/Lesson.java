@@ -443,6 +443,9 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
 
                             }
                         }
+
+
+
                         if(child_score> wordsArrayList.get(words_counter).child_score ){
                             System.out.println("Prevois score: "+  wordsArrayList.get(words_counter).child_score);
                             System.out.println("New score: "+child_score);
@@ -825,5 +828,4 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
         flag2 = true;
 
     }
-
 }

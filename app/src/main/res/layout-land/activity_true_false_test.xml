@@ -7,11 +7,26 @@
     tools:context="edu.iau.abjad.AbjadApp.TrueFalseTest"
     tools:layout_editor_absoluteY="25dp">
 
+
+
     <include
         android:id="@+id/include"
         layout="@layout/navigation_action_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/abjad_true_false"
+        android:layout_width="290dp"
+        android:layout_height="385dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="376dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.937" />
 
 
 

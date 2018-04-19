@@ -30,10 +30,14 @@
             android:screenOrientation="landscape"></activity>
         <activity
             android:name=".TrueFalseTest"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape" >
+
+        </activity>
         <activity
             android:name=".MatchingTest"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape">
+
+        </activity>
         <activity
             android:name=".child_photo"
             android:screenOrientation="landscape" />
@@ -72,7 +76,9 @@
         <activity
             android:name=".Signin"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan" />
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan" >
+
+        </activity>
 
         <activity android:name=".report_problem"
             android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
@@ -93,8 +99,6 @@
         <activity
             android:name=".change_profile_photo"
             android:screenOrientation="landscape" />
-
-
         <activity
             android:name=".splash_screen"
             android:screenOrientation="landscape"></activity>
@@ -105,7 +109,13 @@
         <activity android:name=".change_password"
             android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
         <activity android:name=".SigninEducator"
-            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".popUp_repert_problem"
             android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
     </application>
