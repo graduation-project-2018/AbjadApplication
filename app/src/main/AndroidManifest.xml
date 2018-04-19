@@ -36,7 +36,6 @@
         <activity
             android:name=".MatchingTest"
             android:screenOrientation="landscape">
-
         </activity>
         <activity
             android:name=".child_photo"
@@ -67,18 +66,21 @@
             android:name=".Signin"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden|adjustResize|adjustPan" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <activity android:name=".report_problem"
             android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
 
         <activity android:name=".SignUp"
-            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            </activity>
         <activity android:name=".userTypeSelection" />
         <activity android:name=".ResetPassword"
             android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
