@@ -5,13 +5,16 @@
         android:title="تغيير صورة الملف الشخصي"
         android:icon="@drawable/childicon">
     </item>
+    <item android:id="@+id/change_pass_child"
+        android:title="تغيير كلمة المرور"
+        android:icon="@drawable/password_blue"
+        android:iconTint="#0B365C">
+    </item>
     <item android:id="@+id/report_problem"
         android:title="الإبلاغ عن مشكلة"
         android:icon="@drawable/report_icon"
         >
     </item>
-
-
     <item android:id="@+id/sign_out"
         android:title="تسجيل الخروج"
         android:icon="@drawable/signout_icon"></item>

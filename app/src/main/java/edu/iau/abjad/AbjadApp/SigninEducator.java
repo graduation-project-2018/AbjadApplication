@@ -17,6 +17,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import static android.view.View.VISIBLE;
+
 public class SigninEducator extends AppCompatActivity  implements View.OnClickListener{
 
     private FirebaseAuth Uath; //pravite?
@@ -40,7 +42,7 @@ public class SigninEducator extends AppCompatActivity  implements View.OnClickLi
         Wpas=(ImageView) findViewById(R.id.Wpas);
 
         //adding listeners to the buttons:
-        findViewById(R.id.SendButton).setOnClickListener(this);
+        findViewById(R.id.submit_btn_reset).setOnClickListener(this);
         findViewById(R.id.ResetPassword).setOnClickListener(this);
         findViewById(R.id.rgs).setOnClickListener(this);
         Itn =new Intent(this,educator_home.class);
@@ -55,34 +57,34 @@ public class SigninEducator extends AppCompatActivity  implements View.OnClickLi
     private void signIn(){
         String email = Email.getText().toString().trim();
         String password = EdPassword.getText().toString().trim();
-        int counter=0;
+        boolean flag = true;
 
         //input validation:
 
         if (email.isEmpty()) {
-            Email.setError("Email is required");
+            Email.setError("أدخل البريد الإلكتروني من فضلك");
             Email.requestFocus();
             Wpas.setVisibility(View.VISIBLE);
-            counter++;
+            flag = false;
 
         }
 
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            Email.setError("Please enter a valid email");
+            Email.setError("الرجاء كتابة البريد الإلكتروني بشكل صحيح");
             Wpas.setVisibility(View.VISIBLE);
             Email.requestFocus();
-            counter++;
+            flag = false;
         }
         if (password.isEmpty()) {
-            EdPassword.setError("Password is required");
+            EdPassword.setError("أدخل كلمة المرور من فضلك");
             EdPassword.requestFocus();
             Wuser.setVisibility(View.VISIBLE);
-            counter++;
+            flag = false;
 
         }
         progressBar.setVisibility(View.VISIBLE);
 
-        if(counter==0){
+        if(flag){
             //core of sign in
             //validate email/password then rerutn the sign in state
             // if worked then finshies this view and shows the Edu home
@@ -97,27 +99,31 @@ public class SigninEducator extends AppCompatActivity  implements View.OnClickLi
                                 finish();
                                 startActivity(Itn);
                             }
-
-               /* else if(task.getException() instanceof FirebaseAuthUserCollisionException)
-                {
-                    Toast.makeText(getApplicationContext(), "Email already exisets!", Toast.LENGTH_SHORT).show();
-                }
-
-                //this one must be about the password, that it doesn't match out email
-                */
-
-
                             else {
-                                Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+
+                                if(task.getException().getMessage().startsWith("The email address is badly formatted")){
+                                    Email.setError("الرجاء كتابة البريد الإلكتروني بشكل صحيح");
+                                   Email.requestFocus();
+                                    Wuser.setVisibility(VISIBLE);
+
+                                }
+                                else if(task.getException().getMessage().startsWith("There is no user record")){
+                                    Email.setError("لا يوجد مستخدم بهذا الحساب ، الرجاء التحقق من البريد الإلكتروني");
+                                   Email.requestFocus();
+                                    Wuser.setVisibility(VISIBLE);
+
+                                }
+                                else if (task.getException().getMessage().startsWith("The password is invalid")){
+                                   EdPassword.setError("كلمة المرور خاطئة ، الرجاء التحقق منها");
+                                   EdPassword.requestFocus();
+                                    Wpas.setVisibility(View.VISIBLE);
+                                }
+                                //Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
-
         }
-
-
     }
-
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -131,7 +137,7 @@ public class SigninEducator extends AppCompatActivity  implements View.OnClickLi
                 startActivity(new Intent(this,ResetPassword.class));
                 break;
 
-            case R.id.SendButton:
+            case R.id.submit_btn_reset:
                 signIn();
                 break;
         }

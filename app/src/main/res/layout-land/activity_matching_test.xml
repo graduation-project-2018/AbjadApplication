@@ -9,7 +9,16 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
+
+        <ImageView
+            android:id="@+id/abjad_matching"
+            android:layout_width="290dp"
+            android:layout_height="385dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true" />
 
         <include
             android:id="@+id/include3"
@@ -51,15 +60,15 @@
         android:id="@+id/Pic3"
         android:layout_width="260dp"
         android:layout_height="190dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignTop="@+id/Pic1"
-        android:layout_marginStart="143dp"
+        android:layout_alignEnd="@+id/Word3"
+        android:layout_alignTop="@+id/Pic2"
+        android:layout_marginEnd="17dp"
         android:background="@color/colorAccent" />
 
     <TextView
         android:id="@+id/Word1"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="87dp"
@@ -71,7 +80,7 @@
     <TextView
         android:id="@+id/Word2"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_alignTop="@+id/Word1"
         android:layout_centerHorizontal="true"
         android:textColor="@android:color/black"
@@ -82,7 +91,7 @@
     <TextView
         android:id="@+id/Word3"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_alignParentStart="true"
         android:layout_alignTop="@+id/Word1"
         android:layout_marginStart="418dp"

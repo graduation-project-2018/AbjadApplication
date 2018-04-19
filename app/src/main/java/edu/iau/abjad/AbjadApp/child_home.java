@@ -1,6 +1,7 @@
 package edu.iau.abjad.AbjadApp;
 
 import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ public class child_home extends child_menu {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
         m.title = (TextView) findViewById(R.id.interface_title);
         m.title.setText("الرئيسية");

@@ -1,6 +1,7 @@
 package edu.iau.abjad.AbjadApp;
 
 import android.content.Context;
+import android.graphics.drawable.AnimationDrawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -39,6 +41,9 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
     int true_or_false;
     int sentence_number;
     private  static CountDownTimer countDownTimer;
+    ImageView abjad;
+    AnimationDrawable anim;
+    boolean flag2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +61,9 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
         true_btn = (Button)findViewById(R.id.imageButton7);
         false_btn = (Button)findViewById(R.id.imageButton6);
         sentenceLabel = (TextView)findViewById(R.id.textView3);
+        abjad = (ImageView) findViewById(R.id.abjad_true_false);
+        abjad.setBackgroundResource(R.drawable.abjad_speak);
+        anim =(AnimationDrawable) abjad.getBackground();
 
 
                         //int test_ID = previous_Intent.getStringExtra("test_ID");
@@ -86,7 +94,9 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
 
                                    }
                                     sentenceLabel.setText(selectedSentence);
+
                                    // start the instruction audio before the lesson begin
+                                    anim.start();
                                     playAudio(audio_obj.true_false_test_begin_url);
 
 
@@ -97,28 +107,40 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
                                             if(flag == false){
                                                 return;
                                             }
+                                            anim.stop();
                                             flag = false;
+                                            anim.start();
                                             playAudio(testContentArrayList.get( sentence_number).audioUrl);
+                                            setOnCompleteListener(test_sentence_audio);
 
                                         }
                                     });
+
 
                                     speaker_btn.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View view) {
                                             selectedSentenceAudio = testContentArrayList.get( sentence_number).audioUrl;
+                                            anim.start();
                                             playAudio(selectedSentenceAudio);
+                                            setOnCompleteListener(test_sentence_audio);
                                         }
                                     });
                                    true_btn.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View view) {
                                             if(true_or_false == 0){
+                                                anim.start();
                                                 playAudio(audio_obj.wrong_answer_url);
+                                                setOnCompleteListener(test_sentence_audio);
                                                 true_false_test_score = 0;
                                             }
                                             else {
+                                                abjad.setBackgroundResource(R.drawable.abjad_happy);
+                                                anim =(AnimationDrawable) abjad.getBackground();
+                                                anim.start();
                                                 playAudio(audio_obj.perfect_top_feedback);
+                                                setOnCompleteListener(test_sentence_audio);
                                                 true_false_test_score = 10;
 
                                             }
@@ -132,12 +154,18 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
                                         @Override
                                         public void onClick(View view) {
                                             if(true_or_false == 0){
+                                                abjad.setBackgroundResource(R.drawable.abjad_happy);
+                                                anim =(AnimationDrawable) abjad.getBackground();
+                                                anim.start();
                                                 playAudio(audio_obj.perfect_top_feedback);
+                                                setOnCompleteListener(test_sentence_audio);
                                                 true_false_test_score = 10;
 
                                             }
                                             else {
+                                                anim.start();
                                                 playAudio(audio_obj.wrong_answer_url);
+                                                setOnCompleteListener(test_sentence_audio);
                                                 true_false_test_score = 0;
 
                                             }
@@ -203,6 +231,27 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
         super.onStop();
         test_sentence_audio.release();
     }
+
+    public void setOnCompleteListener(MediaPlayer obj){
+        obj.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                //this flag to prevent calling this method multiple times.
+                if (flag2 == false) {
+                    return;
+                }
+                anim.stop();
+                flag2 = false;
+                abjad.setBackgroundResource(R.drawable.abjad_speak);
+                anim =(AnimationDrawable) abjad.getBackground();
+
+            }
+
+        });
+        flag2 = true;
+
+    }
+
 
 
 }//end of TrueFalseTest class
