@@ -28,7 +28,6 @@ public class change_profile_photo extends child_menu {
     private int imgIndex;
     String photo_url;
     Button SaveChanges;
-    String ChildID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
