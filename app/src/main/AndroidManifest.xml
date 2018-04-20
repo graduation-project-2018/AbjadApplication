@@ -45,7 +45,16 @@
         </activity>
         <activity
             android:name=".child_photo"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape" >
+
+
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".ChildProgress"
             android:screenOrientation="landscape">
@@ -84,11 +93,7 @@
 
         <activity android:name=".report_problem"
             android:windowSoftInputMode="stateHidden|adjustResize|adjustPan" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <activity android:name=".SignUp"
@@ -106,7 +111,10 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".change_profile_photo"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape" >
+
+
+        </activity>
         <activity
             android:name=".splash_screen"
             android:screenOrientation="landscape"></activity>

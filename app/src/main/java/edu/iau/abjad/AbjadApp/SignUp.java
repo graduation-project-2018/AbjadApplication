@@ -79,10 +79,10 @@ public class SignUp extends AppCompatActivity {
                 }
 
 
-                email = Email.getText().toString();
-                password = Pass.getText().toString();
 
-                if (email.isEmpty()) {
+
+
+                if (Email.getText().toString().trim().isEmpty()) {
                     Email.setError("قم بتعبئة الحقل بالبريد الإلكتروني");
                     Email.requestFocus();
                     condition=false;
@@ -91,11 +91,11 @@ public class SignUp extends AppCompatActivity {
                     Email.requestFocus();
                     condition = false;
                 }
-                if (password.isEmpty()) {
+                if (Pass.getText().toString().trim().isEmpty()) {
                     Pass.setError("قم بتعبئة الحقل بكلمة المرور");
                     Pass.requestFocus();
                     condition =false;
-                } else if (password.length() < 6) {
+                } else if (Pass.getText().toString().trim().length() < 6) {
                     Pass.setError("كلمة المرور يجب ان تكون اطول من 6 خانات ");
                     Pass.requestFocus();
                     condition =false;
@@ -121,14 +121,14 @@ public class SignUp extends AppCompatActivity {
 
     }
     public void addEducatorInfo(){
-        mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(this,
+        mAuth.createUserWithEmailAndPassword(Email.getText().toString().trim(),Pass.getText().toString().trim()).addOnCompleteListener(this,
                 new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()) {
                             Toast.makeText(SignUp.this, "تمت إضافة حساب المربي بنجاح", Toast.LENGTH_LONG).show();
                             educator_id = mAuth.getCurrentUser().getUid();
-                            educator = new Educator(Email.getText().toString(),FN.getText().toString(),LN.getText().toString());
+                            educator = new Educator(Email.getText().toString().trim(),FN.getText().toString(),LN.getText().toString());
                             finish();
                             startActivity(educatorHome);
 
