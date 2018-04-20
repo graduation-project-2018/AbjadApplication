@@ -129,8 +129,7 @@ public class SignUp extends AppCompatActivity {
                             Toast.makeText(SignUp.this, "تمت إضافة حساب المربي بنجاح", Toast.LENGTH_LONG).show();
                             educator_id = mAuth.getCurrentUser().getUid();
                             educator = new Educator(Email.getText().toString().trim(),FN.getText().toString(),LN.getText().toString());
-                            finish();
-                            startActivity(educatorHome);
+
 
 
 
@@ -143,6 +142,8 @@ public class SignUp extends AppCompatActivity {
 
                                 }
                             });
+                            finish();
+                            startActivity(educatorHome);
                         }
 
                         else{
