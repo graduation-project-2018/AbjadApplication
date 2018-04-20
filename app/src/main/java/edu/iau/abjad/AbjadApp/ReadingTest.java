@@ -58,10 +58,6 @@ public class ReadingTest extends child_menu {
     ImageView abjad;
     AnimationDrawable anim;
     boolean flag2 ;
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

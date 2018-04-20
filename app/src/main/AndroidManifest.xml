@@ -36,11 +36,7 @@
         <activity
             android:name=".MatchingTest"
             android:screenOrientation="landscape">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
         </activity>
         <activity
@@ -49,7 +45,11 @@
         <activity
             android:name=".ChildProgress"
             android:screenOrientation="landscape">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".adding_child"
@@ -78,7 +78,6 @@
             android:name=".Signin"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden|adjustResize|adjustPan" >
-
 
         </activity>
 
