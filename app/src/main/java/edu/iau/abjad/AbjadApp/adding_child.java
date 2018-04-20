@@ -294,7 +294,7 @@ Boolean emptyConPass = false;
             mismatchedPasswordsErrorIcon.setVisibility(View.VISIBLE);
             passwordErrorIcon.setVisibility(View.VISIBLE);
             errorCounts++;
-
+//////
 
         } }
 
