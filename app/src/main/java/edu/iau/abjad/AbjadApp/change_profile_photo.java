@@ -28,6 +28,7 @@ public class change_profile_photo extends child_menu {
     private int imgIndex;
     String photo_url;
     Button SaveChanges;
+    String ChildID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +49,7 @@ public class change_profile_photo extends child_menu {
         FBchildPhotoUrl = new firebase_connection();
         imgIndex = 0;
         photo_url="";
+
         imgsUrl = new ArrayList<String>();
         SaveChanges=(Button)findViewById(R.id.SaveChangeImg);
         FBchildPhotoUrl.ref.child("ChildPhoto").addValueEventListener(new ValueEventListener() {
@@ -64,7 +66,7 @@ public class change_profile_photo extends child_menu {
                SaveChanges.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        FBchildPhotoUrl.ref.child("Children").child("WFFuB8oO5nd3aoKA8qFgolyyJNB3").child("photo_URL").setValue(photo_url);
+                        FBchildPhotoUrl.ref.child("Children").child(Signin.id_child).child("photo_URL").setValue(photo_url);
                         Toast.makeText(change_profile_photo.this, "تم تغيير الصورة بنجاح", Toast.LENGTH_LONG).show();
                     }
                 });

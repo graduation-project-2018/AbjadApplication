@@ -1,9 +1,11 @@
 package edu.iau.abjad.AbjadApp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -14,6 +16,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
@@ -26,7 +29,12 @@ public class child_photo  extends menu_educator {
     private firebase_connection FBchildPhotoUri;
     private long imgCont;
     private int imgIndex;
-    String photo_url;
+    private String photo_url;
+
+   private Bundle childObj;
+   private String pass;
+   private childInformation completeObj;
+   private Button addChild;
 
 
 
@@ -52,6 +60,16 @@ public class child_photo  extends menu_educator {
         FBchildPhotoUri = new firebase_connection();
         imgIndex = 0;
         photo_url="";
+        completeObj = new childInformation("","","","","");
+        childObj = getIntent().getExtras();
+        if(childObj!=null){
+            pass=(String) childObj.get("password");
+            completeObj=(childInformation)childObj.getSerializable("object");
+
+        }
+
+
+
 
 
 
@@ -62,7 +80,12 @@ public class child_photo  extends menu_educator {
                     imgCont = childSnapShot.getChildrenCount();
                     String photoUri = childSnapShot.getValue().toString();
                     imgsUri.add(photoUri);
+                    addChild.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
 
+                        }
+                    });
 
                 }
                 // load();
