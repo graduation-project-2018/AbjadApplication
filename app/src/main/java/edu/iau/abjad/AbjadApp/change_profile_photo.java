@@ -3,6 +3,7 @@ package edu.iau.abjad.AbjadApp;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -24,7 +25,7 @@ public class change_profile_photo extends child_menu {
     private ImageView pre;
     private ArrayList<String> imgsUrl;
     private firebase_connection FBchildPhotoUrl;
-    private long imgCont;
+    private int imgCont;
     private int imgIndex;
     String photo_url;
     Button SaveChanges;
@@ -55,18 +56,19 @@ public class change_profile_photo extends child_menu {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot childSnapShot : dataSnapshot.getChildren()) {
-                    imgCont = childSnapShot.getChildrenCount();
+                    imgCont = (int)childSnapShot.getChildrenCount();
                     photo_url = childSnapShot.getValue().toString();
                     imgsUrl.add( photo_url);
                 }
                 Picasso.get().load(imgsUrl.get(0)).fit().centerInside().into(childImg);
                 photo_url = imgsUrl.get(0);
-
+                Log.i("Score", imgCont+toString());
                SaveChanges.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         FBchildPhotoUrl.ref.child("Children").child(Signin.id_child).child("photo_URL").setValue(photo_url);
                         Toast.makeText(change_profile_photo.this, "تم تغيير الصورة بنجاح", Toast.LENGTH_LONG).show();
+
                     }
                 });
 
