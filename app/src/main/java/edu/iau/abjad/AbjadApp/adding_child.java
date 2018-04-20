@@ -53,18 +53,18 @@ public class adding_child  extends menu_educator {
     TextView genderError;
     TextView passwordError;
     TextView mismatchedPasswordsError;
-    TextView usernameError;
+    TextView emailError;
     ImageView fnameErrorIcon;
     ImageView lnameErrorIcon;
     ImageView genderErrorIcon;
     ImageView passwordErrorIcon;
     ImageView mismatchedPasswordsErrorIcon;
-    ImageView usernameErrorIcon;
+    ImageView emailErrorIcon;
     String LastChildKey;
     String fullUsername;
     String pass;
    DatabaseReference rf;
-   int newChildNumber;
+
    int errorCounts;
     Pattern ArabicLetters = Pattern.compile("^[أ-ي ]+$");
     Pattern EnglishLetters = Pattern.compile("^[a-zA-Z ]+$");
@@ -98,25 +98,24 @@ public class adding_child  extends menu_educator {
        genderError = (TextView)findViewById(R.id.genderEr);
          passwordError = (TextView)findViewById(R.id.passEr);
         mismatchedPasswordsError = (TextView)findViewById(R.id.missPassEr);
-         usernameError = (TextView)findViewById(R.id.unameEr);
+         emailError = (TextView)findViewById(R.id.unameEr);
         fnameErrorIcon= (ImageView)findViewById(R.id.fnErIcon);
         lnameErrorIcon = (ImageView)findViewById(R.id.lnErIcon);
         genderErrorIcon = (ImageView)findViewById(R.id.genderErIcon);
         passwordErrorIcon = (ImageView)findViewById(R.id.passwordErIcon);
         mismatchedPasswordsErrorIcon = (ImageView)findViewById(R.id.conPasswordErIcon);
-        usernameErrorIcon = (ImageView)findViewById(R.id.emailErIcon);
+        emailErrorIcon = (ImageView)findViewById(R.id.emailErIcon);
 
 
         addBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                checkExistingAccount();
-            /*  checkInputs();
-              if (errorCounts == 0){
 
-                  addChild();
+             checkInputs();
+              if (errorCounts == 0){
+                  checkExistingAccount();
               }
-*/
+
             }
 
 
@@ -126,87 +125,7 @@ public class adding_child  extends menu_educator {
 
 
 
-    private void addChild(){
 
-
-      userName = username.getText().toString();
-        fullUsername = userName+"@abjad.com";
-       pass = password.getText().toString().trim();
-
-
-         auth.createUserWithEmailAndPassword(fullUsername,pass).addOnCompleteListener(this,
-                new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            Toast.makeText(adding_child.this, "تمت إضافة طفل جديد بنجاح", Toast.LENGTH_LONG).show();
-                            user_id = auth.getCurrentUser().getUid();
-                            addChildInfo();
-
-
-                        }//Successful child registeration
-
-                        else{
-                            FirebaseAuthException e  = (FirebaseAuthException) task.getException();
-                            Toast.makeText(adding_child.this, "" + e.getMessage(), Toast.LENGTH_LONG).show();
-                            if (e.getMessage() == "The email address is already in use by another account."){
-                                usernameError.setText("اسم المستخدم موجود سابقا");
-                                usernameError.setVisibility(View.VISIBLE);
-                                usernameErrorIcon.setVisibility(View.VISIBLE);
-                                errorCounts++;
-                            }
-
-                        }
-                    }
-                });
-
-
-    }//end of addChild function
-
-    public void addChildInfo(){
-        //ala will access theses from the bundle
-      String fname = firstName.getText().toString();
-        String lname = lastName.getText().toString();
-
-          int selectedId = radioGroup.getCheckedRadioButtonId();
-          radioButton = (RadioButton) findViewById(selectedId);
-          String selectedGender = radioButton.getText().toString();
-        child = new childInformation(fname,lname,selectedGender,"_",userName);
-        getNewChildNumber();
-       r.ref.addValueEventListener(new ValueEventListener() {
-       @Override
-       public void onDataChange(DataSnapshot dataSnapshot) {
-           r.ref.child("Children").child(user_id).setValue(child);
-           //educator ID need to  be changed
-           r.ref.addValueEventListener(new ValueEventListener(){
-               @Override
-               public void onDataChange(DataSnapshot dataSnapshot) {
-                   r.ref.child("Educator_has_child").child("educator22").child("childID_" + newChildNumber).setValue(user_id);
-
-                 }
-
-               @Override
-               public void onCancelled(DatabaseError databaseError) {
-
-               }
-
-
-           });
-
-
-
-
-
-       }
-       @Override
-       public void onCancelled(DatabaseError databaseError) {
-
-       }
-   });
-
-
-
-    }//end of addChildInfo
     private void checkInputs(){
 
         fnameError.setVisibility(View.INVISIBLE);
@@ -214,37 +133,45 @@ public class adding_child  extends menu_educator {
         genderError.setVisibility(View.INVISIBLE);
         passwordError.setVisibility(View.INVISIBLE);
         mismatchedPasswordsError.setVisibility(View.INVISIBLE);
-        usernameError.setVisibility(View.INVISIBLE);
+       emailError.setVisibility(View.INVISIBLE);
         fnameErrorIcon.setVisibility(View.INVISIBLE);
         lnameErrorIcon.setVisibility(View.INVISIBLE);
         genderErrorIcon.setVisibility(View.INVISIBLE);
         passwordErrorIcon.setVisibility(View.INVISIBLE);
         mismatchedPasswordsErrorIcon.setVisibility(View.INVISIBLE);
-        usernameErrorIcon.setVisibility(View.INVISIBLE);
+        emailErrorIcon.setVisibility(View.INVISIBLE);
       errorCounts = 0;
       checkFirstName();
         checkLastName();
         checkGender();
-        checkUsername();
+        checkEmail();
         checkPassword();
        // checkExistingAccount();
 
     }//end of checkInputs function
 
     public void checkExistingAccount(){
+
         Query q = r.ref.child("Children").orderByChild("username").equalTo(userName);
         q.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    usernameError.setText("اسم المستخدم موجود سابقا");
-                    usernameError.setVisibility(View.VISIBLE);
-                    usernameErrorIcon.setVisibility(View.VISIBLE);
+                    emailError.setText("اسم المستخدم موجود سابقا");
+                    emailError.setVisibility(View.VISIBLE);
+                    emailErrorIcon.setVisibility(View.VISIBLE);
                     errorCounts++;
                 }
                 else {
-
+                    Toast.makeText(adding_child.this, "NOT EXIST", Toast.LENGTH_LONG).show();
                     if(errorCounts == 0){
+                        String fname = firstName.getText().toString();
+                        String lname = lastName.getText().toString();
+
+                        int selectedId = radioGroup.getCheckedRadioButtonId();
+                        radioButton = (RadioButton) findViewById(selectedId);
+                        String selectedGender = radioButton.getText().toString();
+                        child = new childInformation(fname,lname,selectedGender,"_",userName);
                      /*   Bundle extras = new Bundle();
                         extras.putSerializable("object",child);
                         extras.putString("password",pass);
@@ -315,17 +242,17 @@ public class adding_child  extends menu_educator {
 
     }//end of checkGender function
 
-    public void checkUsername(){
+    public void checkEmail(){
         if (username.getText().toString().isEmpty()) {
-            usernameError.setText("قم بتعبئة الحقل باسم المستخدم للطفل");
-            usernameError.setVisibility(View.VISIBLE);
-            usernameErrorIcon.setVisibility(View.VISIBLE);
+            emailError.setText("قم بتعبئة الحقل باسم المستخدم للطفل");
+            emailError.setVisibility(View.VISIBLE);
+            emailErrorIcon.setVisibility(View.VISIBLE);
             errorCounts++;
         }
         else if (!EnglishLetters.matcher(username.getText().toString()).matches()){
-            usernameError.setText("اسم المستخدم يجب أن يحتوي على أحرف انجليزية فقط");
-            usernameError.setVisibility(View.VISIBLE);
-            usernameErrorIcon.setVisibility(View.VISIBLE);
+            emailError.setText("اسم المستخدم يجب أن يحتوي على أحرف انجليزية فقط");
+            emailError.setVisibility(View.VISIBLE);
+            emailErrorIcon.setVisibility(View.VISIBLE);
             errorCounts++;
 
         }
@@ -367,62 +294,76 @@ Boolean emptyConPass = false;
             mismatchedPasswordsErrorIcon.setVisibility(View.VISIBLE);
             passwordErrorIcon.setVisibility(View.VISIBLE);
             errorCounts++;
-
+//////
 
         } }
 
     }
-    public void getNewChildNumber(){
-
-
-        r.ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-         //Educator Id need to be changed
-                Query q = r.ref.child("Educator_has_child").child("educator22").orderByKey().limitToLast(1);
-                q.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.exists()) {
-
-                            LastChildKey = dataSnapshot.getValue().toString();
-                            String[] arrayString = LastChildKey.split("=");
-                            String keyPart = arrayString[0];
-                            String [] lastNumber = keyPart.split("_");
-                            int x = Integer.parseInt(lastNumber[1]);
-                            x++;
-                            newChildNumber =x;
-
-
-                        }
-                        else {
-
-                            newChildNumber = 1;
-                        }
-
-
-
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        //Handle possible errors.
-                    }
-                });
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-
-
-
-    }//end of getNewChildNumber function
-
 
 
 
 }
+/* private void addChild(){
+
+
+         auth.createUserWithEmailAndPassword(email,pass).addOnCompleteListener(this,
+                new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()){
+                            Toast.makeText(adding_child.this, "تمت إضافة طفل جديد بنجاح", Toast.LENGTH_LONG).show();
+                            user_id = auth.getCurrentUser().getUid();
+                            addChildInfo();
+
+
+                        }//Successful child registeration
+
+                        else{
+
+
+                        }
+                    }
+                });
+
+
+    }//end of addChild function
+
+
+    public void addChildInfo(){
+  //Make that you set the photo_URL in the child object
+
+       r.ref.addValueEventListener(new ValueEventListener() {
+       @Override
+       public void onDataChange(DataSnapshot dataSnapshot) {
+           r.ref.child("Children").child(user_id).setValue(child);
+           //educator ID need to  be changed
+           r.ref.addValueEventListener(new ValueEventListener(){
+               @Override
+               public void onDataChange(DataSnapshot dataSnapshot) {
+                   r.ref.child("Educator_has_child").child(SigninEducator.id_edu).child(user_id).setValue(true);
+
+                 }
+
+               @Override
+               public void onCancelled(DatabaseError databaseError) {
+
+               }
+
+
+           });
+
+
+
+
+
+       }
+       @Override
+       public void onCancelled(DatabaseError databaseError) {
+
+       }
+   });
+
+
+
+    }//end of addChildInfo
+*/

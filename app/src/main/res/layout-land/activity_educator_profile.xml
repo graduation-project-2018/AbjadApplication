@@ -7,7 +7,10 @@
     tools:context="edu.iau.abjad.AbjadApp.educator_profile"
     android:background="@drawable/educator_backgrpund">
 
-
+    <include
+        layout="@layout/navigation_action_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 
 
