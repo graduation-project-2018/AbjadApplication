@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.iau.abjad.AbjadApp">
-
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
     <uses-permission android:name="android.permission.INTERNET"/>
+
 
     <supports-screens
         android:largeScreens="true"
@@ -27,15 +27,7 @@
         </activity>
         <activity
             android:name=".educator_home"
-            android:screenOrientation="landscape">
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
-        </activity>
+            android:screenOrientation="landscape"></activity>
         <activity
             android:name=".TrueFalseTest"
             android:screenOrientation="landscape" >
@@ -56,7 +48,9 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".ChildProgress"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape">
+
+        </activity>
         <activity
             android:name=".adding_child"
             android:screenOrientation="landscape" />
@@ -68,11 +62,15 @@
             android:screenOrientation="landscape"></activity>
         <activity
             android:name=".child_home"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape">
+
+        </activity>
 
         <activity
             android:name=".unit_interface"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape" >
+
+        </activity>
         <activity
             android:name=".child_menu"
             android:screenOrientation="landscape" />
