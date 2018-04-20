@@ -9,65 +9,71 @@
     >
 
     <include
+        android:id="@+id/include2"
         layout="@layout/navigation_action_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
 
     <ImageView
-        android:id="@+id/lesson1Stars"
-        android:layout_width="wrap_content"
+        android:id="@+id/ChangeChildImg"
+        android:layout_width="518dp"
         android:layout_height="400dp"
-        android:layout_marginBottom="240dp"
-        android:layout_marginEnd="388dp"
-        android:src="@drawable/abjad_logo"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="76dp"
+        app:layout_constraintBottom_toTopOf="@+id/SaveChangeImg"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include2"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
-        android:id="@+id/imageView27"
-        android:layout_width="69dp"
+        android:id="@+id/prevChangeImg"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="380dp"
+        android:layout_marginBottom="372dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="192dp"
         android:src="@drawable/prev_btn"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/lesson1Stars"
-        app:layout_constraintHorizontal_bias="0.828"
+        app:layout_constraintEnd_toStartOf="@+id/ChangeChildImg"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/include2" />
 
     <ImageView
-        android:id="@+id/lesson2Stars"
-        android:layout_width="131dp"
-        android:layout_height="105dp"
-        android:layout_marginBottom="380dp"
+        android:id="@+id/nextChangeImg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="372dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="192dp"
         android:src="@drawable/next_btn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/lesson1Stars" />
+        app:layout_constraintStart_toEndOf="@+id/ChangeChildImg"
+        app:layout_constraintTop_toBottomOf="@+id/include2" />
+
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/SaveChangeImg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="104dp"
+        android:layout_marginBottom="76dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/circle_button"
         android:fontFamily="Arabic Typesetting"
+        android:gravity="center"
         android:text="تثبيت"
         android:textColor="#ffffff"
         android:textSize="18pt"
-        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.453"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lesson1Stars"
-        app:layout_constraintVertical_bias="0.602" />
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </android.support.constraint.ConstraintLayout>

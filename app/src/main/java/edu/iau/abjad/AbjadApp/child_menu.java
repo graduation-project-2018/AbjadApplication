@@ -101,7 +101,7 @@ public class child_menu extends AppCompatActivity {
                         popUp();
                         return true;
                     }
-                    case R.id.delete_child:{
+                  case R.id.delete_child:{
                         if(Lesson.words_counter==6){
                             Lesson.computeChildScore();
                         }
