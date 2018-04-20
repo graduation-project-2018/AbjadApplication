@@ -60,10 +60,10 @@ public class educator_home extends menu_educator {
                 if(dataSnapshot.exists()){
                     Toast.makeText(educator_home.this, "EXIST", Toast.LENGTH_LONG).show();
                     for( DataSnapshot d : dataSnapshot.getChildren()){
-
-                            childID = d.getKey().toString();
+                        for(DataSnapshot d2 : d.getChildren()){
+                            childID = d2.getKey().toString();
                             Query query2 = r.ref.child("Children").orderByKey().equalTo(childID);
-                            query2.addValueEventListener(new ValueEventListener() {
+                            query2.addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                                     if(dataSnapshot.exists())
@@ -76,10 +76,10 @@ public class educator_home extends menu_educator {
                                             System.out.println(e.getChild_id());
                                           children.add(e);
 
+                                          System.out.println("Name: "+ children.get(0).first_name);
+                                          System.out.println("Photo: "+ children.get(0).photo_URL);
 
                                         }
-
-
                                     }
                                 }
 
@@ -91,7 +91,7 @@ public class educator_home extends menu_educator {
 
                         }
 
-
+                    }
                 }
             }
 

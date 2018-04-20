@@ -54,10 +54,10 @@ public class ReadingTest extends child_menu {
     MediaPlayer feedback_audio = new MediaPlayer();
     int child_score;
     static  int reading_child_score;
-    boolean flag = true;
+    boolean flag ;
     ImageView abjad;
     AnimationDrawable anim;
-    boolean flag2 = true;
+    boolean flag2 ;
 
 
 
@@ -88,6 +88,8 @@ public class ReadingTest extends child_menu {
         test_id = "Test1";
         child_score=0;
         reading_child_score =0;
+        flag = true;
+        flag2 = true;
         speaker_btn.setVisibility(View.INVISIBLE);
         choose_phrase =  rand.nextInt(10) + 1;
 

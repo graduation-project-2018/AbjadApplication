@@ -283,7 +283,7 @@ public class unit_interface extends child_menu {
                                                                                       childUnitInfo_lessonID.getStars().setImageResource(R.drawable.gray_three_stars);
                                                                                   }
                                                                               }
-                                                                              if(childUnitInfo_lessonID.getLock()!=null && childUnitInfo_lessonID.getLessonId()!=null){
+                                                                              if(childUnitInfo_lessonID.getLock()!=null && childUnitInfo_lessonID.getLessonId()!=null && childUnitInfo_lessonID.getNextLesson()!= null){
                                                                                   childUnitInfo_lessonID.getLock().setVisibility(View.GONE);
                                                                                   childUnitInfo_lessonID.getLock().getVisibility();
                                                                                   childUnitInfo_lessonID.getLesson().setClickable(true);

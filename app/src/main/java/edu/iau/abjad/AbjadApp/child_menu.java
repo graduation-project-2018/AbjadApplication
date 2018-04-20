@@ -50,7 +50,8 @@ public class child_menu extends AppCompatActivity {
     EditText email;
     DatabaseReference read;
     String id;
-    boolean flag = false;
+    boolean flag, flag_delete;
+
 
 
     @Override
@@ -67,6 +68,8 @@ public class child_menu extends AppCompatActivity {
         myDrawerLayout.addDrawerListener(myToggle);
         myToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        flag = false;
+        flag_delete = false;
 
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -96,9 +99,13 @@ public class child_menu extends AppCompatActivity {
                             Lesson.computeChildScore();
                         }
                         popUp();
-
-
-
+                        return true;
+                    }
+                    case R.id.delete_child:{
+                        if(Lesson.words_counter==6){
+                            Lesson.computeChildScore();
+                        }
+                        flag_delete = true;
                         return true;
                     }
                     case R.id.sign_out:{
@@ -186,10 +193,13 @@ public class child_menu extends AppCompatActivity {
                                         String em = e.child("email").getValue().toString();
 
                                         if(em.equals(edu_email)){
-                                            if(flag == true){
+                                            if(flag){
                                                 Intent intent = new Intent(child_menu.this, report_problem.class);
                                                 startActivity(intent);
                                                 flag = false;
+                                            }
+                                            else if(flag_delete){
+                                                //add code of pop up.
                                             }
                                             else {
                                                 Intent intent = new Intent(child_menu.this, child_change_password.class);
