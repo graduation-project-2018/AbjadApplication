@@ -56,13 +56,14 @@ public class change_profile_photo extends child_menu {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot childSnapShot : dataSnapshot.getChildren()) {
-                    imgCont = (int)childSnapShot.getChildrenCount();
+
                     photo_url = childSnapShot.getValue().toString();
                     imgsUrl.add( photo_url);
                 }
+                imgCont = (int)dataSnapshot.getChildrenCount();
                 Picasso.get().load(imgsUrl.get(0)).fit().centerInside().into(childImg);
                 photo_url = imgsUrl.get(0);
-                Log.i("Score", imgCont+toString());
+
                SaveChanges.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -78,7 +79,7 @@ public class change_profile_photo extends child_menu {
                     public void onClick(View v) {
                         // load();
                         imgIndex++;
-                        if (imgIndex < 6) {
+                        if (imgIndex < imgCont) {
                             Picasso.get().load(imgsUrl.get(imgIndex)).fit().centerInside().into(childImg);
                             photo_url=imgsUrl.get(imgIndex);
                         } else {
@@ -96,7 +97,7 @@ public class change_profile_photo extends child_menu {
                     public void onClick(View v) {
                         // load();
                         imgIndex--;
-                        if (imgIndex < 6 & imgIndex > 0) {
+                        if (imgIndex < imgCont & imgIndex > 0) {
                             Picasso.get().load(imgsUrl.get(imgIndex)).fit().centerInside().into(childImg);
                             photo_url=imgsUrl.get(imgIndex);
 

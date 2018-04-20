@@ -27,7 +27,7 @@ public class child_photo  extends menu_educator {
     private ImageView pre;
     private ArrayList<String> imgsUri;
     private firebase_connection FBchildPhotoUri;
-    private long imgCont;
+    private int imgCont;
     private int imgIndex;
     private String photo_url;
 
@@ -60,6 +60,7 @@ public class child_photo  extends menu_educator {
         FBchildPhotoUri = new firebase_connection();
         imgIndex = 0;
         photo_url="";
+        addChild = (Button)findViewById(R.id.addChild);
         completeObj = new childInformation("","","","","");
         childObj = getIntent().getExtras();
         if(childObj!=null){
@@ -68,30 +69,25 @@ public class child_photo  extends menu_educator {
 
         }
 
-
-
-
-
-
         FBchildPhotoUri.ref.child("ChildPhoto").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot childSnapShot : dataSnapshot.getChildren()) {
-                    imgCont = childSnapShot.getChildrenCount();
+
                     String photoUri = childSnapShot.getValue().toString();
                     imgsUri.add(photoUri);
-                    addChild.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-
-                        }
-                    });
-
                 }
                 // load();
-
+                imgCont = (int)dataSnapshot.getChildrenCount();
                 Picasso.get().load(imgsUri.get(0)).fit().centerInside().into(childImg);
                 photo_url = imgsUri.get(0);
+
+                addChild.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                });
             }
 
             @Override
@@ -101,13 +97,14 @@ public class child_photo  extends menu_educator {
             }
 
         });
+
         //load();
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // load();
                 imgIndex++;
-                if (imgIndex < 6) {
+                if (imgIndex < imgCont) {
                     Picasso.get().load(imgsUri.get(imgIndex)).fit().centerInside().into(childImg);
                     photo_url=imgsUri.get(imgIndex);
                 } else {
@@ -125,7 +122,7 @@ public class child_photo  extends menu_educator {
             public void onClick(View v) {
                 // load();
                 imgIndex--;
-                if (imgIndex < 6 & imgIndex > 0) {
+                if (imgIndex < imgCont & imgIndex > 0) {
                     Picasso.get().load(imgsUri.get(imgIndex)).fit().centerInside().into(childImg);
                     photo_url=imgsUri.get(imgIndex);
 
