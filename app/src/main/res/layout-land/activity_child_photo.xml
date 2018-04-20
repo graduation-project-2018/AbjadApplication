@@ -66,16 +66,7 @@
         app:layout_constraintTop_toBottomOf="@+id/lesson1Stars"
         app:layout_constraintVertical_bias="0.602" />
 
-    <TextView
-        android:id="@+id/testingphoto"
-        android:layout_width="wrap_content"
-        android:layout_height="19dp"
-        android:layout_marginEnd="640dp"
-        android:layout_marginTop="64dp"
-        android:text="TextView"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addChild" />
+
 
 
 </android.support.constraint.ConstraintLayout>

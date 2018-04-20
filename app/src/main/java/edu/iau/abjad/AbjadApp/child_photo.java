@@ -27,7 +27,7 @@ public class child_photo  extends menu_educator {
     private long imgCont;
     private int imgIndex;
     String photo_url;
-    TextView testing;
+
 
 
 
@@ -52,7 +52,7 @@ public class child_photo  extends menu_educator {
         FBchildPhotoUri = new firebase_connection();
         imgIndex = 0;
         photo_url="";
-        testing = (TextView)findViewById(R.id.testingphoto);
+
 
 
         FBchildPhotoUri.ref.child("ChildPhoto").addValueEventListener(new ValueEventListener() {
@@ -62,12 +62,13 @@ public class child_photo  extends menu_educator {
                     imgCont = childSnapShot.getChildrenCount();
                     String photoUri = childSnapShot.getValue().toString();
                     imgsUri.add(photoUri);
+
+
                 }
                 // load();
 
                 Picasso.get().load(imgsUri.get(0)).fit().centerInside().into(childImg);
-photo_url=imgsUri.get(0);
-testing.setText(photo_url);
+                photo_url = imgsUri.get(0);
             }
 
             @Override
@@ -86,12 +87,11 @@ testing.setText(photo_url);
                 if (imgIndex < 6) {
                     Picasso.get().load(imgsUri.get(imgIndex)).fit().centerInside().into(childImg);
                     photo_url=imgsUri.get(imgIndex);
-                    testing.setText(photo_url);
                 } else {
                     imgIndex = 0;
                     Picasso.get().load(imgsUri.get(imgIndex)).fit().centerInside().into(childImg);
                     photo_url=imgsUri.get(imgIndex);
-                    testing.setText(photo_url);
+
                 }
 
             }
@@ -105,17 +105,17 @@ testing.setText(photo_url);
                 if (imgIndex < 6 & imgIndex > 0) {
                     Picasso.get().load(imgsUri.get(imgIndex)).fit().centerInside().into(childImg);
                     photo_url=imgsUri.get(imgIndex);
-                    testing.setText(photo_url);
+
                 } else if (imgIndex == -1) {
                     imgIndex = 5;
                     Picasso.get().load(imgsUri.get(imgIndex)).fit().centerInside().into(childImg);
                     photo_url=imgsUri.get(imgIndex);
-                    testing.setText(photo_url);
+
                 } else {
                     imgIndex = 0;
                     Picasso.get().load(imgsUri.get(imgIndex)).fit().centerInside().into(childImg);
                     photo_url=imgsUri.get(imgIndex);
-                    testing.setText(photo_url);
+
                 }
             }
         });
