@@ -37,7 +37,8 @@ public class educator_home extends menu_educator {
    ImageView child_img;
    int counter = 0;
     String childID;
-
+    String child_ID;
+    children child = new children();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,8 +54,8 @@ public class educator_home extends menu_educator {
         mDrawerLayout.addView(contentView, 0);
         btn = (Button) findViewById(R.id.add_new_child_btn);
         gv = (GridView)findViewById(R.id.gv);
-        Query query = r.ref.child("Educator_has_child").orderByKey().equalTo("i6ywh35HrgdyjDe9lh98BGcutpY2");
-        query.addValueEventListener(new ValueEventListener() {
+    Query query = r.ref.child("Educator_has_child").orderByKey().equalTo("i6ywh35HrgdyjDe9lh98BGcutpY2");
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
@@ -73,13 +74,14 @@ public class educator_home extends menu_educator {
                                             String photo = d.child("photo_URL").getValue().toString();
 
                                           children e = new children(photo, name, childID);
-                                            System.out.println(e.getChild_id());
                                           children.add(e);
 
-                                          System.out.println("Name: "+ children.get(0).first_name);
-                                          System.out.println("Photo: "+ children.get(0).photo_URL);
 
                                         }
+
+
+
+
                                     }
                                 }
 
@@ -89,10 +91,13 @@ public class educator_home extends menu_educator {
                                 }
                             });
 
+                            Toast.makeText(educator_home.this, child.getFirst_name(), Toast.LENGTH_LONG).show();
                         }
+
 
                     }
                 }
+
             }
 
             @Override
@@ -101,9 +106,8 @@ public class educator_home extends menu_educator {
             }
         });
 
-
-        adapter = new childrenAdapter(this,children);
-        gv.setAdapter(adapter);
+        /*adapter = new childrenAdapter(this,children);
+        gv.setAdapter(adapter);*/
 
 
         btn.setOnClickListener(new View.OnClickListener() {
@@ -121,4 +125,5 @@ public class educator_home extends menu_educator {
 
 
     }
+
 }
