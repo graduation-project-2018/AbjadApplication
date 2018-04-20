@@ -22,7 +22,7 @@ public class change_profile_photo extends child_menu {
     private ImageView childImg;
     private ImageView next;
     private ImageView pre;
-    private ArrayList<String> imgsUri;
+    private ArrayList<String> imgsUrl;
     private firebase_connection FBchildPhotoUrl;
     private long imgCont;
     private int imgIndex;
@@ -48,21 +48,69 @@ public class change_profile_photo extends child_menu {
         FBchildPhotoUrl = new firebase_connection();
         imgIndex = 0;
         photo_url="";
+        imgsUrl = new ArrayList<String>();
         SaveChanges=(Button)findViewById(R.id.SaveChangeImg);
         FBchildPhotoUrl.ref.child("ChildPhoto").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot childSnapShot : dataSnapshot.getChildren()) {
                     imgCont = childSnapShot.getChildrenCount();
-                    String photoUri = childSnapShot.getValue().toString();
-                    imgsUri.add(photoUri);
-
-
+                    photo_url = childSnapShot.getValue().toString();
+                    imgsUrl.add( photo_url);
                 }
-                // load();
+                Picasso.get().load(imgsUrl.get(0)).fit().centerInside().into(childImg);
+                photo_url = imgsUrl.get(0);
 
-                Picasso.get().load(imgsUri.get(0)).fit().centerInside().into(childImg);
-                photo_url = imgsUri.get(0);
+               SaveChanges.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        FBchildPhotoUrl.ref.child("Children").child("WFFuB8oO5nd3aoKA8qFgolyyJNB3").child("photo_URL").setValue(photo_url);
+                        Toast.makeText(change_profile_photo.this, "تم تغيير الصورة بنجاح", Toast.LENGTH_LONG).show();
+                    }
+                });
+
+                // load();
+                next.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // load();
+                        imgIndex++;
+                        if (imgIndex < 6) {
+                            Picasso.get().load(imgsUrl.get(imgIndex)).fit().centerInside().into(childImg);
+                            photo_url=imgsUrl.get(imgIndex);
+                        } else {
+                            imgIndex = 0;
+                            Picasso.get().load(imgsUrl.get(imgIndex)).fit().centerInside().into(childImg);
+                            photo_url=imgsUrl.get(imgIndex);
+
+                        }
+
+                    }
+                });
+                //load();
+                pre.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // load();
+                        imgIndex--;
+                        if (imgIndex < 6 & imgIndex > 0) {
+                            Picasso.get().load(imgsUrl.get(imgIndex)).fit().centerInside().into(childImg);
+                            photo_url=imgsUrl.get(imgIndex);
+
+                        } else if (imgIndex == -1) {
+                            imgIndex = 5;
+                            Picasso.get().load(imgsUrl.get(imgIndex)).fit().centerInside().into(childImg);
+                            photo_url=imgsUrl.get(imgIndex);
+
+                        } else {
+                            imgIndex = 0;
+                            Picasso.get().load(imgsUrl.get(imgIndex)).fit().centerInside().into(childImg);
+                            photo_url=imgsUrl.get(imgIndex);
+
+                        }
+                    }
+                });
+
             }
 
             @Override
@@ -73,53 +121,10 @@ public class change_profile_photo extends child_menu {
 
         });
         //load();
-        next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // load();
-                imgIndex++;
-                if (imgIndex < 6) {
-                    Picasso.get().load(imgsUri.get(imgIndex)).fit().centerInside().into(childImg);
-                    photo_url=imgsUri.get(imgIndex);
-                } else {
-                    imgIndex = 0;
-                    Picasso.get().load(imgsUri.get(imgIndex)).fit().centerInside().into(childImg);
-                    photo_url=imgsUri.get(imgIndex);
 
-                }
 
-            }
-        });
-        //load();
-        pre.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // load();
-                imgIndex--;
-                if (imgIndex < 6 & imgIndex > 0) {
-                    Picasso.get().load(imgsUri.get(imgIndex)).fit().centerInside().into(childImg);
-                    photo_url=imgsUri.get(imgIndex);
 
-                } else if (imgIndex == -1) {
-                    imgIndex = 5;
-                    Picasso.get().load(imgsUri.get(imgIndex)).fit().centerInside().into(childImg);
-                    photo_url=imgsUri.get(imgIndex);
 
-                } else {
-                    imgIndex = 0;
-                    Picasso.get().load(imgsUri.get(imgIndex)).fit().centerInside().into(childImg);
-                    photo_url=imgsUri.get(imgIndex);
-
-                }
-            }
-        });
-
-        SaveChanges.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
         //load();
     }
 }

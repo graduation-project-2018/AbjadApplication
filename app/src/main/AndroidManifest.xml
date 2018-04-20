@@ -36,11 +36,6 @@
         <activity
             android:name=".MatchingTest"
             android:screenOrientation="landscape">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
         </activity>
         <activity
@@ -100,7 +95,15 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".change_profile_photo"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape" >
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
         <activity
             android:name=".splash_screen"
             android:screenOrientation="landscape"></activity>
