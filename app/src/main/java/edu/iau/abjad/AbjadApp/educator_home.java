@@ -10,7 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
@@ -28,6 +31,10 @@ public class educator_home extends menu_educator {
     Button btn;
    firebase_connection r = new firebase_connection();
    ArrayList <children> children = new ArrayList<children>();
+   childrenAdapter adapter;
+   GridView gv;
+   TextView child_name;
+   ImageView child_img;
    int counter = 0;
     String childID;
 
@@ -45,17 +52,18 @@ public class educator_home extends menu_educator {
 
         mDrawerLayout.addView(contentView, 0);
         btn = (Button) findViewById(R.id.add_new_child_btn);
-
-        Query query = r.ref.child("Educator_has_child").orderByKey().equalTo(SigninEducator.id_edu);
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
+        gv = (GridView)findViewById(R.id.gv);
+        Query query = r.ref.child("Educator_has_child").orderByKey().equalTo("i6ywh35HrgdyjDe9lh98BGcutpY2");
+        query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
+                    Toast.makeText(educator_home.this, "EXIST", Toast.LENGTH_LONG).show();
                     for( DataSnapshot d : dataSnapshot.getChildren()){
-                        for(DataSnapshot d2 : d.getChildren()){
-                            childID = d2.getKey().toString();
+
+                            childID = d.getKey().toString();
                             Query query2 = r.ref.child("Children").orderByKey().equalTo(childID);
-                            query2.addListenerForSingleValueEvent(new ValueEventListener() {
+                            query2.addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                                     if(dataSnapshot.exists())
@@ -65,12 +73,13 @@ public class educator_home extends menu_educator {
                                             String photo = d.child("photo_URL").getValue().toString();
 
                                           children e = new children(photo, name, childID);
+                                            System.out.println(e.getChild_id());
                                           children.add(e);
 
-                                          System.out.println("Name: "+ children.get(0).first_name);
-                                          System.out.println("Photo: "+ children.get(0).photo_URL);
 
                                         }
+
+
                                     }
                                 }
 
@@ -82,7 +91,7 @@ public class educator_home extends menu_educator {
 
                         }
 
-                    }
+
                 }
             }
 
@@ -93,8 +102,8 @@ public class educator_home extends menu_educator {
         });
 
 
-
-
+        adapter = new childrenAdapter(this,children);
+        gv.setAdapter(adapter);
 
 
         btn.setOnClickListener(new View.OnClickListener() {
