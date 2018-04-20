@@ -22,13 +22,13 @@ public class unit_interface extends child_menu {
     private Button test1,test2,test3,lesson1,lesson2,lesson3,lesson4,lesson5,lesson6;
     private ImageView lock2,lock3,lock4,lock5,lock6,test1Stars,test2Stars,test3Stars,
             lesson1Stars,lesson2Stars,lesson3Stars,lesson4Stars,lesson5Stars,lesson6Stars,bal1,bal2,bal3;
-    private firebase_connection unitConnicetion,getscore,
+    private firebase_connection unitConnicetion,getscore,TestId,
             childScoreConnection,childLockConnection,getChildScoreConnection,innerScore,testScoreq,testIDq,testIDq2,
             testgetSq1,testgetSq2;
     private Intent chilHomeIntent,lessonIntent;
     private Random randomTestNo;
     private ArrayList <Intent> testIntent;
-    private Intent MatchingTest,ReadingTest,TrueFalseTest,HeardWordTest;
+    private Intent matchingTest_Intent,readingTest_Intent,trueFalseTest_Intent,heardWordTest_Intent;
     private ArrayList<String> TestStringForTesting;
     private ArrayList<String> TestStringForTesting2;
     private ArrayList<String> childLessons,childTests;
@@ -36,14 +36,15 @@ public class unit_interface extends child_menu {
     private ArrayList<String> lessons;
     private ArrayList<String> lessonsScore;
     private audio_URLs audio;
-    public ArrayList<Intent>  Rand;
+    public static ArrayList<Intent>  Rand;
     private ArrayList<childUnitInfo> lessonsInfo,testInfo;
     private MediaPlayer instructions;
     String un;
     public  static String unitID;
     boolean flag = true;
     private  String childID;
-
+    static boolean endtest=false;
+    private int finalScore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +61,7 @@ public class unit_interface extends child_menu {
         innerScore=new firebase_connection();
         testIDq=new firebase_connection();
         audio=new audio_URLs();
+        TestId=new firebase_connection();
         setLessons(lessons);
         getChildScoreConnection=new firebase_connection();
         testIDq2=new firebase_connection();
@@ -73,9 +75,9 @@ public class unit_interface extends child_menu {
         testgetSq2=new firebase_connection();
         chilHomeIntent=getIntent();
         unitID=chilHomeIntent.getStringExtra("id");
-
         openLessons=new ArrayList<String>();
         childLessons=new ArrayList<String>();
+        Rand=new ArrayList<Intent>();
         TestStringForTesting=new ArrayList<String>();
         TestStringForTesting2=new ArrayList<String>();
         randomTestNo=new Random();
@@ -87,17 +89,18 @@ public class unit_interface extends child_menu {
         bal3=findViewById(R.id.ballon3);
         m.title.setText(chilHomeIntent.getStringExtra("Unitname"));
         testInfo=new ArrayList<childUnitInfo>();
-        MatchingTest=  new Intent(this, MatchingTest.class );
-        ReadingTest=   new Intent(this, ReadingTest.class );
-        TrueFalseTest= new  Intent(this, TrueFalseTest.class );
-        HeardWordTest= new Intent(this, HeardWordTest.class );
-        testIntent.add(MatchingTest);
+
+        matchingTest_Intent=  new Intent(this, MatchingTest.class );
+        readingTest_Intent=   new Intent(this, ReadingTest.class );
+        trueFalseTest_Intent= new  Intent(this, TrueFalseTest.class );
+        heardWordTest_Intent= new Intent(this, HeardWordTest.class );
+        testIntent.add(matchingTest_Intent);
         TestStringForTesting.add("MatchingTest");
-        testIntent.add(ReadingTest);
+        testIntent.add(readingTest_Intent);
         TestStringForTesting.add("ReadingTest");
-        testIntent.add(TrueFalseTest);
+        testIntent.add(trueFalseTest_Intent);
         TestStringForTesting.add("TrueFalseTest");
-        testIntent.add(HeardWordTest);
+        testIntent.add(heardWordTest_Intent);
         TestStringForTesting.add("HeardWordTest");
         test1= findViewById(R.id.test1);
         test2= findViewById(R.id.test2);
@@ -235,9 +238,8 @@ public class unit_interface extends child_menu {
         View.OnClickListener clickedTest =new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Bundle b = new Bundle();
+
                 if (view.getId() == R.id.test1|| view.getId()==R.id.ballon1) {
-                    lessonIntent.putExtra("testid","Test1");
                     int random=randomTestNo.nextInt(4);
                     int random2=randomTestNo.nextInt(4);
                     int rand=randomTestNo.nextInt(2);
@@ -245,11 +247,12 @@ public class unit_interface extends child_menu {
                     setRand(fillTest(random,random2,rand));
                     Intent fIntent=Rand.get(0);
                     Rand.remove(0);
-                    b.putParcelableArrayList("RandomIntent",Rand);
+                    fIntent.putExtra("test_letter",testInfo.get(0).getLetters());
+                    Log.i("testLetter3",testInfo.get(0).getLesson().getText().toString().replace(',','_'));
+                    //fIntent.putParcelableArrayListExtra("RandomIntent",Rand);
                     startActivity(fIntent);
 
                 } else if (view.getId() == R.id.test2|| view.getId()==R.id.ballon2) {
-                    lessonIntent.putExtra("testid","Test2");
                     int random=randomTestNo.nextInt(4);
                     int random2=randomTestNo.nextInt(4);
                     int rand=randomTestNo.nextInt(2);
@@ -257,11 +260,12 @@ public class unit_interface extends child_menu {
                     setRand(fillTest(random,random2,rand));
                     Intent fIntent=Rand.get(0);
                     Rand.remove(0);
-                    b.putParcelableArrayList("RandomIntent",Rand);
+                    fIntent.putExtra("test_letter",testInfo.get(1).getLetters());
+                    fIntent.putParcelableArrayListExtra("RandomIntent",Rand);
                     startActivity(fIntent);
 
+
                 } else if (view.getId() == R.id.test3 || view.getId()==R.id.ballon3){
-                    lessonIntent.putExtra("testid","Test3");
                     int random=randomTestNo.nextInt(4);
                     int random2=randomTestNo.nextInt(4);
                     int rand=randomTestNo.nextInt(2);
@@ -269,8 +273,10 @@ public class unit_interface extends child_menu {
                     setRand(fillTest(random,random2,rand));
                     Intent fIntent=Rand.get(0);
                     Rand.remove(0);
-                    b.putParcelableArrayList("RandomIntent",Rand);
+                    fIntent.putExtra("test_letter",testInfo.get(2).getLetters());
+                    fIntent.putParcelableArrayListExtra("RandomIntent",Rand);
                     startActivity(fIntent);
+
                 }
 
             }
@@ -287,6 +293,13 @@ public class unit_interface extends child_menu {
 
         unedatble();
         Log.i("Lesson1",lesson1.isClickable()+" ");
+        if(endtest==true){
+            finalScore= ReadingTest.reading_child_score+
+                    HeardWordTest.final_heard_child_score+
+                    TrueFalseTest.true_false_test_score;
+            finalScore=finalScore/4;
+
+        }
 
         unitConnicetion.ref.child("Units").child(unitID).child("unit letters").addValueEventListener(new ValueEventListener() {
             @Override
@@ -309,6 +322,7 @@ public class unit_interface extends child_menu {
                         testInfo.get(i).setLetters(lessons.get(j) + "_" + lessons.get(j + 1));
                         j += 2;
                     }
+
                     childScoreConnection.ref.child("child_takes_lesson").child(childID).child(unitID).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -436,6 +450,7 @@ public class unit_interface extends child_menu {
                         }
                     });
                 }
+
                 testScoreq.ref.child("child_takes_test").child(childID).child(unitID).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -636,7 +651,6 @@ public class unit_interface extends child_menu {
 
         }
         if(rTest.size()!=0){
-
         return rTest;
 
         }
