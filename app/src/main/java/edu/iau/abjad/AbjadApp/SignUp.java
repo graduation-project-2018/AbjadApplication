@@ -150,7 +150,7 @@ public class SignUp extends AppCompatActivity {
                             //Toast.makeText(adding_child.this, "لم تتم إضافة الطفل، الرجاء المحاولة لاحقا", Toast.LENGTH_LONG).show();//
                             //user added previously
                              if(e.getMessage().contains("email address")){
-                                 Email.setError("البريد الإلكتروني المدخل مستخدم من قبل مستخدم آخر");
+                                 Email.setError("البريد الإلكتروني المدخل تم استخدامه من قبل مستخدم آخر");
                                  Email.requestFocus();
                              }
                              else Toast.makeText(SignUp.this,e.getMessage(), Toast.LENGTH_LONG).show();
