@@ -36,6 +36,7 @@ public class educator_home extends menu_educator {
    TextView child_name;
    ImageView child_img;
    int counter = 0;
+   DatabaseReference db;
     String childID;
     String child_ID;
     children child = new children();
@@ -54,7 +55,26 @@ public class educator_home extends menu_educator {
         mDrawerLayout.addView(contentView, 0);
         btn = (Button) findViewById(R.id.add_new_child_btn);
         gv = (GridView)findViewById(R.id.gv);
-    Query query = r.ref.child("Educator_has_child").orderByKey().equalTo("i6ywh35HrgdyjDe9lh98BGcutpY2");
+        db = FirebaseDatabase.getInstance().getReference().child("educator_home").child("educator1");
+        db.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    for(DataSnapshot d: dataSnapshot.getChildren()){
+
+                        Toast.makeText(educator_home.this,d.child("first_name").getValue().toString(), Toast.LENGTH_LONG).show();
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        /*
+   Query query = r.ref.child("Educator_has_child").orderByKey().equalTo("i6ywh35HrgdyjDe9lh98BGcutpY2");
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -69,6 +89,7 @@ public class educator_home extends menu_educator {
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                                     if(dataSnapshot.exists())
                                     {
+
                                         for(DataSnapshot d : dataSnapshot.getChildren()){
                                             String name = d.child("first_name").getValue().toString();
                                             String photo = d.child("photo_URL").getValue().toString();
@@ -76,9 +97,7 @@ public class educator_home extends menu_educator {
                                           children e = new children(photo, name, childID);
                                           children.add(e);
 
-
                                         }
-
 
 
 
@@ -91,23 +110,30 @@ public class educator_home extends menu_educator {
                                 }
                             });
 
-                            Toast.makeText(educator_home.this, child.getFirst_name(), Toast.LENGTH_LONG).show();
+
                         }
 
 
                     }
+
+
+
                 }
 
             }
+
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
         });
+*/
 
-        /*adapter = new childrenAdapter(this,children);
-        gv.setAdapter(adapter);*/
+     //   firebaseHelper obj = new firebaseHelper(db);
+//       String x = obj.getData().get(1).getFirst_name();
+
+
 
 
         btn.setOnClickListener(new View.OnClickListener() {

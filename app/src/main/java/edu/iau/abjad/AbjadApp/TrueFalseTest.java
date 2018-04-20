@@ -26,7 +26,6 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
     menu_variables m = new menu_variables();
     MediaPlayer test_sentence_audio = new MediaPlayer();
     audio_URLs audio_obj = new audio_URLs();
-   ArrayList<true_false_test_content> testContentArrayList = new ArrayList<true_false_test_content>();
     Button speaker_btn;
     Button true_btn;
     Button false_btn;
@@ -35,7 +34,6 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
     String testID;
     //previous_Intent = getIntent();
     String selectedSentence;
-    String selectedSentenceAudio;
     static int true_false_test_score;
     boolean flag ;
     int true_or_false;
@@ -44,7 +42,7 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
     ImageView abjad;
     AnimationDrawable anim;
     boolean flag2;
-
+    String audio;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,38 +64,30 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
         anim =(AnimationDrawable) abjad.getBackground();
         flag = true;
         flag2 = true;
+        Random rand = new Random();
+        true_or_false = rand.nextInt(2);
+        sentence_number = rand.nextInt(4);
+        int retreive_sentence = sentence_number+1;
 
+                        DatabaseReference read = r.ref.child("Tests").child("Test1").child("sentences").child("sentence"+retreive_sentence);
 
-                        //int test_ID = previous_Intent.getStringExtra("test_ID");
-                        DatabaseReference read = r.ref.child("Tests").child("Test1").child("sentences");
-                         //create a class for wrong and false test
                         read.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
-                                for (final DataSnapshot sentence_ls : dataSnapshot.getChildren()){
-
-                                    String trueContent = sentence_ls.child("content").getValue().toString();
-                                    String wrongContent = sentence_ls.child("wrong_content").getValue().toString();
-                                    String audio = sentence_ls.child("audio_file").getValue().toString();
-
-                                   true_false_test_content obj = new  true_false_test_content(trueContent, wrongContent,  audio);
-                                    testContentArrayList.add(obj);
-                                } //end of for loop
-                                    Random rand = new Random();
-                                    true_or_false = rand.nextInt(2);
-                                   sentence_number = rand.nextInt(4);
-
-                                   if(true_or_false == 1)
-                                   { selectedSentence = testContentArrayList.get( sentence_number).trueContent;
-
-                                   }
+                                if(dataSnapshot.exists()){
+                                    if(true_or_false == 1)
+                                        selectedSentence = dataSnapshot.child("content").getValue().toString();
                                     else{
-                                       selectedSentence = testContentArrayList.get( sentence_number).wrongContent;
+                                    selectedSentence = dataSnapshot.child("wrong_content").getValue().toString();
+                                         }
+                                   audio = dataSnapshot.child("audio_file").getValue().toString();
 
-                                   }
+
+                                }
+
                                     sentenceLabel.setText(selectedSentence);
 
-                                   // start the instruction audio before the lesson begin
+                                   // start the instruction audio before the test begin
                                     anim.start();
                                     playAudio(audio_obj.true_false_test_begin_url);
 
@@ -112,7 +102,7 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
                                             anim.stop();
                                             flag = false;
                                             anim.start();
-                                            playAudio(testContentArrayList.get( sentence_number).audioUrl);
+                                            playAudio(audio);
                                             setOnCompleteListener(test_sentence_audio);
 
                                         }
@@ -122,9 +112,9 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
                                     speaker_btn.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View view) {
-                                            selectedSentenceAudio = testContentArrayList.get( sentence_number).audioUrl;
+
                                             anim.start();
-                                            playAudio(selectedSentenceAudio);
+                                            playAudio(audio);
                                             setOnCompleteListener(test_sentence_audio);
                                         }
                                     });

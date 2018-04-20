@@ -232,7 +232,7 @@ editEducator();
     }//end of editEducator function
     public void updateEmail(){
 //sign in should be deleted
-
+//Do I need to sign out the user
         Uath.signInWithEmailAndPassword("mahabk.2016@gmail.com","123456").addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -241,7 +241,7 @@ editEducator();
                 {
 
                     user = FirebaseAuth.getInstance().getCurrentUser();
-
+///I should add email into the educator node
                     user.updateEmail(newEmail)
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
