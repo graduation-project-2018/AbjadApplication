@@ -94,6 +94,17 @@
             app:layout_constraintTop_toBottomOf="parent"
             app:layout_constraintVertical_bias="1.0">
 
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="904dp"
+                android:layout_marginTop="260dp"
+                android:text="TextView"
+                android:visibility="invisible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/CPassFieldSU" />
+
             <EditText
                 android:id="@+id/CPassFieldSU"
                 android:layout_width="728dp"

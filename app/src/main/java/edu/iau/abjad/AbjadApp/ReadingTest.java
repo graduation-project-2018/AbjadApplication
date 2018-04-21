@@ -17,6 +17,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ActionProvider;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -26,11 +27,13 @@ import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Random;
 
 public class ReadingTest extends child_menu {
@@ -43,6 +46,7 @@ public class ReadingTest extends child_menu {
     private String [] permissions = {android.Manifest.permission.RECORD_AUDIO};
     String test_id ;
     int choose_phrase ;
+    Button next;
     int chosen_index;
     Random rand = new Random();
     String chosen_word, path, word, word_audio ;
@@ -58,10 +62,10 @@ public class ReadingTest extends child_menu {
     ImageView abjad;
     AnimationDrawable anim;
     boolean flag2 ;
-
-
-
-
+    //Alaa
+    firebase_connection Test_Id,testIdq2;
+    String Test_letter;
+    ArrayList<Intent> testIntent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,9 +94,34 @@ public class ReadingTest extends child_menu {
         reading_child_score =0;
         flag = true;
         flag2 = true;
+        //Alaa
+        Test_Id=new firebase_connection();
+        testIdq2=new firebase_connection();
+        testIntent=new ArrayList<Intent>();
         speaker_btn.setVisibility(View.INVISIBLE);
         choose_phrase =  rand.nextInt(10) + 1;
+        next=findViewById(R.id.next);
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(unit_interface.Rand.size()!=0){
+                    Intent nextTest=unit_interface.Rand.get(0);
+                    unit_interface.Rand.remove(nextTest);
+                    startActivity(nextTest);
+                    finish();
 
+                }
+                else{
+                    unit_interface.endtest=true;
+                    unit_interface.EndTime= Calendar.getInstance().getTimeInMillis();
+                    Intent intent = new Intent(ReadingTest.this, unit_interface.class);
+                    intent.putExtra("unitID",unit_interface.unitID);
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }
+
+            }
+        });
         // choosen phrase is word
         if(choose_phrase <=5){
             chosen_index=  rand.nextInt(6) + 1;
@@ -109,9 +138,32 @@ public class ReadingTest extends child_menu {
         System.out.println("chosen_index: "+ chosen_index);
         System.out.println("chosen_word: "+chosen_word);
         System.out.println("Path: "+path);
+        //Alaa
+        /*Intent test=getIntent();
+        Bundle b=test.getExtras();
+        if(b!=null){
+        Test_letter=b.getString("test_letter");
+        }*/
+        Test_letter=unit_interface.test_letter;
 
-
-
+        //Alaa
+        Test_Id.ref.child("Tests").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (final DataSnapshot snapshot: dataSnapshot.getChildren()){
+                    final String key=snapshot.getKey();
+                    Log.i("KeyTest",key);
+                    DatabaseReference getCurrentTestId=testIdq2.ref.child("Tests").child("test_letters");
+                    ValueEventListener CurrIDEvent=new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if(key!=null){
+                            String lettr=snapshot.child("test_letters").getValue().toString();
+                            Log.i("w2w2",lettr);
+                            if(lettr.equals(Test_letter)){
+                            test_id=key;
+                            Log.i("1234567",Test_letter+" "+ test_id);
+                            }//Alaa
 
         Query query = r.ref.child("Tests").orderByKey().equalTo(test_id);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -162,6 +214,21 @@ public class ReadingTest extends child_menu {
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Log.w(null, "Failed to find test.", databaseError.toException());
+
+            }
+        }); }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    };getCurrentTestId.addValueEventListener(CurrIDEvent);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
             }
         });
@@ -343,7 +410,6 @@ public class ReadingTest extends child_menu {
 
                         }
                     }
-
 
                     if(reading_child_score ==0){
                      reading_child_score = child_score;

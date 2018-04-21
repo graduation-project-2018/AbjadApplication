@@ -2,6 +2,7 @@ package edu.iau.abjad.AbjadApp;
 
 import android.content.ClipData;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -44,6 +45,9 @@ public class MatchingTest extends child_menu {
     AnimationDrawable anim;
     ImageView abjad ;
     boolean flag2 ;
+    String Test_letter,test_id;
+    boolean test_finish;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +84,7 @@ public class MatchingTest extends child_menu {
         r = new Random();
         WordsNumber = new int[3];
         flag2 = true;
+        test_finish = false;
 
         correct=false;
         counter=0;
@@ -102,12 +107,36 @@ public class MatchingTest extends child_menu {
         while(WordsNumber[2]==0||WordsNumber[2]==WordsNumber[0] || WordsNumber[2]==WordsNumber[1]){
             WordsNumber[2]=r.nextInt(7);
         }
+//Alaa
 
+       /* Intent test=getIntent();
+        Bundle b=test.getExtras();
+        if(b!=null){
+            Test_letter=b.getString("test_letter");
+        }*/
 
-   read = rfb.ref.child("Tests").child("Test"+TestNum).child("words");
+        Test_letter=unit_interface.test_letter;
 
+        //Alaa
+        rfb.ref.child("Tests").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (final DataSnapshot snapshot: dataSnapshot.getChildren()){
+                    final String key=snapshot.getKey();
+                    Log.i("KeyTest",key);
+                    DatabaseReference getCurrentTestId=rfb.ref.child("Tests").child("test_letters");
+                    ValueEventListener CurrIDEvent=new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if(key!=null){
+                                String lettr=snapshot.child("test_letters").getValue().toString();
+                                Log.i("w2w2",lettr);
+                                if(lettr.equals(Test_letter)) {
+                                    test_id = key;
+                                    Log.i("1234567", Test_letter + " " + test_id);
 
-
+                                    //Alaa
+   read = rfb.ref.child("Tests").child(test_id).child("words");
    read.addValueEventListener(new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -117,7 +146,6 @@ public class MatchingTest extends child_menu {
             obj = new MatchingTestContent(PicDB, WordDB);
             Content.add(obj);
 }
-
             WordsNumber[0] = r.nextInt(3);
             Word1.setText(Content.get(WordsNumber[0]).Word);
             WordsNumber[1]=r.nextInt(3);
@@ -214,21 +242,27 @@ for (int i =0 ; i<Checking.length ; i++){
                            abjad.setBackgroundResource(R.drawable.abjad_happy);
                            anim =(AnimationDrawable) abjad.getBackground();
                           anim.start();
+                           score=10;
+                           test_finish = true;
                           playAudio(voice.perfect_top_feedback);
                           setOnCompleteListener(MatchingTest);
-                                  score=10;
+
                        }
                        else if(counter==1){
                            anim.start();
+                           score=3;
+                           test_finish = true;
                        playAudio(voice.good_feedback);
                        setOnCompleteListener(MatchingTest);
-                               score=3;
+
                        }
                        else if(counter==0){
                        anim.start();
+                           score=0;
+                           test_finish = true;
                        playAudio(voice.revise_previous_lessons);
                        setOnCompleteListener(MatchingTest);
-                               score=0;
+
                        }
                }
 
@@ -244,10 +278,25 @@ for (int i =0 ; i<Checking.length ; i++){
             Log.w(null, "Failed to read value.", error.toException());
         }
     });
+                                }
+                            }
+                        }
 
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
 
+                        }
+                    };getCurrentTestId.addValueEventListener(CurrIDEvent);
+                }
+            }
 
-        }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
 
 
 
@@ -476,6 +525,25 @@ View.OnDragListener dragListener1 = new View.OnDragListener() {
                 flag2 = false;
                 abjad.setBackgroundResource(R.drawable.abjad_speak);
                 anim =(AnimationDrawable) abjad.getBackground();
+                if(test_finish){
+                    if(unit_interface.Rand.size()!=0){
+                        Intent nextTest=unit_interface.Rand.get(0);
+                        unit_interface.Rand.remove(nextTest);
+                        startActivity(nextTest);
+                        finish();
+
+                    }
+                    else{
+                        unit_interface.endtest=true;
+                        unit_interface.EndTime= Calendar.getInstance().getTimeInMillis();
+                        Intent intent = new Intent(MatchingTest.this, unit_interface.class);
+                        intent.putExtra("unitID",unit_interface.unitID);
+                        setResult(RESULT_OK, intent);
+                        finish();
+
+
+                    }
+                }
 
             }
 

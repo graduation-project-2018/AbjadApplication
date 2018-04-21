@@ -161,7 +161,7 @@ public class adding_child  extends menu_educator {
         checkGender();
         checkEmail();
         checkPassword();
-
+       checkExistingAccount();
 
     }//end of checkInputs function
 
@@ -181,13 +181,15 @@ public class adding_child  extends menu_educator {
                     if(errorCounts == 0){
                         String fname = firstName.getText().toString();
                         String lname = lastName.getText().toString();
+                        String passChild = password.getText().toString().trim();
+                        String emailChild = email.getText().toString().trim();
                         int selectedId = radioGroup.getCheckedRadioButtonId();
                         radioButton = (RadioButton) findViewById(selectedId);
                         String selectedGender = radioButton.getText().toString();
-                        child = new childInformation(fname,lname,selectedGender,"_",eml);
+                        child = new childInformation(fname, lname, selectedGender, "_", emailChild);
                         Bundle extras = new Bundle();
-                        extras.putSerializable("object",child);
-                        extras.putString("password",pass);
+                        extras.putSerializable("object", child);
+                        extras.putString("password", passChild);
                         intent.putExtras(extras);
                         startActivity(intent);
 
@@ -264,12 +266,12 @@ public class adding_child  extends menu_educator {
         }
 
 
-    }//end of checkUsername function
+    }//end of checkEmail function
 
     public void checkPassword(){
 
-    Boolean emptyPass =false;
-    Boolean emptyConPass = false;
+Boolean emptyPass =false;
+Boolean emptyConPass = false;
 
         if (password.getText().toString().isEmpty()) {
             password.setError("قم بتعبئة الحقل بكلمة المرور");
