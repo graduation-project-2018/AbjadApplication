@@ -63,11 +63,6 @@ public class ReadingTest extends child_menu {
     AnimationDrawable anim;
     boolean flag2, move_child ;
 
-
-
-
-
-    boolean flag2 ;
     //Alaa
     firebase_connection Test_Id,testIdq2;
     String Test_letter;
@@ -682,9 +677,7 @@ public class ReadingTest extends child_menu {
                 if(move_child){
                     //move to unit interface
                     Intent intent = new Intent(ReadingTest.this, unit_interface.class);
-                    intent.putExtra("unitID",unit_interface.unitID);
-                    setResult(RESULT_OK, intent);
-                    finish();
+                    startActivity(intent);
                 }
 
             }

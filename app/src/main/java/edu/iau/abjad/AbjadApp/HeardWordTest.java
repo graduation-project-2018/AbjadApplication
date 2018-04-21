@@ -53,8 +53,6 @@ public class HeardWordTest extends child_menu  {
     AnimationDrawable anim;
     ImageView abjad;
     boolean flag2, move_child;
-
-    boolean flag2;
     String test_id;
     String Test_letter;
     ArrayList<Intent> testIntent;
@@ -456,9 +454,7 @@ public class HeardWordTest extends child_menu  {
                 anim =(AnimationDrawable) abjad.getBackground();
                 if(move_child){
                     Intent intent = new Intent(HeardWordTest.this, unit_interface.class);
-                    intent.putExtra("unitID",unit_interface.unitID);
-                    setResult(RESULT_OK, intent);
-                    finish();
+                    startActivity(intent);
                 }
 
             }
@@ -474,7 +470,7 @@ public class HeardWordTest extends child_menu  {
 
         super.onRestart();
         System.out.println("onRestart function");
-       audio_feedback = new MediaPlayer();
+        audio_feedback = new MediaPlayer();
         anim.start();
         playAudio(audio_urLs.cant_continue_test);
         move_child = true;

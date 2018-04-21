@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import java.io.IOException;
 import java.text.DecimalFormat;
@@ -49,7 +50,8 @@ public class unit_interface extends child_menu {
     private int finalScore;
     static long startTime,EndTime;
     static String test_letter;
-    static String actual_time;
+    static String actual_time, childTime;
+    static int currentScore ;
 
 
     @Override
@@ -686,17 +688,66 @@ public class unit_interface extends child_menu {
             this.unitID=b.getString("unitID");
         }
     }
-    public void  test_score(){
-        double time = EndTime - startTime;
-        time = (time/1000)/60;
-        actual_time = new DecimalFormat("##.##").format(time);
-
+    public void  test_score(final String test_id){
 
         if(endtest==true){
+            double time = EndTime - startTime;
+            time = (time/1000)/60;
+            actual_time = new DecimalFormat("##.##").format(time);
+
             finalScore= ReadingTest.reading_child_score+
                     HeardWordTest.final_heard_child_score+
-                    TrueFalseTest.true_false_test_score;
+                    TrueFalseTest.true_false_test_score + MatchingTest.score;
             finalScore=finalScore/4;
+
+            Query query =  r.ref.child("child_takes_test").child(Signin.id_child).child(unit_interface.unitID).orderByKey().equalTo(test_id);
+            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.exists()){
+                        System.out.println("Eixist!!!!!!!!");
+                        try{
+                            DatabaseReference read_score =  r.ref.child("child_takes_test").child(Signin.id_child).child(unit_interface.unitID).child(test_id);
+                            read_score.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    System.out.println("Inside read");
+
+                                    for (final DataSnapshot info: dataSnapshot.getChildren()){
+                                        currentScore = Integer.valueOf(dataSnapshot.child("score").getValue().toString());
+                                        childTime = dataSnapshot.child("time").getValue().toString();
+                                    }
+                                    if(currentScore<finalScore){
+                                        r.ref.child("child_takes_test").child(Signin.id_child).child(unit_interface.unitID).child(test_id).child("score").setValue(finalScore);
+                                    }
+                                    if(Double.valueOf(childTime)>Double.valueOf(actual_time)){
+                                        r.ref.child("child_takes_test").child(Signin.id_child).child(unit_interface.unitID).child(test_id).child("time").setValue(actual_time);
+                                    }
+
+
+                                }
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+                                    System.out.println("Path score not exists!!! inside on cancel function");
+                                }
+                            });
+                        }
+                        catch (Exception e){
+                            System.out.println("Can't convert string to double");
+                        }
+                    }
+                    else{
+
+                        r.ref.child("child_takes_test").child(Signin.id_child).child(unit_interface.unitID).child(test_id).child("score").setValue(finalScore);
+                        r.ref.child("child_takes_test").child(Signin.id_child).child(unit_interface.unitID).child(test_id).child("time").setValue(actual_time);
+                    }
+                }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
+
+
         }
 
     }

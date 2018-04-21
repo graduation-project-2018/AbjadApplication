@@ -45,7 +45,6 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
     ImageView abjad;
     AnimationDrawable anim;
     boolean flag2, move_child;
-    boolean flag2;
     String audio;
     String test_id;
     String Test_letter;
@@ -311,9 +310,7 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
                 anim =(AnimationDrawable) abjad.getBackground();
                 if(move_child){
                     Intent intent = new Intent(TrueFalseTest.this, unit_interface.class);
-                    intent.putExtra("unitID",unit_interface.unitID);
-                    setResult(RESULT_OK, intent);
-                    finish();
+                    startActivity(intent);
                 }
 
             }

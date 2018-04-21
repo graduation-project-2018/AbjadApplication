@@ -33,7 +33,8 @@ public class MatchingTest extends child_menu {
     ArrayList<MatchingTestContent> Content;
     MatchingTestContent obj;
     firebase_connection rfb;
-    int TestNum,counter,score ;
+    int TestNum,counter ;
+    static  int score;
     DatabaseReference read;
     int[]  WordsNumber ;
     String PicDB , WordDB;
@@ -528,9 +529,7 @@ View.OnDragListener dragListener1 = new View.OnDragListener() {
                 anim =(AnimationDrawable) abjad.getBackground();
                 if(move_child){
                     Intent intent = new Intent(MatchingTest.this, unit_interface.class);
-                    intent.putExtra("unitID",unit_interface.unitID);
-                    setResult(RESULT_OK, intent);
-                    finish();
+                    startActivity(intent);
                 }
                 if(test_finish){
                     if(unit_interface.Rand.size()!=0){

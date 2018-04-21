@@ -74,12 +74,6 @@ public class SigninEducator extends AppCompatActivity  implements View.OnClickLi
 
         }
 
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            Email.setError("الرجاء كتابة البريد الإلكتروني بشكل صحيح");
-            Wpas.setVisibility(View.VISIBLE);
-            Email.requestFocus();
-            flag = false;
-        }
         if (password.isEmpty()) {
             EdPassword.setError("أدخل كلمة المرور من فضلك");
             EdPassword.requestFocus();
