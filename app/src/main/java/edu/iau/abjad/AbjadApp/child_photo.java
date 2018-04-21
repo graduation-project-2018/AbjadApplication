@@ -166,7 +166,7 @@ public class child_photo  extends menu_educator {
                             auth.getInstance().signOut();
 finish();
 startActivity(backEducatorHome);
-                        }//Successful child registeration
+                        }
 
                         else{
 
