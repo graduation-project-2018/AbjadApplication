@@ -56,7 +56,7 @@
         android:layout_height="148dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginBottom="116dp"
+        android:layout_marginBottom="152dp"
         android:layout_marginEnd="72dp"
         android:layout_marginStart="8dp"
         android:background="@drawable/listen"
@@ -88,7 +88,7 @@
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
-        android:layout_height="55dp"
+        android:layout_height="70dp"
         android:layout_marginEnd="464dp"
         android:layout_marginTop="276dp"
         android:fontFamily="arabic typesetting"

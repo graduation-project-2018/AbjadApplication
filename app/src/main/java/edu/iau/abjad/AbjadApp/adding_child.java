@@ -268,8 +268,8 @@ public class adding_child  extends menu_educator {
 
     public void checkPassword(){
 
-Boolean emptyPass =false;
-Boolean emptyConPass = false;
+    Boolean emptyPass =false;
+    Boolean emptyConPass = false;
 
         if (password.getText().toString().isEmpty()) {
             password.setError("قم بتعبئة الحقل بكلمة المرور");

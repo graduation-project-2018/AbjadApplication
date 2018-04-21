@@ -28,6 +28,7 @@
         app:layout_constraintVertical_bias="0.704" />
 
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="820dp"
         android:layout_height="428dp"
         android:layout_marginBottom="8dp"
@@ -43,9 +44,25 @@
 
         <GridView
             android:id="@+id/gv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+          />
     </ScrollView>
+
+    <TextView
+        android:id="@+id/NoChildren"
+        android:layout_width="wrap_content"
+        android:layout_height="28dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="140dp"
+        android:layout_marginTop="8dp"
+        android:text="لا يوجد لديك أطفال مسجلين حاليا, لإضافة طفل جديد لطفا اضغط زر الإضافة"
+        android:textSize="24sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/scrollView2"
+        app:layout_constraintEnd_toStartOf="@+id/add_new_child_btn"
+        app:layout_constraintTop_toTopOf="@+id/scrollView2"
+        app:layout_constraintVertical_bias="0.442" />
 
 
 </android.support.constraint.ConstraintLayout>
