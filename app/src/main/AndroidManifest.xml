@@ -52,11 +52,6 @@
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden|adjustResize|adjustPan">
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
         </activity>
         <activity
@@ -84,6 +79,11 @@
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden|adjustResize|adjustPan" >
 
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
         </activity>
 

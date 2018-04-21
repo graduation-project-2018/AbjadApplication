@@ -54,7 +54,7 @@ public class adding_child  extends menu_educator {
     TextView genderError;
    ImageView genderErrorIcon;
     String eml;
-  
+
    DatabaseReference rf;
 
    int errorCounts;
