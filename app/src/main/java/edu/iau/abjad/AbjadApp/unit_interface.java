@@ -142,7 +142,7 @@ public class unit_interface extends child_menu {
                         return;
                     }
                     flag = false;
-                    playAudio(audio.unit_Tip_three);
+                    playAudio(audio.unit_Tip_Two);
 
                 }
             });
