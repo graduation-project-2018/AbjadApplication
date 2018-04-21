@@ -27,6 +27,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.FileInputStream;
+import java.util.ArrayList;
 
 import static java.security.AccessController.getContext;
 
@@ -48,11 +49,11 @@ public class ChildProgress extends menu_educator {
     private firebase_connection test,nTest;
     private firebase_connection child,deleteChild_Children,deleteChild_edu,deleteChild_lesson,deleteChild_test;
     private String childID;
-    private long unlookedLesson=0,testNo=0;
+    private long unlookedLesson,testNo;
     int icomplete=0;
     int ihighestScore=0,ihighestLessonScore=0;
     double dleastTime;
-    String  sTime, sLeastTime,sHighstScoreLesson,sHighstScoreTest,lett;
+    String  sTime, sLeastTime,sHighstScoreLesson,sHighstScoreTest,lett,lettTest;
     double dTime;
 
     @Override
@@ -63,7 +64,7 @@ public class ChildProgress extends menu_educator {
 
         //inflate your activity layout here!
         final View contentView = inflater.inflate(R.layout.activity_child_progress, null, false);
-
+        sTime=""; sLeastTime="";sHighstScoreLesson="";sHighstScoreTest="";lett="";
         mDrawerLayout.addView(contentView, 0);
         //intilization
         viewChildProfile= findViewById(R.id.ChildProfile);
@@ -95,6 +96,7 @@ public class ChildProgress extends menu_educator {
         sHighstScoreLesson="";
         sHighstScoreTest="";
         lett="";
+        final String lessonh="";
         final Intent educatorHome=new Intent(this,educator_home.class);
         final Intent changePassword =new Intent(this, change_password.class );
 
@@ -159,29 +161,20 @@ public class ChildProgress extends menu_educator {
                                                     }
                                                     if(ilessonScore>=ihighestLessonScore){
                                                         ihighestLessonScore=ilessonScore;
-                                                        if (!lett.contains(sHighstScoreLesson)){
-                                                            String s=lett;
-                                                            sHighstScoreLesson=lett+" "+s;
-                                                        Log.i("sleastTime",sHighstScoreLesson +" "+lett);}
-
-
+                                                        sHighstScoreLesson=lett;
                                                     }
                                                     if (dTime<=dleastTime){
                                                         dleastTime=dTime;
-                                                        if(!lett.contains(sLeastTime)){
-                                                        String s=lett;
-                                                        sLeastTime=lett+" "+s;
-                                                        }
-                                                        Log.i("sleastTime",sLeastTime +" "+lett);
+                                                        sLeastTime=lett;
+
+
                                                     }
 
                                                     nTimer.setText(dleastTime+" "+(dleastTime<1?"/ s":"/ m"));
                                                     highestScoreLesson.setText(ihighestLessonScore+" /7");
                                                     nDoneLesson.setText(icomplete+" ");
-                                                    lessonNameScore.setText(sHighstScoreLesson+" ");
+                                                    lessonNameScore.setText(sHighstScoreLesson+"");
                                                     LessonNameTimer.setText(sLeastTime+" ");
-
-
                                                     Log.i("status",status);
                                                 }
 
@@ -275,8 +268,94 @@ public class ChildProgress extends menu_educator {
 
             }
         });
-
         test.ref.child("child_takes_test").child(childID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(final DataSnapshot dataSnapshot) {
+
+                for (final DataSnapshot snapshot:dataSnapshot.getChildren()){
+                    final String unitId=snapshot.getKey();
+                    Log.i("unitId",unitId);
+                    if (unitId!=null){
+                        DatabaseReference nLeson=lesson_unloked.ref.child(childID).child(unitId);
+                        ValueEventListener unlokedLessonNo_Event=new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot2) {
+                                testNo+=dataSnapshot.child(unitId).getChildrenCount();
+                                nDoneTest.setText(testNo+" ");
+                                for(final DataSnapshot s:snapshot.getChildren()){
+                                    final String TestId=s.getKey();
+                                    Log.i("lessonKey",s.getKey()+" ");
+                                    DatabaseReference complete=lesson_comp.ref.child(childID).child(unitId).child(TestId);
+                                    ValueEventListener completeEvent=new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                            DatabaseReference getLetter=letterLesson.ref.child("Tests");
+                                            ValueEventListener evntLetr=new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(DataSnapshot dataSnapshot1) {
+                                                    final int iTestScore=s.child("score").getValue(Integer.class);
+                                                    //Log.i("GGGGGGGG",dataSnapshot.child(lessonKey)
+                                                          //  .child("test_letter").getValue().toString()+" juju");
+                                                    Log.i("TestID",TestId);
+                                                    Log.i("TestID",dataSnapshot1.child(TestId).child("test_letters").getValue(String.class)+" ");
+
+                                                    lettTest=dataSnapshot1.child(TestId).child("test_letters").getValue().toString();
+
+
+                                                    if(iTestScore>=ihighestScore){
+                                                        Log.i("score",iTestScore+ " ");
+                                                        Log.i("score",ihighestLessonScore+ " ");
+                                                        ihighestScore=iTestScore;
+                                                        sHighstScoreTest=lettTest+" ";
+                                                    }
+                                                    Log.i("score3",ihighestScore+ " ");
+
+                                                    highestScoreTest.setText(ihighestScore+" /10");
+                                                    testName.setText(sHighstScoreTest.replace("_","،")+"");
+
+                                                }
+
+                                                @Override
+                                                public void onCancelled(DatabaseError databaseError) {
+
+                                                }
+                                            };getLetter.addValueEventListener(evntLetr);
+
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+
+                                        }
+                                    };
+                                    complete.addValueEventListener(completeEvent);
+
+                                }
+                            }
+
+
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        };
+
+                        nLeson.addValueEventListener(unlokedLessonNo_Event);
+
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+       /* test.ref.child("child_takes_test").child(childID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(final DataSnapshot dataSnapshot) {
                 for(final DataSnapshot snshot:dataSnapshot.getChildren()){
@@ -288,7 +367,9 @@ public class ChildProgress extends menu_educator {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot2) {
                                 testNo+=snshot.child(unitId_test).getChildrenCount();
+                                Log.i("TesNo",testNo+" "+snshot.child(unitId_test).getChildrenCount());
                                 nDoneTest.setText(testNo+" ");
+                                Log.i("unitIDTest",unitId_test);
                                 Log.i("Tests",snshot.child(unitId_test).getChildrenCount()+" ");
                                 for(final DataSnapshot s:snshot.getChildren()) {
                                     final String testKey = s.getKey();
@@ -300,6 +381,7 @@ public class ChildProgress extends menu_educator {
                                             int iscore = s.child("score").getValue(Integer.class);
                                             if (iscore > ihighestScore) {
                                                 ihighestScore = iscore;
+
                                             }
 
                                             highestScoreTest.setText(ihighestScore + " ");
@@ -324,7 +406,7 @@ public class ChildProgress extends menu_educator {
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        });
+        });*/
     }
 
 
