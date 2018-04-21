@@ -84,6 +84,7 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
                     Intent nextTest=unit_interface.Rand.get(0);
                     unit_interface.Rand.remove(nextTest);
                     startActivity(nextTest);
+                    finish();
                 }
                 else{
                     unit_interface.endtest=true;
@@ -91,8 +92,7 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
                     Intent intent = new Intent(TrueFalseTest.this, unit_interface.class);
                     intent.putExtra("unitID",unit_interface.unitID);
                     setResult(RESULT_OK, intent);
-                   // finish();
-                    startActivity(intent);
+                    finish();
                 }
 
             }

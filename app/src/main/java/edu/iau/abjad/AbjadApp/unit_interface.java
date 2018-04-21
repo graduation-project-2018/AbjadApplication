@@ -132,7 +132,7 @@ public class unit_interface extends child_menu {
         lesson6Stars=findViewById(R.id.lesson6Stars);
         instructions=new MediaPlayer();
        // Log.i("dsdjcgjsd",unitID);
-        if(unitID.equals("unit1")){
+       if(unitID.equals("unit1")){
             playAudio(audio.unit_Tip_One);
             instructions.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
@@ -273,6 +273,7 @@ public class unit_interface extends child_menu {
                     setRand(fillTest(random,random2,rand));
                     Intent fIntent=Rand.get(0);
                     Rand.remove(0);
+                    Log.i("TestSize",Rand.size()+" ");
                     test_letter=testInfo.get(2).getLetters();
                     startActivity(fIntent);
 
@@ -371,18 +372,22 @@ public class unit_interface extends child_menu {
                                                                                   if(childUnitInfo_lessonID.getScore()<4&& childUnitInfo_lessonID.getScore()>0){
                                                                                       childUnitInfo_lessonID.getStars().setImageResource(R.drawable.one_gold_stars_group);
                                                                                       childUnitInfo_lessonID.getNextLesson().setClickable(true);
+                                                                                      childUnitInfo_lessonID.getNextLesson().setOnClickListener(v);
                                                                                       childUnitInfo_lessonID.getNextLesson().bringToFront();
                                                                                   }else if(childUnitInfo_lessonID.getScore()>3&& childUnitInfo_lessonID.getScore()<6){
                                                                                       childUnitInfo_lessonID.getStars().setImageResource(R.drawable.two_gold_stars_group);
                                                                                       childUnitInfo_lessonID.getNextLesson().setClickable(true);
+                                                                                      childUnitInfo_lessonID.getNextLesson().setOnClickListener(v);
                                                                                       childUnitInfo_lessonID.getNextLesson().bringToFront();
                                                                                   }else if(childUnitInfo_lessonID.getScore()>5&& childUnitInfo_lessonID.getScore()<8){
                                                                                       childUnitInfo_lessonID.getStars().setImageResource(R.drawable.gold_three_stars);
                                                                                       childUnitInfo_lessonID.getNextLesson().setClickable(true);
+                                                                                      childUnitInfo_lessonID.getNextLesson().setOnClickListener(v);
                                                                                       childUnitInfo_lessonID.getNextLesson().bringToFront();
                                                                                   }else if(childUnitInfo_lessonID.getScore()==0){
                                                                                       childUnitInfo_lessonID.getStars().setImageResource(R.drawable.gray_three_stars);
                                                                                       childUnitInfo_lessonID.getNextLesson().setClickable(true);
+                                                                                      childUnitInfo_lessonID.getNextLesson().setOnClickListener(v);
                                                                                       childUnitInfo_lessonID.getNextLesson().bringToFront();
                                                                                   }
                                                                               }
@@ -680,7 +685,7 @@ public class unit_interface extends child_menu {
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Intent intent=getIntent();
+        Intent intent=new Intent(this,Lesson.class);
         Bundle b=intent.getExtras();
         if (resultCode == RESULT_OK) {
             this.unitID=b.getString("unitID");
