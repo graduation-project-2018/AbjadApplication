@@ -536,6 +536,8 @@ View.OnDragListener dragListener1 = new View.OnDragListener() {
                         Intent nextTest=unit_interface.Rand.get(0);
                         unit_interface.Rand.remove(nextTest);
                         startActivity(nextTest);
+                        finish();
+
                     }
                     else{
                         unit_interface.endtest=true;
@@ -544,7 +546,8 @@ View.OnDragListener dragListener1 = new View.OnDragListener() {
                         intent.putExtra("unitID",unit_interface.unitID);
                         setResult(RESULT_OK, intent);
                         finish();
-                       // startActivity(intent);
+
+
                     }
                 }
 

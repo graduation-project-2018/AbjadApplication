@@ -110,6 +110,8 @@ public class ReadingTest extends child_menu {
                     Intent nextTest=unit_interface.Rand.get(0);
                     unit_interface.Rand.remove(nextTest);
                     startActivity(nextTest);
+                    finish();
+
                 }
                 else{
                     unit_interface.endtest=true;
@@ -117,8 +119,7 @@ public class ReadingTest extends child_menu {
                     Intent intent = new Intent(ReadingTest.this, unit_interface.class);
                     intent.putExtra("unitID",unit_interface.unitID);
                     setResult(RESULT_OK, intent);
-                    //finish();
-                    startActivity(intent);
+                    finish();
                 }
 
             }

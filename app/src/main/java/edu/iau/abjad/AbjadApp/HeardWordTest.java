@@ -127,7 +127,11 @@ public class HeardWordTest extends child_menu  {
                 if(unit_interface.Rand.size()!=0){
                     Intent nextTest=unit_interface.Rand.get(0);
                     unit_interface.Rand.remove(nextTest);
+                    Intent intent = new Intent(HeardWordTest.this, unit_interface.class);
+                    setResult(RESULT_OK, intent);
                     startActivity(nextTest);
+                    finish();
+
                 }
                 else{
                     unit_interface.endtest=true;
@@ -135,8 +139,7 @@ public class HeardWordTest extends child_menu  {
                     Intent intent = new Intent(HeardWordTest.this, unit_interface.class);
                     intent.putExtra("unitID",unit_interface.unitID);
                     setResult(RESULT_OK, intent);
-                   // finish();
-                    startActivity(intent);
+                    finish();
                 }
 
             }
