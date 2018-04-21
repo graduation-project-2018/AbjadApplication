@@ -7,16 +7,16 @@ public class childInformation implements Serializable{
     String last_name;
     String gender;
     String photo_URL;
-    String username;
+    String email;
 
 
-    public childInformation( String fname, String lname, String cgender, String photo, String uname){
+    public childInformation( String fname, String lname, String cgender, String photo, String email){
 
        this.first_name =fname;
        this.last_name=lname;
        this.gender=cgender;
        this.photo_URL=photo;
-       this.username = uname;
+       this.email = email;
 
     }//end of constructor
     public void setPhoto(String photo)

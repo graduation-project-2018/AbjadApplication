@@ -24,12 +24,12 @@ import java.util.regex.Pattern;
 public class SignUp extends AppCompatActivity {
     Button SignUpBtn;
     EditText FN ,LN,Email,Pass,Cpass;
-    String email,password,educator_id;
     boolean condition=true;
     private FirebaseAuth mAuth;
     firebase_connection r;
     Pattern ArabicLetters;
     Educator educator;
+    String educatorID="";
  private   Intent educatorHome;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +86,7 @@ public class SignUp extends AppCompatActivity {
                     Email.setError("قم بتعبئة الحقل بالبريد الإلكتروني");
                     Email.requestFocus();
                     condition=false;
-                } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                } else if (!Patterns.EMAIL_ADDRESS.matcher(Email.getText().toString().trim()).matches()) {
                     Email.setError("البريد الإلكتروني ليس على النمط someone@somewhere.com ");
                     Email.requestFocus();
                     condition = false;
@@ -104,7 +104,7 @@ public class SignUp extends AppCompatActivity {
                     Cpass.setError("قم بتعبئة الحقل بكلمة المرور");
                     Cpass.requestFocus();
                     condition =false;
-                } else if (!Cpass.getText().toString().matches(password)) {
+                } else if (!Cpass.getText().toString().matches(Pass.getText().toString().trim())) {
                     Cpass.setError("المدخل في الحقل لا يطابق كلمة المرور المدخلة ");
                     Cpass.requestFocus();
                     condition =false;
@@ -127,7 +127,8 @@ public class SignUp extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()) {
                             Toast.makeText(SignUp.this, "تمت إضافة حساب المربي بنجاح", Toast.LENGTH_LONG).show();
-                            educator_id = mAuth.getCurrentUser().getUid();
+                            educatorID= mAuth.getCurrentUser().getUid();
+                            //    SigninEducator.id_edu = mAuth.getCurrentUser().getUid();
                             educator = new Educator(Email.getText().toString().trim(),FN.getText().toString(),LN.getText().toString());
 
 
@@ -136,7 +137,7 @@ public class SignUp extends AppCompatActivity {
                             r.ref.addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
-                                    r.ref.child("Educators").child(educator_id).setValue(educator);
+                                    r.ref.child("Educators").child( educatorID).setValue(educator);
                                 }@Override
                                 public void onCancelled(DatabaseError databaseError) {
 

@@ -88,10 +88,10 @@ read.addValueEventListener(new ValueEventListener() {
         child.gender = (String) dataSnapshot.child("gender").getValue();
         child.last_name = (String) dataSnapshot.child("last_name").getValue();
         child.photo_URL = (String) dataSnapshot.child("photo_URL").getValue();
-        child.username = (String) dataSnapshot.child("email").getValue();
+        child.email = (String) dataSnapshot.child("email").getValue();
         FNChild.setText(child.first_name);
         LNChild.setText(child.last_name);
-        Username.setText(child.username);
+        Username.setText(child.email);
         Picasso.get().load(child.photo_URL).into(ChildImage);
  saveChanges.setOnClickListener(new View.OnClickListener() {
      @Override
