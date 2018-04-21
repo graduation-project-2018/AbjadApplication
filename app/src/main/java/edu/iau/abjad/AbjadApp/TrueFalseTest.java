@@ -1,6 +1,7 @@
 package edu.iau.abjad.AbjadApp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -43,7 +44,7 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
     private  static CountDownTimer countDownTimer;
     ImageView abjad;
     AnimationDrawable anim;
-    boolean flag2;
+    boolean flag2, move_child;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +67,7 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
         anim =(AnimationDrawable) abjad.getBackground();
         flag = true;
         flag2 = true;
-
+        move_child = false;
 
                         //int test_ID = previous_Intent.getStringExtra("test_ID");
                         DatabaseReference read = r.ref.child("Tests").child("Test1").child("sentences");
@@ -248,12 +249,30 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
                 flag2 = false;
                 abjad.setBackgroundResource(R.drawable.abjad_speak);
                 anim =(AnimationDrawable) abjad.getBackground();
+                if(move_child){
+                    Intent intent = new Intent(TrueFalseTest.this, unit_interface.class);
+                    intent.putExtra("unitID",unit_interface.unitID);
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }
 
             }
 
         });
         flag2 = true;
 
+    }
+
+    @Override
+    protected void onRestart() {
+
+        super.onRestart();
+        System.out.println("onRestart function");
+        test_sentence_audio= new MediaPlayer();
+        anim.start();
+        playAudio(audio_obj.cant_continue_test);
+        move_child = true;
+        setOnCompleteListener(test_sentence_audio);
     }
 
 

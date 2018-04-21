@@ -27,9 +27,11 @@ public class educator_home extends menu_educator {
     menu_variables m = new menu_variables();
     Button btn;
    firebase_connection r = new firebase_connection();
-   ArrayList <children> children = new ArrayList<children>();
+   ArrayList <children> children ;
    int counter = 0;
     String childID;
+    Button btn1, btn2;
+    int size;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,10 @@ public class educator_home extends menu_educator {
 
         mDrawerLayout.addView(contentView, 0);
         btn = (Button) findViewById(R.id.add_new_child_btn);
+        children = new ArrayList<children>();
+        btn1= (Button) findViewById(R.id.btn_1);
+        btn2 = (Button) findViewById(R.id.btn_2);
+        size =0;
 
         Query query = r.ref.child("Educator_has_child").orderByKey().equalTo(SigninEducator.id_edu);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -60,15 +66,24 @@ public class educator_home extends menu_educator {
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                                     if(dataSnapshot.exists())
                                     {
-                                        for(DataSnapshot d : dataSnapshot.getChildren()){
+                                        for(DataSnapshot d: dataSnapshot.getChildren()){
                                             String name = d.child("first_name").getValue().toString();
                                             String photo = d.child("photo_URL").getValue().toString();
-                                          children e = new children(photo, name, childID);
-                                          children.add(e);
+                                            children e = new children(photo, name, childID);
+                                            children.add(e);
 
-                                          System.out.println("Name: "+ children.get(0).first_name);
-                                          System.out.println("Photo: "+ children.get(0).photo_URL);
                                         }
+
+                                        System.out.println("Size of array: "+ children.size());
+
+                                        if(children.size()==2){
+                                            btn1.setText(children.get(0).first_name);
+                                            btn2.setText(children.get(1).first_name);
+                                        }
+
+
+
+
                                     }
                                 }
                                 @Override
@@ -78,6 +93,7 @@ public class educator_home extends menu_educator {
                             });
 
                         }
+
 
                     }
                 }

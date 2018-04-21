@@ -57,7 +57,8 @@ public class ReadingTest extends child_menu {
     boolean flag ;
     ImageView abjad;
     AnimationDrawable anim;
-    boolean flag2 ;
+    boolean flag2, move_child ;
+
 
 
 
@@ -90,6 +91,7 @@ public class ReadingTest extends child_menu {
         reading_child_score =0;
         flag = true;
         flag2 = true;
+        move_child = false;
         speaker_btn.setVisibility(View.INVISIBLE);
         choose_phrase =  rand.nextInt(10) + 1;
 
@@ -607,11 +609,29 @@ public class ReadingTest extends child_menu {
                 flag2 = false;
                 abjad.setBackgroundResource(R.drawable.abjad_speak);
                 anim =(AnimationDrawable) abjad.getBackground();
+                if(move_child){
+                    //move to unit interface
+                    Intent intent = new Intent(ReadingTest.this, unit_interface.class);
+                    intent.putExtra("unitID",unit_interface.unitID);
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }
 
             }
 
         });
         flag2 = true;
 
+    }
+    @Override
+    protected void onRestart() {
+
+        super.onRestart();
+        System.out.println("onRestart function");
+        feedback_audio = new MediaPlayer();
+        anim.start();
+        playAudioInstructions(audio_URLs.cant_continue_test);
+        move_child = true;
+        setOnCompleteListener(feedback_audio);
     }
 }

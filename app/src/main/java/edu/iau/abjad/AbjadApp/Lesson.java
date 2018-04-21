@@ -131,7 +131,6 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    System.out.println("الحرف "+ letter);
                     for (DataSnapshot letter : dataSnapshot.getChildren()) {
                          lessonID = letter.getKey();
                     }
@@ -700,6 +699,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
         audio_instruction = new MediaPlayer();
         anim.start();
         playAudioInstructions(audio_URLs.cannot_complete);
+        move_child = true;
         setOnCompleteListener(audio_instruction);
     }
 

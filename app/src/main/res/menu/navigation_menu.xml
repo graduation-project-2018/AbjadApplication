@@ -11,12 +11,6 @@
         android:iconTint="#0B365C">
     </item>
 
-    <item android:id="@+id/report_problem"
-        android:title="الإبلاغ عن مشكلة"
-        android:icon="@drawable/report_icon"></item>
-
-
-
     <item android:id="@+id/add_child"
         android:title="إضافة طفل"
         android:icon="@drawable/add_new_child"></item>

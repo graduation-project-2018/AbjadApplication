@@ -51,7 +51,7 @@ public class HeardWordTest extends child_menu  {
     static  int final_heard_child_score;
     AnimationDrawable anim;
     ImageView abjad;
-    boolean flag2;
+    boolean flag2, move_child;
 
 
     //check if user is signed in or return 'em back a sign in look
@@ -91,6 +91,7 @@ public class HeardWordTest extends child_menu  {
         speaker= (ImageButton) findViewById(R.id.speaker);
         flag = true;
         flag2 = true;
+        move_child = false;
         selected_word ="";
 
         abjad.setBackgroundResource(R.drawable.abjad_speak);
@@ -114,8 +115,6 @@ public class HeardWordTest extends child_menu  {
         final int y= rndm( 3); //#words in each group
 
         String sltG="group"+x;
-
-
 
 
 
@@ -390,12 +389,31 @@ public class HeardWordTest extends child_menu  {
                 flag2 = false;
                 abjad.setBackgroundResource(R.drawable.abjad_speak);
                 anim =(AnimationDrawable) abjad.getBackground();
+                if(move_child){
+                    Intent intent = new Intent(HeardWordTest.this, unit_interface.class);
+                    intent.putExtra("unitID",unit_interface.unitID);
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }
 
             }
 
         });
         flag2 = true;
 
+    }
+
+
+    @Override
+    protected void onRestart() {
+
+        super.onRestart();
+        System.out.println("onRestart function");
+       audio_feedback = new MediaPlayer();
+        anim.start();
+        playAudio(audio_urLs.cant_continue_test);
+        move_child = true;
+        setOnCompleteListener(audio_feedback);
     }
 
 }
