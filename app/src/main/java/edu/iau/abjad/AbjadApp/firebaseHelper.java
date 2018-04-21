@@ -32,6 +32,7 @@ for(DataSnapshot d: dataSnapshot.getChildren()){
     childrenArrayList.add(s);
 }
     }//end of fetch function
+    ///////////////////////////
 
     public  ArrayList<children> getData(){
 
