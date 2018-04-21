@@ -135,18 +135,18 @@ public class HeardWordTest extends child_menu  {
                     Intent intent = new Intent(HeardWordTest.this, unit_interface.class);
                     intent.putExtra("unitID",unit_interface.unitID);
                     setResult(RESULT_OK, intent);
-                    finish();
+                   // finish();
+                    startActivity(intent);
                 }
 
             }
         });
-        Intent test=getIntent();
+        /*Intent test=getIntent();
         Bundle b=test.getExtras();
         if(b!=null){
             Test_letter=b.getString("test_letter");
-        }
-
-
+        }*/
+        Test_letter=unit_interface.test_letter;
         //Alaa
         r.ref.child("Tests").addValueEventListener(new ValueEventListener() {
             @Override

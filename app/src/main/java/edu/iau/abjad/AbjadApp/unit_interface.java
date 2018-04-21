@@ -15,6 +15,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Random;
@@ -47,6 +48,8 @@ public class unit_interface extends child_menu {
     static boolean endtest=false;
     private int finalScore;
     static long startTime,EndTime;
+    static String test_letter;
+    static String actual_time;
 
 
     @Override
@@ -58,6 +61,9 @@ public class unit_interface extends child_menu {
         View contentView = inflater.inflate(R.layout.activity_unit_interface, null, false);
         myDrawerLayout.addView(contentView, 0);
         //initilization
+        chilHomeIntent=getIntent();
+        unitID=chilHomeIntent.getStringExtra("id");
+
         childID = Signin.id_child;
         lessons=new ArrayList<String>();
         childTests=new ArrayList<String>();
@@ -76,8 +82,6 @@ public class unit_interface extends child_menu {
         testScoreq=new firebase_connection();
         testgetSq1=new firebase_connection();
         testgetSq2=new firebase_connection();
-        chilHomeIntent=getIntent();
-        unitID=chilHomeIntent.getStringExtra("id");
         openLessons=new ArrayList<String>();
         childLessons=new ArrayList<String>();
         Rand=new ArrayList<Intent>();
@@ -92,7 +96,6 @@ public class unit_interface extends child_menu {
         bal3=findViewById(R.id.ballon3);
         m.title.setText(chilHomeIntent.getStringExtra("Unitname"));
         testInfo=new ArrayList<childUnitInfo>();
-
         matchingTest_Intent=  new Intent(this, MatchingTest.class );
         readingTest_Intent=   new Intent(this, ReadingTest.class );
         trueFalseTest_Intent= new  Intent(this, TrueFalseTest.class );
@@ -248,8 +251,7 @@ public class unit_interface extends child_menu {
                     setRand(fillTest(random,random2,rand));
                     Intent fIntent=Rand.get(0);
                     Rand.remove(0);
-                    fIntent.putExtra("test_letter",testInfo.get(0).getLetters());
-                    //fIntent.putParcelableArrayListExtra("RandomIntent",Rand);
+                    test_letter=testInfo.get(0).getLetters();
                     startTime= Calendar.getInstance().getTimeInMillis();
                     startActivity(fIntent);
 
@@ -261,8 +263,7 @@ public class unit_interface extends child_menu {
                     setRand(fillTest(random,random2,rand));
                     Intent fIntent=Rand.get(0);
                     Rand.remove(0);
-                    fIntent.putExtra("test_letter",testInfo.get(1).getLetters());
-                    fIntent.putParcelableArrayListExtra("RandomIntent",Rand);
+                    test_letter=testInfo.get(1).getLetters();
                     startActivity(fIntent);
 
 
@@ -274,8 +275,7 @@ public class unit_interface extends child_menu {
                     setRand(fillTest(random,random2,rand));
                     Intent fIntent=Rand.get(0);
                     Rand.remove(0);
-                    fIntent.putExtra("test_letter",testInfo.get(2).getLetters());
-                    fIntent.putParcelableArrayListExtra("RandomIntent",Rand);
+                    test_letter=testInfo.get(2).getLetters();
                     startActivity(fIntent);
 
                 }
@@ -294,12 +294,7 @@ public class unit_interface extends child_menu {
 
         unedatble();
         Log.i("Lesson1",lesson1.isClickable()+" ");
-        if(endtest==true){
-            finalScore= ReadingTest.reading_child_score+
-                    HeardWordTest.final_heard_child_score+
-                    TrueFalseTest.true_false_test_score;
-            finalScore=finalScore/4;
-        }
+
 
         unitConnicetion.ref.child("Units").child(unitID).child("unit letters").addValueEventListener(new ValueEventListener() {
             @Override
@@ -687,9 +682,25 @@ public class unit_interface extends child_menu {
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Intent intent=new Intent(this,Lesson.class);
+        Intent intent=getIntent();
+        Bundle b=intent.getExtras();
         if (resultCode == RESULT_OK) {
-            this.unitID=intent.getStringExtra("unitID");
+            this.unitID=b.getString("unitID");
         }
     }
+    public void  test_score(){
+        double time = EndTime - startTime;
+        time = (time/1000)/60;
+        actual_time = new DecimalFormat("##.##").format(time);
+
+
+        if(endtest==true){
+            finalScore= ReadingTest.reading_child_score+
+                    HeardWordTest.final_heard_child_score+
+                    TrueFalseTest.true_false_test_score;
+            finalScore=finalScore/4;
+        }
+
+    }
+
 }
