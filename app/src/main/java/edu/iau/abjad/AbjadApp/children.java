@@ -3,18 +3,18 @@ package edu.iau.abjad.AbjadApp;
 public class children {
 
 
-     String photo_URL;
+   //Remove child_ID
      String first_name;
-     String child_id;
 
+    String photo_URL;
     public children() {
 
     }
 
-    public children(String photo_URL, String first_name, String child_id) {
+    public children(String photo_URL, String first_name) {
         this.photo_URL = photo_URL;
         this.first_name = first_name;
-        this.child_id = child_id;
+
     }
 
     public String getPhoto_URL() {
@@ -33,11 +33,5 @@ public class children {
         this.first_name = first_name;
     }
 
-    public String getChild_id() {
-        return child_id;
-    }
 
-    public void setChild_id(String child_id) {
-        this.child_id = child_id;
-    }
 }

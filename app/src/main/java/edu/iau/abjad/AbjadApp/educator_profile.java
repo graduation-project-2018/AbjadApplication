@@ -36,12 +36,6 @@ public class educator_profile extends menu_educator {
     TextView email;
     Button saveBtn;
     Intent intent;//ask about it
-    TextView fnameError;
-    TextView lnameError;
-    TextView emailError;
-    ImageView fnameErrorIcon;
-    ImageView lnameErrorIcon;
-    ImageView emailErrorIcon;
     int errorCounts;
     String oldFname;
     String oldLname;
@@ -72,26 +66,17 @@ public class educator_profile extends menu_educator {
         email = (TextView)findViewById(R.id.emailTxt);
         saveBtn = (Button)findViewById(R.id.saveChangesBtn);
         //intent ?????????
-         fnameError = (TextView)findViewById(R.id.fnEr);
-         lnameError = (TextView)findViewById(R.id.lnameEr) ;
-         emailError = (TextView)findViewById(R.id.emailEr);
-         fnameErrorIcon = (ImageView) findViewById(R.id.fnErIcon);
-         lnameErrorIcon = (ImageView) findViewById(R.id.lnErIcon);
-         emailErrorIcon = (ImageView) findViewById(R.id.emailErIcon);
 
         getCurrentEducatorInfo();
         saveBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
 
-   /*checkInputs();
+                checkInputs();
                 if (errorCounts == 0){
-editEducator();
+                    editEducator();
 
-               }*/
-
-
-
+               }
 
             }
 
@@ -102,12 +87,7 @@ editEducator();
 
     private void checkInputs(){
 
-        fnameError.setVisibility(View.INVISIBLE);
-        lnameError.setVisibility(View.INVISIBLE);
-        emailError.setVisibility(View.INVISIBLE);
-        fnameErrorIcon.setVisibility(View.INVISIBLE);
-        lnameErrorIcon.setVisibility(View.INVISIBLE);
-        emailErrorIcon.setVisibility(View.INVISIBLE);
+
         errorCounts = 0;
         checkFirstName();
         checkLastName();
@@ -119,15 +99,12 @@ editEducator();
 
 
         if (firstName.getText().toString().isEmpty()) {
-            fnameError.setText("قم بتعبئة الحقل بالإسم الأول للمربي");
-            fnameError.setVisibility(View.VISIBLE);
-            fnameErrorIcon.setVisibility(View.VISIBLE);
+            firstName.setError("قم بتعبئة الحقل بالإسم الأول للمربي");
             errorCounts++;
         }
         else if (!ArabicLetters.matcher(firstName.getText().toString()).matches()) {
-            fnameError.setText("قم بكتابة الإسم الأول باللغة العربية فقط");
-            fnameError.setVisibility(View.VISIBLE);
-            fnameErrorIcon.setVisibility(View.VISIBLE);
+            firstName.setError("قم بكتابة الإسم الأول باللغة العربية فقط");
+
             errorCounts++;
         }
 
@@ -138,15 +115,13 @@ editEducator();
 
 
         if (lastName.getText().toString().isEmpty()) {
-            lnameError.setText("قم بتعبئة الحقل بلقب المربي");
-            lnameError.setVisibility(View.VISIBLE);
-            lnameErrorIcon.setVisibility(View.VISIBLE);
+            lastName.setError("قم بتعبئة الحقل بلقب المربي");
+
             errorCounts++;
         }
         else if (!ArabicLetters.matcher(lastName.getText().toString()).matches()) {
-            lnameError.setText("قم بكتابة اللقب باللغة العربية فقط ");
-            lnameError.setVisibility(View.VISIBLE);
-            lnameErrorIcon.setVisibility(View.VISIBLE);
+            lastName.setError("قم بكتابة اللقب باللغة العربية فقط ");
+
             errorCounts++;
         }
 
@@ -154,15 +129,15 @@ editEducator();
 
     public void checkEmail(){
         if (email.getText().toString().isEmpty()) {
-            emailErrorIcon.setVisibility(View.VISIBLE);
-           emailError.setText("قم بتعبئة الحقل بالبريد الإلكتروني");
-           emailError.setVisibility(View.VISIBLE);
+
+           email.setError("قم بتعبئة الحقل بالبريد الإلكتروني");
+
             errorCounts++;
 
         } else if (!Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()) {
-            emailErrorIcon.setVisibility(View.VISIBLE);
-            emailError.setText("البريد الإلكتروني ليس على النمط someone@example.com ");
-            emailError.setVisibility(View.VISIBLE);
+
+            email.setError("البريد الإلكتروني ليس على النمط someone@example.com ");
+
             errorCounts++;
 
         }
@@ -172,7 +147,7 @@ editEducator();
 
     public void getCurrentEducatorInfo(){
         //educator ID need to be changed
-        Query query = r.ref.child("Educators").child("educator22");
+        Query query = r.ref.child("Educators").child(SigninEducator.id_edu);
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -201,7 +176,7 @@ editEducator();
     }//end of getCurrentEducatorInfo function
 
     public void editEducator(){
-        //make the object
+
         newEmail = email.getText().toString();
         final String newFname = firstName.getText().toString();
         final String newLname = lastName.getText().toString();
@@ -209,17 +184,15 @@ editEducator();
         r.ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                //educator ID need to  be changed + choose educator object
-              //  r.ref.child("Educators").child("educator22").child("email").setValue(newEmail);
-             //   r.ref.child("Educators").child("educator22").child("first_name").setValue(newFname);
-               // r.ref.child("Educators").child("educator22").child("last_name").setValue(newLname);
+
+
                 if (!newEmail.equals(oldEmail))
                 {
                     updateEmail();
                 }
                 educator = new Educator(newEmail,newFname,newLname);
-                r.ref.child("Educators").child("educator22").setValue(educator);
-                Toast.makeText(educator_profile.this, "تم حفظ التغييرات", Toast.LENGTH_LONG).show();
+                r.ref.child("Educators").child(SigninEducator.id_edu).setValue(educator);
+                Toast.makeText(educator_profile.this, " تم حفظ التغييرات بنجاح", Toast.LENGTH_LONG).show();
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -231,14 +204,6 @@ editEducator();
 
     }//end of editEducator function
     public void updateEmail(){
-//sign in should be deleted
-
-        Uath.signInWithEmailAndPassword("mahabk.2016@gmail.com","123456").addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-
-                if(task.isSuccessful())
-                {
 
                     user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -246,19 +211,11 @@ editEducator();
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        Toast.makeText(educator_profile.this, "تم تعديل الايميل", Toast.LENGTH_LONG).show();
+                                    if (!task.isSuccessful()) {
+                                        Toast.makeText(educator_profile.this,"حدث خطأ خلال تغيير البريد الإلكتروني الرجاء المحاولة لاحقا", Toast.LENGTH_LONG).show();
                                     }
                                 }
                             });
-
-                }
-                else
-                {
-                    Toast.makeText(getApplicationContext(),task.getException().getMessage(),Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
 
 
 
