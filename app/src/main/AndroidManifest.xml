@@ -74,7 +74,13 @@
             android:windowSoftInputMode="stateHidden|adjustResize|adjustPan" />
         <activity
             android:name=".child_profile"
-            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"></activity>
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".menu_educator"
             android:screenOrientation="landscape" />
@@ -87,7 +93,9 @@
         <activity android:name=".child_change_password" />
         <activity
             android:name=".educator_profile"
-            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan" />
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan">
+
+        </activity>
         <activity
             android:name=".change_password"
             android:windowSoftInputMode="stateHidden|adjustResize|adjustPan" />

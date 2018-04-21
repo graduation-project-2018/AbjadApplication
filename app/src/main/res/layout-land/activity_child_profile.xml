@@ -14,7 +14,7 @@
         android:layout_height="wrap_content" />
 
     <Button
-        android:id="@+id/button6"
+        android:id="@+id/saveChangesBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -51,30 +51,9 @@
         app:layout_constraintTop_toBottomOf="@+id/ChildImage"
         app:srcCompat="@drawable/child_gray" />
 
-    <ImageView
-        android:id="@+id/LNErrorIcon"
-        android:layout_width="45dp"
-        android:layout_height="35dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginTop="88dp"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toStartOf="@+id/LNFieldCP"
-        app:layout_constraintTop_toBottomOf="@+id/FNErrorIcon"
-        app:srcCompat="@drawable/sshape" />
-
-    <ImageView
-        android:id="@+id/FNErrorIcon"
-        android:layout_width="45dp"
-        android:layout_height="35dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginTop="44dp"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toStartOf="@+id/FNFieldCP"
-        app:layout_constraintTop_toBottomOf="@+id/include"
-        app:srcCompat="@drawable/sshape" />
 
     <EditText
-        android:id="@+id/LNFieldCP"
+        android:id="@+id/lnameTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -87,11 +66,11 @@
         app:layout_constraintEnd_toStartOf="@+id/textView25"
         app:layout_constraintHorizontal_bias="0.851"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/FNFieldCP"
+        app:layout_constraintTop_toBottomOf="@+id/fnameTxt"
         app:layout_constraintVertical_bias="1.0" />
 
     <EditText
-        android:id="@+id/FNFieldCP"
+        android:id="@+id/fnameTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -106,6 +85,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
+
 
 
     <TextView
@@ -133,7 +113,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
     <ImageView
-        android:id="@+id/ChildImageCP"
+        android:id="@+id/childImage"
         android:layout_width="233dp"
         android:layout_height="220dp"
         android:layout_marginStart="156dp"
@@ -142,37 +122,6 @@
         app:layout_constraintTop_toBottomOf="@+id/include"
         app:srcCompat="@drawable/childicon" />
 
-    <TextView
-        android:id="@+id/FNErrorMsgCP"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="320dp"
-        android:layout_marginTop="8dp"
-        android:fontFamily="casual"
-        android:text="TextView"
-        android:textColor="@android:color/holo_red_dark"
-        android:textSize="16sp"
-        android:typeface="normal"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/LNFieldCP"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/FNFieldCP"
-        app:layout_constraintVertical_bias="0.0" />
 
-    <TextView
-        android:id="@+id/LNErrorMsgCP"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="320dp"
-        android:layout_marginTop="8dp"
-        android:fontFamily="casual"
-        android:text="TextView"
-        android:textColor="@android:color/holo_red_dark"
-        android:textSize="16sp"
-        android:typeface="normal"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/LNFieldCP" />
 
 </android.support.constraint.ConstraintLayout>
