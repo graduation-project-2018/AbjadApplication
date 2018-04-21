@@ -16,6 +16,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Random;
 public class unit_interface extends child_menu {
     menu_variables m = new menu_variables();
@@ -45,6 +46,8 @@ public class unit_interface extends child_menu {
     private  String childID;
     static boolean endtest=false;
     private int finalScore;
+    static long startTime,EndTime;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -195,7 +198,6 @@ public class unit_interface extends child_menu {
         test3obj.setNextLesson(lesson5);
         test3obj.setNext2lesson(lesson6);
         Log.i("Lesson1",lesson1.isClickable()+" ");
-
         lesson1.setClickable(true);
         lessonsInfo.add(lesson1obj);
         lessonsInfo.add(lesson2obj);
@@ -238,7 +240,6 @@ public class unit_interface extends child_menu {
         View.OnClickListener clickedTest =new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 if (view.getId() == R.id.test1|| view.getId()==R.id.ballon1) {
                     int random=randomTestNo.nextInt(4);
                     int random2=randomTestNo.nextInt(4);
@@ -248,8 +249,8 @@ public class unit_interface extends child_menu {
                     Intent fIntent=Rand.get(0);
                     Rand.remove(0);
                     fIntent.putExtra("test_letter",testInfo.get(0).getLetters());
-                    Log.i("testLetter3",testInfo.get(0).getLesson().getText().toString().replace(',','_'));
                     //fIntent.putParcelableArrayListExtra("RandomIntent",Rand);
+                    startTime= Calendar.getInstance().getTimeInMillis();
                     startActivity(fIntent);
 
                 } else if (view.getId() == R.id.test2|| view.getId()==R.id.ballon2) {
@@ -298,7 +299,6 @@ public class unit_interface extends child_menu {
                     HeardWordTest.final_heard_child_score+
                     TrueFalseTest.true_false_test_score;
             finalScore=finalScore/4;
-
         }
 
         unitConnicetion.ref.child("Units").child(unitID).child("unit letters").addValueEventListener(new ValueEventListener() {

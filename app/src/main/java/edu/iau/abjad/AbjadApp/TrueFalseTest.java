@@ -1,6 +1,7 @@
 package edu.iau.abjad.AbjadApp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -20,16 +21,17 @@ import com.google.firebase.database.ValueEventListener;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Random;
 
 public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedListener  {
     menu_variables m = new menu_variables();
-    MediaPlayer test_sentence_audio = new MediaPlayer();
-    audio_URLs audio_obj = new audio_URLs();
-   ArrayList<true_false_test_content> testContentArrayList = new ArrayList<true_false_test_content>();
+    MediaPlayer test_sentence_audio;
+    audio_URLs audio_obj ;
+   ArrayList<true_false_test_content> testContentArrayList;
     Button speaker_btn;
     Button true_btn;
-    Button false_btn;
+    Button false_btn,nextTest;
     firebase_connection r;
     TextView sentenceLabel;
     String testID;
@@ -44,6 +46,9 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
     ImageView abjad;
     AnimationDrawable anim;
     boolean flag2;
+    String test_id;
+    String Test_letter;
+    ArrayList<Intent> testIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,126 +71,188 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
         anim =(AnimationDrawable) abjad.getBackground();
         flag = true;
         flag2 = true;
+        nextTest=findViewById(R.id.next);
+        testContentArrayList = new ArrayList<true_false_test_content>();
+        test_sentence_audio = new MediaPlayer();
+        audio_obj = new audio_URLs();
+        //Alaa
+        nextTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(unit_interface.Rand.size()!=0){
+                    Intent nextTest=unit_interface.Rand.get(0);
+                    unit_interface.Rand.remove(nextTest);
+                    startActivity(nextTest);
+                }
+                else{
+                    unit_interface.endtest=true;
+                    unit_interface.EndTime= Calendar.getInstance().getTimeInMillis();
+                    Intent intent = new Intent(TrueFalseTest.this, unit_interface.class);
+                    intent.putExtra("unitID",unit_interface.unitID);
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }
+
+            }
+        });
+        Intent test=getIntent();
+        Bundle b=test.getExtras();
+        if(b!=null){
+            Test_letter=b.getString("test_letter");
+        }
 
 
-                        //int test_ID = previous_Intent.getStringExtra("test_ID");
-                        DatabaseReference read = r.ref.child("Tests").child("Test1").child("sentences");
-                         //create a class for wrong and false test
-                        read.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                for (final DataSnapshot sentence_ls : dataSnapshot.getChildren()){
+        //Alaa
+        r.ref.child("Tests").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (final DataSnapshot snapshot: dataSnapshot.getChildren()){
+                    final String key=snapshot.getKey();
+                    Log.i("KeyTest",key);
+                    DatabaseReference getCurrentTestId=r.ref.child("Tests").child("test_letters");
+                    ValueEventListener CurrIDEvent=new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if(key!=null) {
+                                String lettr = snapshot.child("test_letters").getValue().toString();
+                                Log.i("w2w2", lettr);
+                                if (lettr.equals(Test_letter)) {
+                                    test_id = key;
+                                    Log.i("1234567", Test_letter + " " + test_id);
+                                //Alaa
+                                Log.i("1234567", Test_letter + " " + test_id);
 
-                                    String trueContent = sentence_ls.child("content").getValue().toString();
-                                    String wrongContent = sentence_ls.child("wrong_content").getValue().toString();
-                                    String audio = sentence_ls.child("audio_file").getValue().toString();
+                                DatabaseReference read = r.ref.child("Tests").child(test_id).child("sentences");
+                                //create a class for wrong and false test
+                                read.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        for (final DataSnapshot sentence_ls : dataSnapshot.getChildren()) {
 
-                                   true_false_test_content obj = new  true_false_test_content(trueContent, wrongContent,  audio);
-                                    testContentArrayList.add(obj);
-                                } //end of for loop
-                                    Random rand = new Random();
-                                    true_or_false = rand.nextInt(2);
-                                   sentence_number = rand.nextInt(4);
+                                            String trueContent = sentence_ls.child("content").getValue().toString();
+                                            String wrongContent = sentence_ls.child("wrong_content").getValue().toString();
+                                            String audio = sentence_ls.child("audio_file").getValue().toString();
 
-                                   if(true_or_false == 1)
-                                   { selectedSentence = testContentArrayList.get( sentence_number).trueContent;
+                                            true_false_test_content obj = new true_false_test_content(trueContent, wrongContent, audio);
+                                            testContentArrayList.add(obj);
+                                        } //end of for loop
+                                        Random rand = new Random();
+                                        true_or_false = rand.nextInt(2);
+                                        sentence_number = rand.nextInt(4);
 
-                                   }
-                                    else{
-                                       selectedSentence = testContentArrayList.get( sentence_number).wrongContent;
+                                        if (true_or_false == 1) {
+                                            selectedSentence = testContentArrayList.get(sentence_number).trueContent;
 
-                                   }
-                                    sentenceLabel.setText(selectedSentence);
-
-                                   // start the instruction audio before the lesson begin
-                                    anim.start();
-                                    playAudio(audio_obj.true_false_test_begin_url);
-
-
-                                    // On complete listener that fire when the instruction audio finish to start the lesson audio.
-                                    test_sentence_audio.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                                        @Override
-                                        public void onCompletion(MediaPlayer mediaPlayer) {
-                                            if(flag == false){
-                                                return;
-                                            }
-                                            anim.stop();
-                                            flag = false;
-                                            anim.start();
-                                            playAudio(testContentArrayList.get( sentence_number).audioUrl);
-                                            setOnCompleteListener(test_sentence_audio);
-
-                                        }
-                                    });
-
-
-                                    speaker_btn.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View view) {
-                                            selectedSentenceAudio = testContentArrayList.get( sentence_number).audioUrl;
-                                            anim.start();
-                                            playAudio(selectedSentenceAudio);
-                                            setOnCompleteListener(test_sentence_audio);
-                                        }
-                                    });
-                                   true_btn.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View view) {
-                                            if(true_or_false == 0){
-                                                anim.start();
-                                                playAudio(audio_obj.wrong_answer_url);
-                                                setOnCompleteListener(test_sentence_audio);
-                                                true_false_test_score = 0;
-                                            }
-                                            else {
-                                                abjad.setBackgroundResource(R.drawable.abjad_happy);
-                                                anim =(AnimationDrawable) abjad.getBackground();
-                                                anim.start();
-                                                playAudio(audio_obj.perfect_top_feedback);
-                                                setOnCompleteListener(test_sentence_audio);
-                                                true_false_test_score = 10;
-
-                                            }
-                                            //get the next intent and redirect if Iam the last intent I should stop the
-                                            // timer and calculate the score and move to home
-
+                                        } else {
+                                            selectedSentence = testContentArrayList.get(sentence_number).wrongContent;
 
                                         }
-                                    });// end of true_btn on click listener
-                                    false_btn.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View view) {
-                                            if(true_or_false == 0){
-                                                abjad.setBackgroundResource(R.drawable.abjad_happy);
-                                                anim =(AnimationDrawable) abjad.getBackground();
+                                        sentenceLabel.setText(selectedSentence);
+
+                                        // start the instruction audio before the lesson begin
+                                        anim.start();
+                                        playAudio(audio_obj.true_false_test_begin_url);
+
+
+                                        // On complete listener that fire when the instruction audio finish to start the lesson audio.
+                                        test_sentence_audio.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                                            @Override
+                                            public void onCompletion(MediaPlayer mediaPlayer) {
+                                                if (flag == false) {
+                                                    return;
+                                                }
+                                                anim.stop();
+                                                flag = false;
                                                 anim.start();
-                                                playAudio(audio_obj.perfect_top_feedback);
+                                                playAudio(testContentArrayList.get(sentence_number).audioUrl);
                                                 setOnCompleteListener(test_sentence_audio);
-                                                true_false_test_score = 10;
 
                                             }
-                                            else {
+                                        });
+
+
+                                        speaker_btn.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                selectedSentenceAudio = testContentArrayList.get(sentence_number).audioUrl;
                                                 anim.start();
-                                                playAudio(audio_obj.wrong_answer_url);
+                                                playAudio(selectedSentenceAudio);
                                                 setOnCompleteListener(test_sentence_audio);
-                                                true_false_test_score = 0;
+                                            }
+                                        });
+                                        true_btn.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                if (true_or_false == 0) {
+                                                    anim.start();
+                                                    playAudio(audio_obj.wrong_answer_url);
+                                                    setOnCompleteListener(test_sentence_audio);
+                                                    true_false_test_score = 0;
+                                                } else {
+                                                    abjad.setBackgroundResource(R.drawable.abjad_happy);
+                                                    anim = (AnimationDrawable) abjad.getBackground();
+                                                    anim.start();
+                                                    playAudio(audio_obj.perfect_top_feedback);
+                                                    setOnCompleteListener(test_sentence_audio);
+                                                    true_false_test_score = 10;
+
+                                                }
+                                                //get the next intent and redirect if Iam the last intent I should stop the
+                                                // timer and calculate the score and move to home
+
 
                                             }
-                                            //get the next intent and redirect if Iam the last intent I should stop the
-                                            // timer and calculate the score and move to home
+                                        });// end of true_btn on click listener
+                                        false_btn.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                if (true_or_false == 0) {
+                                                    abjad.setBackgroundResource(R.drawable.abjad_happy);
+                                                    anim = (AnimationDrawable) abjad.getBackground();
+                                                    anim.start();
+                                                    playAudio(audio_obj.perfect_top_feedback);
+                                                    setOnCompleteListener(test_sentence_audio);
+                                                    true_false_test_score = 10;
 
-                                        }
-                                    });//end of false_btn on click listener
+                                                } else {
+                                                    anim.start();
+                                                    playAudio(audio_obj.wrong_answer_url);
+                                                    setOnCompleteListener(test_sentence_audio);
+                                                    true_false_test_score = 0;
+
+                                                }
+                                                //get the next intent and redirect if Iam the last intent I should stop the
+                                                // timer and calculate the score and move to home
+
+                                            }
+                                        });//end of false_btn on click listener
 
 
-                            } //onDataChange
+                                    } //onDataChange
 
-                            @Override
-                            public void onCancelled(DatabaseError error) {
-                                // Failed to read value
-                                Log.w(null, "Failed to read value.", error.toException());
+                                    @Override
+                                    public void onCancelled(DatabaseError error) {
+                                        // Failed to read value
+                                        Log.w(null, "Failed to read value.", error.toException());
+                                    }
+                                });
                             }
-                        });
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    };getCurrentTestId.addValueEventListener(CurrIDEvent);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
 
     }//end of onCreate function

@@ -44,14 +44,16 @@ public class ChildProgress extends menu_educator {
     private TextView nDoneTest;
     private TextView highestScoreTest;
     private TextView testName;
-    private firebase_connection lesson_unloked,lesson,lesson_comp;
+    private firebase_connection lesson_unloked,lesson,lesson_comp,letterLesson;
     private firebase_connection test,nTest;
     private firebase_connection child,deleteChild_Children,deleteChild_edu,deleteChild_lesson,deleteChild_test;
     private String childID;
     private long unlookedLesson=0,testNo=0;
     int icomplete=0;
     int ihighestScore=0,ihighestLessonScore=0;
-    double dleastTime=0.0;
+    double dleastTime;
+    String  sTime, sLeastTime,sHighstScoreLesson,sHighstScoreTest,lett;
+    double dTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,21 +74,27 @@ public class ChildProgress extends menu_educator {
          nTimer=findViewById(R.id.nTimer);
          LessonNameTimer=findViewById(R.id.LessonNameTimer);
          highestScoreLesson=findViewById(R.id.highestScoreLesson);
-         lessonNameScore=findViewById(R.id.hLessonNameScore);
+         lessonNameScore=findViewById(R.id.LessonNameScore);
          nDoneTest=findViewById(R.id.nDoneTest);
          highestScoreTest=findViewById(R.id.highestScoreTest);
          testName=findViewById(R.id.testName);
         lesson_unloked=new firebase_connection();
         lesson=new firebase_connection();
         lesson_comp=new firebase_connection();
+        letterLesson=new firebase_connection();
          test=new firebase_connection();
          child = new firebase_connection();
-         childID="Tym2seBO6Cfl8yR5g44LtAAuvKH3";//Signin.id_child;
+         childID="fpkBRxosfPdV4cN7ct4mEgi4j2p2";//Signin.id_child;
          deleteChild_Children=new firebase_connection();
          deleteChild_edu=new firebase_connection();
          deleteChild_lesson=new firebase_connection();
          deleteChild_test=new firebase_connection();
         nTest=new firebase_connection();
+        dleastTime=1000000000.00;
+        sLeastTime="";
+        sHighstScoreLesson="";
+        sHighstScoreTest="";
+        lett="";
         final Intent educatorHome=new Intent(this,educator_home.class);
         final Intent changePassword =new Intent(this, change_password.class );
 
@@ -132,23 +140,57 @@ public class ChildProgress extends menu_educator {
                                     ValueEventListener completeEvent=new ValueEventListener() {
                                         @Override
                                         public void onDataChange(DataSnapshot dataSnapshot) {
-                                           String status=s.child("status").getValue(String.class);
-                                           int ilessonScore=s.child("score").getValue(Integer.class);
-                                           //String  sTime=s.child("time").getValue(String.class);
-                                           //double dTime= (double) Long.parseLong(sTime);
-                                           if(status.equals("مكتمل")){
-                                              icomplete++;
-                                           }
-                                           if(ilessonScore>ihighestLessonScore){
-                                               ihighestLessonScore=ilessonScore;
-                                           }
-                                          // if (dTime<dleastTime){
-                                          //     dleastTime=dTime;
-                                          // }
-                                          //  nTimer.setText(dleastTime+(dleastTime<1?"/ s":"/ m"));
-                                            highestScoreLesson.setText(ihighestLessonScore+" /7");
-                                            nDoneLesson.setText(icomplete+" ");
-                                           Log.i("status",status);
+
+                                            DatabaseReference getLetter=letterLesson.ref.child("Lessons");
+                                            ValueEventListener evntLetr=new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                                    final String status=s.child("status").getValue(String.class);
+                                                    final int ilessonScore=s.child("score").getValue(Integer.class);
+                                                    sTime=s.child("time").getValue().toString();
+                                                    dTime=Double.parseDouble(sTime);
+                                                    Log.i("GGGGGGGG",dataSnapshot.child(lessonKey)
+                                                            .child("lesson_letter").getValue().toString()+" juju");
+                                                   lett=dataSnapshot.child(lessonKey)
+                                                            .child("lesson_letter").getValue().toString();
+                                                    Log.i("time",dTime+" m");
+                                                    if(status.equals("مكتمل")){
+                                                        icomplete++;
+                                                    }
+                                                    if(ilessonScore>=ihighestLessonScore){
+                                                        ihighestLessonScore=ilessonScore;
+                                                        if (!lett.contains(sHighstScoreLesson)){
+                                                            String s=lett;
+                                                            sHighstScoreLesson=lett+" "+s;
+                                                        Log.i("sleastTime",sHighstScoreLesson +" "+lett);}
+
+
+                                                    }
+                                                    if (dTime<=dleastTime){
+                                                        dleastTime=dTime;
+                                                        if(!lett.contains(sLeastTime)){
+                                                        String s=lett;
+                                                        sLeastTime=lett+" "+s;
+                                                        }
+                                                        Log.i("sleastTime",sLeastTime +" "+lett);
+                                                    }
+
+                                                    nTimer.setText(dleastTime+" "+(dleastTime<1?"/ s":"/ m"));
+                                                    highestScoreLesson.setText(ihighestLessonScore+" /7");
+                                                    nDoneLesson.setText(icomplete+" ");
+                                                    lessonNameScore.setText(sHighstScoreLesson+" ");
+                                                    LessonNameTimer.setText(sLeastTime+" ");
+
+
+                                                    Log.i("status",status);
+                                                }
+
+                                                @Override
+                                                public void onCancelled(DatabaseError databaseError) {
+
+                                                }
+                                            };getLetter.addValueEventListener(evntLetr);
+
                                         }
 
                                         @Override
