@@ -3,6 +3,7 @@ package edu.iau.abjad.AbjadApp;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -24,7 +25,7 @@ public class change_profile_photo extends child_menu {
     private ImageView pre;
     private ArrayList<String> imgsUrl;
     private firebase_connection FBchildPhotoUrl;
-    private long imgCont;
+    private int imgCont;
     private int imgIndex;
     String photo_url;
     Button SaveChanges;
@@ -48,24 +49,27 @@ public class change_profile_photo extends child_menu {
         FBchildPhotoUrl = new firebase_connection();
         imgIndex = 0;
         photo_url="";
+
         imgsUrl = new ArrayList<String>();
         SaveChanges=(Button)findViewById(R.id.SaveChangeImg);
         FBchildPhotoUrl.ref.child("ChildPhoto").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot childSnapShot : dataSnapshot.getChildren()) {
-                    imgCont = childSnapShot.getChildrenCount();
+
                     photo_url = childSnapShot.getValue().toString();
                     imgsUrl.add( photo_url);
                 }
+                imgCont = (int)dataSnapshot.getChildrenCount();
                 Picasso.get().load(imgsUrl.get(0)).fit().centerInside().into(childImg);
                 photo_url = imgsUrl.get(0);
 
                SaveChanges.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        FBchildPhotoUrl.ref.child("Children").child("WFFuB8oO5nd3aoKA8qFgolyyJNB3").child("photo_URL").setValue(photo_url);
+                        FBchildPhotoUrl.ref.child("Children").child(Signin.id_child).child("photo_URL").setValue(photo_url);
                         Toast.makeText(change_profile_photo.this, "تم تغيير الصورة بنجاح", Toast.LENGTH_LONG).show();
+
                     }
                 });
 
@@ -75,7 +79,7 @@ public class change_profile_photo extends child_menu {
                     public void onClick(View v) {
                         // load();
                         imgIndex++;
-                        if (imgIndex < 6) {
+                        if (imgIndex < imgCont) {
                             Picasso.get().load(imgsUrl.get(imgIndex)).fit().centerInside().into(childImg);
                             photo_url=imgsUrl.get(imgIndex);
                         } else {
@@ -93,7 +97,7 @@ public class change_profile_photo extends child_menu {
                     public void onClick(View v) {
                         // load();
                         imgIndex--;
-                        if (imgIndex < 6 & imgIndex > 0) {
+                        if (imgIndex < imgCont & imgIndex > 0) {
                             Picasso.get().load(imgsUrl.get(imgIndex)).fit().centerInside().into(childImg);
                             photo_url=imgsUrl.get(imgIndex);
 
