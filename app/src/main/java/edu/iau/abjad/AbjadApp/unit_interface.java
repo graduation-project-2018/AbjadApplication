@@ -63,7 +63,6 @@ public class unit_interface extends child_menu {
         //initilization
         chilHomeIntent=getIntent();
         unitID=chilHomeIntent.getStringExtra("id");
-
         childID = Signin.id_child;
         lessons=new ArrayList<String>();
         childTests=new ArrayList<String>();
@@ -133,7 +132,7 @@ public class unit_interface extends child_menu {
         lesson6Stars=findViewById(R.id.lesson6Stars);
         instructions=new MediaPlayer();
        // Log.i("dsdjcgjsd",unitID);
-
+        unitID=getIntent().getStringExtra("unitID");
         if(unitID.equals("unit1")){
             playAudio(audio.unit_Tip_One);
             instructions.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
