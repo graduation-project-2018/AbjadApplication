@@ -121,12 +121,13 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
                                     Log.i("1234567", Test_letter + " " + test_id);
                                 //Alaa
                                 Log.i("1234567", Test_letter + " " + test_id);
-
                                 DatabaseReference read = r.ref.child("Tests").child(test_id).child("sentences");
                                 //create a class for wrong and false test
                                 read.addValueEventListener(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {
+                                        Log.i("1234567", Test_letter + " " + test_id);
+
                                         for (final DataSnapshot sentence_ls : dataSnapshot.getChildren()) {
 
                                             String trueContent = sentence_ls.child("content").getValue().toString();
