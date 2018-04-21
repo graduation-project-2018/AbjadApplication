@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,7 +26,12 @@ public class child_photo  extends menu_educator {
     private firebase_connection FBchildPhotoUri;
     private long imgCont;
     private int imgIndex;
-   // private ProgressBar progressBar;
+    String photo_url;
+
+
+
+
+    // private ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,31 +45,35 @@ public class child_photo  extends menu_educator {
         mDrawerLayout.addView(contentView, 0);
 
         //Intiilaization
-        next=findViewById(R.id.next);
-        pre=findViewById(R.id.lesson2Stars);
-        childImg=findViewById(R.id.lesson1Stars);
-        imgsUri=new ArrayList<String>();
-        FBchildPhotoUri=new firebase_connection();
-        imgIndex=0;
-       // progressBar=findViewById(R.id.progressBar);
-       // progressBar.setBackgroundColor(176);
-       // progressBar.setVisibility(View.GONE);
+        next = findViewById(R.id.next);
+        pre = findViewById(R.id.lesson2Stars);
+        childImg = findViewById(R.id.lesson1Stars);
+        imgsUri = new ArrayList<String>();
+        FBchildPhotoUri = new firebase_connection();
+        imgIndex = 0;
+        photo_url="";
+
+
+
         FBchildPhotoUri.ref.child("ChildPhoto").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot childSnapShot: dataSnapshot.getChildren()){
-                    imgCont=childSnapShot.getChildrenCount();
-                    String photoUri=childSnapShot.getValue().toString();
+                for (DataSnapshot childSnapShot : dataSnapshot.getChildren()) {
+                    imgCont = childSnapShot.getChildrenCount();
+                    String photoUri = childSnapShot.getValue().toString();
                     imgsUri.add(photoUri);
-                }
-               // load();
-                Picasso.get().load(imgsUri.get(0)).fit().centerInside().into(childImg);
 
+
+                }
+                // load();
+
+                Picasso.get().load(imgsUri.get(0)).fit().centerInside().into(childImg);
+                photo_url = imgsUri.get(0);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(child_photo.this,"Error",Toast.LENGTH_LONG).show();
+                Toast.makeText(child_photo.this, "Error", Toast.LENGTH_LONG).show();
 
             }
 
@@ -72,15 +82,15 @@ public class child_photo  extends menu_educator {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // load();
+                // load();
                 imgIndex++;
-                if(imgIndex<6) {
+                if (imgIndex < 6) {
                     Picasso.get().load(imgsUri.get(imgIndex)).fit().centerInside().into(childImg);
-
-                }
-                else{
-                    imgIndex=0;
+                    photo_url=imgsUri.get(imgIndex);
+                } else {
+                    imgIndex = 0;
                     Picasso.get().load(imgsUri.get(imgIndex)).fit().centerInside().into(childImg);
+                    photo_url=imgsUri.get(imgIndex);
 
                 }
 
@@ -90,36 +100,26 @@ public class child_photo  extends menu_educator {
         pre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // load();
+                // load();
                 imgIndex--;
-                if(imgIndex<6 & imgIndex>0) {
+                if (imgIndex < 6 & imgIndex > 0) {
                     Picasso.get().load(imgsUri.get(imgIndex)).fit().centerInside().into(childImg);
+                    photo_url=imgsUri.get(imgIndex);
 
-                }
-                else if(imgIndex==-1){
-                    imgIndex=5;
+                } else if (imgIndex == -1) {
+                    imgIndex = 5;
                     Picasso.get().load(imgsUri.get(imgIndex)).fit().centerInside().into(childImg);
-                }
-                else{
-                    imgIndex=0;
+                    photo_url=imgsUri.get(imgIndex);
+
+                } else {
+                    imgIndex = 0;
                     Picasso.get().load(imgsUri.get(imgIndex)).fit().centerInside().into(childImg);
+                    photo_url=imgsUri.get(imgIndex);
 
                 }
             }
         });
         //load();
     }
-  /**  private void load(){
-
-        if(childImg.getDrawable()==null){
-
-            progressBar.setVisibility(View.VISIBLE);
-        }
-        else{
-            progressBar.setVisibility(View.GONE);
-
-        }
-
-    }**/
 }
 

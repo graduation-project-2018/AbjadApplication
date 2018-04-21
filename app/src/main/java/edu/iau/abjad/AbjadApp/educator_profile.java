@@ -3,6 +3,7 @@ package edu.iau.abjad.AbjadApp;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -41,7 +47,10 @@ public class educator_profile extends menu_educator {
     String oldLname;
     String oldEmail;
     Pattern ArabicLetters = Pattern.compile("^[أ-ي ]+$");
-
+    String newEmail;
+    Educator educator;
+    FirebaseAuth Uath;
+    FirebaseUser user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +64,7 @@ public class educator_profile extends menu_educator {
         mDrawerLayout.addView(contentView, 0);
 
 
+        Uath= FirebaseAuth.getInstance();
         db = FirebaseDatabase.getInstance();
         r = new firebase_connection();
         firstName = (TextView)findViewById(R.id.fnTxt);
@@ -68,15 +78,20 @@ public class educator_profile extends menu_educator {
          fnameErrorIcon = (ImageView) findViewById(R.id.fnErIcon);
          lnameErrorIcon = (ImageView) findViewById(R.id.lnErIcon);
          emailErrorIcon = (ImageView) findViewById(R.id.emailErIcon);
-       //  getCurrentEducatorInfo();
+
+        getCurrentEducatorInfo();
         saveBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                checkInputs();
-                if (errorCounts == 0){
 
-                    editEducator();
-                }
+   /*checkInputs();
+                if (errorCounts == 0){
+editEducator();
+
+               }*/
+
+
+
 
             }
 
@@ -157,65 +172,53 @@ public class educator_profile extends menu_educator {
 
     public void getCurrentEducatorInfo(){
         //educator ID need to be changed
-
-     /*   ValueEventListener eventListener = new ValueEventListener() {
+        Query query = r.ref.child("Educators").child("educator22");
+        query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                if (dataSnapshot.exists()) {
+                                   oldLname = dataSnapshot.child("last_name").getValue().toString();
+                                    oldFname = dataSnapshot.child("first_name").getValue().toString();
+                                    oldEmail = dataSnapshot.child("email").getValue().toString();
 
-                    oldEmail = ds.child("email").getValue(String.class);
-                   oldFname = ds.child("first_name").getValue(String.class);
-                    oldLname = ds.child("last_name").getValue(String.class);
-
-
+                                    email.setText(oldEmail);
+                                    firstName.setText(oldFname);
+                                    lastName.setText(oldLname);
                 }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {}
-        };
-        r.ref.child("Educators").child("educator22").addListenerForSingleValueEvent(eventListener);*/
-     /*  DatabaseReference read = r.ref.child("Educators").child("educator22");
-        read.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (final DataSnapshot educatorInfo : dataSnapshot.getChildren()) {
-
-                  oldFname = educatorInfo.child("first_name").getValue().toString();
-                  oldLname = educatorInfo.child("last_name").getValue().toString();
-                   oldEmail = educatorInfo.child("email").getValue().toString();
-                   break;
-
-                } //end of for loop
-                Toast.makeText(educator_profile.this, "first name is " +  oldFname , Toast.LENGTH_LONG).show();
+                else{
+                    Toast.makeText(educator_profile.this, "NOT EXIST", Toast.LENGTH_LONG).show();
+                }
 
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
+                Toast.makeText(educator_profile.this, "" + databaseError, Toast.LENGTH_LONG).show();
             }
-        });//end of read listener
-        */
-        email.setText(oldEmail);
-        firstName.setText(oldFname);
-        lastName.setText(oldLname);
+        });
+
 
     }//end of getCurrentEducatorInfo function
 
     public void editEducator(){
         //make the object
-        final String newEmail = email.getText().toString();
+        newEmail = email.getText().toString();
         final String newFname = firstName.getText().toString();
         final String newLname = lastName.getText().toString();
 
         r.ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                //educator ID need to  be changed
-                r.ref.child("Educators").child("educator22").child("email").setValue(newEmail);
-                r.ref.child("Educators").child("educator22").child("first_name").setValue(newFname);
-                r.ref.child("Educators").child("educator22").child("last_name").setValue(newLname);
+                //educator ID need to  be changed + choose educator object
+              //  r.ref.child("Educators").child("educator22").child("email").setValue(newEmail);
+             //   r.ref.child("Educators").child("educator22").child("first_name").setValue(newFname);
+               // r.ref.child("Educators").child("educator22").child("last_name").setValue(newLname);
+                if (!newEmail.equals(oldEmail))
+                {
+                    updateEmail();
+                }
+                educator = new Educator(newEmail,newFname,newLname);
+                r.ref.child("Educators").child("educator22").setValue(educator);
                 Toast.makeText(educator_profile.this, "تم حفظ التغييرات", Toast.LENGTH_LONG).show();
             }
             @Override
@@ -227,4 +230,40 @@ public class educator_profile extends menu_educator {
 
 
     }//end of editEducator function
+    public void updateEmail(){
+//sign in should be deleted
+
+        Uath.signInWithEmailAndPassword("mahabk.2016@gmail.com","123456").addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+
+                if(task.isSuccessful())
+                {
+
+                    user = FirebaseAuth.getInstance().getCurrentUser();
+
+                    user.updateEmail(newEmail)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(educator_profile.this, "تم تعديل الايميل", Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                            });
+
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(),task.getException().getMessage(),Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
+
+
+
+    }//end of updateEmail function
+
 }//end of the class

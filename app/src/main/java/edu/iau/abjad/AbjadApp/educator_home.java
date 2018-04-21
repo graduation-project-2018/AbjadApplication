@@ -10,7 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
@@ -27,12 +30,15 @@ public class educator_home extends menu_educator {
     menu_variables m = new menu_variables();
     Button btn;
    firebase_connection r = new firebase_connection();
-   ArrayList <children> children ;
+   ArrayList <children> children = new ArrayList<children>();
+   childrenAdapter adapter;
+   GridView gv;
+   TextView child_name;
+   ImageView child_img;
    int counter = 0;
     String childID;
-    Button btn1, btn2;
-    int size;
-
+    String child_ID;
+    children child = new children();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,16 +53,13 @@ public class educator_home extends menu_educator {
 
         mDrawerLayout.addView(contentView, 0);
         btn = (Button) findViewById(R.id.add_new_child_btn);
-        children = new ArrayList<children>();
-        btn1= (Button) findViewById(R.id.btn_1);
-        btn2 = (Button) findViewById(R.id.btn_2);
-        size =0;
-
-        Query query = r.ref.child("Educator_has_child").orderByKey().equalTo(SigninEducator.id_edu);
+        gv = (GridView)findViewById(R.id.gv);
+    Query query = r.ref.child("Educator_has_child").orderByKey().equalTo("i6ywh35HrgdyjDe9lh98BGcutpY2");
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
+                    Toast.makeText(educator_home.this, "EXIST", Toast.LENGTH_LONG).show();
                     for( DataSnapshot d : dataSnapshot.getChildren()){
                         for(DataSnapshot d2 : d.getChildren()){
                             childID = d2.getKey().toString();
@@ -66,19 +69,14 @@ public class educator_home extends menu_educator {
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                                     if(dataSnapshot.exists())
                                     {
-                                        for(DataSnapshot d: dataSnapshot.getChildren()){
+                                        for(DataSnapshot d : dataSnapshot.getChildren()){
                                             String name = d.child("first_name").getValue().toString();
                                             String photo = d.child("photo_URL").getValue().toString();
-                                            children e = new children(photo, name, childID);
-                                            children.add(e);
 
-                                        }
+                                          children e = new children(photo, name, childID);
+                                          children.add(e);
 
-                                        System.out.println("Size of array: "+ children.size());
 
-                                        if(children.size()==2){
-                                            btn1.setText(children.get(0).first_name);
-                                            btn2.setText(children.get(1).first_name);
                                         }
 
 
@@ -86,17 +84,20 @@ public class educator_home extends menu_educator {
 
                                     }
                                 }
+
                                 @Override
                                 public void onCancelled(DatabaseError databaseError) {
 
                                 }
                             });
 
+                            Toast.makeText(educator_home.this, child.getFirst_name(), Toast.LENGTH_LONG).show();
                         }
 
 
                     }
                 }
+
             }
 
             @Override
@@ -104,6 +105,11 @@ public class educator_home extends menu_educator {
 
             }
         });
+
+        /*adapter = new childrenAdapter(this,children);
+        gv.setAdapter(adapter);*/
+
+
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,4 +125,5 @@ public class educator_home extends menu_educator {
 
 
     }
+
 }
