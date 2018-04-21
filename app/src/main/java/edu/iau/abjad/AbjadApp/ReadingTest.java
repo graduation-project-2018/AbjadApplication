@@ -578,12 +578,12 @@ public class ReadingTest extends child_menu {
         else if(globalCost == 1 && word_length>3){
             child_score =8;
             anim.start();
-            playAudioInstructions(audio_URLs.excellent);
+            playAudioInstructions(audio_URLs.not_fully_good);
             setOnCompleteListener(feedback_audio);
         }
         else if(max_match>=0.49 && word_length > 3){
             anim.start();
-            playAudioInstructions(audio_URLs.good_feedback);
+            playAudioInstructions(audio_URLs.not_fully_good);
             child_score = 5;
             setOnCompleteListener(feedback_audio);
 
@@ -616,7 +616,7 @@ public class ReadingTest extends child_menu {
         }
         else if(max_match>=0.89){
             anim.start();
-            playAudioInstructions(audio_URLs.excellent);
+            playAudioInstructions(audio_URLs.not_fully_good);
             setOnCompleteListener(feedback_audio);
             child_score =8;
 
@@ -624,13 +624,13 @@ public class ReadingTest extends child_menu {
         else if(max_match>=0.75){
             child_score=7;
             anim.start();
-            playAudioInstructions(audio_URLs.excellent);
+            playAudioInstructions(audio_URLs.not_fully_good);
             setOnCompleteListener(feedback_audio);
         }
         else if(max_match <= 0.75 && max_match>=0.5){
             child_score=6;
             anim.start();
-            playAudioInstructions(audio_URLs.good_feedback);
+            playAudioInstructions(audio_URLs.not_fully_good);
             setOnCompleteListener(feedback_audio);
 
         }

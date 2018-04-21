@@ -733,14 +733,14 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
         else if(globalCost == 1 && word_length>3){
             child_score =6;
             anim.start();
-            playAudioInstructions(audio_URLs.excellent);
+            playAudioInstructions(audio_URLs.not_fully_good);
             setOnCompleteListener(audio_instruction);
             score_img.setVisibility(View.VISIBLE);
             score_img.setImageResource(R.drawable.six);
         }
         else if(max_match>=0.49 && word_length > 3){
             anim.start();
-            playAudioInstructions(audio_URLs.good_feedback);
+            playAudioInstructions(audio_URLs.not_fully_good);
             setOnCompleteListener(audio_instruction);
             score_img.setVisibility(View.VISIBLE);
             score_img.setImageResource(R.drawable.four);
@@ -781,7 +781,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
         }
         else if(max_match>=0.89){
             anim.start();
-            playAudioInstructions(audio_URLs.excellent);
+            playAudioInstructions(audio_URLs.not_fully_good);
             setOnCompleteListener(audio_instruction);
             child_score =6;
             score_img.setVisibility(View.VISIBLE);
@@ -791,7 +791,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
         else if(max_match>=0.75){
             child_score=5;
             anim.start();
-            playAudioInstructions(audio_URLs.excellent);
+            playAudioInstructions(audio_URLs.not_fully_good);
             setOnCompleteListener(audio_instruction);
             score_img.setVisibility(View.VISIBLE);
             score_img.setImageResource(R.drawable.five);
@@ -799,7 +799,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
         else if(max_match <= 0.75 && max_match>=0.5){
             child_score=4;
             anim.start();
-            playAudioInstructions(audio_URLs.good_feedback);
+            playAudioInstructions(audio_URLs.not_fully_good);
             setOnCompleteListener(audio_instruction);
             score_img.setVisibility(View.VISIBLE);
             score_img.setImageResource(R.drawable.four);

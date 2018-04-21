@@ -50,7 +50,7 @@ public class unit_interface extends child_menu {
     static int finalScore;
     static long startTime,EndTime;
     static String test_letter;
-    static String actual_time, childTime;
+    static String  childTime;
     static int currentScore ;
     static firebase_connection r = new firebase_connection();
     static String actual_time;
@@ -161,7 +161,7 @@ public class unit_interface extends child_menu {
        }else{
            Log.i("ifStm","noone");
        }
-       if(unitID.equals("unit1")){
+       if(unitID.equals("unit1") && intent.getString("preIntent").equals("childHome")){
             playAudio(audio.unit_Tip_One);
             instructions.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
