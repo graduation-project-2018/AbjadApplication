@@ -39,7 +39,6 @@
             android:name=".MatchingTest"
             android:screenOrientation="landscape">
 
-
         </activity>
         <activity
             android:name=".child_photo"
@@ -76,19 +75,12 @@
             android:name=".Signin"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden|adjustResize|adjustPan" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
 
         </activity>
 
         <activity android:name=".report_problem"
-            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan" >
-
-        </activity>
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
 
         <activity android:name=".SignUp"
             android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
@@ -105,7 +97,15 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".change_profile_photo"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape" >
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
         <activity
             android:name=".splash_screen"
             android:screenOrientation="landscape"></activity>
@@ -122,9 +122,8 @@
         <activity
             android:name=".popUp_repert_problem"
             android:windowSoftInputMode="stateHidden|adjustResize|adjustPan" />
-        <activity android:name=".delete_popup"></activity>
-
-        <activity android:name=".child_crad_model"></activity>
+        <activity android:name=".child_crad_model" />
+        <activity android:name=".adding_child_pop_up"></activity>
     </application>
 
 </manifest>

@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.Random;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -37,7 +38,7 @@ public class HeardWordTest extends child_menu  {
     //private Random word_index;
     menu_variables m = new menu_variables();
     // private DatabaseReference pointer;
-    private Button w1,w2,w3;
+    private Button w1,w2,w3,nextButn;
     private FirebaseAuth auth;
     private firebase_connection r;
     private ArrayList<heard_word_content> wordsGroupList = new ArrayList<heard_word_content>();
@@ -53,6 +54,10 @@ public class HeardWordTest extends child_menu  {
     ImageView abjad;
     boolean flag2, move_child;
 
+    boolean flag2;
+    String test_id;
+    String Test_letter;
+    ArrayList<Intent> testIntent;
 
     //check if user is signed in or return 'em back a sign in look
     @Override
@@ -91,8 +96,10 @@ public class HeardWordTest extends child_menu  {
         speaker= (ImageButton) findViewById(R.id.speaker);
         flag = true;
         flag2 = true;
-        move_child = false;
         selected_word ="";
+        test_id="";
+        nextButn=findViewById(R.id.next_lesson2);
+
 
         abjad.setBackgroundResource(R.drawable.abjad_speak);
         anim =(AnimationDrawable) abjad.getBackground();
@@ -114,13 +121,54 @@ public class HeardWordTest extends child_menu  {
         final int x= rndm(3); //#groups
         final int y= rndm( 3); //#words in each group
 
-        String sltG="group"+x;
+        final String sltG="group"+x;
+        //Alaa
+        nextButn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(unit_interface.Rand.size()!=0){
+                    Intent nextTest=unit_interface.Rand.get(0);
+                    unit_interface.Rand.remove(nextTest);
+                    startActivity(nextTest);
+                }
+                else{
+                    unit_interface.endtest=true;
+                    unit_interface.EndTime= Calendar.getInstance().getTimeInMillis();
+                    Intent intent = new Intent(HeardWordTest.this, unit_interface.class);
+                    intent.putExtra("unitID",unit_interface.unitID);
+                    setResult(RESULT_OK, intent);
+                   // finish();
+                    startActivity(intent);
+                }
 
+            }
+        });
+        /*Intent test=getIntent();
+        Bundle b=test.getExtras();
+        if(b!=null){
+            Test_letter=b.getString("test_letter");
+        }*/
+        Test_letter=unit_interface.test_letter;
+        //Alaa
+        r.ref.child("Tests").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (final DataSnapshot snapshot: dataSnapshot.getChildren()){
+                    final String key=snapshot.getKey();
+                    Log.i("KeyTest",key);
+                    DatabaseReference getCurrentTestId=r.ref.child("Tests").child("test_letters");
+                    ValueEventListener CurrIDEvent=new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if(key!=null){
+                                String lettr=snapshot.child("test_letters").getValue().toString();
+                                Log.i("w2w2",lettr);
+                                if(lettr.equals(Test_letter)){
+                                    test_id=key;
+                                    Log.i("1234567",Test_letter+" "+ test_id);
+                                }//Alaa
 
-
-        Query WG = r.ref.child("Tests").child("Test1").child("heard_word_test").orderByKey().equalTo(sltG);   //to retive the word audio
-
-
+          Query WG = r.ref.child("Tests").child(test_id).child("heard_word_test").orderByKey().equalTo(sltG);   //to retive the word audio
         WG.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -185,6 +233,23 @@ public class HeardWordTest extends child_menu  {
                 Log.w(null, "Failed to read value.", databaseError.toException());
             }
         });
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    };getCurrentTestId.addValueEventListener(CurrIDEvent);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
 
 
     }

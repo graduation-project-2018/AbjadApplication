@@ -1,12 +1,16 @@
 package edu.iau.abjad.AbjadApp;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -41,33 +45,21 @@ public class adding_child  extends menu_educator {
 
     TextView password;
     TextView confirmedPassword;
-    TextView username;
+    TextView email;
     Button addBtn;
-    String user_id;
-    String userName;
+    ImageButton next;
     childInformation child;
     Intent intent;
-
-    TextView fnameError;
-    TextView lnameError;
+    Boolean backFlag =false;
     TextView genderError;
-    TextView passwordError;
-    TextView mismatchedPasswordsError;
-    TextView emailError;
-    ImageView fnameErrorIcon;
-    ImageView lnameErrorIcon;
-    ImageView genderErrorIcon;
-    ImageView passwordErrorIcon;
-    ImageView mismatchedPasswordsErrorIcon;
-    ImageView emailErrorIcon;
-    String LastChildKey;
-    String fullUsername;
+   ImageView genderErrorIcon;
+    String eml;
     String pass;
    DatabaseReference rf;
 
    int errorCounts;
     Pattern ArabicLetters = Pattern.compile("^[أ-ي ]+$");
-    Pattern EnglishLetters = Pattern.compile("^[a-zA-Z ]+$");
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,21 +82,13 @@ public class adding_child  extends menu_educator {
         radioGroup = (RadioGroup) findViewById(R.id.genderRadioGroup);
         password = (TextView)findViewById(R.id.passwordTxt);
         confirmedPassword = (TextView)findViewById(R.id.conPasswordTxt);
-        username = (TextView)findViewById(R.id.emailTxt);
+        email = (TextView)findViewById(R.id.emailTxt);
         addBtn = (Button)findViewById(R.id.addBtn);
         intent = new Intent(this, child_photo.class);
-        fnameError = (TextView)findViewById(R.id.fnameEr);
-        lnameError = (TextView)findViewById(R.id.lnameEr);
-       genderError = (TextView)findViewById(R.id.genderEr);
-         passwordError = (TextView)findViewById(R.id.passEr);
-        mismatchedPasswordsError = (TextView)findViewById(R.id.missPassEr);
-         emailError = (TextView)findViewById(R.id.unameEr);
-        fnameErrorIcon= (ImageView)findViewById(R.id.fnErIcon);
-        lnameErrorIcon = (ImageView)findViewById(R.id.lnErIcon);
-        genderErrorIcon = (ImageView)findViewById(R.id.genderErIcon);
-        passwordErrorIcon = (ImageView)findViewById(R.id.passwordErIcon);
-        mismatchedPasswordsErrorIcon = (ImageView)findViewById(R.id.conPasswordErIcon);
-        emailErrorIcon = (ImageView)findViewById(R.id.emailErIcon);
+        genderError = (TextView)findViewById(R.id.genderEr);
+
+       genderErrorIcon = (ImageView)findViewById(R.id.genderErIcon);
+
 
 
         addBtn.setOnClickListener(new View.OnClickListener(){
@@ -124,59 +108,88 @@ public class adding_child  extends menu_educator {
     }//end of onCreate function
 
 
+    @Override
+    public void onBackPressed() {
+        if(backFlag == false){
+        popUp();
+            backFlag = true;
+        }//first time to press back , we should give a warning
 
+
+    }
+    public void popUp(){
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(adding_child.this);
+        mBuilder.setCancelable(false);
+        LayoutInflater inflater = this.getLayoutInflater();
+        View mView = getLayoutInflater().inflate(R.layout.activity_adding_child_pop_up,null);
+        Button close_btn = (Button) mView.findViewById(R.id.close_btn);
+        Button ok_btn = (Button) mView.findViewById(R.id.ok_btn);
+        mBuilder.setView(mView);
+        final AlertDialog dialog = mBuilder.create();
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setCancelable(false);
+
+        dialog.show();
+        ok_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                dialog.dismiss();
+            }
+        });
+
+        close_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                dialog.dismiss();
+            }
+        });
+
+
+    }
 
     private void checkInputs(){
 
-        fnameError.setVisibility(View.INVISIBLE);
-        lnameError.setVisibility(View.INVISIBLE);
-        genderError.setVisibility(View.INVISIBLE);
-        passwordError.setVisibility(View.INVISIBLE);
-        mismatchedPasswordsError.setVisibility(View.INVISIBLE);
-       emailError.setVisibility(View.INVISIBLE);
-        fnameErrorIcon.setVisibility(View.INVISIBLE);
-        lnameErrorIcon.setVisibility(View.INVISIBLE);
-        genderErrorIcon.setVisibility(View.INVISIBLE);
-        passwordErrorIcon.setVisibility(View.INVISIBLE);
-        mismatchedPasswordsErrorIcon.setVisibility(View.INVISIBLE);
-        emailErrorIcon.setVisibility(View.INVISIBLE);
+       genderError.setVisibility(View.INVISIBLE);
+
+       genderErrorIcon.setVisibility(View.INVISIBLE);
+
       errorCounts = 0;
-      checkFirstName();
+        checkFirstName();
         checkLastName();
         checkGender();
         checkEmail();
         checkPassword();
-       // checkExistingAccount();
+
 
     }//end of checkInputs function
 
     public void checkExistingAccount(){
+       eml = email.getText().toString();
 
-        Query q = r.ref.child("Children").orderByChild("username").equalTo(userName);
+        Query q = r.ref.child("Children").orderByChild("email").equalTo(eml);
         q.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    emailError.setText("اسم المستخدم موجود سابقا");
-                    emailError.setVisibility(View.VISIBLE);
-                    emailErrorIcon.setVisibility(View.VISIBLE);
+                    email.setError("البريد الإلكتروني مسجل سابقا");
                     errorCounts++;
                 }
                 else {
-                    Toast.makeText(adding_child.this, "NOT EXIST", Toast.LENGTH_LONG).show();
+
                     if(errorCounts == 0){
                         String fname = firstName.getText().toString();
                         String lname = lastName.getText().toString();
-
                         int selectedId = radioGroup.getCheckedRadioButtonId();
                         radioButton = (RadioButton) findViewById(selectedId);
                         String selectedGender = radioButton.getText().toString();
-                        child = new childInformation(fname,lname,selectedGender,"_",userName);
-                     /*   Bundle extras = new Bundle();
+                        child = new childInformation(fname,lname,selectedGender,"_",eml);
+                        Bundle extras = new Bundle();
                         extras.putSerializable("object",child);
                         extras.putString("password",pass);
                         intent.putExtras(extras);
-                        startActivity(intent);*/
+                        startActivity(intent);
 
                     }
                 }
@@ -198,15 +211,13 @@ public class adding_child  extends menu_educator {
 
 
         if (firstName.getText().toString().isEmpty()) {
-            fnameError.setText("قم بتعبئة الحقل بالاسم الأول للطفل");
-            fnameError.setVisibility(View.VISIBLE);
-            fnameErrorIcon.setVisibility(View.VISIBLE);
+            firstName.setError("قم بتعبئة الحقل بالاسم الأول للطفل");
+
             errorCounts++;
         }
         else if (!ArabicLetters.matcher(firstName.getText().toString()).matches()) {
-            fnameError.setText("قم بكتابة الإسم الأول باللغة العربية فقط");
-            fnameError.setVisibility(View.VISIBLE);
-            fnameErrorIcon.setVisibility(View.VISIBLE);
+            firstName.setError("قم بكتابة الإسم الأول باللغة العربية فقط");
+
             errorCounts++;
         }
 
@@ -216,15 +227,13 @@ public class adding_child  extends menu_educator {
 
 
         if (lastName.getText().toString().isEmpty()) {
-            lnameError.setText("قم بتعبئة الحقل بلقب الطفل");
-            lnameError.setVisibility(View.VISIBLE);
-            lnameErrorIcon.setVisibility(View.VISIBLE);
+            lastName.setError("قم بتعبئة الحقل بلقب الطفل");
+
             errorCounts++;
         }
         else if (!ArabicLetters.matcher(lastName.getText().toString()).matches()) {
-            lnameError.setText("قم بكتابة اللقب باللغة العربية فقط ");
-            lnameError.setVisibility(View.VISIBLE);
-            lnameErrorIcon.setVisibility(View.VISIBLE);
+            lastName.setError("قم بكتابة اللقب باللغة العربية فقط ");
+
             errorCounts++;
         }
 
@@ -243,17 +252,14 @@ public class adding_child  extends menu_educator {
     }//end of checkGender function
 
     public void checkEmail(){
-        if (username.getText().toString().isEmpty()) {
-            emailError.setText("قم بتعبئة الحقل باسم المستخدم للطفل");
-            emailError.setVisibility(View.VISIBLE);
-            emailErrorIcon.setVisibility(View.VISIBLE);
+        if (email.getText().toString().isEmpty()) {
+           email.setError("قم بتعبئة الحقل بالبريد الإلكتروني");
+
             errorCounts++;
         }
-        else if (!EnglishLetters.matcher(username.getText().toString()).matches()){
-            emailError.setText("اسم المستخدم يجب أن يحتوي على أحرف انجليزية فقط");
-            emailError.setVisibility(View.VISIBLE);
-            emailErrorIcon.setVisibility(View.VISIBLE);
-            errorCounts++;
+        else if(!Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()){
+            email.setError("البريد الإلكتروني ليس على النمط someone@example.com ");
+             errorCounts++;
 
         }
 
@@ -266,104 +272,31 @@ Boolean emptyPass =false;
 Boolean emptyConPass = false;
 
         if (password.getText().toString().isEmpty()) {
-            passwordError.setText("قم بتعبئة الحقل بكلمة المرور");
-            passwordError.setVisibility(View.VISIBLE);
-            passwordErrorIcon.setVisibility(View.VISIBLE);
+            password.setError("قم بتعبئة الحقل بكلمة المرور");
             errorCounts++;
             emptyPass =true;
         }
         else if (password.length() < 6){
 
-            passwordError.setText("كلمة المرور يجب ان تكون اطول من 6 خانات ");
-            passwordError.setVisibility(View.VISIBLE);
-            passwordErrorIcon.setVisibility(View.VISIBLE);
+            password.setError("كلمة المرور يجب ان تكون اطول من 6 خانات ");
             errorCounts++;
         }
         if (confirmedPassword.getText().toString().isEmpty()) {
-            mismatchedPasswordsError.setText("قم بتأكيد كلمة المرور");
-            mismatchedPasswordsError.setVisibility(View.VISIBLE);
-            mismatchedPasswordsErrorIcon.setVisibility(View.VISIBLE);
+            confirmedPassword.setError("قم بتأكيد كلمة المرور");
             errorCounts++;
             emptyConPass = true;
         }
 
         if ( emptyConPass == false && emptyPass ==false){
         if (!confirmedPassword.getText().toString().equals( password.getText().toString())){
-            mismatchedPasswordsError.setText("كلمات المرور المدخلة غير متطابقة");
-            mismatchedPasswordsError.setVisibility(View.VISIBLE);
-            mismatchedPasswordsErrorIcon.setVisibility(View.VISIBLE);
-            passwordErrorIcon.setVisibility(View.VISIBLE);
+            confirmedPassword.setError("كلمات المرور المدخلة غير متطابقة");
             errorCounts++;
-//////
+
 
         } }
 
-    }
+    }//end of checkPassword fucntion
 
 
 
-}
-/* private void addChild(){
-
-
-         auth.createUserWithEmailAndPassword(email,pass).addOnCompleteListener(this,
-                new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            Toast.makeText(adding_child.this, "تمت إضافة طفل جديد بنجاح", Toast.LENGTH_LONG).show();
-                            user_id = auth.getCurrentUser().getUid();
-                            addChildInfo();
-
-
-                        }//Successful child registeration
-
-                        else{
-
-
-                        }
-                    }
-                });
-
-
-    }//end of addChild function
-
-
-    public void addChildInfo(){
-  //Make that you set the photo_URL in the child object
-
-       r.ref.addValueEventListener(new ValueEventListener() {
-       @Override
-       public void onDataChange(DataSnapshot dataSnapshot) {
-           r.ref.child("Children").child(user_id).setValue(child);
-           //educator ID need to  be changed
-           r.ref.addValueEventListener(new ValueEventListener(){
-               @Override
-               public void onDataChange(DataSnapshot dataSnapshot) {
-                   r.ref.child("Educator_has_child").child(SigninEducator.id_edu).child(user_id).setValue(true);
-
-                 }
-
-               @Override
-               public void onCancelled(DatabaseError databaseError) {
-
-               }
-
-
-           });
-
-
-
-
-
-       }
-       @Override
-       public void onCancelled(DatabaseError databaseError) {
-
-       }
-   });
-
-
-
-    }//end of addChildInfo
-*/
+}//end of adding_child class
