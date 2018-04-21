@@ -116,7 +116,9 @@ public class ReadingTest extends child_menu {
                     unit_interface.EndTime= Calendar.getInstance().getTimeInMillis();
                     Intent intent = new Intent(ReadingTest.this, unit_interface.class);
                     intent.putExtra("unitID",unit_interface.unitID);
+                    intent.putExtra("preIntent","readingTest");
                     setResult(RESULT_OK, intent);
+                    startActivity(intent);
                     finish();
                 }
 

@@ -91,7 +91,9 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
                     unit_interface.EndTime= Calendar.getInstance().getTimeInMillis();
                     Intent intent = new Intent(TrueFalseTest.this, unit_interface.class);
                     intent.putExtra("unitID",unit_interface.unitID);
+                    intent.putExtra("preIntent","trueFalse");
                     setResult(RESULT_OK, intent);
+                    startActivity(intent);
                     finish();
                 }
 

@@ -41,9 +41,11 @@ public class child_home extends child_menu {
         school.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String unitId = "unit2";
+                String unitId="unit2";
                 intentOfUnit.putExtra("id",unitId);
                 intentOfUnit.putExtra("Unitname","مدرستي");
+                intentOfUnit.putExtra("preIntent","childHome");
+                setResult(RESULT_OK,intentOfUnit);
                 startActivity(intentOfUnit);
             }
         });
@@ -53,6 +55,8 @@ public class child_home extends child_menu {
                 String unitId = "unit1";
                 intentOfUnit.putExtra("id",unitId);
                 intentOfUnit.putExtra("Unitname","اسرتي");
+                intentOfUnit.putExtra("preIntent","childHome");
+                setResult(RESULT_OK,intentOfUnit);
                 startActivity(intentOfUnit);
             }
         });
@@ -62,6 +66,8 @@ public class child_home extends child_menu {
                 String unitId = "unit3";
                 intentOfUnit.putExtra("id",unitId);
                 intentOfUnit.putExtra("Unitname","مدينتي");
+                intentOfUnit.putExtra("preIntent","childHome");
+                setResult(RESULT_OK,intentOfUnit);
                 startActivity(intentOfUnit);
             }
         });

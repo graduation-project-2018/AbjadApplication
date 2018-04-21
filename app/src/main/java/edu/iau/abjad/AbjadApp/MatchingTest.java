@@ -538,9 +538,10 @@ View.OnDragListener dragListener1 = new View.OnDragListener() {
                         unit_interface.EndTime= Calendar.getInstance().getTimeInMillis();
                         Intent intent = new Intent(MatchingTest.this, unit_interface.class);
                         intent.putExtra("unitID",unit_interface.unitID);
+                        intent.putExtra("preIntent","matchingTest");
                         setResult(RESULT_OK, intent);
+                        startActivity(intent);
                         finish();
-
 
                     }
                 }
