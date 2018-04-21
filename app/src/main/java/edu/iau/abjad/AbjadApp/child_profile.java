@@ -2,51 +2,43 @@ package edu.iau.abjad.AbjadApp;
 
 import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.content.ClipData;
-import android.content.Context;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.DragEvent;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.*;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
-import java.util.*;
 import java.util.regex.Pattern;
 
-public class child_profile extends menu_educator{
-
+public class child_profile extends menu_educator {
 
 
     menu_variables m = new menu_variables();
-    EditText FNChild , LNChild , Username;
-    TextView FNChildMsg , LNChildMsg,UsernameMsg;
-    ImageView FNChildIcon,LNChildIcon, UsernameIcon,ChildImage;
-    String ChildID ;
+    EditText FNChild, LNChild, Email;
+    ImageView ChildImage;
+
     firebase_connection r;
     childInformation child;
     DatabaseReference read;
     Button saveChanges;
     int counter;
     Pattern ArabicLetters;
+    String oldFname;
+    String oldLname;
+    String oldEmail;
+    int errorCounts;
+    String photo_URL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,101 +54,151 @@ public class child_profile extends menu_educator{
 
         mDrawerLayout.addView(contentView, 0);
 
-        FNChild = (EditText) findViewById(R.id.FNFieldCP);
-        LNChild = (EditText) findViewById(R.id.LNFieldCP);
-        //Username = (EditText) findViewById(R.id.UsernameFieldCP);
-        FNChildIcon = (ImageView) findViewById(R.id.FNErrorIcon);
-        LNChildIcon = (ImageView) findViewById(R.id.LNErrorIcon);
-        //UsernameIcon = (ImageView) findViewById(R.id.UsernameErrorIcon);iiiiiiiiii
-        ChildImage = (ImageView) findViewById(R.id.ChildImageCP);
-        FNChildMsg = (TextView) findViewById(R.id.FNErrorMsgCP);
-        LNChildMsg = (TextView) findViewById(R.id.LNErrorMsgCP);
+        FNChild = (EditText) findViewById(R.id.fnameTxt);
+        LNChild = (EditText) findViewById(R.id.lnameTxt);
+        ChildImage = (ImageView) findViewById(R.id.childImage);
+
         //UsernameMsg = (TextView) findViewById(R.id.UsernameErrorMsgCP);
-        saveChanges = (Button) findViewById(R.id.button6);
+        saveChanges = (Button) findViewById(R.id.saveChangesBtn);
         ArabicLetters = Pattern.compile("^[أ-ي ]+$");
-        ChildID = "child1";
-        child = new childInformation("FN","gn","ln","photo","uname");
+        r = new firebase_connection();
+        getCurrentChildInfo();
+        saveChanges.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v) {
+        checkInputs();
+        if (errorCounts == 0){
+            editChild();
 
-        r= new firebase_connection();
-
-read=r.ref.child("Children").child(ChildID);
-read.addValueEventListener(new ValueEventListener() {
-    @Override
-    public void onDataChange(DataSnapshot dataSnapshot) {
-
-        child.first_name=(String) dataSnapshot.child("first_name").getValue();
-        child.gender = (String) dataSnapshot.child("gender").getValue();
-        child.last_name = (String) dataSnapshot.child("last_name").getValue();
-        child.photo_URL = (String) dataSnapshot.child("photo_URL").getValue();
-        child.email = (String) dataSnapshot.child("email").getValue();
-        FNChild.setText(child.first_name);
-        LNChild.setText(child.last_name);
-        Username.setText(child.email);
-        Picasso.get().load(child.photo_URL).into(ChildImage);
- saveChanges.setOnClickListener(new View.OnClickListener() {
-     @Override
-     public void onClick(View v) {
-         FNChildMsg.setVisibility(View.INVISIBLE);
-         LNChildMsg.setVisibility(View.INVISIBLE);
-         FNChildIcon.setVisibility(View.INVISIBLE);
-         LNChildIcon.setVisibility(View.INVISIBLE);
-         counter=0;
-         if (FNChild.getText().toString().isEmpty()) {
-             FNChildMsg.setText("قم بتعبئة الحقل باسم الطفل");
-             FNChildMsg.setVisibility(View.VISIBLE);
-             FNChildIcon.setVisibility(View.VISIBLE);
-         } else if (!FNChild.getText().toString().contains(" ") || FNChild.getText().toString().contains(" ")) {
-             if (!ArabicLetters.matcher(FNChild.getText().toString()).matches()) {
-                 FNChildMsg.setText("قم بكتابة اسم الطفل باللغة العربية ");
-                 FNChildMsg.setVisibility(View.VISIBLE);
-                 FNChildIcon.setVisibility(View.VISIBLE);
-             } else {
-                 counter++;
-             }
-
-         }
-
-         if (LNChild.getText().toString().isEmpty()) {
-             LNChildMsg.setText("قم بتعبئة الحقل بلقب الطفل");
-             LNChildMsg.setVisibility(View.VISIBLE);
-             LNChildIcon.setVisibility(View.VISIBLE);
-         } else if (!LNChild.getText().toString().contains(" ") || LNChild.getText().toString().contains(" ")) {
-             if (!ArabicLetters.matcher(LNChild.getText().toString()).matches()) {
-                 LNChildMsg.setText("قم بكتابة لقب الطفل باللغة العربية ");
-                 LNChildMsg.setVisibility(View.VISIBLE);
-                 LNChildIcon.setVisibility(View.VISIBLE);
-             } else {
-                 counter++;
-
-
-
-             }
-
-         }
-
-         if(counter==2){
-             child.first_name=FNChild.getText().toString();
-             child.last_name=LNChild.getText().toString();
-             r.ref.child("Children").child(ChildID).setValue(child);
-
-         }
-
-     }
- });
-
-    }
-
-    @Override
-    public void onCancelled(DatabaseError error) {
-        Log.w(null, "Failed to read value.", error.toException());
-    }
-});
-    }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Intent intent=new Intent(this,ChildProgress.class);
-        if (resultCode == RESULT_OK) {
-            this.ChildID=intent.getStringExtra("childID");
         }
     }
-}
+});//end of onClick function
+
+
+    }//end of onCreate
+    private void checkInputs(){
+
+
+        errorCounts = 0;
+        checkFirstName();
+        checkLastName();
+       // checkEmail();
+
+    }//end of checkInputs function
+
+    public void getCurrentChildInfo(){
+
+        Query query = r.ref.child("Children").child(Signin.id_child);
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    oldLname = dataSnapshot.child("last_name").getValue().toString();
+                    oldFname  = dataSnapshot.child("first_name").getValue().toString();
+                    photo_URL = dataSnapshot.child("photo_URL").getValue().toString();
+                  //  oldEmail = dataSnapshot.child("email").getValue().toString();
+
+                  //  email.setText(oldEmail);
+                    FNChild .setText(oldFname);
+                    LNChild.setText(oldLname);
+                    Picasso.get().load(photo_URL).into(ChildImage);
+                }
+                else{
+                    Toast.makeText(child_profile.this, "المستخدم غير موجود", Toast.LENGTH_LONG).show();
+                }
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+                Toast.makeText(child_profile.this, "" + databaseError, Toast.LENGTH_LONG).show();
+            }
+        });
+
+
+    }//end of getCurrentChildInfo function
+    public void editChild(){
+
+      //  newEmail = email.getText().toString();
+        final String newFname = FNChild.getText().toString();
+        final String newLname = LNChild.getText().toString();
+
+        r.ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+              /*  if (!newEmail.equals(oldEmail))
+                {
+                    updateEmail();
+                }*/
+
+                r.ref.child("Children").child(Signin.id_child).child("first_name").setValue(newFname);
+                r.ref.child("Children").child(Signin.id_child).child("last_name").setValue(newLname);
+                //   r.ref.child("Children").child(Signin.id_child).child("email").setValue(email);
+                Toast.makeText(child_profile.this, " تم حفظ التغييرات بنجاح", Toast.LENGTH_LONG).show();
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+    }//end of editChild function
+
+    public void checkFirstName(){
+
+
+        if (FNChild.getText().toString().isEmpty()) {
+            FNChild.setError("قم بتعبئة الحقل بالاسم الأول للطفل");
+            errorCounts++;
+        }
+        else if (!ArabicLetters.matcher(FNChild.getText().toString()).matches()) {
+            FNChild.setError("قم بكتابة الإسم الأول باللغة العربية فقط");
+
+            errorCounts++;
+        }
+
+    }//end of checkFirstName function
+
+
+    public void checkLastName(){
+
+
+        if (LNChild.getText().toString().isEmpty()) {
+            LNChild.setError("قم بتعبئة الحقل بلقب الطفل");
+
+            errorCounts++;
+        }
+        else if (!ArabicLetters.matcher(LNChild.getText().toString()).matches()) {
+            LNChild.setError("قم بكتابة اللقب باللغة العربية فقط ");
+
+            errorCounts++;
+        }
+
+    }//end of checkLastName function
+
+  /*  public void checkEmail(){
+        if (email.getText().toString().isEmpty()) {
+
+            email.setError("قم بتعبئة الحقل بالبريد الإلكتروني");
+
+            errorCounts++;
+
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()) {
+
+            email.setError("البريد الإلكتروني ليس على النمط someone@example.com ");
+
+            errorCounts++;
+
+        }
+
+
+    }//end of checkEmail function*/
+
+
+}//end of the class
+
+ // 2 PROBLEMS THE CHILD EMAIL CHANGE AND THE REDIRECT AFTER EDUCATOR PROFILE AND CHANGE THE CHILD ID MAKE IT GENERAL IN CHILD PROFILE CLASS
