@@ -46,7 +46,7 @@ public class MatchingTest extends child_menu {
     AnimationDrawable anim;
     ImageView abjad ;
     boolean flag2,move_child ;
-    String Test_letter,test_id;
+    static String Test_letter,test_id;
     boolean test_finish;
 
 
@@ -528,7 +528,7 @@ View.OnDragListener dragListener1 = new View.OnDragListener() {
                 abjad.setBackgroundResource(R.drawable.abjad_speak);
                 anim =(AnimationDrawable) abjad.getBackground();
                 if(move_child){
-                    Intent intent = new Intent(MatchingTest.this, unit_interface.class);
+                    Intent intent = new Intent(MatchingTest.this, child_home.class);
                     startActivity(intent);
                 }
                 if(test_finish){
@@ -545,6 +545,8 @@ View.OnDragListener dragListener1 = new View.OnDragListener() {
                         Intent intent = new Intent(MatchingTest.this, unit_interface.class);
                         intent.putExtra("unitID",unit_interface.unitID);
                         setResult(RESULT_OK, intent);
+                        System.out.println("Testttt ID: "+ test_id);
+                        unit_interface.test_score(test_id);
                         finish();
 
 

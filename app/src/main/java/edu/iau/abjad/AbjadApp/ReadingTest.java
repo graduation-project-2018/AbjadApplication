@@ -44,7 +44,7 @@ public class ReadingTest extends child_menu {
     final int REQUEST_RECORD_AUDIO_PERMISSION = 200;
     private boolean permissionToRecordAccepted = false;
     private String [] permissions = {android.Manifest.permission.RECORD_AUDIO};
-    String test_id ;
+   static String test_id ;
     int choose_phrase ;
     Button next;
     int chosen_index;
@@ -119,6 +119,8 @@ public class ReadingTest extends child_menu {
                     Intent intent = new Intent(ReadingTest.this, unit_interface.class);
                     intent.putExtra("unitID",unit_interface.unitID);
                     setResult(RESULT_OK, intent);
+                    System.out.println("Testttt ID: "+ test_id);
+                    unit_interface.test_score(test_id);
                     finish();
                 }
 
@@ -677,7 +679,7 @@ public class ReadingTest extends child_menu {
                 anim =(AnimationDrawable) abjad.getBackground();
                 if(move_child){
                     //move to unit interface
-                    Intent intent = new Intent(ReadingTest.this, unit_interface.class);
+                    Intent intent = new Intent(ReadingTest.this, child_home.class);
                     startActivity(intent);
                 }
 

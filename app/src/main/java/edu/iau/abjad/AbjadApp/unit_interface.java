@@ -25,7 +25,7 @@ public class unit_interface extends child_menu {
     private Button test1,test2,test3,lesson1,lesson2,lesson3,lesson4,lesson5,lesson6;
     private ImageView lock2,lock3,lock4,lock5,lock6,test1Stars,test2Stars,test3Stars,
             lesson1Stars,lesson2Stars,lesson3Stars,lesson4Stars,lesson5Stars,lesson6Stars,bal1,bal2,bal3;
-    private firebase_connection unitConnicetion,getscore,TestId,
+    private static firebase_connection unitConnicetion,getscore,TestId,
             childScoreConnection,childLockConnection,getChildScoreConnection,innerScore,testScoreq,testIDq,testIDq2,
             testgetSq1,testgetSq2;
     private Intent chilHomeIntent,lessonIntent;
@@ -47,11 +47,12 @@ public class unit_interface extends child_menu {
     boolean flag = true;
     private  String childID;
     static boolean endtest=false;
-    private int finalScore;
+    static int finalScore;
     static long startTime,EndTime;
     static String test_letter;
     static String actual_time, childTime;
     static int currentScore ;
+    static firebase_connection r = new firebase_connection();
 
 
     @Override
@@ -693,12 +694,13 @@ public class unit_interface extends child_menu {
             this.unitID=b.getString("unitID");
         }
     }
-    public void  test_score(final String test_id){
+    public static void  test_score(final String test_id){
 
         if(endtest==true){
+            System.out.println("End time: "+ EndTime);
             double time = EndTime - startTime;
             time = (time/1000)/60;
-            actual_time = new DecimalFormat("##.##").format(time);
+            actual_time =new DecimalFormat("##.##").format(time);
 
             finalScore= ReadingTest.reading_child_score+
                     HeardWordTest.final_heard_child_score+
