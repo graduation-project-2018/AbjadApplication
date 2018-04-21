@@ -55,7 +55,8 @@ public class educator_home extends menu_educator {
         mDrawerLayout.addView(contentView, 0);
         btn = (Button) findViewById(R.id.add_new_child_btn);
         gv = (GridView)findViewById(R.id.gv);
-        db = FirebaseDatabase.getInstance().getReference().child("educator_home").child("educator1");
+
+     /*   db = FirebaseDatabase.getInstance().getReference().child("educator_home").child("educator1");
         db.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -72,7 +73,7 @@ public class educator_home extends menu_educator {
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        });
+        });*/
         /*
    Query query = r.ref.child("Educator_has_child").orderByKey().equalTo("i6ywh35HrgdyjDe9lh98BGcutpY2");
         query.addListenerForSingleValueEvent(new ValueEventListener() {
