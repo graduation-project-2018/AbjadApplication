@@ -241,7 +241,9 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                                                 computeChildScore();
                                                 Intent intent = new Intent(Lesson.this, unit_interface.class);
                                                 intent.putExtra("unitID",unit_interface.unitID);
+                                                intent.putExtra("preIntent","Lesson");
                                                 setResult(RESULT_OK, intent);
+                                                startActivity(intent);
                                                 finish();
                                             }
                                             check_alef();
