@@ -6,11 +6,14 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -72,6 +75,10 @@ public class menu_educator extends AppCompatActivity {
                         startActivity(intent);
                         return true;
                     }
+                    case R.id.delete_edu:{
+                        popUpDelete();
+
+                    }
                     case R.id.sign_out:{
                         FirebaseAuth.getInstance().signOut();
                         Intent intent = new Intent(menu_educator.this, userTypeSelection.class);
@@ -101,6 +108,41 @@ public class menu_educator extends AppCompatActivity {
     public boolean onSupportNavigateUp(){
         finish();
         return true;
+    }
+
+    public void popUpDelete(){
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(menu_educator.this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        View mView = getLayoutInflater().inflate(R.layout.activity_delete_popup,null);
+        Button close_btn = (Button) mView.findViewById(R.id.close_btn_delete);
+        Button cancel_btn = (Button) mView.findViewById(R.id.cancel_btn_delete);
+        Button  confirm= (Button) mView.findViewById(R.id.submit_btn_delete);
+
+        mBuilder.setView(mView);
+        final AlertDialog dialog = mBuilder.create();
+
+        dialog.show();
+        close_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                dialog.dismiss();
+            }
+        });
+        cancel_btn.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //delete code
+            }
+        });
+
     }
     }
 
