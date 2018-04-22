@@ -54,7 +54,7 @@ public class adding_child  extends menu_educator {
     DatabaseReference rf;
     Boolean foundErrors;
     Query q;
-    Pattern ArabicLetters = Pattern.compile("^[أ-ي ]+$");
+    Pattern ArabicLetters = Pattern.compile("^[ءئ ؤ إآ ى لآ لأل لإ أ-ي ]+$");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
