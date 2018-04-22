@@ -5,16 +5,25 @@ public class children {
 
    //Remove child_ID
      String first_name;
-
+    String child_ID;
     String photo_URL;
     public children() {
 
     }
 
-    public children(String photo_URL, String first_name) {
+    public children(String photo_URL, String first_name, String id) {
         this.photo_URL = photo_URL;
         this.first_name = first_name;
+        this.child_ID = id;
 
+    }
+
+    public String getChild_ID() {
+        return child_ID;
+    }
+
+    public void setChild_ID(String child_ID) {
+        this.child_ID = child_ID;
     }
 
     public String getPhoto_URL() {

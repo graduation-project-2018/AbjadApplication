@@ -27,9 +27,11 @@
             android:id="@+id/child_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="90dp"
+            android:layout_marginLeft="125dp"
             android:layout_marginTop="10dp"
             android:text="اسم الطفل"
+            android:textAlignment="center"
+
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#2d2d2d"
             android:textSize="23sp" />

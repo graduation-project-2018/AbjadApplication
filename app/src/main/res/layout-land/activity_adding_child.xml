@@ -68,15 +68,15 @@
                 android:layout_width="119dp"
                 android:layout_height="33dp"
                 android:layout_margin="4dp"
-                android:layout_marginEnd="30dp"
-                android:layout_marginStart="607dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginTop="68dp"
                 android:gravity="bottom"
                 android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@+id/genderEr"
                 app:layout_constraintEnd_toStartOf="@+id/genderIcon"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/genderErIcon"
-                app:layout_constraintTop_toBottomOf="@+id/missPassEr">
+                app:layout_constraintTop_toBottomOf="@+id/conPasswordTxt"
+                app:layout_constraintVertical_bias="1.0">
 
 
                 <RadioButton
@@ -121,24 +121,6 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/passwordTxt" />
 
-            <TextView
-                android:id="@+id/fnameEr"
-                android:layout_width="wrap_content"
-                android:layout_height="28dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="140dp"
-                android:layout_marginTop="8dp"
-                android:fontFamily="casual"
-                android:gravity="bottom"
-                android:text="TextView"
-                android:textColor="@android:color/holo_red_dark"
-                android:textSize="16sp"
-                android:typeface="normal"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toTopOf="@+id/lnTxt"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fnTxt" />
-
             <EditText
                 android:id="@+id/passwordTxt"
                 android:layout_width="728dp"
@@ -155,22 +137,6 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/emailTxt" />
 
-            <TextView
-                android:id="@+id/passEr"
-                android:layout_width="wrap_content"
-                android:layout_height="19dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="140dp"
-                android:layout_marginTop="8dp"
-                android:gravity="bottom"
-                android:text="TextView"
-                android:textColor="@android:color/holo_red_dark"
-                android:textSize="16sp"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toTopOf="@+id/conPasswordTxt"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/passwordTxt" />
-
             <EditText
                 android:id="@+id/emailTxt"
                 android:layout_width="728dp"
@@ -186,24 +152,6 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/lnTxt" />
 
-            <TextView
-                android:id="@+id/missPassEr"
-                android:layout_width="wrap_content"
-                android:layout_height="28dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="140dp"
-                android:layout_marginTop="8dp"
-                android:fontFamily="casual"
-                android:gravity="bottom"
-                android:text="TextView"
-                android:textColor="@android:color/holo_red_dark"
-                android:textSize="16sp"
-                android:typeface="normal"
-                android:visibility="invisible"
-
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/conPasswordTxt"
-                app:layout_constraintVertical_bias="0.088" />
             <!--
             <TextView
                 android:id="@+id/ErrorMsgSU2"
@@ -238,23 +186,6 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/fnTxt" />
 
-            <TextView
-                android:id="@+id/lnameEr"
-                android:layout_width="wrap_content"
-                android:layout_height="28dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="140dp"
-                android:fontFamily="casual"
-                android:gravity="bottom"
-                android:text="TextView"
-                android:textColor="@android:color/holo_red_dark"
-                android:textSize="16sp"
-                android:typeface="normal"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toTopOf="@+id/emailTxt"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lnTxt" />
-
             <EditText
                 android:id="@+id/fnTxt"
                 android:layout_width="728dp"
@@ -273,91 +204,14 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_chainStyle="spread_inside" />
 
-            <TextView
-                android:id="@+id/unameEr"
-                android:layout_width="wrap_content"
-                android:layout_height="28dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="140dp"
-                android:fontFamily="casual"
-                android:gravity="bottom"
-                android:text="TextView"
-                android:textColor="@android:color/holo_red_dark"
-                android:textSize="16sp"
-                android:typeface="normal"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toTopOf="@+id/passwordTxt"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/emailTxt" />
-
-            <ImageView
-                android:id="@+id/passwordErIcon"
-                android:layout_width="45dp"
-                android:layout_height="35dp"
-                android:layout_marginEnd="48dp"
-                android:layout_marginTop="92dp"
-                android:gravity="bottom"
-                android:visibility="invisible"
-                app:layout_constraintEnd_toStartOf="@+id/passwordTxt"
-                app:layout_constraintTop_toBottomOf="@+id/emailErIcon"
-                app:srcCompat="@drawable/sshape" />
-
-            <ImageView
-                android:id="@+id/conPasswordErIcon"
-                android:layout_width="45dp"
-                android:layout_height="35dp"
-                android:layout_marginEnd="48dp"
-                android:layout_marginTop="28dp"
-                android:gravity="bottom"
-                android:visibility="invisible"
-                app:layout_constraintEnd_toStartOf="@+id/conPasswordTxt"
-                app:layout_constraintTop_toBottomOf="@+id/passEr"
-                app:srcCompat="@drawable/sshape" />
-
-            <ImageView
-                android:id="@+id/emailErIcon"
-                android:layout_width="45dp"
-                android:layout_height="35dp"
-                android:layout_marginEnd="48dp"
-                android:layout_marginTop="92dp"
-                android:gravity="bottom"
-                android:visibility="invisible"
-                app:layout_constraintEnd_toStartOf="@+id/emailTxt"
-                app:layout_constraintTop_toBottomOf="@+id/lnErIcon"
-                app:srcCompat="@drawable/sshape" />
-
-            <ImageView
-                android:id="@+id/fnErIcon"
-                android:layout_width="45dp"
-                android:layout_height="35dp"
-                android:layout_marginEnd="52dp"
-                android:layout_marginTop="48dp"
-                android:gravity="bottom"
-                android:visibility="invisible"
-                app:layout_constraintEnd_toStartOf="@+id/fnTxt"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/sshape" />
-
-            <ImageView
-                android:id="@+id/lnErIcon"
-                android:layout_width="45dp"
-                android:layout_height="35dp"
-                android:layout_marginEnd="48dp"
-                android:layout_marginTop="88dp"
-                android:gravity="bottom"
-                android:visibility="invisible"
-                app:layout_constraintEnd_toStartOf="@+id/lnTxt"
-                app:layout_constraintTop_toBottomOf="@+id/fnErIcon"
-                app:srcCompat="@drawable/sshape" />
-
             <ImageView
                 android:id="@+id/genderIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="140dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginEnd="144dp"
+                android:layout_marginTop="36dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/missPassEr"
+                app:layout_constraintTop_toBottomOf="@+id/conPasswordTxt"
                 app:srcCompat="@drawable/gender" />
 
             <ImageView
@@ -365,10 +219,10 @@
                 android:layout_width="45dp"
                 android:layout_height="35dp"
                 android:layout_marginStart="48dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="56dp"
                 android:visibility="invisible"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/missPassEr"
+                app:layout_constraintTop_toBottomOf="@+id/conPasswordTxt"
                 app:srcCompat="@drawable/sshape" />
 
             <TextView
@@ -376,7 +230,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="28dp"
                 android:layout_marginEnd="140dp"
-                android:layout_marginTop="128dp"
+                android:layout_marginTop="96dp"
                 android:fontFamily="casual"
                 android:gravity="bottom"
                 android:text="TextView"
@@ -393,7 +247,7 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="128dp"
-                android:layout_marginTop="188dp"
+                android:layout_marginTop="248dp"
                 android:text="       "
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/genderEr" />

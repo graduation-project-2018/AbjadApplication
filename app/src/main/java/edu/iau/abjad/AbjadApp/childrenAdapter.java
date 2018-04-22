@@ -1,6 +1,7 @@
 package edu.iau.abjad.AbjadApp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,13 +14,14 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 public class childrenAdapter extends BaseAdapter {
-
+Intent intent;
 Context c;
 ArrayList <children> children;
 
     public childrenAdapter(Context c, ArrayList<edu.iau.abjad.AbjadApp.children> children) {
         this.c = c;
         this.children = children;
+        intent = new Intent(c,ChildProgress.class);
     }
 
     @Override
@@ -53,11 +55,17 @@ ArrayList <children> children;
         Picasso.get().load(s.photo_URL).into(img);
         name.setText(s.getFirst_name());
 
-        //ONITECLICK
+
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               //GET CHILD ID AND MOVE TO CHILD PROGRESS
+
+
+
+                intent.putExtra("child_ID",s.getChild_ID());
+                System.out.println();
+                c.startActivity(intent);
+
             }
         });
 

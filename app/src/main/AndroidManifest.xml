@@ -42,7 +42,10 @@
         </activity>
         <activity
             android:name=".child_photo"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape" >
+
+
+        </activity>
         <activity
             android:name=".ChildProgress"
             android:screenOrientation="landscape">
@@ -50,7 +53,16 @@
         </activity>
         <activity
             android:name=".adding_child"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
         <activity
             android:name=".HeardWordTest"
             android:screenOrientation="landscape"></activity>
@@ -103,11 +115,7 @@
             android:name=".change_profile_photo"
             android:screenOrientation="landscape" >
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
         </activity>
         <activity
