@@ -80,6 +80,7 @@ public class child_menu extends AppCompatActivity {
                             Lesson.computeChildScore();
                         }
                         Intent intent = new Intent(child_menu.this, change_profile_photo.class);
+
                         startActivity(intent);
                         return true;
 
@@ -103,8 +104,6 @@ public class child_menu extends AppCompatActivity {
                         if(Lesson.words_counter==6){
                             Lesson.computeChildScore();
                         }
-
-
                         popUp(3);
                         return true;
                     }
@@ -193,6 +192,7 @@ public class child_menu extends AppCompatActivity {
                                         if(em.equals(edu_email)){
                                             if(i == 2){
                                                 Intent intent = new Intent(child_menu.this, report_problem.class);
+                                                intent.putExtra("email", edu_email);
                                                 startActivity(intent);
 
                                             }

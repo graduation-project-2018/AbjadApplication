@@ -70,6 +70,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
     ImageView score_img;
     static String unit_id;
     boolean move_child ;
+    String choosenPhrase;
 
 
     @SuppressLint("ClickableViewAccessibility")
@@ -399,18 +400,13 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                         Log.d("2", "Results " + matches.get(i));
                         if(matches.get(i).compareTo(word)== 0){
                             Log.d("2", "Matching true!! ");
-                            abjad.setBackgroundResource(R.drawable.abjad_happy);
-                            anim =(AnimationDrawable) abjad.getBackground();
-                            anim.start();
-                            playAudioInstructions(audio_URLs.perfect_top_feedback);
-                            setOnCompleteListener(audio_instruction);
-                            score_img.setVisibility(View.VISIBLE);
-                            score_img.setImageResource(R.drawable.seven);
+                                fullScore();
                             found = true;
-                            child_score =7;
+
                             break;
                         }
                     }
+
                     if(sentence_label.getText()==""){
                         for(int i =0 ; i<matches.size();i++){
                             String[] duplicates= matches.get(i).split(" ");
@@ -418,15 +414,9 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                                 for(int j =0 ;j<duplicates.length; j++){
                                     if(duplicates[j].compareTo(word)==0){
                                         System.out.println("النطق صحيح مع التكرار");
-                                        abjad.setBackgroundResource(R.drawable.abjad_happy);
-                                        anim =(AnimationDrawable) abjad.getBackground();
-                                        anim.start();
-                                        playAudioInstructions(audio_URLs.perfect_top_feedback);
-                                        setOnCompleteListener(audio_instruction);
-                                        score_img.setVisibility(View.VISIBLE);
-                                        score_img.setImageResource(R.drawable.seven);
+                                        fullScore();
                                         found_with_repetion = true;
-                                        child_score =7;
+
                                         break;
                                     }
                                 }
@@ -441,7 +431,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
 
                             double max_match =0, returnValue=0;
                             int globalCost =0;
-                            String choosenPhrase="";
+                           choosenPhrase="";
 
 
                             for(int i =0 ; i<matches.size(); i++){
@@ -594,8 +584,10 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
 
     }
     public void check_alef(){
-        if(word.indexOf('أ')!= -1){
+        if(word.indexOf('أ')!= -1 || word.indexOf('آ') != -1){
             word = word.replace('أ','ا');
+            word = word.replace('آ','ا');
+
         }
 
     }
@@ -763,13 +755,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
             score_img.setImageResource(R.drawable.one);
             child_score=1;
         }
-
-    }
-
-    public void listen_sentence_feedback(int globalCost, int word_length, double max_match){
-
-        if(globalCost==1){
-            System.out.println("full score!!!!!!!");
+        else if (globalCost == 1 && word.equals("وعاء")){
             child_score=7;
             abjad.setBackgroundResource(R.drawable.abjad_happy);
             anim =(AnimationDrawable) abjad.getBackground();
@@ -778,6 +764,25 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
             setOnCompleteListener(audio_instruction);
             score_img.setVisibility(View.VISIBLE);
             score_img.setImageResource(R.drawable.seven);
+        }
+
+    }
+
+    public void listen_sentence_feedback(int globalCost, int word_length, double max_match){
+
+        if(globalCost==1){
+              fullScore();
+        }
+        if(globalCost == 2 && word.equals("المطر غزير")){
+            fullScore();
+
+        }
+        if( word.equals("ذهب مهند ليغسل يديه")){
+            if(choosenPhrase.startsWith("") && choosenPhrase.endsWith("يغسل يديه")){
+               fullScore();
+
+            }
+
         }
         else if(max_match>=0.89){
             anim.start();
@@ -828,6 +833,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
             score_img.setImageResource(R.drawable.one);
         }
 
+
     }
 
     public void setOnCompleteListener(MediaPlayer obj){
@@ -855,5 +861,16 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
         });
         flag2 = true;
 
+    }
+
+    public void fullScore(){
+        child_score=7;
+        abjad.setBackgroundResource(R.drawable.abjad_happy);
+        anim =(AnimationDrawable) abjad.getBackground();
+        anim.start();
+        playAudioInstructions(audio_URLs.perfect_top_feedback);
+        setOnCompleteListener(audio_instruction);
+        score_img.setVisibility(View.VISIBLE);
+        score_img.setImageResource(R.drawable.seven);
     }
 }

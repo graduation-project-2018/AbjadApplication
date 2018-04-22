@@ -15,6 +15,9 @@
         android:title="إضافة طفل"
         android:icon="@drawable/add_new_child"></item>
 
+    <item android:id="@+id/delete_edu"
+        android:title="حذف الحساب"
+        android:icon="@drawable/basket_delete"></item>
     <item android:id="@+id/sign_out"
         android:title="تسجيل الخروج"
         android:icon="@drawable/signout_icon"></item>
