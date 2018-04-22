@@ -3,7 +3,7 @@
     package="edu.iau.abjad.AbjadApp">
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
     <uses-permission android:name="android.permission.INTERNET"/>
-
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <supports-screens
         android:largeScreens="true"
@@ -47,11 +47,7 @@
         <activity
             android:name=".ChildProgress"
             android:screenOrientation="landscape">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".adding_child"
@@ -94,7 +90,13 @@
         </activity>
 
         <activity android:name=".report_problem"
-            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <activity android:name=".SignUp"
             android:windowSoftInputMode="stateHidden|adjustResize|adjustPan">

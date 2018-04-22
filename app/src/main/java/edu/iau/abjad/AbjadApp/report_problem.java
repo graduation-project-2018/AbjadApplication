@@ -66,6 +66,7 @@ public class report_problem extends menu_educator {
     private boolean uploded=false;
     private int storagePermCode=1;
     private ProgressDialog mProgressDialog;
+    private boolean onCliked=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,6 +93,9 @@ public class report_problem extends menu_educator {
         reportBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(ImgNameTextView.getText().toString().length()!=0){onCliked=true;}
+                if(onCliked){
+                if (rg.getCheckedRadioButtonId()!=-1){
                 final StorageReference filePath = mStorge.child("ReportProblemScreenshots").child(imgURI.getLastPathSegment());
                     StorageTask<UploadTask.TaskSnapshot> taskSnapshotStorageTask = filePath.putFile(imgURI).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
@@ -101,13 +105,24 @@ public class report_problem extends menu_educator {
                             filePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
-                                    Uri downloadUri=uri;
-                                    daownloadURL=downloadUri.toString();
-                                    mProgressDialog.dismiss();
+                                    Uri downloadUri = uri;
+                                    daownloadURL = downloadUri.toString();
+                                    uploded = true;
+                                    if (rg.getCheckedRadioButtonId() != -1 && uploded) {
+                                        mProgressDialog.dismiss();
+                                        dataMap.put("screenShots", daownloadURL);
+                                        dataMap.put("report_type", ProbType);
+                                        dataMap.put("report_description", dis);
+                                        dataMap.put("reporter_email", "ala2.hpapa@gmail.com");
+                                        report.ref.child("Reports").push().setValue(dataMap);
+                                        Toast.makeText(report_problem.this, "شكرا، تم تلقي البلاغ!", Toast.LENGTH_LONG).show();
+                                        rg.clearCheck();
+                                        ImgNameTextView.setText("");
+                                        moreDetails.setText("");
+                                        daownloadURL = "";
+                                    }
                                 }
                             });
-                            dataMap.put("screenShots",daownloadURL);
-                            uploded=true;
 
                         }
                     }).addOnFailureListener(new OnFailureListener() {
@@ -116,26 +131,15 @@ public class report_problem extends menu_educator {
                             Toast.makeText(report_problem.this, "خطأ في رفع الصورة", Toast.LENGTH_LONG).show();
                             System.out.println(e);
                         }
-                    });
-
-                //uploading screenshot
-
-                if(rg.getCheckedRadioButtonId()!=-1 && uploded){
-                    dataMap.put("report_type",ProbType);
-                    dataMap.put("report_description",dis);
-                    dataMap.put("reporter_email","ala2.hpapa@gmail.com");
-                    report.ref.child("Reports").push().setValue(dataMap);
-                    Toast.makeText(report_problem.this,"شكرا، تم تلقي البلاغ!",Toast.LENGTH_LONG).show();
-                    rg.clearCheck();
-                    ImgNameTextView.setText("");
-                    moreDetails.setText("");
-                    //daownloadURL=null;
-                }
-                else if(rg.getCheckedRadioButtonId()==-1){
+                    });}
+                    else if(rg.getCheckedRadioButtonId()==-1){
                     Toast.makeText(report_problem.this,"الرجاء تحديد نوع المشكلة",Toast.LENGTH_LONG).show();
                 }
 
+                }else{
+                    Toast.makeText(report_problem.this,"الرجاء ارفاق التقاطة الشاشة للمشكلة",Toast.LENGTH_LONG).show();
 
+                }
             }
         });
     }
@@ -160,8 +164,9 @@ public class report_problem extends menu_educator {
         if (resultCode == RESULT_OK) {
             if (requestCode == PIC_GALLERY_REQUIST) {
                 imgURI = data.getData();
-                String imgNAmeS,schema;
+                String imgNAmeS = "",schema;
                 schema=imgURI.getScheme();
+                Log.i("Schema",schema+" ");
                 if(schema.equals("file")){imgNAmeS=imgURI.getLastPathSegment();}
                 else if(schema.equals("content")){String [] i={MediaStore.Images.Media.TITLE};
                 Cursor c= getContentResolver().query(imgURI,i,null,null,null);
@@ -172,6 +177,9 @@ public class report_problem extends menu_educator {
                 if(c!=null){
                     c.close();
                 }
+                }
+                Log.i("sesee",imgNAmeS+" hi");
+                if (imgNAmeS.length()!=0){
                 }
             }
             else{
