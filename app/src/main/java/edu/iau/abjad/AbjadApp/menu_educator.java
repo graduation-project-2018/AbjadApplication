@@ -67,11 +67,6 @@ public class menu_educator extends AppCompatActivity {
                         startActivity(intent);
                         return true;
                     }
-                    case R.id.report_problem:{
-                        Intent intent = new Intent(menu_educator.this, report_problem.class);
-                        startActivity(intent);
-                        return true;
-                    }
                     case R.id.add_child:{
                         Intent intent = new Intent(menu_educator.this, adding_child.class);
                         startActivity(intent);

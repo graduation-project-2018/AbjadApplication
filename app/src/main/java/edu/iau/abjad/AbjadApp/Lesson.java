@@ -131,7 +131,6 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    System.out.println("الحرف "+ letter);
                     for (DataSnapshot letter : dataSnapshot.getChildren()) {
                          lessonID = letter.getKey();
                     }
@@ -702,6 +701,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
         audio_instruction = new MediaPlayer();
         anim.start();
         playAudioInstructions(audio_URLs.cannot_complete);
+        move_child = true;
         setOnCompleteListener(audio_instruction);
     }
 
@@ -733,14 +733,14 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
         else if(globalCost == 1 && word_length>3){
             child_score =6;
             anim.start();
-            playAudioInstructions(audio_URLs.excellent);
+            playAudioInstructions(audio_URLs.not_fully_good);
             setOnCompleteListener(audio_instruction);
             score_img.setVisibility(View.VISIBLE);
             score_img.setImageResource(R.drawable.six);
         }
         else if(max_match>=0.49 && word_length > 3){
             anim.start();
-            playAudioInstructions(audio_URLs.good_feedback);
+            playAudioInstructions(audio_URLs.not_fully_good);
             setOnCompleteListener(audio_instruction);
             score_img.setVisibility(View.VISIBLE);
             score_img.setImageResource(R.drawable.four);
@@ -781,7 +781,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
         }
         else if(max_match>=0.89){
             anim.start();
-            playAudioInstructions(audio_URLs.excellent);
+            playAudioInstructions(audio_URLs.not_fully_good);
             setOnCompleteListener(audio_instruction);
             child_score =6;
             score_img.setVisibility(View.VISIBLE);
@@ -791,7 +791,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
         else if(max_match>=0.75){
             child_score=5;
             anim.start();
-            playAudioInstructions(audio_URLs.excellent);
+            playAudioInstructions(audio_URLs.not_fully_good);
             setOnCompleteListener(audio_instruction);
             score_img.setVisibility(View.VISIBLE);
             score_img.setImageResource(R.drawable.five);
@@ -799,7 +799,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
         else if(max_match <= 0.75 && max_match>=0.5){
             child_score=4;
             anim.start();
-            playAudioInstructions(audio_URLs.good_feedback);
+            playAudioInstructions(audio_URLs.not_fully_good);
             setOnCompleteListener(audio_instruction);
             score_img.setVisibility(View.VISIBLE);
             score_img.setImageResource(R.drawable.four);
@@ -847,7 +847,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                     intent.putExtra("unitID",unit_interface.unitID);
                     setResult(RESULT_OK, intent);
                     finish();
-
+ 
                 }
 
             }

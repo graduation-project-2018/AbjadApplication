@@ -44,9 +44,9 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
     private  static CountDownTimer countDownTimer;
     ImageView abjad;
     AnimationDrawable anim;
-    boolean flag2;
+    boolean flag2, move_child;
     String audio;
-    String test_id;
+    static String test_id;
     String Test_letter;
     ArrayList<Intent> testIntent;
 
@@ -93,6 +93,8 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
                     intent.putExtra("unitID",unit_interface.unitID);
                     intent.putExtra("preIntent","trueFalse");
                     setResult(RESULT_OK, intent);
+                    System.out.println("Testttt ID: "+ test_id);
+                    unit_interface.test_score(test_id);
                     startActivity(intent);
                     finish();
                 }
@@ -310,12 +312,28 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
                 flag2 = false;
                 abjad.setBackgroundResource(R.drawable.abjad_speak);
                 anim =(AnimationDrawable) abjad.getBackground();
+                if(move_child){
+                    Intent intent = new Intent(TrueFalseTest.this, child_home.class);
+                    startActivity(intent);
+                }
 
             }
 
         });
         flag2 = true;
 
+    }
+
+    @Override
+    protected void onRestart() {
+
+        super.onRestart();
+        System.out.println("onRestart function");
+        test_sentence_audio= new MediaPlayer();
+        anim.start();
+        playAudio(audio_obj.cant_continue_test);
+        move_child = true;
+        setOnCompleteListener(test_sentence_audio);
     }
 
 

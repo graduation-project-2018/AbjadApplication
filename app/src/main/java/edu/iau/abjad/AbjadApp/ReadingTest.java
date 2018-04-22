@@ -44,7 +44,7 @@ public class ReadingTest extends child_menu {
     final int REQUEST_RECORD_AUDIO_PERMISSION = 200;
     private boolean permissionToRecordAccepted = false;
     private String [] permissions = {android.Manifest.permission.RECORD_AUDIO};
-    String test_id ;
+   static String test_id ;
     int choose_phrase ;
     Button next;
     int chosen_index;
@@ -61,7 +61,8 @@ public class ReadingTest extends child_menu {
     boolean flag ;
     ImageView abjad;
     AnimationDrawable anim;
-    boolean flag2 ;
+    boolean flag2, move_child ;
+
     //Alaa
     firebase_connection Test_Id,testIdq2;
     String Test_letter;
@@ -94,6 +95,7 @@ public class ReadingTest extends child_menu {
         reading_child_score =0;
         flag = true;
         flag2 = true;
+        move_child = false;
         //Alaa
         Test_Id=new firebase_connection();
         testIdq2=new firebase_connection();
@@ -118,6 +120,8 @@ public class ReadingTest extends child_menu {
                     intent.putExtra("unitID",unit_interface.unitID);
                     intent.putExtra("preIntent","readingTest");
                     setResult(RESULT_OK, intent);
+                    System.out.println("Testttt ID: "+ test_id);
+                    unit_interface.test_score(test_id);
                     startActivity(intent);
                     finish();
                 }
@@ -574,12 +578,12 @@ public class ReadingTest extends child_menu {
         else if(globalCost == 1 && word_length>3){
             child_score =8;
             anim.start();
-            playAudioInstructions(audio_URLs.excellent);
+            playAudioInstructions(audio_URLs.not_fully_good);
             setOnCompleteListener(feedback_audio);
         }
         else if(max_match>=0.49 && word_length > 3){
             anim.start();
-            playAudioInstructions(audio_URLs.good_feedback);
+            playAudioInstructions(audio_URLs.not_fully_good);
             child_score = 5;
             setOnCompleteListener(feedback_audio);
 
@@ -612,7 +616,7 @@ public class ReadingTest extends child_menu {
         }
         else if(max_match>=0.89){
             anim.start();
-            playAudioInstructions(audio_URLs.excellent);
+            playAudioInstructions(audio_URLs.not_fully_good);
             setOnCompleteListener(feedback_audio);
             child_score =8;
 
@@ -620,13 +624,13 @@ public class ReadingTest extends child_menu {
         else if(max_match>=0.75){
             child_score=7;
             anim.start();
-            playAudioInstructions(audio_URLs.excellent);
+            playAudioInstructions(audio_URLs.not_fully_good);
             setOnCompleteListener(feedback_audio);
         }
         else if(max_match <= 0.75 && max_match>=0.5){
             child_score=6;
             anim.start();
-            playAudioInstructions(audio_URLs.good_feedback);
+            playAudioInstructions(audio_URLs.not_fully_good);
             setOnCompleteListener(feedback_audio);
 
         }
@@ -675,11 +679,27 @@ public class ReadingTest extends child_menu {
                 flag2 = false;
                 abjad.setBackgroundResource(R.drawable.abjad_speak);
                 anim =(AnimationDrawable) abjad.getBackground();
+                if(move_child){
+                    //move to unit interface
+                    Intent intent = new Intent(ReadingTest.this, child_home.class);
+                    startActivity(intent);
+                }
 
             }
 
         });
         flag2 = true;
 
+    }
+    @Override
+    protected void onRestart() {
+
+        super.onRestart();
+        System.out.println("onRestart function");
+        feedback_audio = new MediaPlayer();
+        anim.start();
+        playAudioInstructions(audio_URLs.cant_continue_test);
+        move_child = true;
+        setOnCompleteListener(feedback_audio);
     }
 }

@@ -50,7 +50,6 @@ public class child_menu extends AppCompatActivity {
     EditText email;
     DatabaseReference read;
     String id;
-    boolean flag, flag_delete;
 
 
 
@@ -68,8 +67,7 @@ public class child_menu extends AppCompatActivity {
         myDrawerLayout.addDrawerListener(myToggle);
         myToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        flag = false;
-        flag_delete = false;
+
 
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -90,22 +88,24 @@ public class child_menu extends AppCompatActivity {
                         if(Lesson.words_counter==6){
                             Lesson.computeChildScore();
                         }
-                        popUp();
+                        popUp(1);
                         return true;
                     }
                     case R.id.report_problem:{
-                        flag = true;
+
                         if(Lesson.words_counter==6){
                             Lesson.computeChildScore();
                         }
-                        popUp();
+                        popUp(2);
                         return true;
                     }
                   case R.id.delete_child:{
                         if(Lesson.words_counter==6){
                             Lesson.computeChildScore();
                         }
-                        flag_delete = true;
+
+
+                        popUp(3);
                         return true;
                     }
                     case R.id.sign_out:{
@@ -153,7 +153,7 @@ public class child_menu extends AppCompatActivity {
 
 
 
-    public void popUp(){
+    public void popUp(final int i){
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(child_menu.this);
         LayoutInflater inflater = this.getLayoutInflater();
         View mView = getLayoutInflater().inflate(R.layout.activity_pop_up_repert_problem,null);
@@ -167,8 +167,6 @@ public class child_menu extends AppCompatActivity {
         mBuilder.setView(mView);
         final AlertDialog dialog = mBuilder.create();
 
-
-        System.out.println("لقاه");
 
         submit_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -193,13 +191,15 @@ public class child_menu extends AppCompatActivity {
                                         String em = e.child("email").getValue().toString();
 
                                         if(em.equals(edu_email)){
-                                            if(flag){
+                                            if(i == 2){
                                                 Intent intent = new Intent(child_menu.this, report_problem.class);
                                                 startActivity(intent);
-                                                flag = false;
+
                                             }
-                                            else if(flag_delete){
-                                                //add code of pop up.
+                                            else if(i==3){
+                                                popUpDelete();
+
+                                                dialog.dismiss();
                                             }
                                             else {
                                                 Intent intent = new Intent(child_menu.this, child_change_password.class);
@@ -212,9 +212,7 @@ public class child_menu extends AppCompatActivity {
                                             email.requestFocus();
                                         }
                                     }
-
                                 }
-
                             }
 
                             @Override
@@ -229,17 +227,8 @@ public class child_menu extends AppCompatActivity {
 
                     }
                 });
-
-
-
-
             }
         });
-
-
-
-
-
         dialog.show();
            close_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -255,6 +244,41 @@ public class child_menu extends AppCompatActivity {
                    dialog.dismiss();
                }
            });
+
+    }
+
+    public void popUpDelete(){
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(child_menu.this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        View mView = getLayoutInflater().inflate(R.layout.activity_delete_popup,null);
+        Button close_btn = (Button) mView.findViewById(R.id.close_btn_delete);
+        Button cancel_btn = (Button) mView.findViewById(R.id.cancel_btn_delete);
+        Button  confirm= (Button) mView.findViewById(R.id.submit_btn_delete);
+
+        mBuilder.setView(mView);
+        final AlertDialog dialog = mBuilder.create();
+
+        dialog.show();
+        close_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                dialog.dismiss();
+            }
+        });
+        cancel_btn.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //delete code
+            }
+        });
 
     }
     }
