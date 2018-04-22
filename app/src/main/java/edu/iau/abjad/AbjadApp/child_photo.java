@@ -187,7 +187,7 @@ startActivity(backEducatorHome);
             public void onDataChange(DataSnapshot dataSnapshot) {
                 r.ref.child("Children").child(child_ID).setValue(completeObj);
                 r.ref.child("Children").child(child_ID).child("educator_id").setValue(SigninEducator.id_edu);
-                r.ref.child("Educator_has_child").child(SigninEducator.id_edu).child(child_ID).setValue(true);
+              //  r.ref.child("Educator_has_child").child(SigninEducator.id_edu).child(child_ID).setValue(true);
                 r.ref.child("educator_home").child(SigninEducator.id_edu).child(child_ID).child("photo_URL").setValue(photo_url);
                 r.ref.child("educator_home").child(SigninEducator.id_edu).child(child_ID).child("first_name").setValue(completeObj.first_name);
                 //educator ID need to  be changed

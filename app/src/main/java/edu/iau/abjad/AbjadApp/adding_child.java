@@ -173,7 +173,7 @@ public class adding_child  extends menu_educator {
                             email.requestFocus();
                             foundErrors =true;
                         }
-                        else{
+                        else if (foundErrors == false){
                             String fname = firstName.getText().toString();
                             String lname = lastName.getText().toString();
                             String passChild = password.getText().toString().trim();
@@ -214,7 +214,7 @@ public class adding_child  extends menu_educator {
             foundErrors =true;
         }
         else if (!ArabicLetters.matcher(firstName.getText().toString()).matches()) {
-            firstName.setText("قم بكتابة الإسم الأول باللغة العربية فقط");
+            firstName.setError("قم بكتابة الإسم الأول باللغة العربية فقط");
             firstName.requestFocus();
             foundErrors =true;
         }
