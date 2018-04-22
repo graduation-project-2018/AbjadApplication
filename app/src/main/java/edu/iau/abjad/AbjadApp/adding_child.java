@@ -1,9 +1,10 @@
 package edu.iau.abjad.AbjadApp;
 
+import android.support.v7.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,13 +13,6 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-
-import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -46,19 +40,9 @@ public class adding_child  extends menu_educator {
     Button addBtn;
     childInformation child;
     Intent intent;
-
-    TextView fnameError;
-    TextView lnameError;
+boolean backFlag=false;
     TextView genderError;
-    TextView passwordError;
-    TextView mismatchedPasswordsError;
-    TextView emailError;
-    ImageView fnameErrorIcon;
-    ImageView lnameErrorIcon;
     ImageView genderErrorIcon;
-    ImageView passwordErrorIcon;
-    ImageView mismatchedPasswordsErrorIcon;
-    ImageView emailErrorIcon;
 
 
 
@@ -93,20 +77,8 @@ public class adding_child  extends menu_educator {
         email = (TextView)findViewById(R.id.emailTxt);
         addBtn = (Button)findViewById(R.id.addBtn);
         intent = new Intent(this, child_photo.class);
-        fnameError = (TextView)findViewById(R.id.fnameEr);
-        lnameError = (TextView)findViewById(R.id.lnameEr);
-       genderError = (TextView)findViewById(R.id.genderEr);
-         passwordError = (TextView)findViewById(R.id.passEr);
-        mismatchedPasswordsError = (TextView)findViewById(R.id.missPassEr);
-         emailError = (TextView)findViewById(R.id.unameEr);
-        fnameErrorIcon= (ImageView)findViewById(R.id.fnErIcon);
-        lnameErrorIcon = (ImageView)findViewById(R.id.lnErIcon);
-        genderErrorIcon = (ImageView)findViewById(R.id.genderErIcon);
-        passwordErrorIcon = (ImageView)findViewById(R.id.passwordErIcon);
-        mismatchedPasswordsErrorIcon = (ImageView)findViewById(R.id.conPasswordErIcon);
-        emailErrorIcon = (ImageView)findViewById(R.id.emailErIcon);
-
-
+        genderError = (TextView)findViewById(R.id.genderEr);
+       genderErrorIcon = (ImageView)findViewById(R.id.genderErIcon);
         addBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -122,18 +94,9 @@ public class adding_child  extends menu_educator {
 
     private void checkInputs(){
 
-        fnameError.setVisibility(View.INVISIBLE);
-        lnameError.setVisibility(View.INVISIBLE);
+
         genderError.setVisibility(View.INVISIBLE);
-        passwordError.setVisibility(View.INVISIBLE);
-        mismatchedPasswordsError.setVisibility(View.INVISIBLE);
-       emailError.setVisibility(View.INVISIBLE);
-        fnameErrorIcon.setVisibility(View.INVISIBLE);
-        lnameErrorIcon.setVisibility(View.INVISIBLE);
         genderErrorIcon.setVisibility(View.INVISIBLE);
-        passwordErrorIcon.setVisibility(View.INVISIBLE);
-        mismatchedPasswordsErrorIcon.setVisibility(View.INVISIBLE);
-        emailErrorIcon.setVisibility(View.INVISIBLE);
       errorCounts = 0;
       checkFirstName();
         checkLastName();
@@ -145,25 +108,23 @@ public class adding_child  extends menu_educator {
     }//end of checkInputs function
 
     public void checkExistingAccount(){
-if(errorCounts==0) {
+
     q = r.ref.child("Children").orderByChild("email").equalTo(email.getText().toString().trim());
     q.addListenerForSingleValueEvent(new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
             if (dataSnapshot.exists()) {
-                emailError.setText("البريد الإلكتروني تم استخدامه من قبل مستخدم آخر");
-                emailError.setVisibility(View.VISIBLE);
-                emailErrorIcon.setVisibility(View.VISIBLE);
+                email.setError("البريد الإلكتروني تم استخدامه من قبل مستخدم آخر");
+                email.requestFocus();
                 errorCounts++;
             }
-            else {q = r.ref.child("Educators").orderByChild("email").equalTo(email.getText().toString().trim());
+            q = r.ref.child("Educators").orderByChild("email").equalTo(email.getText().toString().trim());
             q.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
-                        emailError.setText("البريد الإلكتروني تم استخدامه من قبل مستخدم آخر");
-                        emailError.setVisibility(View.VISIBLE);
-                        emailErrorIcon.setVisibility(View.VISIBLE);
+                        email.setError("البريد الإلكتروني تم استخدامه من قبل مستخدم آخر");
+                        email.requestFocus();
                         errorCounts++;
                     }
                     else{
@@ -191,7 +152,6 @@ if(errorCounts==0) {
                 }
             });}
 
-        }
 
         @Override
         public void onCancelled(DatabaseError databaseError) {
@@ -213,21 +173,19 @@ if(errorCounts==0) {
 
 
 
-    }//end of checkExistingAccount function
+    //end of checkExistingAccount function
 
     public void checkFirstName(){
 
 
         if (firstName.getText().toString().isEmpty()) {
-            fnameError.setText("قم بتعبئة الحقل بالاسم الأول للطفل");
-            fnameError.setVisibility(View.VISIBLE);
-            fnameErrorIcon.setVisibility(View.VISIBLE);
+            firstName.setError("قم بتعبئة الحقل بالاسم الأول للطفل");
+            firstName.requestFocus();
             errorCounts++;
         }
         else if (!ArabicLetters.matcher(firstName.getText().toString()).matches()) {
-            fnameError.setText("قم بكتابة الإسم الأول باللغة العربية فقط");
-            fnameError.setVisibility(View.VISIBLE);
-            fnameErrorIcon.setVisibility(View.VISIBLE);
+            firstName.setText("قم بكتابة الإسم الأول باللغة العربية فقط");
+            firstName.requestFocus();
             errorCounts++;
         }
 
@@ -237,15 +195,13 @@ if(errorCounts==0) {
 
 
         if (lastName.getText().toString().isEmpty()) {
-            lnameError.setText("قم بتعبئة الحقل بلقب الطفل");
-            lnameError.setVisibility(View.VISIBLE);
-            lnameErrorIcon.setVisibility(View.VISIBLE);
+            lastName.setError("قم بتعبئة الحقل بلقب الطفل");
+            lastName.requestFocus();
             errorCounts++;
         }
         else if (!ArabicLetters.matcher(lastName.getText().toString()).matches()) {
-            lnameError.setText("قم بكتابة اللقب باللغة العربية فقط ");
-            lnameError.setVisibility(View.VISIBLE);
-            lnameErrorIcon.setVisibility(View.VISIBLE);
+            lastName.setError("قم بكتابة اللقب باللغة العربية فقط ");
+            lastName.requestFocus();
             errorCounts++;
         }
 
@@ -265,15 +221,13 @@ if(errorCounts==0) {
 
     public void checkEmail(){
         if (email.getText().toString().trim().isEmpty()) {
-            emailError.setText("قم بتعبئة الحقل باسم المستخدم للطفل");
-            emailError.setVisibility(View.VISIBLE);
-            emailErrorIcon.setVisibility(View.VISIBLE);
+            email.setError("قم بتعبئة الحقل باسم المستخدم للطفل");
+            email.requestFocus();
             errorCounts++;
         }
         else if (!Patterns.EMAIL_ADDRESS.matcher(email.getText().toString().trim()).matches()){
-            emailError.setText("االبريد الإلكتروني ليس على النمط someone@somewhere.com");
-            emailError.setVisibility(View.VISIBLE);
-            emailErrorIcon.setVisibility(View.VISIBLE);
+            email.setError("االبريد الإلكتروني ليس على النمط someone@somewhere.com");
+            email.requestFocus();
             errorCounts++;
 
         }
@@ -286,38 +240,73 @@ if(errorCounts==0) {
 
 
         if (password.getText().toString().trim().isEmpty()) {
-            passwordError.setText("قم بتعبئة الحقل بكلمة المرور");
-            passwordError.setVisibility(View.VISIBLE);
-            passwordErrorIcon.setVisibility(View.VISIBLE);
+            password.setError("قم بتعبئة الحقل بكلمة المرور");
+            password.requestFocus();
             errorCounts++;
 
         }
         else if (password.length() < 6){
 
-            passwordError.setText("كلمة المرور يجب ان تكون اطول من 6 خانات ");
-            passwordError.setVisibility(View.VISIBLE);
-            passwordErrorIcon.setVisibility(View.VISIBLE);
+            password.setError("كلمة المرور يجب ان تكون اطول من 6 خانات ");
+            password.requestFocus();
             errorCounts++;
         }
         if (confirmedPassword.getText().toString().trim().isEmpty()) {
-            mismatchedPasswordsError.setText("قم بتأكيد كلمة المرور");
-            mismatchedPasswordsError.setVisibility(View.VISIBLE);
-            mismatchedPasswordsErrorIcon.setVisibility(View.VISIBLE);
+            confirmedPassword.setError("قم بتأكيد كلمة المرور");
+            confirmedPassword.requestFocus();
+
             errorCounts++;
 
         }
 
        else if (!confirmedPassword.getText().toString().trim().equals( password.getText().toString().trim())){
-            mismatchedPasswordsError.setText("كلمات المرور المدخلة غير متطابقة");
-            mismatchedPasswordsError.setVisibility(View.VISIBLE);
-            mismatchedPasswordsErrorIcon.setVisibility(View.VISIBLE);
-            passwordErrorIcon.setVisibility(View.VISIBLE);
+            confirmedPassword.setError("كلمة المرور المدخلة غير متطابقة");
+            confirmedPassword.requestFocus();
             errorCounts++;
 
          }
 
     }
+    @Override
+    public void onBackPressed() {
+        if(backFlag == false){
+            popUp();
+            backFlag = true;
+        }//first time to press back , we should give a warning
 
+
+    }
+    public void popUp(){
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(adding_child.this);
+        mBuilder.setCancelable(false);
+        LayoutInflater inflater = this.getLayoutInflater();
+        View mView = getLayoutInflater().inflate(R.layout.activity_adding_child_pop_up,null);
+        Button close_btn = (Button) mView.findViewById(R.id.close_btn);
+        Button ok_btn = (Button) mView.findViewById(R.id.ok_btn);
+        mBuilder.setView(mView);
+        final AlertDialog dialog = mBuilder.create();
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setCancelable(false);
+
+        dialog.show();
+        ok_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                dialog.dismiss();
+            }
+        });
+
+        close_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                dialog.dismiss();
+            }
+        });
+
+
+    }
 
 
 }
