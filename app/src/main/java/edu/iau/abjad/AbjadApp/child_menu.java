@@ -200,7 +200,6 @@ public class child_menu extends AppCompatActivity {
                                             }
                                             else if(i==3){
                                                 popUpDelete();
-
                                                 dialog.dismiss();
                                             }
                                             else {
@@ -336,6 +335,7 @@ public class child_menu extends AppCompatActivity {
 
                             Intent usr=new Intent(child_menu.this,userTypeSelection.class);
                             startActivity(usr);
+                            finish();
                             Toast.makeText(child_menu.this,"تم حذف الطفل بنجاح",Toast.LENGTH_LONG).show();
                         } else {
                             Log.e("Error","deletion");

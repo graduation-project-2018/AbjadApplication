@@ -242,13 +242,11 @@ public class ChildProgress extends menu_educator {
                                                 @Override
                                                 public void onDataChange(DataSnapshot dataSnapshot1) {
                                                     final int iTestScore=s.child("score").getValue(Integer.class);
-                                                    //Log.i("GGGGGGGG",dataSnapshot.child(lessonKey)
-                                                          //  .child("test_letter").getValue().toString()+" juju");
                                                     Log.i("TestID",TestId);
                                                     Log.i("TestID",dataSnapshot1.child(TestId).child("test_letters").getValue(String.class)+" ");
 
                                                     lettTest=dataSnapshot1.child(TestId).child("test_letters").getValue().toString();
-                                                    if(iTestScore>=ihighestScore){
+                                                    if(iTestScore>ihighestScore){
                                                         Log.i("score",iTestScore+ " ");
                                                         Log.i("score",ihighestLessonScore+ " ");
                                                         ihighestScore=iTestScore;

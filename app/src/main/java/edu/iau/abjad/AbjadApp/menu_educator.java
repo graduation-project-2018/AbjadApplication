@@ -10,13 +10,23 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
 public class menu_educator extends AppCompatActivity {
     protected DrawerLayout mDrawerLayout;
@@ -24,6 +34,7 @@ public class menu_educator extends AppCompatActivity {
     protected Toolbar mToolBar;
     ImageView home_icon;
     NavigationView navigationView ;
+    firebase_connection r = new firebase_connection();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,15 +147,92 @@ public class menu_educator extends AppCompatActivity {
             }
         });
 
+
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //delete code
+                final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            r.ref.child("Educators").child(SigninEducator.id_edu).removeValue().addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.e("NotFound", e.getMessage());
+                                }
+                            });
+
+                            r.ref.child("educator_home").child(SigninEducator.id_edu).removeValue().addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.e("NotFound", e.getMessage());
+                                }
+                            });
+                            r.ref.child("Children").addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    for (final DataSnapshot s : dataSnapshot.getChildren()) {
+                                        final String childKey = s.getKey();
+                                        final DatabaseReference child_eduhome = r.ref.child("Children").child(childKey).child("educator_id");
+                                        final ValueEventListener eventListenerhome = new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                                                    String educator = s.child("Children").child(childKey).child("educator_id").getValue(String.class);
+                                                    if (educator.equals(SigninEducator.id_edu)) {
+                                                        r.ref.child("Children").child(childKey).removeValue().addOnFailureListener(new OnFailureListener() {
+                                                            @Override
+                                                            public void onFailure(@NonNull Exception e) {
+                                                                Log.e("NotFound",e.getMessage());
+                                                            }
+                                                        });
+
+                                                        r.ref.child("child_takes_lesson").child(childKey).removeValue().addOnFailureListener(new OnFailureListener() {
+                                                            @Override
+                                                            public void onFailure(@NonNull Exception e) {
+                                                                Log.e("NotFound",e.getMessage());
+                                                            }
+                                                        });
+                                                        r.ref.child("child_takes_test").child(childKey).removeValue().addOnFailureListener(new OnFailureListener() {
+                                                            @Override
+                                                            public void onFailure(@NonNull Exception e) {
+                                                                Log.e("NotFound",e.getMessage());
+                                                            }
+                                                        });
+                                                    }
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(DatabaseError databaseError) {
+
+                                            }
+                                        };
+                                        child_eduhome.addValueEventListener(eventListenerhome);
+
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+
+                            Intent usr = new Intent(menu_educator.this, userTypeSelection.class);
+                            startActivity(usr);
+                            finish();
+                            Toast.makeText(menu_educator.this, "تم حذف المستخدم بنجاح", Toast.LENGTH_LONG).show();
+                        } else {
+                            Log.e("Error", "deletion");
+                        }
+
+                    }
+
+
+                });
+
             }
-        });
-
-    }
-    }
-
-
-
+        }); }}
