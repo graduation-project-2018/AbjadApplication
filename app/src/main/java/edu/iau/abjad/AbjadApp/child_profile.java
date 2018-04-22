@@ -85,8 +85,8 @@ public class child_profile extends menu_educator {
     }//end of checkInputs function
 
     public void getCurrentChildInfo(){
-///change ID
-        Query query = r.ref.child("Children").child("i6ywh35HrgdyjDe9lh98BGcutpY2");
+
+        Query query = r.ref.child("Children").child(Signin.id_child);
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
