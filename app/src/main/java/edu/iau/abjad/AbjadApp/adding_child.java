@@ -35,7 +35,6 @@ public class adding_child  extends menu_educator {
 
     menu_variables m = new menu_variables();
 
-    FirebaseAuth auth = FirebaseAuth.getInstance();
     FirebaseDatabase db;
     firebase_connection r;
     TextView firstName;
@@ -47,17 +46,14 @@ public class adding_child  extends menu_educator {
     TextView confirmedPassword;
     TextView email;
     Button addBtn;
-    ImageButton next;
     childInformation child;
     Intent intent;
-    Boolean backFlag =false;
+    boolean backFlag=false;
     TextView genderError;
-   ImageView genderErrorIcon;
-    String eml;
-
-   DatabaseReference rf;
-
-   int errorCounts;
+    ImageView genderErrorIcon;
+    DatabaseReference rf;
+    Boolean foundErrors;
+    Query q;
     Pattern ArabicLetters = Pattern.compile("^[أ-ي ]+$");
 
     @Override
@@ -72,8 +68,8 @@ public class adding_child  extends menu_educator {
 
         mDrawerLayout.addView(contentView, 0);
 
-       db = FirebaseDatabase.getInstance();
-       rf = db.getReference();
+        db = FirebaseDatabase.getInstance();
+        rf = db.getReference();
         r = new firebase_connection();
 
         firstName = (TextView)findViewById(R.id.fnTxt);
@@ -86,24 +82,14 @@ public class adding_child  extends menu_educator {
         addBtn = (Button)findViewById(R.id.addBtn);
         intent = new Intent(this, child_photo.class);
         genderError = (TextView)findViewById(R.id.genderEr);
-
-       genderErrorIcon = (ImageView)findViewById(R.id.genderErIcon);
-
-
-
+        genderErrorIcon = (ImageView)findViewById(R.id.genderErIcon);
         addBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
 
-             checkInputs();
-              if (errorCounts == 0){
-                  checkExistingAccount();
-              }
+                checkInputs();
 
-            }
-
-
-        });
+            } });
 
     }//end of onCreate function
 
@@ -111,12 +97,15 @@ public class adding_child  extends menu_educator {
     @Override
     public void onBackPressed() {
         if(backFlag == false){
-        popUp();
+            popUp();
             backFlag = true;
         }//first time to press back , we should give a warning
 
 
     }
+
+
+
     public void popUp(){
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(adding_child.this);
         mBuilder.setCancelable(false);
@@ -151,92 +140,99 @@ public class adding_child  extends menu_educator {
 
     private void checkInputs(){
 
-       genderError.setVisibility(View.INVISIBLE);
 
-       genderErrorIcon.setVisibility(View.INVISIBLE);
-
-      errorCounts = 0;
+        genderError.setVisibility(View.INVISIBLE);
+        genderErrorIcon.setVisibility(View.INVISIBLE);
+        foundErrors =false;
         checkFirstName();
         checkLastName();
         checkGender();
         checkEmail();
         checkPassword();
-       checkExistingAccount();
+        checkExistingAccount();
 
     }//end of checkInputs function
 
     public void checkExistingAccount(){
-       eml = email.getText().toString();
 
-        Query q = r.ref.child("Children").orderByChild("email").equalTo(eml);
+        q = r.ref.child("Children").orderByChild("email").equalTo(email.getText().toString().trim());
         q.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    email.setError("البريد الإلكتروني مسجل سابقا");
-                    errorCounts++;
+                    email.setError("البريد الإلكتروني تم استخدامه من قبل مستخدم آخر");
+                    email.requestFocus();
+                    foundErrors =true;
                 }
-                else {
+                q = r.ref.child("Educators").orderByChild("email").equalTo(email.getText().toString().trim());
+                q.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            email.setError("البريد الإلكتروني تم استخدامه من قبل مستخدم آخر");
+                            email.requestFocus();
+                            foundErrors =true;
+                        }
+                        else{
+                            String fname = firstName.getText().toString();
+                            String lname = lastName.getText().toString();
+                            String passChild = password.getText().toString().trim();
+                            String emailChild = email.getText().toString().trim();
+                            int selectedId = radioGroup.getCheckedRadioButtonId();
+                            radioButton = (RadioButton) findViewById(selectedId);
+                            String selectedGender = radioButton.getText().toString();
+                            child = new childInformation(fname, lname, selectedGender, "_", emailChild);
+                            Bundle extras = new Bundle();
+                            extras.putSerializable("object", child);
+                            extras.putString("password", passChild);
+                            intent.putExtras(extras);
+                            startActivity(intent);
 
-                    if(errorCounts == 0){
-                        String fname = firstName.getText().toString();
-                        String lname = lastName.getText().toString();
-                        String passChild = password.getText().toString().trim();
-                        String emailChild = email.getText().toString().trim();
-                        int selectedId = radioGroup.getCheckedRadioButtonId();
-                        radioButton = (RadioButton) findViewById(selectedId);
-                        String selectedGender = radioButton.getText().toString();
-                        child = new childInformation(fname, lname, selectedGender, "_", emailChild);
-                        Bundle extras = new Bundle();
-                        extras.putSerializable("object", child);
-                        extras.putString("password", passChild);
-                        intent.putExtras(extras);
-                        startActivity(intent);
+                        }
 
                     }
-                }
 
-            }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        //Handle possible errors.
+                    }
+                });}
+
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 //Handle possible errors.
             }
         });
-
-
-
-
-    }//end of checkExistingAccount function
-
+    }//end of checkExistingAccount
     public void checkFirstName(){
 
 
         if (firstName.getText().toString().isEmpty()) {
             firstName.setError("قم بتعبئة الحقل بالاسم الأول للطفل");
-
-            errorCounts++;
+            firstName.requestFocus();
+            foundErrors =true;
         }
         else if (!ArabicLetters.matcher(firstName.getText().toString()).matches()) {
-            firstName.setError("قم بكتابة الإسم الأول باللغة العربية فقط");
-
-            errorCounts++;
+            firstName.setText("قم بكتابة الإسم الأول باللغة العربية فقط");
+            firstName.requestFocus();
+            foundErrors =true;
         }
 
-        }//end of checkFirstName function
+    }//end of checkFirstName function
 
     public void checkLastName(){
 
 
         if (lastName.getText().toString().isEmpty()) {
             lastName.setError("قم بتعبئة الحقل بلقب الطفل");
-
-            errorCounts++;
+            lastName.requestFocus();
+            foundErrors =true;
         }
         else if (!ArabicLetters.matcher(lastName.getText().toString()).matches()) {
             lastName.setError("قم بكتابة اللقب باللغة العربية فقط ");
-
-            errorCounts++;
+            lastName.requestFocus();
+            foundErrors =true;
         }
 
     }//end of checkLastName function
@@ -247,58 +243,57 @@ public class adding_child  extends menu_educator {
             genderError.setText("قم باختيار جنس الطفل");
             genderError.setVisibility(View.VISIBLE);
             genderErrorIcon.setVisibility(View.VISIBLE);
-            errorCounts++;
+            foundErrors =true;
         }
 
 
     }//end of checkGender function
-
     public void checkEmail(){
-        if (email.getText().toString().isEmpty()) {
-           email.setError("قم بتعبئة الحقل بالبريد الإلكتروني");
-
-            errorCounts++;
+        if (email.getText().toString().trim().isEmpty()) {
+            email.setError("قم بتعبئة الحقل بالبريد الإلكتروني للطفل");
+            email.requestFocus();
+            foundErrors =true;
         }
-        else if(!Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()){
-            email.setError("البريد الإلكتروني ليس على النمط someone@example.com ");
-             errorCounts++;
+        else if (!Patterns.EMAIL_ADDRESS.matcher(email.getText().toString().trim()).matches()){
+            email.setError("االبريد الإلكتروني ليس على النمط someone@somewhere.com");
+            email.requestFocus();
+            foundErrors =true;
 
         }
 
 
-    }//end of checkEmail function
+    }//end of check email function
 
     public void checkPassword(){
 
-Boolean emptyPass =false;
-Boolean emptyConPass = false;
 
-        if (password.getText().toString().isEmpty()) {
+
+        if (password.getText().toString().trim().isEmpty()) {
             password.setError("قم بتعبئة الحقل بكلمة المرور");
-            errorCounts++;
-            emptyPass =true;
+            password.requestFocus();
+            foundErrors =true;
+
         }
         else if (password.length() < 6){
 
             password.setError("كلمة المرور يجب ان تكون اطول من 6 خانات ");
-            errorCounts++;
+            password.requestFocus();
+            foundErrors =true;
         }
-        if (confirmedPassword.getText().toString().isEmpty()) {
+        if (confirmedPassword.getText().toString().trim().isEmpty()) {
             confirmedPassword.setError("قم بتأكيد كلمة المرور");
-            errorCounts++;
-            emptyConPass = true;
+            confirmedPassword.requestFocus();
+
+            foundErrors =true;
+
         }
 
-        if ( emptyConPass == false && emptyPass ==false){
-        if (!confirmedPassword.getText().toString().equals( password.getText().toString())){
-            confirmedPassword.setError("كلمات المرور المدخلة غير متطابقة");
-            errorCounts++;
+        else if (!confirmedPassword.getText().toString().trim().equals( password.getText().toString().trim())){
+            confirmedPassword.setError("كلمة المرور المدخلة غير متطابقة");
+            confirmedPassword.requestFocus();
+            foundErrors =true;
 
+        }
 
-        } }
-
-    }//end of checkPassword fucntion
-
-
-
+    }
 }//end of adding_child class
