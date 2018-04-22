@@ -190,7 +190,7 @@ public class educator_profile extends menu_educator {
                 if (!newEmail.equals(oldEmail))
                 {
                   boolean x =  updateEmail();
-                   
+
                   if(x==true){
                       educator = new Educator(newEmail,newFname,newLname);
                       r.ref.child("Educators").child(SigninEducator.id_edu).setValue(educator);
