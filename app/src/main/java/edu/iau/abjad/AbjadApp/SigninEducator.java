@@ -16,6 +16,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import static android.view.View.VISIBLE;
 
@@ -28,6 +32,7 @@ public class SigninEducator extends AppCompatActivity  implements View.OnClickLi
     private ImageButton enter;
     private Intent Itn;
     static String id_edu;
+    firebase_connection  r = new firebase_connection();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,12 +74,6 @@ public class SigninEducator extends AppCompatActivity  implements View.OnClickLi
 
         }
 
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            Email.setError("الرجاء كتابة البريد الإلكتروني بشكل صحيح");
-            Wpas.setVisibility(View.VISIBLE);
-            Email.requestFocus();
-            flag = false;
-        }
         if (password.isEmpty()) {
             EdPassword.setError("أدخل كلمة المرور من فضلك");
             EdPassword.requestFocus();
@@ -96,8 +95,29 @@ public class SigninEducator extends AppCompatActivity  implements View.OnClickLi
                             if (task.isSuccessful()) {
 
                                 id_edu = Uath.getCurrentUser().getUid();
-                                finish();
-                                startActivity(Itn);
+                                Query query = r.ref.child("Educators").orderByKey().equalTo(id_edu);
+                                query.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        if(dataSnapshot.exists()){
+                                            Wuser.setVisibility(View.INVISIBLE);
+                                            finish();
+                                            startActivity(Itn);
+                                        }
+                                        else{
+                                            Email.setError("الرجاء كتابة البريد الإلكتروني الخاص بالمربي");
+                                            Email.requestFocus();
+                                            Wuser.setVisibility(VISIBLE);
+
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
+
                             }
                             else {
 

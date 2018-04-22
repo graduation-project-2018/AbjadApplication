@@ -14,6 +14,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 
 import static android.view.View.VISIBLE;
@@ -29,6 +33,7 @@ public class Signin extends AppCompatActivity  implements View.OnClickListener{
     private Intent Itn;
     String username;
     static String id_child;
+    firebase_connection r = new firebase_connection();
 
 
 
@@ -105,8 +110,31 @@ public class Signin extends AppCompatActivity  implements View.OnClickListener{
                         Wuser.setVisibility(View.INVISIBLE);
                         Wpas.setVisibility(View.INVISIBLE);
                         id_child= Uath.getCurrentUser().getUid();
-                        finish();
-                        startActivity(Itn);
+
+                        Query query = r.ref.child("Children").orderByKey().equalTo(id_child);
+                        query.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if(dataSnapshot.exists()){
+                                    finish();
+                                    startActivity(Itn);
+                                }
+                                else{
+                                    ChildUsername.setError("الرجاء كتابة البريد الإلكتروني الخاص بالطفل");
+                                    ChildUsername.requestFocus();
+                                    Wuser.setVisibility(VISIBLE);
+
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+
+
+
 
                     }
                     else

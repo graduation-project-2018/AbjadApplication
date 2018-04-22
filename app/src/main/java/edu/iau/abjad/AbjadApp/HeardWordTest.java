@@ -52,8 +52,8 @@ public class HeardWordTest extends child_menu  {
     static  int final_heard_child_score;
     AnimationDrawable anim;
     ImageView abjad;
-    boolean flag2;
-    String test_id;
+    boolean flag2, move_child;
+    static String test_id;
     String Test_letter;
     ArrayList<Intent> testIntent;
 
@@ -141,6 +141,8 @@ public class HeardWordTest extends child_menu  {
                     intent.putExtra("preIntent","heardTest");
                     setResult(RESULT_OK, intent);
                     startActivity(intent);
+                    System.out.println("Testttt ID: "+ test_id);
+                    unit_interface.test_score(test_id);
                     finish();
                 }
 
@@ -457,12 +459,29 @@ public class HeardWordTest extends child_menu  {
                 flag2 = false;
                 abjad.setBackgroundResource(R.drawable.abjad_speak);
                 anim =(AnimationDrawable) abjad.getBackground();
+                if(move_child){
+                    Intent intent = new Intent(HeardWordTest.this, child_home.class);
+                    startActivity(intent);
+                }
 
             }
 
         });
         flag2 = true;
 
+    }
+
+
+    @Override
+    protected void onRestart() {
+
+        super.onRestart();
+        System.out.println("onRestart function");
+        audio_feedback = new MediaPlayer();
+        anim.start();
+        playAudio(audio_urLs.cant_continue_test);
+        move_child = true;
+        setOnCompleteListener(audio_feedback);
     }
 
 }

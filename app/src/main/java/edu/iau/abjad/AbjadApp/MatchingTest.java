@@ -33,7 +33,8 @@ public class MatchingTest extends child_menu {
     ArrayList<MatchingTestContent> Content;
     MatchingTestContent obj;
     firebase_connection rfb;
-    int TestNum,counter,score ;
+    int TestNum,counter ;
+    static  int score;
     DatabaseReference read;
     int[]  WordsNumber ;
     String PicDB , WordDB;
@@ -44,8 +45,8 @@ public class MatchingTest extends child_menu {
     boolean correct ;
     AnimationDrawable anim;
     ImageView abjad ;
-    boolean flag2 ;
-    String Test_letter,test_id;
+    boolean flag2,move_child ;
+    static String Test_letter,test_id;
     boolean test_finish;
 
 
@@ -84,6 +85,7 @@ public class MatchingTest extends child_menu {
         r = new Random();
         WordsNumber = new int[3];
         flag2 = true;
+        move_child = false;
         test_finish = false;
 
         correct=false;
@@ -525,6 +527,10 @@ View.OnDragListener dragListener1 = new View.OnDragListener() {
                 flag2 = false;
                 abjad.setBackgroundResource(R.drawable.abjad_speak);
                 anim =(AnimationDrawable) abjad.getBackground();
+                if(move_child){
+                    Intent intent = new Intent(MatchingTest.this, child_home.class);
+                    startActivity(intent);
+                }
                 if(test_finish){
                     if(unit_interface.Rand.size()!=0){
                         Intent nextTest=unit_interface.Rand.get(0);
@@ -540,6 +546,8 @@ View.OnDragListener dragListener1 = new View.OnDragListener() {
                         intent.putExtra("unitID",unit_interface.unitID);
                         intent.putExtra("preIntent","matchingTest");
                         setResult(RESULT_OK, intent);
+                        System.out.println("Testttt ID: "+ test_id);
+                        unit_interface.test_score(test_id);
                         startActivity(intent);
                         finish();
 
@@ -551,6 +559,18 @@ View.OnDragListener dragListener1 = new View.OnDragListener() {
         });
         flag2 = true;
 
+    }
+
+    @Override
+    protected void onRestart() {
+
+        super.onRestart();
+        System.out.println("onRestart function");
+       MatchingTest = new MediaPlayer();
+        anim.start();
+       playAudio(voice.cant_continue_test);
+        move_child = true;
+        setOnCompleteListener(MatchingTest);
     }
 
 }

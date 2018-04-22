@@ -47,7 +47,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.HashMap;
 
-public class report_problem extends menu_educator {
+public class report_problem extends child_menu {
     public static final int PIC_GALLERY_REQUIST = 20;
     menu_variables m = new menu_variables();
     private Button uplodImgbtn;
@@ -78,7 +78,7 @@ public class report_problem extends menu_educator {
 
         //inflate your activity layout here!
         View contentView = inflater.inflate(R.layout.activity_report_problem, null, false);
-        mDrawerLayout.addView(contentView, 0);
+        myDrawerLayout.addView(contentView, 0);
         //initialization
         uplodImgbtn = findViewById(R.id.uplodBtn);
         reportBtn= findViewById(R.id.reportButn );

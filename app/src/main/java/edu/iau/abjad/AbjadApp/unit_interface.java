@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import java.io.IOException;
 import java.text.DecimalFormat;
@@ -24,7 +25,7 @@ public class unit_interface extends child_menu {
     private Button test1,test2,test3,lesson1,lesson2,lesson3,lesson4,lesson5,lesson6;
     private ImageView lock2,lock3,lock4,lock5,lock6,test1Stars,test2Stars,test3Stars,
             lesson1Stars,lesson2Stars,lesson3Stars,lesson4Stars,lesson5Stars,lesson6Stars,bal1,bal2,bal3;
-    private firebase_connection unitConnicetion,getscore,TestId,
+    private static firebase_connection unitConnicetion,getscore,TestId,
             childScoreConnection,childLockConnection,getChildScoreConnection,innerScore,testScoreq,testIDq,testIDq2,
             testgetSq1,testgetSq2;
     private Intent chilHomeIntent,lessonIntent;
@@ -46,9 +47,12 @@ public class unit_interface extends child_menu {
     boolean flag = true;
     private  String childID;
     static boolean endtest=false;
-    private int finalScore;
+    static int finalScore;
     static long startTime,EndTime;
     static String test_letter;
+    static String  childTime;
+    static int currentScore ;
+    static firebase_connection r = new firebase_connection();
     static String actual_time;
     private String unitName;
 
@@ -157,7 +161,7 @@ public class unit_interface extends child_menu {
        }else{
            Log.i("ifStm","noone");
        }
-       if(unitID.equals("unit1")){
+       if(unitID.equals("unit1") && intent.getString("preIntent").equals("childHome")){
             playAudio(audio.unit_Tip_One);
             instructions.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
@@ -717,17 +721,67 @@ public class unit_interface extends child_menu {
             this.unitID=b.getString("unitID");
         }
     }
-    public void  test_score(){
-        double time = EndTime - startTime;
-        time = (time/1000)/60;
-        actual_time = new DecimalFormat("##.##").format(time);
-
+    public static void  test_score(final String test_id){
 
         if(endtest==true){
+            System.out.println("End time: "+ EndTime);
+            double time = EndTime - startTime;
+            time = (time/1000)/60;
+            actual_time =new DecimalFormat("##.##").format(time);
+
             finalScore= ReadingTest.reading_child_score+
                     HeardWordTest.final_heard_child_score+
-                    TrueFalseTest.true_false_test_score;
+                    TrueFalseTest.true_false_test_score + MatchingTest.score;
             finalScore=finalScore/4;
+
+            Query query =  r.ref.child("child_takes_test").child(Signin.id_child).child(unit_interface.unitID).orderByKey().equalTo(test_id);
+            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.exists()){
+                        System.out.println("Eixist!!!!!!!!");
+                        try{
+                            DatabaseReference read_score =  r.ref.child("child_takes_test").child(Signin.id_child).child(unit_interface.unitID).child(test_id);
+                            read_score.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    System.out.println("Inside read");
+
+                                    for (final DataSnapshot info: dataSnapshot.getChildren()){
+                                        currentScore = Integer.valueOf(dataSnapshot.child("score").getValue().toString());
+                                        childTime = dataSnapshot.child("time").getValue().toString();
+                                    }
+                                    if(currentScore<finalScore){
+                                        r.ref.child("child_takes_test").child(Signin.id_child).child(unit_interface.unitID).child(test_id).child("score").setValue(finalScore);
+                                    }
+                                    if(Double.valueOf(childTime)>Double.valueOf(actual_time)){
+                                        r.ref.child("child_takes_test").child(Signin.id_child).child(unit_interface.unitID).child(test_id).child("time").setValue(actual_time);
+                                    }
+
+
+                                }
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+                                    System.out.println("Path score not exists!!! inside on cancel function");
+                                }
+                            });
+                        }
+                        catch (Exception e){
+                            System.out.println("Can't convert string to double");
+                        }
+                    }
+                    else{
+
+                        r.ref.child("child_takes_test").child(Signin.id_child).child(unit_interface.unitID).child(test_id).child("score").setValue(finalScore);
+                        r.ref.child("child_takes_test").child(Signin.id_child).child(unit_interface.unitID).child(test_id).child("time").setValue(actual_time);
+                    }
+                }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
+
+
         }
 
     }
