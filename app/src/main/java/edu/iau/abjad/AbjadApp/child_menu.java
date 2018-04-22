@@ -17,6 +17,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -31,6 +32,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -193,6 +195,7 @@ public class child_menu extends AppCompatActivity {
                                         if(em.equals(edu_email)){
                                             if(i == 2){
                                                 Intent intent = new Intent(child_menu.this, report_problem.class);
+                                                intent.putExtra("email",edu_email);
                                                 startActivity(intent);
 
                                             }
@@ -276,7 +279,22 @@ public class child_menu extends AppCompatActivity {
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //delete code
+                final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            r.ref.child(Signin.id_child).removeValue();
+                            r.ref.child(Signin.id_child).removeValue();
+                            r.ref.child("eduID").child(Signin.id_child).removeValue();
+                            r.ref.child(Signin.id_child).removeValue();
+                            Toast.makeText(child_menu.this,"تم حذف الطفل بنجاح",Toast.LENGTH_LONG).show();
+                        } else {
+                            Log.e("Error","deletion");
+                        }
+                    }
+                });
+
             }
         });
 

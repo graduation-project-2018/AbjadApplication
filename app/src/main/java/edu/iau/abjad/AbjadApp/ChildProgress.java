@@ -68,7 +68,6 @@ public class ChildProgress extends menu_educator {
         mDrawerLayout.addView(contentView, 0);
         //intilization
         viewChildProfile= findViewById(R.id.ChildProfile);
-        deleteChild=findViewById(R.id.deleteChild);
         changePass=findViewById(R.id.changePass);
          nUnlokedLesson=findViewById(R.id.nUnlokedLesson);
          nDoneLesson=findViewById(R.id.nDoneLesson);
@@ -233,22 +232,7 @@ public class ChildProgress extends menu_educator {
                                 new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                       final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                                       user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<Void> task) {
-                                                if (task.isSuccessful()) {
-                                                    deleteChild_Children.ref.child(childID).removeValue();
-                                                    deleteChild_edu.ref.child(childID).removeValue();
-                                                    deleteChild_lesson.ref.child("eduID").child(childID).removeValue();
-                                                    deleteChild_test.ref.child(childID).removeValue();
-                                                    startActivity(educatorHome);
-                                                    Toast.makeText(ChildProgress.this,"تم حذف الطفل بنجاح",Toast.LENGTH_LONG).show();
-                                                } else {
-                                                    Log.e("Error","deletion");
-                                                }
-                                            }
-                                        });
+
 
                                     }
                                 });

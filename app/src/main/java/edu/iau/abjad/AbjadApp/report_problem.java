@@ -67,6 +67,7 @@ public class report_problem extends child_menu {
     private int storagePermCode=1;
     private ProgressDialog mProgressDialog;
     private boolean onCliked=false;
+    private Bundle email;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,11 +110,13 @@ public class report_problem extends child_menu {
                                     daownloadURL = downloadUri.toString();
                                     uploded = true;
                                     if (rg.getCheckedRadioButtonId() != -1 && uploded) {
+                                        email=getIntent().getExtras();
+                                        String semail=email.getString("email");
                                         mProgressDialog.dismiss();
                                         dataMap.put("screenShots", daownloadURL);
                                         dataMap.put("report_type", ProbType);
                                         dataMap.put("report_description", dis);
-                                        dataMap.put("reporter_email", "ala2.hpapa@gmail.com");
+                                        dataMap.put("reporter_email",semail);
                                         report.ref.child("Reports").push().setValue(dataMap);
                                         Toast.makeText(report_problem.this, "شكرا، تم تلقي البلاغ!", Toast.LENGTH_LONG).show();
                                         rg.clearCheck();
