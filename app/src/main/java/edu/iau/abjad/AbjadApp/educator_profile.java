@@ -148,7 +148,7 @@ public class educator_profile extends menu_educator {
 
     public void getCurrentEducatorInfo(){
         //educator ID need to be changed
-        Query query = r.ref.child("Educators").child("gqU0f9o7spdJMxX7ojWPpfGrktt1");
+        Query query = r.ref.child("Educators").child(SigninEducator.id_edu);
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -190,10 +190,10 @@ public class educator_profile extends menu_educator {
                 if (!newEmail.equals(oldEmail))
                 {
                   boolean x =  updateEmail();
-
+                   
                   if(x==true){
                       educator = new Educator(newEmail,newFname,newLname);
-                      r.ref.child("Educators").child("gqU0f9o7spdJMxX7ojWPpfGrktt1").setValue(educator);
+                      r.ref.child("Educators").child(SigninEducator.id_edu).setValue(educator);
                       Toast.makeText(educator_profile.this, " تم حفظ التغييرات بنجاح", Toast.LENGTH_LONG).show();
                       Intent intent = new Intent(educator_profile.this, educator_home.class);
                       startActivity(intent);
