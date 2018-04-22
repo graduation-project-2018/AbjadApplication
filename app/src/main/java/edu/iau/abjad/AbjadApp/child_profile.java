@@ -25,19 +25,17 @@ public class child_profile extends menu_educator {
 
 
     menu_variables m = new menu_variables();
-    EditText FNChild, LNChild, Email;
+    EditText FNChild, LNChild;
     ImageView ChildImage;
 
     firebase_connection r;
     childInformation child;
     DatabaseReference read;
     Button saveChanges;
-    int counter;
     Pattern ArabicLetters;
     String oldFname;
     String oldLname;
-    String oldEmail;
-    int errorCounts;
+   Boolean foundErrors;
     String photo_URL;
 
     @Override
@@ -67,7 +65,7 @@ public class child_profile extends menu_educator {
          @Override
          public void onClick(View v) {
         checkInputs();
-        if (errorCounts == 0){
+        if (foundErrors==false){
             editChild();
 
         }
@@ -79,16 +77,16 @@ public class child_profile extends menu_educator {
     private void checkInputs(){
 
 
-        errorCounts = 0;
+        foundErrors= false;
         checkFirstName();
         checkLastName();
-       // checkEmail();
+
 
     }//end of checkInputs function
 
     public void getCurrentChildInfo(){
-
-        Query query = r.ref.child("Children").child(Signin.id_child);
+///change ID
+        Query query = r.ref.child("Children").child("i6ywh35HrgdyjDe9lh98BGcutpY2");
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -96,9 +94,7 @@ public class child_profile extends menu_educator {
                     oldLname = dataSnapshot.child("last_name").getValue().toString();
                     oldFname  = dataSnapshot.child("first_name").getValue().toString();
                     photo_URL = dataSnapshot.child("photo_URL").getValue().toString();
-                  //  oldEmail = dataSnapshot.child("email").getValue().toString();
 
-                  //  email.setText(oldEmail);
                     FNChild .setText(oldFname);
                     LNChild.setText(oldLname);
                     Picasso.get().load(photo_URL).into(ChildImage);
@@ -119,7 +115,6 @@ public class child_profile extends menu_educator {
     }//end of getCurrentChildInfo function
     public void editChild(){
 
-      //  newEmail = email.getText().toString();
         final String newFname = FNChild.getText().toString();
         final String newLname = LNChild.getText().toString();
 
@@ -127,16 +122,12 @@ public class child_profile extends menu_educator {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-
-              /*  if (!newEmail.equals(oldEmail))
-                {
-                    updateEmail();
-                }*/
-
                 r.ref.child("Children").child(Signin.id_child).child("first_name").setValue(newFname);
                 r.ref.child("Children").child(Signin.id_child).child("last_name").setValue(newLname);
-                //   r.ref.child("Children").child(Signin.id_child).child("email").setValue(email);
+
                 Toast.makeText(child_profile.this, " تم حفظ التغييرات بنجاح", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(child_profile.this, ChildProgress.class);
+                startActivity(intent);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -153,12 +144,12 @@ public class child_profile extends menu_educator {
 
         if (FNChild.getText().toString().isEmpty()) {
             FNChild.setError("قم بتعبئة الحقل بالاسم الأول للطفل");
-            errorCounts++;
+            foundErrors=true;
         }
         else if (!ArabicLetters.matcher(FNChild.getText().toString()).matches()) {
             FNChild.setError("قم بكتابة الإسم الأول باللغة العربية فقط");
 
-            errorCounts++;
+            foundErrors=true;
         }
 
     }//end of checkFirstName function
@@ -170,35 +161,16 @@ public class child_profile extends menu_educator {
         if (LNChild.getText().toString().isEmpty()) {
             LNChild.setError("قم بتعبئة الحقل بلقب الطفل");
 
-            errorCounts++;
+            foundErrors=true;
         }
         else if (!ArabicLetters.matcher(LNChild.getText().toString()).matches()) {
             LNChild.setError("قم بكتابة اللقب باللغة العربية فقط ");
 
-            errorCounts++;
+            foundErrors=true;
         }
 
     }//end of checkLastName function
 
-  /*  public void checkEmail(){
-        if (email.getText().toString().isEmpty()) {
-
-            email.setError("قم بتعبئة الحقل بالبريد الإلكتروني");
-
-            errorCounts++;
-
-        } else if (!Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()) {
-
-            email.setError("البريد الإلكتروني ليس على النمط someone@example.com ");
-
-            errorCounts++;
-
-        }
-
-
-    }//end of checkEmail function*/
-
 
 }//end of the class
 
- // 2 PROBLEMS THE CHILD EMAIL CHANGE AND THE REDIRECT AFTER EDUCATOR PROFILE AND CHANGE THE CHILD ID MAKE IT GENERAL IN CHILD PROFILE CLASS
