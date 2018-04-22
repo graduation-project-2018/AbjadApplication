@@ -215,43 +215,6 @@ public class ChildProgress extends menu_educator {
 
             }
         });
-        child.ref.child("Children").child(childID).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                final String fName=dataSnapshot.child("first_name").getValue(String.class);
-                final String lName=dataSnapshot.child("last_name").getValue(String.class);
-                m.title.setText(fName+" "+lName);
-                deleteChild.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(contentView.getContext());
-                        builder.setCancelable(true);
-                        builder.setTitle("تأكيد حذف المستخدم");
-                        builder.setMessage("هل أنت متأكد من حذف "+fName+" "+lName);
-                        builder.setPositiveButton("نعم",
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-
-
-                                    }
-                                });
-                        builder.setNegativeButton("لا", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                            }
-                        });
-                        AlertDialog dialog = builder.create();
-                        dialog.show();
-                    }
-                });
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
         test.ref.child("child_takes_test").child(childID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(final DataSnapshot dataSnapshot) {
@@ -285,14 +248,13 @@ public class ChildProgress extends menu_educator {
                                                     Log.i("TestID",dataSnapshot1.child(TestId).child("test_letters").getValue(String.class)+" ");
 
                                                     lettTest=dataSnapshot1.child(TestId).child("test_letters").getValue().toString();
-
-
                                                     if(iTestScore>=ihighestScore){
                                                         Log.i("score",iTestScore+ " ");
                                                         Log.i("score",ihighestLessonScore+ " ");
                                                         ihighestScore=iTestScore;
                                                         sHighstScoreTest=lettTest+" ";
-                                                    }
+                                                     }
+
                                                     Log.i("score3",ihighestScore+ " ");
 
                                                     highestScoreTest.setText(ihighestScore+" /10");
