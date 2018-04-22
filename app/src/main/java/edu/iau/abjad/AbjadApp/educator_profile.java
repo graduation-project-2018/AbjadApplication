@@ -40,7 +40,7 @@ public class educator_profile extends menu_educator {
     String oldFname;
     String oldLname;
     String oldEmail;
-    Pattern ArabicLetters = Pattern.compile("^[أ-ي ]+$");
+    Pattern ArabicLetters = Pattern.compile("^[ءئ ؤ إآ ى لآ لأ  لإ أ-ي ]+$");
     String newEmail;
     Educator educator;
     FirebaseAuth Uath;

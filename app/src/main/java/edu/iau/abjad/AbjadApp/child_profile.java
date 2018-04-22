@@ -58,7 +58,7 @@ public class child_profile extends menu_educator {
 
         //UsernameMsg = (TextView) findViewById(R.id.UsernameErrorMsgCP);
         saveChanges = (Button) findViewById(R.id.saveChangesBtn);
-        ArabicLetters = Pattern.compile("^[أ-ي ]+$");
+        ArabicLetters = Pattern.compile("^[ءئ ؤ إآ ى لآ لأ  لإ أ-ي ]+$");
         r = new firebase_connection();
         getCurrentChildInfo();
         saveChanges.setOnClickListener(new View.OnClickListener() {
