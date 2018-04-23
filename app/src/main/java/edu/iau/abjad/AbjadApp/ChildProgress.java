@@ -49,12 +49,15 @@ public class ChildProgress extends menu_educator {
     private firebase_connection test,nTest;
     private firebase_connection child,deleteChild_Children,deleteChild_edu,deleteChild_lesson,deleteChild_test;
     private String childID;
+    private   String name;
     private long unlookedLesson,testNo;
     int icomplete=0;
     int ihighestScore=0,ihighestLessonScore=0;
     double dleastTime;
     String  sTime, sLeastTime,sHighstScoreLesson,sHighstScoreTest,lett,lettTest;
     double dTime;
+    ArrayList <childUnitInfo> lessonScores;
+    ArrayList <childUnitInfo> testScore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +87,8 @@ public class ChildProgress extends menu_educator {
         letterLesson=new firebase_connection();
          test=new firebase_connection();
          child = new firebase_connection();
-         childID="fpkBRxosfPdV4cN7ct4mEgi4j2p2";//Signin.id_child;
+         Bundle b=getIntent().getExtras();
+         childID="Tym2seBO6Cfl8yR5g44LtAAuvKH3";//b.getString("child_ID");//Signin.id_child;
          deleteChild_Children=new firebase_connection();
          deleteChild_edu=new firebase_connection();
          deleteChild_lesson=new firebase_connection();
@@ -95,6 +99,9 @@ public class ChildProgress extends menu_educator {
         sHighstScoreLesson="";
         sHighstScoreTest="";
         lett="";
+       lessonScores=new ArrayList<childUnitInfo>();
+       testScore=new ArrayList<childUnitInfo>();
+
         final String lessonh="";
         final Intent educatorHome=new Intent(this,educator_home.class);
         final Intent changePassword =new Intent(this, change_password.class );
@@ -103,7 +110,7 @@ public class ChildProgress extends menu_educator {
          viewChildProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                 Intent childProfile =new Intent(ChildProgress.this, child_profile.class );
+                Intent childProfile =new Intent(ChildProgress.this, child_profile.class );
                 childProfile.putExtra("childID",childID);
                 setResult(RESULT_OK, childProfile);
                 startActivity(childProfile);
@@ -115,6 +122,18 @@ public class ChildProgress extends menu_educator {
             @Override
             public void onClick(View v) {
                 startActivity(changePassword);
+
+            }
+        });
+        child.ref.child("Children").child(childID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+             name=dataSnapshot.getValue(String.class);
+                m.title.setText(name + " ");
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
             }
         });
@@ -160,14 +179,19 @@ public class ChildProgress extends menu_educator {
                                                     }
                                                     if(ilessonScore>=ihighestLessonScore){
                                                         ihighestLessonScore=ilessonScore;
-                                                        sHighstScoreLesson=lett;
+                                                        lessonScores.add(new childUnitInfo(ilessonScore,lett));
+                                                        //sHighstScoreLesson=lett;
                                                     }
                                                     if (dTime<=dleastTime){
                                                         dleastTime=dTime;
                                                         sLeastTime=lett;
-
-
                                                     }
+                                                    for(childUnitInfo child: lessonScores){
+                                                        if(ihighestLessonScore==child.score){
+                                                            sHighstScoreLesson+=child.letters+" ";
+                                                        }
+                                                    }
+
 
                                                     nTimer.setText(dleastTime+" "+(dleastTime<1?"/ s":"/ m"));
                                                     highestScoreLesson.setText(ihighestLessonScore+" /7");
@@ -250,13 +274,18 @@ public class ChildProgress extends menu_educator {
                                                         Log.i("score",iTestScore+ " ");
                                                         Log.i("score",ihighestLessonScore+ " ");
                                                         ihighestScore=iTestScore;
-                                                        sHighstScoreTest=lettTest+" ";
+                                                       // sHighstScoreTest=lettTest+" ";
                                                      }
+                                                    lessonScores.add(new childUnitInfo(iTestScore,lettTest));
 
                                                     Log.i("score3",ihighestScore+ " ");
-
+                                                    for(childUnitInfo child: testScore){
+                                                        if(ihighestScore==child.score){
+                                                            sHighstScoreTest+=child.letters+" ";
+                                                        }
+                                                    }
                                                     highestScoreTest.setText(ihighestScore+" /10");
-                                                    testName.setText(sHighstScoreTest.replace("_","،")+"");
+                                                    testName.setText(sHighstScoreTest.replace("_","،")+" .");
 
                                                 }
 

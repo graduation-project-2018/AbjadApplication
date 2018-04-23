@@ -13,6 +13,11 @@ public class childUnitInfo {
         return next2lesson;
     }
 
+    public childUnitInfo(int score, String letters) {
+        this.score = score;
+        this.letters = letters;
+    }
+
     public void setNext2lesson(Button next2lesson) {
         this.next2lesson = next2lesson;
     }

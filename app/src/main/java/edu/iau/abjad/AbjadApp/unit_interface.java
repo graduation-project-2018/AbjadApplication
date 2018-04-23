@@ -245,7 +245,6 @@ public class unit_interface extends child_menu {
                     Log.i("putExtra",lesson1.getText().toString());
                     lessonIntent.putExtra("Lessonltr",lessonsInfo.get(0).getLesson().getText().toString());
                     Log.i("Lesson1",lesson1.isClickable()+" ");
-
                 }
                 else if (view.getId() == R.id.lesson2) {
                     lessonIntent.putExtra("Lessonltr",lessonsInfo.get(1).getLesson().getText().toString());
@@ -319,10 +318,8 @@ public class unit_interface extends child_menu {
         lesson1.setOnClickListener(v);
         Log.i("Hi",lesson6.isInTouchMode()+" Jojo");
         Log.i("Lesson1",lesson1.isClickable()+" ");
-
         unedatble();
         Log.i("Lesson1",lesson1.isClickable()+" ");
-
 
         unitConnicetion.ref.child("Units").child(unitID).child("unit letters").addValueEventListener(new ValueEventListener() {
             @Override
