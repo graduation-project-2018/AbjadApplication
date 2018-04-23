@@ -201,6 +201,7 @@ public class child_menu extends AppCompatActivity {
                                             else if(i==3){
                                                 popUpDelete();
                                                 dialog.dismiss();
+                                                dialog.cancel();
                                             }
                                             else {
                                                 Intent intent = new Intent(child_menu.this, child_change_password.class);
