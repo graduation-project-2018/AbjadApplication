@@ -173,64 +173,76 @@ public class child_menu extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 edu_email = email.getText().toString();
+                try {
+                    read = r.ref.child("Children").child(Signin.id_child).child("educator_id");
+                    read.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.exists()) {
 
-                read = r.ref.child("Children").child(Signin.id_child).child("educator_id");
-                read.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                id = dataSnapshot.getValue().toString();
+                                System.out.println("الرقم" + id);
 
-                           id = dataSnapshot.getValue().toString();
-                            System.out.println("الرقم"+ id);
+                                Query query = r.ref.child("Educators").orderByKey().equalTo(id);
+                                query.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        if (dataSnapshot.exists()) {
+                                            System.out.println("لقاه");
+                                            for (DataSnapshot e : dataSnapshot.getChildren()) {
+                                                String em = e.child("email").getValue().toString();
 
-                        Query query = r.ref.child("Educators").orderByKey().equalTo(id);
-                        query.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                if(dataSnapshot.exists()){
-                                    System.out.println("لقاه");
-                                    for(DataSnapshot e: dataSnapshot.getChildren()){
-                                        String em = e.child("email").getValue().toString();
+                                                if (em.equals(edu_email)) {
+                                                    if (i == 2) {
+                                                        Intent intent = new Intent(child_menu.this, report_problem.class);
+                                                        intent.putExtra("email", edu_email);
+                                                        startActivity(intent);
 
-                                        if(em.equals(edu_email)){
-                                            if(i == 2){
-                                                Intent intent = new Intent(child_menu.this, report_problem.class);
-                                                intent.putExtra("email", edu_email);
-                                                startActivity(intent);
+                                                    } else if (i == 3) {
+                                                        popUpDelete();
+                                                        return;
 
+                                                    } else {
+                                                        Intent intent = new Intent(child_menu.this, child_change_password.class);
+                                                        startActivity(intent);
+                                                    }
+
+                                                } else {
+                                                    email.setError("الرجاء إدخال البريد الإلكتروني الذي قمت بالتسجيل به مسبقا");
+                                                    email.requestFocus();
+                                                }
                                             }
-                                            else if(i==3){
-                                                popUpDelete();
-                                                dialog.dismiss();
-                                                dialog.cancel();
-                                            }
-                                            else {
-                                                Intent intent = new Intent(child_menu.this, child_change_password.class);
-                                                startActivity(intent);
-                                            }
-
-                                        }
-                                        else{
-                                            email.setError("الرجاء إدخال البريد الإلكتروني الذي قمت بالتسجيل به مسبقا");
-                                            email.requestFocus();
                                         }
                                     }
-                                }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
+
+                            } else {
+                                Intent usr = new Intent(child_menu.this, userTypeSelection.class);
+                                startActivity(usr);
+                                finish();
+                                Toast.makeText(child_menu.this, "تم حذف الطفل بنجاح", Toast.LENGTH_LONG).show();
+
                             }
+                            
+                        }
 
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
 
-                            }
-                        });
 
-                    }
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
+                        }
+                    });
+                }catch (Exception e){
+                    System.out.println("كاتش");
+                }
             }
         });
+
         dialog.show();
            close_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -326,6 +338,10 @@ public class child_menu extends AppCompatActivity {
                                         };child_eduhome.addValueEventListener(eventListenerhome);
 
                                     }
+                                    Intent usr=new Intent(child_menu.this,userTypeSelection.class);
+                                    startActivity(usr);
+                                    finish();
+                                    Toast.makeText(child_menu.this,"تم حذف الطفل بنجاح",Toast.LENGTH_LONG).show();
                                 }
 
                                 @Override
@@ -334,10 +350,7 @@ public class child_menu extends AppCompatActivity {
                                 }
                             });
 
-                            Intent usr=new Intent(child_menu.this,userTypeSelection.class);
-                            startActivity(usr);
-                            finish();
-                            Toast.makeText(child_menu.this,"تم حذف الطفل بنجاح",Toast.LENGTH_LONG).show();
+
                         } else {
                             Log.e("Error","deletion");
                         }
