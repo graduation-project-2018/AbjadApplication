@@ -29,7 +29,15 @@
         </activity>
         <activity
             android:name=".educator_home"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
         <activity
             android:name=".TrueFalseTest"
             android:screenOrientation="landscape" >
@@ -56,11 +64,6 @@
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden|adjustResize|adjustPan">
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
         </activity>
         <activity
