@@ -153,7 +153,7 @@ public class educator_profile extends menu_educator {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                                   oldLname = dataSnapshot.child("last_name").getValue().toString();
+                                    oldLname = dataSnapshot.child("last_name").getValue().toString();
                                     oldFname = dataSnapshot.child("first_name").getValue().toString();
                                     oldEmail = dataSnapshot.child("email").getValue().toString();
 
