@@ -39,6 +39,7 @@ public class educator_home extends menu_educator {
    ImageView child_img;
    int counter = 0;
    DatabaseReference db;
+    DatabaseReference db2;
    TextView label;
     String childID;
     String child_ID;
@@ -64,56 +65,78 @@ public class educator_home extends menu_educator {
         first_time = true;
 
         label = (TextView) findViewById(R.id.NoChildren);
-     db = FirebaseDatabase.getInstance().getReference().child("educator_home").child("educator1");
- /* db.addValueEventListener(new ValueEventListener() {
-      @Override
-      public void onDataChange(DataSnapshot dataSnapshot) {
-          fetch_children(dataSnapshot, ((int) dataSnapshot.getChildrenCount()));
-      }
 
-      @Override
-      public void onCancelled(DatabaseError databaseError) {
 
-      }
-  });*/
-     db.addChildEventListener(new ChildEventListener() {
-         @Override
-         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-             Toast.makeText(educator_home.this,"added", Toast.LENGTH_LONG).show();
+        db = FirebaseDatabase.getInstance().getReference().child("educator_home").child("i6ywh35HrgdyjDe9lh98BGcutpY2");
+        db.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+              //  Toast.makeText(educator_home.this,"added", Toast.LENGTH_LONG).show();
 
-             fetch_children(dataSnapshot, ((int) dataSnapshot.getChildrenCount()));
+                fetch_children(dataSnapshot, ((int) dataSnapshot.getChildrenCount()));
 
-         }
+            }
 
-         @Override
-         public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-             Toast.makeText(educator_home.this,"changed", Toast.LENGTH_LONG).show();
-           //  children.clear();
-           //  child_changed(dataSnapshot);
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                db2 = FirebaseDatabase.getInstance().getReference().child("educator_home").child("i6ywh35HrgdyjDe9lh98BGcutpY2");
+                db2.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot d) {
+                        if(d.exists()){
+                            //children.clear();
+                            fetch_children(d,((int) d.getChildrenCount()));
+                        }
+                    }
 
-         }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
 
-         @Override
-         public void onChildRemoved(DataSnapshot dataSnapshot) {
-             Toast.makeText(educator_home.this,"removed", Toast.LENGTH_LONG).show();
-           //  children.clear();
-          // child_removed(dataSnapshot);
+                    }
+                });
 
-         }
+                Toast.makeText(educator_home.this,"changed", Toast.LENGTH_LONG).show();
+                //  children.clear();
+                //  child_changed(dataSnapshot);
 
-         @Override
-         public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-          //   children.clear();
-          //  fetch_children(dataSnapshot,((int) dataSnapshot.getChildrenCount()));
-             /////
+            }
 
-         }
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                Toast.makeText(educator_home.this,"removed", Toast.LENGTH_LONG).show();
+                db2 = FirebaseDatabase.getInstance().getReference().child("educator_home").child("i6ywh35HrgdyjDe9lh98BGcutpY2");
+                db2.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot d) {
+                        if(d.exists()){
+                           // children.clear();
+                            fetch_children(d,((int) d.getChildrenCount()));
+                        }
+                    }
 
-         @Override
-         public void onCancelled(DatabaseError databaseError) {
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
 
-         }
-     });//end of addChildEvent Listener
+                    }
+                });
+
+
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                //   children.clear();
+                //  fetch_children(dataSnapshot,((int) dataSnapshot.getChildrenCount()));
+                /////
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });//end of addChildEvent Listener
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,7 +148,7 @@ public class educator_home extends menu_educator {
         });//end of btn listener
 
     }//end of onCreate function
-    public void child_removed(DataSnapshot dataSnapshot){
+ /*   public void child_removed(DataSnapshot dataSnapshot){
         String  id = dataSnapshot.getKey();
         for(int i =0; i<children.size();i++){
 
@@ -155,8 +178,9 @@ public class educator_home extends menu_educator {
         gv.setAdapter(adapter);
 
 
-    }//end of child_Changed
+    }//end of child_Changed*/
 public void fetch_children(DataSnapshot dataSnapshot, int NumOfChildren){
+
 
     if(dataSnapshot.exists()){
 
@@ -183,3 +207,5 @@ public void fetch_children(DataSnapshot dataSnapshot, int NumOfChildren){
 
 }//end of fetch_children function
 }//en dof the class
+
+
