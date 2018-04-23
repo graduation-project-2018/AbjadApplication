@@ -40,7 +40,7 @@ public class adding_child  extends menu_educator {
     Button addBtn;
     childInformation child;
     Intent intent;
-boolean backFlag=false;
+    boolean backFlag=false;
     TextView genderError;
     ImageView genderErrorIcon;
 
