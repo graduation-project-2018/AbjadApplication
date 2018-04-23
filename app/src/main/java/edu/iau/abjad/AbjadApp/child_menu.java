@@ -17,6 +17,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -28,9 +29,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -103,8 +106,6 @@ public class child_menu extends AppCompatActivity {
                         if(Lesson.words_counter==6){
                             Lesson.computeChildScore();
                         }
-
-
                         popUp(3);
                         return true;
                     }
@@ -193,12 +194,12 @@ public class child_menu extends AppCompatActivity {
                                         if(em.equals(edu_email)){
                                             if(i == 2){
                                                 Intent intent = new Intent(child_menu.this, report_problem.class);
+                                                intent.putExtra("email", edu_email);
                                                 startActivity(intent);
 
                                             }
                                             else if(i==3){
                                                 popUpDelete();
-
                                                 dialog.dismiss();
                                             }
                                             else {
@@ -276,7 +277,71 @@ public class child_menu extends AppCompatActivity {
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //delete code
+                final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            r.ref.child("Children").child(Signin.id_child).removeValue().addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.e("NotFound",e.getMessage());
+                                }
+                            });
+
+                            r.ref.child("child_takes_lesson").child(Signin.id_child).removeValue().addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.e("NotFound",e.getMessage());
+                                }
+                            });
+                            r.ref.child("child_takes_test").child(Signin.id_child).removeValue().addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.e("NotFound",e.getMessage());
+                                }
+                            });
+                            r.ref.child("educator_home").addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    for (DataSnapshot s:dataSnapshot.getChildren()){
+                                        final String eduKey=s.getKey();
+                                        DatabaseReference child_eduhome=r.ref.child("educator_home").child(eduKey);
+                                        ValueEventListener eventListenerhome=new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                                for (DataSnapshot dataSnapshot2:dataSnapshot.getChildren()){
+                                                    String child_id=dataSnapshot2.getKey();
+                                                    if(child_id.equals(Signin.id_child)){
+                                                        r.ref.child("educator_home").child(eduKey).child(Signin.id_child).removeValue();
+                                                    }
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(DatabaseError databaseError) {
+
+                                            }
+                                        };child_eduhome.addValueEventListener(eventListenerhome);
+
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+
+                            Intent usr=new Intent(child_menu.this,userTypeSelection.class);
+                            startActivity(usr);
+                            finish();
+                            Toast.makeText(child_menu.this,"تم حذف الطفل بنجاح",Toast.LENGTH_LONG).show();
+                        } else {
+                            Log.e("Error","deletion");
+                        }
+                    }
+                });
             }
         });
 

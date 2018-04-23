@@ -180,7 +180,6 @@ startActivity(backEducatorHome);
 
 
     public void addChildInfo(){
-        //Make that you set the photo_URL in the child object
 
         r.ref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -189,7 +188,7 @@ startActivity(backEducatorHome);
                 r.ref.child("Children").child(child_ID).child("educator_id").setValue(SigninEducator.id_edu);
                 r.ref.child("educator_home").child(SigninEducator.id_edu).child(child_ID).child("photo_URL").setValue(photo_url);
                 r.ref.child("educator_home").child(SigninEducator.id_edu).child(child_ID).child("first_name").setValue(completeObj.first_name);
-                //educator ID need to  be changed
+
 
             }
             @Override

@@ -35,16 +35,17 @@ public class educator_profile extends menu_educator {
     TextView lastName;
     TextView email;
     Button saveBtn;
-    Intent intent;//ask about it
-    int errorCounts;
+    Intent intent;
+    Boolean foundErrors;
     String oldFname;
     String oldLname;
     String oldEmail;
-    Pattern ArabicLetters = Pattern.compile("^[أ-ي ]+$");
+    Pattern ArabicLetters = Pattern.compile("^[ءئ ؤ إآ ى لآ لأ  لإ أ-ي ]+$");
     String newEmail;
     Educator educator;
     FirebaseAuth Uath;
     FirebaseUser user;
+    boolean z;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,7 +66,7 @@ public class educator_profile extends menu_educator {
         lastName = (TextView)findViewById(R.id.lnTxt);
         email = (TextView)findViewById(R.id.emailTxt);
         saveBtn = (Button)findViewById(R.id.saveChangesBtn);
-        //intent ?????????
+
 
         getCurrentEducatorInfo();
         saveBtn.setOnClickListener(new View.OnClickListener(){
@@ -73,7 +74,7 @@ public class educator_profile extends menu_educator {
             public void onClick(View view){
 
                 checkInputs();
-                if (errorCounts == 0){
+                if ( foundErrors ==false){
                     editEducator();
 
                }
@@ -88,7 +89,7 @@ public class educator_profile extends menu_educator {
     private void checkInputs(){
 
 
-        errorCounts = 0;
+        foundErrors =false;
         checkFirstName();
         checkLastName();
         checkEmail();
@@ -100,12 +101,12 @@ public class educator_profile extends menu_educator {
 
         if (firstName.getText().toString().isEmpty()) {
             firstName.setError("قم بتعبئة الحقل بالإسم الأول للمربي");
-            errorCounts++;
+            foundErrors =true;
         }
         else if (!ArabicLetters.matcher(firstName.getText().toString()).matches()) {
             firstName.setError("قم بكتابة الإسم الأول باللغة العربية فقط");
 
-            errorCounts++;
+            foundErrors =true;
         }
 
     }//end of checkFirstName function
@@ -117,12 +118,12 @@ public class educator_profile extends menu_educator {
         if (lastName.getText().toString().isEmpty()) {
             lastName.setError("قم بتعبئة الحقل بلقب المربي");
 
-            errorCounts++;
+            foundErrors =true;
         }
         else if (!ArabicLetters.matcher(lastName.getText().toString()).matches()) {
             lastName.setError("قم بكتابة اللقب باللغة العربية فقط ");
 
-            errorCounts++;
+            foundErrors =true;
         }
 
     }//end of checkLastName function
@@ -132,13 +133,13 @@ public class educator_profile extends menu_educator {
 
            email.setError("قم بتعبئة الحقل بالبريد الإلكتروني");
 
-            errorCounts++;
+            foundErrors =true;
 
         } else if (!Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()) {
 
             email.setError("البريد الإلكتروني ليس على النمط someone@example.com ");
 
-            errorCounts++;
+            foundErrors =true;
 
         }
 
@@ -177,7 +178,7 @@ public class educator_profile extends menu_educator {
 
     public void editEducator(){
 
-        newEmail = email.getText().toString();
+        newEmail = email.getText().toString().trim();
         final String newFname = firstName.getText().toString();
         final String newLname = lastName.getText().toString();
 
@@ -188,11 +189,18 @@ public class educator_profile extends menu_educator {
 
                 if (!newEmail.equals(oldEmail))
                 {
-                    updateEmail();
-                }
-                educator = new Educator(newEmail,newFname,newLname);
-                r.ref.child("Educators").child(SigninEducator.id_edu).setValue(educator);
-                Toast.makeText(educator_profile.this, " تم حفظ التغييرات بنجاح", Toast.LENGTH_LONG).show();
+                  boolean x =  updateEmail();
+
+                  if(x==true){
+                      educator = new Educator(newEmail,newFname,newLname);
+                      r.ref.child("Educators").child(SigninEducator.id_edu).setValue(educator);
+                      Toast.makeText(educator_profile.this, " تم حفظ التغييرات بنجاح", Toast.LENGTH_LONG).show();
+                      Intent intent = new Intent(educator_profile.this, educator_home.class);
+                      startActivity(intent);
+
+                  }//end of nested if
+                }//end of outer if
+
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -203,7 +211,7 @@ public class educator_profile extends menu_educator {
 
 
     }//end of editEducator function
-    public void updateEmail(){
+    public boolean updateEmail(){
 
                     user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -213,11 +221,14 @@ public class educator_profile extends menu_educator {
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (!task.isSuccessful()) {
                                         Toast.makeText(educator_profile.this,"حدث خطأ خلال تغيير البريد الإلكتروني الرجاء المحاولة لاحقا", Toast.LENGTH_LONG).show();
+                                       z = false;
                                     }
+                                    else
+                                        z =true;
                                 }
                             });
 
-
+       return z;
 
 
 
