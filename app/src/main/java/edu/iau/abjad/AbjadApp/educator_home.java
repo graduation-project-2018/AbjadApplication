@@ -105,6 +105,7 @@ public class educator_home extends menu_educator {
          public void onChildMoved(DataSnapshot dataSnapshot, String s) {
           //   children.clear();
           //  fetch_children(dataSnapshot,((int) dataSnapshot.getChildrenCount()));
+             /////
 
          }
 
