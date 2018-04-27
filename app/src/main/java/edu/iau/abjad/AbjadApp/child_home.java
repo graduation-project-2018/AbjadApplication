@@ -65,7 +65,6 @@ public class child_home extends child_menu {
             @Override
             public void onClick(View view) {
                 String unitId = "unit3";
-                intentOfUnit.putExtra("id",unitId);
                 intentOfUnit.putExtra("Unitname","مدينتي");
                 intentOfUnit.putExtra("preIntent","childHome");
                 setResult(RESULT_OK,intentOfUnit);

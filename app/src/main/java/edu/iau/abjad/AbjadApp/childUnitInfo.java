@@ -8,20 +8,6 @@ public class childUnitInfo {
     int score;
     Button Lesson;
     Button nextLesson;
-
-    public Button getNext2lesson() {
-        return next2lesson;
-    }
-
-    public childUnitInfo(int score, String letters) {
-        this.score = score;
-        this.letters = letters;
-    }
-
-    public void setNext2lesson(Button next2lesson) {
-        this.next2lesson = next2lesson;
-    }
-
     Button next2lesson;
     ImageView Lock,Stars;
     String letters,lessonId;
@@ -32,6 +18,18 @@ public class childUnitInfo {
         Stars = stars;
         Lesson = lesson;
         this.letters = letters;
+    }
+
+    public childUnitInfo(int score, String letters) {
+        this.score = score;
+        this.letters = letters;
+    }
+
+    public Button getNext2lesson() {
+        return next2lesson;
+    }
+    public void setNext2lesson(Button next2lesson) {
+        this.next2lesson = next2lesson;
     }
 
     public Button getNextLesson() {
@@ -90,7 +88,5 @@ public class childUnitInfo {
         this.letters = letters;
     }
 
-    public childUnitInfo() {
 
-    }
 }

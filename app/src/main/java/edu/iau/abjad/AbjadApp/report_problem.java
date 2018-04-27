@@ -86,6 +86,7 @@ public class report_problem extends child_menu {
         ImgNameTextView= findViewById(R.id.imgname);
         rg= findViewById(R.id.radioButtonsGroup);
         dataMap=new HashMap<String, String>();
+        dis="-";
         moreDetails=findViewById(R.id.moredetails);
         mProgressDialog=new ProgressDialog(this);
         //firbase storge refrance
@@ -183,6 +184,7 @@ public class report_problem extends child_menu {
                 }
                 Log.i("sesee",imgNAmeS+" hi");
                 if (imgNAmeS.length()!=0){
+                   // onCliked=true;
                 }
             }
             else{
