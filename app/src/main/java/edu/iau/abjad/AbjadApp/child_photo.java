@@ -153,6 +153,7 @@ public class child_photo  extends menu_educator {
         });
         //load();
     }
+
     private void addChild(){
 
      auth.createUserWithEmailAndPassword(completeObj.email,pass).addOnCompleteListener(this,
@@ -164,13 +165,13 @@ public class child_photo  extends menu_educator {
                             child_ID= auth.getCurrentUser().getUid();
                             addChildInfo();
                             auth.getInstance().signOut();
-finish();
-startActivity(backEducatorHome);
+                            finish();
+                            startActivity(backEducatorHome);
                         }
 
                         else{
 
-
+                            Toast.makeText(child_photo.this, "لم تتم إضافة الطفل , الرجاء المحاولة لاحقا", Toast.LENGTH_LONG).show();
                         }
                     }
                 });
@@ -181,21 +182,11 @@ startActivity(backEducatorHome);
 
     public void addChildInfo(){
 
-        r.ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+
                 r.ref.child("Children").child(child_ID).setValue(completeObj);
                 r.ref.child("Children").child(child_ID).child("educator_id").setValue(SigninEducator.id_edu);
                 r.ref.child("educator_home").child(SigninEducator.id_edu).child(child_ID).child("photo_URL").setValue(photo_url);
                 r.ref.child("educator_home").child(SigninEducator.id_edu).child(child_ID).child("first_name").setValue(completeObj.first_name);
-
-
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
 
 
 

@@ -181,33 +181,23 @@ public class educator_profile extends menu_educator {
         newEmail = email.getText().toString().trim();
         final String newFname = firstName.getText().toString();
         final String newLname = lastName.getText().toString();
-
-        r.ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-
+        r.ref.child("Educators").child(SigninEducator.id_edu).child("first_name").setValue(newFname);
+        r.ref.child("Educators").child(SigninEducator.id_edu).child("last_name").setValue(newLname);
                 if (!newEmail.equals(oldEmail))
                 {
                   boolean x =  updateEmail();
 
                   if(x==true){
-                      educator = new Educator(newEmail,newFname,newLname);
-                      r.ref.child("Educators").child(SigninEducator.id_edu).setValue(educator);
-                      Toast.makeText(educator_profile.this, " تم حفظ التغييرات بنجاح", Toast.LENGTH_LONG).show();
-                      Intent intent = new Intent(educator_profile.this, educator_home.class);
-                      startActivity(intent);
+
+                      r.ref.child("Educators").child(SigninEducator.id_edu).child("email").setValue(newEmail);
 
                   }//end of nested if
                 }//end of outer if
 
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
 
-            }
-        });
-
+        Toast.makeText(educator_profile.this, " تم حفظ التغييرات بنجاح", Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(educator_profile.this, educator_home.class);
+        startActivity(intent);
 
 
     }//end of editEducator function

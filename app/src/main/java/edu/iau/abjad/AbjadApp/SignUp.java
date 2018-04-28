@@ -128,7 +128,7 @@ public class SignUp extends AppCompatActivity {
                         if(task.isSuccessful()) {
                             Toast.makeText(SignUp.this, "تمت إضافة حساب المربي بنجاح", Toast.LENGTH_LONG).show();
                             educatorID= mAuth.getCurrentUser().getUid();
-                            //    SigninEducator.id_edu = mAuth.getCurrentUser().getUid();
+                            SigninEducator.id_edu =  educatorID;
                             educator = new Educator(Email.getText().toString().trim(),FN.getText().toString(),LN.getText().toString());
 
 
