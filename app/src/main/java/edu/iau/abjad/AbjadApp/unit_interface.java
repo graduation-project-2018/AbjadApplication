@@ -96,8 +96,10 @@ public class unit_interface extends child_menu {
         bal1=findViewById(R.id.ballon1);
         bal2=findViewById(R.id.ballon2);
         bal3=findViewById(R.id.ballon3);
+
         Bundle child=getIntent().getExtras();
         m.title.setText(child.getString("Unitname"));
+
         testInfo=new ArrayList<childUnitInfo>();
         matchingTest_Intent=  new Intent(this, MatchingTest.class );
         readingTest_Intent=   new Intent(this, ReadingTest.class );

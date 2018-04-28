@@ -15,14 +15,15 @@ public class userTypeSelection extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_type_selection);
-        final Intent intentOfChild=new Intent(this, Signin.class );
-        final Intent intentOfEdu=new Intent(this, SigninEducator.class );
+        final Intent intentOfChild=new Intent(getApplicationContext(), Signin.class );
+        final Intent intentOfEdu=new Intent(getApplicationContext(), SigninEducator.class );
 
         ImageView ChildIcon = (ImageView) findViewById(R.id.child_btn);
         ImageView EduIcon = (ImageView) findViewById(R.id.educator_Btn);
         ChildIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                finish();
                 startActivity(intentOfChild);
             }
         });

@@ -61,7 +61,6 @@ public class child_menu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_child_menu);
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-
         myDrawerLayout=(DrawerLayout) findViewById(R.id.drawer_layout_child);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         myToggle= new ActionBarDrawerToggle(this,myDrawerLayout,R.string.navigation_drawer_open,R.string.navigation_drawer_close);

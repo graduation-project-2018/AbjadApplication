@@ -78,6 +78,7 @@ public class splash_screen extends AppCompatActivity {
         super.onDestroy();
         try{
             splash_audio.release();
+            anim.stop();
             System.out.println("onDestroy function");
 
         }catch (Exception e){
@@ -93,6 +94,8 @@ public class splash_screen extends AppCompatActivity {
         try{
 
             splash_audio.release();
+            anim.stop();
+
             System.out.println("onStop function");
         }catch (Exception e){
             System.err.println("Unable to stop activity");

@@ -49,7 +49,7 @@ public class educator_home extends menu_educator {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_educator_home);
+
 
         m.title = (TextView) findViewById(R.id.interface_title);
         m.title.setText("الرئيسية");
@@ -67,7 +67,7 @@ public class educator_home extends menu_educator {
         label = (TextView) findViewById(R.id.NoChildren);
 
 
-        db = FirebaseDatabase.getInstance().getReference().child("educator_home").child("i6ywh35HrgdyjDe9lh98BGcutpY2");
+        db = FirebaseDatabase.getInstance().getReference().child("educator_home").child(SigninEducator.id_edu);
         db.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -79,7 +79,7 @@ public class educator_home extends menu_educator {
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                db2 = FirebaseDatabase.getInstance().getReference().child("educator_home").child("i6ywh35HrgdyjDe9lh98BGcutpY2");
+                db2 = FirebaseDatabase.getInstance().getReference().child("educator_home").child(SigninEducator.id_edu);
                 db2.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot d) {

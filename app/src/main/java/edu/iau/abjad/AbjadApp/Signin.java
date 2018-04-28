@@ -5,6 +5,8 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputConnection;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -53,7 +55,7 @@ public class Signin extends AppCompatActivity  implements View.OnClickListener{
         // back=findViewById(R.id.back);
         Wuser=(ImageView) findViewById(R.id.Wuser);
         Wpas=(ImageView) findViewById(R.id.Wpas);
-        Itn =new Intent(this,child_home.class);
+        Itn =new Intent(Signin.this,child_home.class);
         //adding listeners to the buttons:
         findViewById(R.id.submit_btn_reset).setOnClickListener(this);
         findViewById(R.id.back).setOnClickListener(this);
@@ -116,7 +118,6 @@ public class Signin extends AppCompatActivity  implements View.OnClickListener{
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 if(dataSnapshot.exists()){
-                                    finish();
                                     startActivity(Itn);
                                 }
                                 else{
@@ -140,7 +141,7 @@ public class Signin extends AppCompatActivity  implements View.OnClickListener{
                     else
                     {
                         if(task.getException().getMessage().startsWith("The email address is badly formatted")){
-                            ChildUsername.setError("الرجاء كتابة البريد الإلكتروني بشكل صحيح");
+                            ChildUsername.setError("الرجاء كتابة البريد الإلكتروني كالتالي someone@example.com ");
                             ChildUsername.requestFocus();
                             Wuser.setVisibility(VISIBLE);
 
@@ -186,4 +187,6 @@ public class Signin extends AppCompatActivity  implements View.OnClickListener{
                 break;
         }
     }
+
+
 }

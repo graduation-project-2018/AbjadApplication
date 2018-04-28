@@ -133,8 +133,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot letter : dataSnapshot.getChildren()) {
-                         lessonID = letter.getKey();
-                    }
+                         lessonID = letter.getKey();}
                     if(lessonID != null){
                         DatabaseReference read_words = r.ref.child("Lessons").child(lessonID).child("Words");
                         read_words.addValueEventListener(new ValueEventListener() {
@@ -147,6 +146,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                                     String pic = word_ls.child("pic_file").getValue().toString();
 
                                     lesson_words obj = new lesson_words(content, audio, pic,0);
+                                    // Add to the arrayList
                                     wordsArrayList.add(obj);
                                     word = wordsArrayList.get(words_counter).content;
 
@@ -301,7 +301,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
         });
 
 
-      //******* Starting speech recognition code ********
+      // ******* Starting speech recognition code ********
             mic_btn = (Button) findViewById(R.id.mic_btn);
             mSpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(this); //takes context as a parameter.
 
@@ -310,7 +310,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
             mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                     RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
 
-            //set the language that we want to listen for.
+            //set the language that we want to listen for (Arabic)
             mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "ar-SA");
 
             mSpeechRecognizer.setRecognitionListener(new RecognitionListener() {
@@ -387,7 +387,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                 @Override
                 public void onResults(Bundle bundle) {
                     int word_length = word.length();
-                    boolean found = false, found_with_repetion=false;
+                    boolean found = false, found_with_repetition=false;
                     System.out.println("Word is: "+ word);
 
                     // matches contains many results but we will display the best one and it useually the first one.
@@ -417,19 +417,15 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                                     if(duplicates[j].compareTo(word)==0){
                                         System.out.println("النطق صحيح مع التكرار");
                                         fullScore();
-                                        found_with_repetion = true;
+                                        found_with_repetition = true;
+                                        break;}
+                                }}
+                            if(found_with_repetition)
+                                break;}}
 
-                                        break;
-                                    }
-                                }
-                            }
-                            if(found_with_repetion)
-                                break;
-                        }
-                    }
 
                     try{
-                        if(found == false && found_with_repetion == false){
+                        if(found == false && found_with_repetition == false){
 
                             double max_match =0, returnValue=0;
                             int globalCost =0;
@@ -588,6 +584,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
     public void check_alef(){
         if(word.indexOf('أ')!= -1){
             word = word.replace('أ','ا');
+            word = word.replace('آ','ا');
         }
 
     }
@@ -631,11 +628,9 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                                    }
                                    if(currentScore<sum){
                                        r.ref.child("child_takes_lesson").child(Signin.id_child).child(unit_interface.unitID).child(lessonID).child("score").setValue(sum);
-                                   }
-                                   if(Double.valueOf(childTime)>Double.valueOf(acTime)){
                                        r.ref.child("child_takes_lesson").child(Signin.id_child).child(unit_interface.unitID).child(lessonID).child("time").setValue(acTime);
-                                   }
 
+                                   }
                                    if(incomplete==false && status != "مكتمل"){
                                        r.ref.child("child_takes_lesson").child(Signin.id_child).child(unit_interface.unitID).child(lessonID).child("status").setValue("مكتمل");
                                    }
@@ -704,10 +699,10 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
     }
 
     public void listen_word_feedback(int globalCost, int word_length, double max_match){
+
         if(word.equals("لعبت")){
             if(choosenPhrase.startsWith("لعب")){
                 fullScore();
-                System.out.println("دخل في لعب");
                 return;
             }
         }
@@ -739,7 +734,6 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
             score_img.setVisibility(View.VISIBLE);
             score_img.setImageResource(R.drawable.one);
             child_score = 1;
-
         }
         else if(globalCost == 1 && word_length>3){
             child_score =6;
@@ -785,7 +779,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
 
         }
         if( word.equals("ذهب مهند ليغسل يديه")){
-            if(choosenPhrase.startsWith("") && choosenPhrase.endsWith("يغسل يديه")){
+            if(choosenPhrase.startsWith("ذهب مهند") && choosenPhrase.endsWith("يغسل يديه")){
              fullScore();
              return;
             }
@@ -810,7 +804,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
         }
 
         if(globalCost==1){
-       fullScore();
+         fullScore();
         }
 
         else if(max_match>=0.89){
@@ -888,9 +882,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
 
         });
         flag2 = true;
-
     }
-
     public void fullScore(){
         child_score=7;
         abjad.setBackgroundResource(R.drawable.abjad_happy);

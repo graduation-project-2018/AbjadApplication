@@ -122,7 +122,7 @@ public class SigninEducator extends AppCompatActivity  implements View.OnClickLi
                             else {
 
                                 if(task.getException().getMessage().startsWith("The email address is badly formatted")){
-                                    Email.setError("الرجاء كتابة البريد الإلكتروني بشكل صحيح");
+                                    Email.setError("الرجاء كتابة البريد الإلكتروني كالتالي someone@example.com ");
                                    Email.requestFocus();
                                     Wuser.setVisibility(VISIBLE);
 

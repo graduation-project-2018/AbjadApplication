@@ -127,8 +127,8 @@ public class SignUp extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()) {
                             Toast.makeText(SignUp.this, "تمت إضافة حساب المربي بنجاح", Toast.LENGTH_LONG).show();
-                            educatorID= mAuth.getCurrentUser().getUid();
-                            //    SigninEducator.id_edu = mAuth.getCurrentUser().getUid();
+                            //educatorID= mAuth.getCurrentUser().getUid();
+                            SigninEducator.id_edu = mAuth.getCurrentUser().getUid();
                             educator = new Educator(Email.getText().toString().trim(),FN.getText().toString(),LN.getText().toString());
 
 
@@ -137,7 +137,7 @@ public class SignUp extends AppCompatActivity {
                             r.ref.addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
-                                    r.ref.child("Educators").child( educatorID).setValue(educator);
+                                    r.ref.child("Educators").child(SigninEducator.id_edu).setValue(educator);
                                 }@Override
                                 public void onCancelled(DatabaseError databaseError) {
 

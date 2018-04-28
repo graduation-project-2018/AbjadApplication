@@ -19,10 +19,11 @@ public class child_home extends child_menu {
     menu_variables m = new menu_variables();
      Intent intentOfUnit;
      Button family , homeLand, school;
-     child_profile obj;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+
+            super.onCreate(savedInstanceState);
 
         m.title = (TextView) findViewById(R.id.interface_title);
         m.title.setText("الرئيسية");
@@ -55,7 +56,6 @@ public class child_home extends child_menu {
                 String unitId = "unit1";
                 intentOfUnit.putExtra("id",unitId);
                 intentOfUnit.putExtra("Unitname","أسرتي");
-                intentOfUnit.putExtra("Unitname","اسرتي");
                 intentOfUnit.putExtra("preIntent","childHome");
                 setResult(RESULT_OK,intentOfUnit);
                 startActivity(intentOfUnit);
