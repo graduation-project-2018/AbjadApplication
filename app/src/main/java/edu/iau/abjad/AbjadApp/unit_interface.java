@@ -1,6 +1,7 @@
 package edu.iau.abjad.AbjadApp;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -61,6 +62,7 @@ public class unit_interface extends child_menu {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         m.title = findViewById(R.id.interface_title);
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         //inflate your activity layout here!
@@ -97,8 +99,10 @@ public class unit_interface extends child_menu {
         bal1=findViewById(R.id.ballon1);
         bal2=findViewById(R.id.ballon2);
         bal3=findViewById(R.id.ballon3);
+
         Bundle child=getIntent().getExtras();
         m.title.setText(child.getString("Unitname"));
+
         testInfo=new ArrayList<childUnitInfo>();
         matchingTest_Intent=  new Intent(this, MatchingTest.class );
         readingTest_Intent=   new Intent(this, ReadingTest.class );

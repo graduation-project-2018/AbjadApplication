@@ -2,6 +2,7 @@ package edu.iau.abjad.AbjadApp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -53,6 +54,7 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         m.title = (TextView) findViewById(R.id.interface_title);
         m.title.setText("اختبار صح أم خطأ");
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -109,6 +111,7 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
 
         Test_letter=unit_interface.test_letter;
 
+  System.out.println("Test letter: "+ Test_letter);
         //Alaa
         r.ref.child("Tests").addValueEventListener(new ValueEventListener() {
             @Override

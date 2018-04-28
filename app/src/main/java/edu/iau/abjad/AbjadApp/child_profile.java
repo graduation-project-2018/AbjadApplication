@@ -2,6 +2,7 @@ package edu.iau.abjad.AbjadApp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Patterns;
@@ -26,7 +27,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.regex.Pattern;
 
-public class child_profile extends menu_educator {
+public class child_profile extends child_menu {
 
 
     menu_variables m = new menu_variables();
@@ -48,6 +49,7 @@ public class child_profile extends menu_educator {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
         m.title = (TextView) findViewById(R.id.interface_title);
         m.title.setText("الملف الشخصي للطفل");
@@ -57,7 +59,7 @@ public class child_profile extends menu_educator {
         //inflate your activity layout here!
         View contentView = inflater.inflate(R.layout.activity_child_profile, null, false);
 
-        mDrawerLayout.addView(contentView, 0);
+        myDrawerLayout.addView(contentView, 0);
         Email = (EditText) findViewById(R.id.emailTxt);
         FNChild = (EditText) findViewById(R.id.fnameTxt);
         LNChild = (EditText) findViewById(R.id.lnameTxt);
