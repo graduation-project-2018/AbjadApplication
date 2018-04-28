@@ -731,8 +731,7 @@ public class unit_interface extends child_menu {
             System.out.println("End time: "+ EndTime);
             double time = EndTime - startTime;
             time = (time/1000)/60;
-            actual_time =new DecimalFormat("##.##").format(time);
-
+            actual_time = new DecimalFormat("##.##").format(time);
             finalScore= ReadingTest.reading_child_score+
                     HeardWordTest.final_heard_child_score+
                     TrueFalseTest.true_false_test_score + MatchingTest.score;
