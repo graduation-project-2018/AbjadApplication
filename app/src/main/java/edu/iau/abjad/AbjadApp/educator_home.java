@@ -44,12 +44,12 @@ public class educator_home extends menu_educator {
     String childID;
     String child_ID;
     int i =0 ;
-    Boolean first_time;
+    Boolean first_time = true;
     children child = new children();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       // setContentView(R.layout.activity_educator_home);
+
 
         m.title = (TextView) findViewById(R.id.interface_title);
         m.title.setText("الرئيسية");
@@ -66,7 +66,7 @@ public class educator_home extends menu_educator {
         first_time = true;
         label = (TextView) findViewById(R.id.NoChildren);
         db = FirebaseDatabase.getInstance().getReference().child("educator_home").child(SigninEducator.id_edu);
-        db.addValueEventListener(new ValueEventListener() {
+        db.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(!dataSnapshot.exists()){
@@ -74,8 +74,8 @@ public class educator_home extends menu_educator {
                     label.setVisibility(View.VISIBLE);
                 }
                 else{
-
-                    children_Events();}
+                    children_Events();
+                }
             }
 
             @Override
@@ -133,7 +133,7 @@ public void children_Events(){
 
         @Override
         public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-            fetch_children(dataSnapshot,((int) dataSnapshot.getChildrenCount()));
+
 
         }
 
