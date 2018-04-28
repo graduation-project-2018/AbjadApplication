@@ -49,7 +49,7 @@ public class educator_home extends menu_educator {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_educator_home);
+       // setContentView(R.layout.activity_educator_home);
 
         m.title = (TextView) findViewById(R.id.interface_title);
         m.title.setText("الرئيسية");

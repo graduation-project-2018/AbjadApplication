@@ -159,12 +159,12 @@ public class ReadingTest extends child_menu {
                 for (final DataSnapshot snapshot: dataSnapshot.getChildren()){
                     final String key=snapshot.getKey();
                     Log.i("KeyTest",key);
-                    DatabaseReference getCurrentTestId=testIdq2.ref.child("Tests").child("test_letters");
+                    DatabaseReference getCurrentTestId=testIdq2.ref.child("Tests").child(key).child("test_letters");
                     ValueEventListener CurrIDEvent=new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             if(key!=null){
-                            String lettr=snapshot.child("test_letters").getValue().toString();
+                            String lettr=snapshot.child(key).child("test_letters").getValue().toString();
                             Log.i("w2w2",lettr);
                             if(lettr.equals(Test_letter)){
                             test_id=key;

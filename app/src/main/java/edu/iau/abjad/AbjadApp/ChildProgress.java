@@ -88,7 +88,7 @@ public class ChildProgress extends menu_educator {
          test=new firebase_connection();
          child = new firebase_connection();
          Bundle b=getIntent().getExtras();
-         childID="Tym2seBO6Cfl8yR5g44LtAAuvKH3";//b.getString("child_ID");//Signin.id_child;
+         childID=b.getString("child_ID");
          deleteChild_Children=new firebase_connection();
          deleteChild_edu=new firebase_connection();
          deleteChild_lesson=new firebase_connection();
