@@ -54,7 +54,7 @@ public class ChildProgress extends menu_educator {
     int icomplete=0;
     int ihighestScore=0,ihighestLessonScore=0;
     double dleastTime;
-    String  sTime, sLeastTime,sHighstScoreLesson,sHighstScoreTest,lett,lettTest;
+    String  sTime, sLeastTime,sHighstScoreLesson,sHighstScoreTest,lett,lettTest,lastName;
     double dTime;
     ArrayList <childUnitInfo> lessonScores;
     ArrayList <childUnitInfo> testScore;
@@ -101,6 +101,7 @@ public class ChildProgress extends menu_educator {
         lett="";
        lessonScores=new ArrayList<childUnitInfo>();
        testScore=new ArrayList<childUnitInfo>();
+        lastName="";
 
         final String lessonh="";
         final Intent educatorHome=new Intent(this,educator_home.class);
@@ -128,8 +129,9 @@ public class ChildProgress extends menu_educator {
         child.ref.child("Children").child(childID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-             name=dataSnapshot.getValue(String.class);
-                m.title.setText(name + " ");
+             name=dataSnapshot.child("first_name").getValue(String.class);
+             lastName=dataSnapshot.child("last_name").getValue(String.class);
+                m.title.setText(name +" "+ lastName);
 
             }
             @Override
@@ -187,7 +189,7 @@ public class ChildProgress extends menu_educator {
                                                         sLeastTime=lett;
                                                     }
                                                     for(childUnitInfo child: lessonScores){
-                                                        if(ihighestLessonScore==child.score){
+                                                        if(ihighestLessonScore==child.score && (!sHighstScoreLesson.contains(child.letters))){
                                                             sHighstScoreLesson+=child.letters+" ";
                                                         }
                                                     }
