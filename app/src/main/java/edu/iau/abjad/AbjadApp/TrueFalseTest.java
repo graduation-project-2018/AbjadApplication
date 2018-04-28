@@ -109,6 +109,7 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
 
         Test_letter=unit_interface.test_letter;
 
+  System.out.println("Test letter: "+ Test_letter);
         //Alaa
         r.ref.child("Tests").addValueEventListener(new ValueEventListener() {
             @Override
