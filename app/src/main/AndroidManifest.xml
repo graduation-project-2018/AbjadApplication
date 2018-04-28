@@ -90,12 +90,9 @@
         </activity>
 
         <activity android:name=".report_problem"
-            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan">
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+        </activity>
         <activity android:name=".SignUp"
             android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
         <activity android:name=".userTypeSelection" />

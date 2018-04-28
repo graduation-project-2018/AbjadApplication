@@ -62,7 +62,7 @@ public class educator_home extends menu_educator {
 
 
         label = (TextView) findViewById(R.id.NoChildren);
-     db = FirebaseDatabase.getInstance().getReference().child("educator_home").child(SigninEducator.id_edu);
+       db = FirebaseDatabase.getInstance().getReference().child("educator_home").child(SigninEducator.id_edu);
        db.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
