@@ -126,7 +126,7 @@
                     android:layout_gravity="right"
                     android:fontFamily="Arabic Typesetting"
                     android:padding="0dp"
-                    android:text="١٣"
+                    android:text="-"
                     android:textDirection="rtl"
                     android:textSize="20sp" />
             </TableRow>
@@ -153,7 +153,7 @@
                     android:layout_gravity="right"
                     android:fontFamily="Arabic Typesetting"
                     android:padding="0dp"
-                    android:text="٥"
+                    android:text="-"
                     android:textDirection="rtl"
                     android:textSize="24sp" />
             </TableRow>
@@ -174,7 +174,7 @@
                     android:id="@+id/nTimer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="٥ دقائق"
+                    android:text="-"
                     android:textAlignment="viewStart"
                     android:textSize="20sp" />
 
@@ -190,7 +190,7 @@
                     android:id="@+id/LessonNameTimer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="ل"
+                    android:text="-"
                     android:textSize="20sp" />
 
             </TableRow>
@@ -216,7 +216,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="Arabic Typesetting"
                     android:padding="0dp"
-                    android:text="٩/١٠"
+                    android:text="-"
                     android:textDirection="rtl"
                     android:textSize="20sp" />
 
@@ -236,7 +236,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="Arabic Typesetting"
                     android:padding="0dp"
-                    android:text="م "
+                    android:text="-"
                     android:textDirection="rtl"
                     android:textSize="24sp" />
 
@@ -259,7 +259,7 @@
                     android:id="@+id/nDoneTest"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text=" ٣"
+                    android:text="-"
                     android:textDirection="rtl"
                     android:textSize="24dp" />
 
@@ -282,7 +282,7 @@
                     android:id="@+id/highestScoreTest"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="١٠/١٠"
+                    android:text="-"
                     android:textSize="20dp" />
 
 
@@ -302,7 +302,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="Arabic Typesetting"
                     android:padding="0dp"
-                    android:text="م،ب"
+                    android:text="-"
                     android:textDirection="rtl"
                     android:textSize="20sp" />
 

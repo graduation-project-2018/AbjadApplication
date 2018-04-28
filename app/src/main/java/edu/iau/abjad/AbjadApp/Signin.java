@@ -115,7 +115,6 @@ public class Signin extends AppCompatActivity  implements View.OnClickListener{
                         Wuser.setVisibility(View.INVISIBLE);
                         Wpas.setVisibility(View.INVISIBLE);
                         id_child= Uath.getCurrentUser().getUid();
-
                         Query query = r.ref.child("Children").orderByKey().equalTo(id_child);
                         query.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override

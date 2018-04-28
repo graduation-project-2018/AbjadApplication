@@ -47,6 +47,7 @@ public class unit_interface extends child_menu {
     public  static String unitID;
     boolean flag = true;
     private  String childID;
+    private int random,random2,rand;
     static boolean endtest=false;
     static int finalScore;
     static long startTime,EndTime;
@@ -181,10 +182,10 @@ public class unit_interface extends child_menu {
             });
 
         }
-        final MediaPlayer r=new MediaPlayer();
+        final MediaPlayer aduio_CannotStartLesson=new MediaPlayer();
         try {
-            r.setDataSource(audio.unit_Tip_three);
-            r.prepare();
+            aduio_CannotStartLesson.setDataSource(audio.unit_Tip_three);
+            aduio_CannotStartLesson.prepare();
             Log.i("iComeHere","lol");
 
         } catch (IOException e) {
@@ -196,8 +197,7 @@ public class unit_interface extends child_menu {
                 if(motionEvent.getAction()==MotionEvent.ACTION_DOWN){
                     if (view.isClickable()){}
                     else{
-                        Log.i("iComeHere","lol");
-                            r.start();
+                        aduio_CannotStartLesson.start();
                     }
                 }
                 return false;
@@ -210,6 +210,7 @@ public class unit_interface extends child_menu {
         lesson5.setOnTouchListener(clike);
         lesson6.setOnTouchListener(clike);
         Log.i("Lesson1",lesson1.isClickable()+" ");
+
         childUnitInfo lesson1obj=new childUnitInfo(0,null,lesson1Stars,lesson1,null);
         lesson1obj.setNextLesson(lesson2);
         childUnitInfo lesson2obj=new childUnitInfo(0,lock2,lesson2Stars, lesson2 ,null);
@@ -242,14 +243,13 @@ public class unit_interface extends child_menu {
         testInfo.add(test1obj);
         testInfo.add(test2obj);
         testInfo.add(test3obj);
-        final View.OnClickListener v=new View.OnClickListener() {
+         final View.OnClickListener lessonCliked=new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (view.getId() == R.id.lesson1) {
                     Log.i("putExtra",lesson1.getText().toString());
                     lessonIntent.putExtra("Lessonltr",lessonsInfo.get(0).getLesson().getText().toString());
                     Log.i("Lesson1",lesson1.isClickable()+" ");
-
                 }
                 else if (view.getId() == R.id.lesson2) {
                     lessonIntent.putExtra("Lessonltr",lessonsInfo.get(1).getLesson().getText().toString());
@@ -270,48 +270,41 @@ public class unit_interface extends child_menu {
                 startActivity(lessonIntent);
             }
         };
-
         View.OnClickListener clickedTest =new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (view.getId() == R.id.test1|| view.getId()==R.id.ballon1) {
-                    int random=randomTestNo.nextInt(4);
-                    int random2=randomTestNo.nextInt(4);
-                    int rand=randomTestNo.nextInt(2);
-                    Log.i("Random1",1+") "+random+" "+random2+" "+rand);
-                    setRand(fillTest(random,random2,rand));
-                    Intent fIntent=Rand.get(0);
-                    Rand.remove(0);
-                    test_letter=testInfo.get(0).getLetters();
-                    startTime= Calendar.getInstance().getTimeInMillis();
-                    startActivity(fIntent);
+                     random=randomTestNo.nextInt(4);
+                     random2=randomTestNo.nextInt(4);
+                     rand=randomTestNo.nextInt(2);
+                     setRand(fillTest(random,random2,rand));
+                     Intent fIntent=Rand.get(0);
+                     Rand.remove(0);
+                     test_letter=testInfo.get(0).getLetters();
+                     startTime= Calendar.getInstance().getTimeInMillis();
+                     startActivity(fIntent);
 
                 } else if (view.getId() == R.id.test2|| view.getId()==R.id.ballon2) {
-                    int random=randomTestNo.nextInt(4);
-                    int random2=randomTestNo.nextInt(4);
-                    int rand=randomTestNo.nextInt(2);
-                    Log.i("Random1",2+") "+random+" "+random2+" "+rand);
+                     random=randomTestNo.nextInt(4);
+                     random2=randomTestNo.nextInt(4);
+                     rand=randomTestNo.nextInt(2);
                     setRand(fillTest(random,random2,rand));
                     Intent fIntent=Rand.get(0);
                     Rand.remove(0);
                     test_letter=testInfo.get(1).getLetters();
+                    startTime= Calendar.getInstance().getTimeInMillis();
                     startActivity(fIntent);
-
-
                 } else if (view.getId() == R.id.test3 || view.getId()==R.id.ballon3){
-                    int random=randomTestNo.nextInt(4);
-                    int random2=randomTestNo.nextInt(4);
-                    int rand=randomTestNo.nextInt(2);
-                    Log.i("Random1",3+") "+random+" "+random2+" "+rand);
+                     random=randomTestNo.nextInt(4);
+                     random2=randomTestNo.nextInt(4);
+                     rand=randomTestNo.nextInt(2);
                     setRand(fillTest(random,random2,rand));
                     Intent fIntent=Rand.get(0);
                     Rand.remove(0);
-                    Log.i("TestSize",Rand.size()+" ");
                     test_letter=testInfo.get(2).getLetters();
+                    startTime= Calendar.getInstance().getTimeInMillis();
                     startActivity(fIntent);
-
                 }
-
             }
         };
         bal1.setOnClickListener(clickedTest);
@@ -320,13 +313,11 @@ public class unit_interface extends child_menu {
         test1.setOnClickListener(clickedTest);
         test2.setOnClickListener(clickedTest);
         test3.setOnClickListener(clickedTest);
-        lesson1.setOnClickListener(v);
+        lesson1.setOnClickListener(lessonCliked);
         Log.i("Hi",lesson6.isInTouchMode()+" Jojo");
         Log.i("Lesson1",lesson1.isClickable()+" ");
-
         unedatble();
         Log.i("Lesson1",lesson1.isClickable()+" ");
-
 
         unitConnicetion.ref.child("Units").child(unitID).child("unit letters").addValueEventListener(new ValueEventListener() {
             @Override
@@ -358,7 +349,6 @@ public class unit_interface extends child_menu {
                             }
                             setChildLessons(childLessons);
                             if(childLessons.size()!=0){
-                                Log.i("Iamnothappy","NULL");
                                 getscore.ref.child("Lessons").addValueEventListener(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -372,13 +362,8 @@ public class unit_interface extends child_menu {
                                                       if (lKey.equals(childLesson)){
                                                           String lval=KeySnapshot.child("lesson_letter").getValue(String.class);
                                                           for(String letr:lessons){
-                                                              Log.i("Howraaaay:)",letr.equals(lval)+" " +letr+ lval);
-
                                                               if (letr.equals(lval)){
-                                                                  Log.i("Howraaaay:)",letr.equals(lval)+" " +letr+ lval);
-
                                                                   lessonsInfo.get(lessons.indexOf(lval)).setLessonId(lKey);
-                                                                  Log.i("Howraaaay:)",lessonsInfo.get(lessons.indexOf(lval)).getLessonId()+" " );
                                                               }
                                                           }
                                                           }
@@ -395,32 +380,31 @@ public class unit_interface extends child_menu {
                                                                          for(childUnitInfo obj:lessonsInfo){
                                                                              if(obj.getLessonId()!=null){
                                                                              if(obj.getLessonId().equals(Lkey)){
-                                                                               Log.i("tershrsh", score.child("score").getValue(Integer.class)+" ");
+                                                                               Log.i("Score", score.child("score").getValue(Integer.class)+" ");
                                                                                obj.setScore(score.child("score").getValue(Integer.class));
                                                                              }
                                                                          }}
                                                                           for (childUnitInfo childUnitInfo_lessonID:lessonsInfo) {
                                                                               if(childUnitInfo_lessonID.getLessonId()!=null){
-                                                                                  Log.i("allinfogaingh",childUnitInfo_lessonID.getScore()+" "+childUnitInfo_lessonID.getLessonId()+" "+childUnitInfo_lessonID.getLetters());
                                                                                   if(childUnitInfo_lessonID.getScore()<4&& childUnitInfo_lessonID.getScore()>0){
                                                                                       childUnitInfo_lessonID.getStars().setImageResource(R.drawable.one_gold_stars_group);
                                                                                       childUnitInfo_lessonID.getNextLesson().setClickable(true);
-                                                                                      childUnitInfo_lessonID.getNextLesson().setOnClickListener(v);
+                                                                                      childUnitInfo_lessonID.getNextLesson().setOnClickListener(lessonCliked);
                                                                                       childUnitInfo_lessonID.getNextLesson().bringToFront();
                                                                                   }else if(childUnitInfo_lessonID.getScore()>3&& childUnitInfo_lessonID.getScore()<6){
                                                                                       childUnitInfo_lessonID.getStars().setImageResource(R.drawable.two_gold_stars_group);
                                                                                       childUnitInfo_lessonID.getNextLesson().setClickable(true);
-                                                                                      childUnitInfo_lessonID.getNextLesson().setOnClickListener(v);
+                                                                                      childUnitInfo_lessonID.getNextLesson().setOnClickListener(lessonCliked);
                                                                                       childUnitInfo_lessonID.getNextLesson().bringToFront();
                                                                                   }else if(childUnitInfo_lessonID.getScore()>5&& childUnitInfo_lessonID.getScore()<8){
                                                                                       childUnitInfo_lessonID.getStars().setImageResource(R.drawable.gold_three_stars);
                                                                                       childUnitInfo_lessonID.getNextLesson().setClickable(true);
-                                                                                      childUnitInfo_lessonID.getNextLesson().setOnClickListener(v);
+                                                                                      childUnitInfo_lessonID.getNextLesson().setOnClickListener(lessonCliked);
                                                                                       childUnitInfo_lessonID.getNextLesson().bringToFront();
                                                                                   }else if(childUnitInfo_lessonID.getScore()==0){
                                                                                       childUnitInfo_lessonID.getStars().setImageResource(R.drawable.gray_three_stars);
                                                                                       childUnitInfo_lessonID.getNextLesson().setClickable(true);
-                                                                                      childUnitInfo_lessonID.getNextLesson().setOnClickListener(v);
+                                                                                      childUnitInfo_lessonID.getNextLesson().setOnClickListener(lessonCliked);
                                                                                       childUnitInfo_lessonID.getNextLesson().bringToFront();
                                                                                   }
                                                                               }
@@ -542,7 +526,7 @@ public class unit_interface extends child_menu {
                                                                 }
                                                                    for (childUnitInfo l:lessonsInfo){
                                                                        if (l.getLesson().isClickable() &&l.getLock()!=null ){
-                                                                           l.getLesson().setOnClickListener(v);
+                                                                           l.getLesson().setOnClickListener(lessonCliked);
                                                                            l.getLock().setVisibility(View.GONE);
                                                                            l.getLock().getVisibility();
                                                                        }
@@ -643,47 +627,30 @@ public class unit_interface extends child_menu {
     private ArrayList<Intent> fillTest(int random,int random2,int rand){
         ArrayList<Intent> rTest=new ArrayList<Intent>();
         Intent [] arr=new Intent[4];
-        String [] sarr= new String[4];
         Intent swap;
-        String sswap;
         for(int j=0;j<testIntent.size();j++){
             arr[j]=testIntent.get(j);
-            sarr[j]=TestStringForTesting.get(j);
         }
         swap=arr[random];
         arr[random]=arr[random2];
         arr[random2]=swap;
-        sswap=sarr[random];
-        sarr[random]=sarr[random2];
-        sarr[random2]=sswap;
-        for (String s:sarr) {
-        Log.i("rand", s);
-        }
         switch (rand){
             case 0:
           for(int j=0;j<arr.length;j++){
-
             rTest.add(arr[j]);
-            TestStringForTesting2.add(sarr[j]);
-            Log.i("testRandom",TestStringForTesting2.get(j));
-
          }
          break;
             case 1:
                 int i=0;
                 for(int j=arr.length-1;j>=0;j--) {
                     rTest.add(arr[j]);
-                    TestStringForTesting2.add(sarr[j]);
                     i++;
-
                 }
-                setTestStringForTesting(TestStringForTesting2);
-                break;
+         break;
 
         }
         if(rTest.size()!=0){
         return rTest;
-
         }
         return null;
     }
@@ -755,13 +722,11 @@ public class unit_interface extends child_menu {
                                         childTime = dataSnapshot.child("time").getValue().toString();
                                     }
                                     if(currentScore<finalScore){
-                                        r.ref.child("child_takes_test").child(Signin.id_child).child(unit_interface.unitID).child(test_id).child("score").setValue(finalScore);
+                                        r.ref.child("child_takes_test").child(Signin.id_child)
+                                                .child(unit_interface.unitID).child(test_id).child("score").setValue(finalScore);
+                                        r.ref.child("child_takes_test").child(Signin.id_child)
+                                                .child(unit_interface.unitID).child(test_id).child("time").setValue(actual_time);
                                     }
-                                    if(Double.valueOf(childTime)>Double.valueOf(actual_time)){
-                                        r.ref.child("child_takes_test").child(Signin.id_child).child(unit_interface.unitID).child(test_id).child("time").setValue(actual_time);
-                                    }
-
-
                                 }
                                 @Override
                                 public void onCancelled(DatabaseError databaseError) {
