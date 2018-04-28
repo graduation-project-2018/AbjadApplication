@@ -173,6 +173,7 @@ public class adding_child  extends menu_educator {
                             email.requestFocus();
                             foundErrors =true;
                         }
+
                         else if (foundErrors == false){
                             String fname = firstName.getText().toString();
                             String lname = lastName.getText().toString();
