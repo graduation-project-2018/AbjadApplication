@@ -59,8 +59,9 @@ public class child_menu extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_child_menu);
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        setContentView(R.layout.activity_child_menu);
+
         myDrawerLayout=(DrawerLayout) findViewById(R.id.drawer_layout_child);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         myToggle= new ActionBarDrawerToggle(this,myDrawerLayout,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
@@ -91,6 +92,14 @@ public class child_menu extends AppCompatActivity {
                             Lesson.computeChildScore();
                         }
                         popUp(1);
+                        return true;
+                    }
+
+                    case R.id.edit_profile_child:{
+                        if(Lesson.words_counter==6){
+                            Lesson.computeChildScore();
+                        }
+                        popUp(4);
                         return true;
                     }
                     case R.id.report_problem:{
@@ -201,7 +210,14 @@ public class child_menu extends AppCompatActivity {
                                                         popUpDelete();
                                                         return;
 
-                                                    } else {
+                                                    }
+                                                    else if(i==4){
+                                                        Intent intent = new Intent(child_menu.this, child_profile.class);
+                                                        intent.putExtra("email", edu_email);
+                                                        startActivity(intent);
+
+                                                    }
+                                                    else {
                                                         Intent intent = new Intent(child_menu.this, child_change_password.class);
                                                         startActivity(intent);
                                                     }

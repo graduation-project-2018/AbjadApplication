@@ -1,5 +1,6 @@
 package edu.iau.abjad.AbjadApp;
 
+import android.content.pm.ActivityInfo;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -34,6 +35,7 @@ public class SignUp extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_sign_up);
         SignUpBtn = (Button) findViewById(R.id.SignUpButton);
         FN = (EditText) findViewById(R.id.FNFieldSU);
@@ -41,7 +43,7 @@ public class SignUp extends AppCompatActivity {
         Email = (EditText) findViewById(R.id.EmailFieldSU);
         Pass = (EditText) findViewById(R.id.PassFieldSU);
         Cpass = (EditText) findViewById(R.id.CPassFieldSU);
-        ArabicLetters = Pattern.compile("^[أ-ي ]+$");
+        ArabicLetters = Pattern.compile("^[ءئ ؤ إآ ى لآ لأ  لإ أ-ي ]+$");
         r = new firebase_connection();
         educatorHome= new Intent(this,educator_home.class);
 

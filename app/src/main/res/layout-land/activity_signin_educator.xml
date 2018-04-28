@@ -47,8 +47,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/toolbar7"
         app:layout_constraintVertical_bias="0.444" />
+
     <ImageButton
-        android:id="@+id/imageButton8"
+        android:id="@+id/back_edu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="65dp"

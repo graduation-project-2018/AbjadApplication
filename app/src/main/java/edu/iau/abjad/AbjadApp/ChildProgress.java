@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -33,9 +34,7 @@ import static java.security.AccessController.getContext;
 
 public class ChildProgress extends menu_educator {
     menu_variables m = new menu_variables();
-    private ImageView viewChildProfile;
-    private ImageView deleteChild;
-    private ImageView changePass;
+
     private TextView nUnlokedLesson;
     private TextView nDoneLesson;
     private TextView nTimer;
@@ -59,6 +58,7 @@ public class ChildProgress extends menu_educator {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         m.title = (TextView) findViewById(R.id.interface_title);
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -67,8 +67,7 @@ public class ChildProgress extends menu_educator {
         sTime=""; sLeastTime="";sHighstScoreLesson="";sHighstScoreTest="";lett="";
         mDrawerLayout.addView(contentView, 0);
         //intilization
-        viewChildProfile= findViewById(R.id.ChildProfile);
-        changePass=findViewById(R.id.changePass);
+
          nUnlokedLesson=findViewById(R.id.nUnlokedLesson);
          nDoneLesson=findViewById(R.id.nDoneLesson);
          nTimer=findViewById(R.id.nTimer);
@@ -99,25 +98,10 @@ public class ChildProgress extends menu_educator {
         final Intent educatorHome=new Intent(this,educator_home.class);
         final Intent changePassword =new Intent(this, change_password.class );
 
-         //set onClickListener for 3 buttons
-         viewChildProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                 Intent childProfile =new Intent(ChildProgress.this, child_profile.class );
-                childProfile.putExtra("childID",childID);
-                setResult(RESULT_OK, childProfile);
-                startActivity(childProfile);
-            }
-        });
+
 
         final Intent c=new Intent(this,userTypeSelection.class);
-        changePass.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(changePassword);
 
-            }
-        });
 
         //get data from firebase and set Text view
         lesson.ref.child("child_takes_lesson").child(childID).addValueEventListener(new ValueEventListener() {

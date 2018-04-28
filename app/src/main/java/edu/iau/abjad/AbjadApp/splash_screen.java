@@ -23,8 +23,9 @@ public class splash_screen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash_screen);
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
+        setContentView(R.layout.activity_splash_screen);
 
         abjad= (ImageView) findViewById(R.id.abjad_splash);
         abjad.setBackgroundResource(R.drawable.abjad_animation);

@@ -38,6 +38,7 @@ public class child_change_password extends child_menu {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
         m.title = (TextView) findViewById(R.id.interface_title);

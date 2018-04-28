@@ -24,62 +24,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/cloudswp" />
 
-    <LinearLayout
-        android:id="@+id/side"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.231">
-
-        <ImageView
-            android:id="@+id/ChildProfile"
-            android:layout_width="match_parent"
-            android:layout_height="114dp"
-            android:layout_marginBottom="4dp"
-            android:layout_marginStart="40dp"
-            app:layout_constraintBottom_toTopOf="@+id/deleteChild"
-            app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/profile" />
-
-        <ImageView
-            android:id="@+id/changePass"
-            android:layout_width="match_parent"
-            android:layout_height="114dp"
-            android:layout_marginBottom="4dp"
-            android:layout_marginStart="40dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/password" />
-
-        <ImageView
-            android:id="@+id/deleteChild"
-            android:layout_width="match_parent"
-            android:layout_height="114dp"
-            android:layout_marginBottom="16dp"
-            android:layout_marginStart="40dp"
-            app:layout_constraintBottom_toTopOf="@+id/changePass"
-            app:layout_constraintStart_toStartOf="@+id/side"
-            app:srcCompat="@drawable/dele" />
-    </LinearLayout>
-
 
     <ImageView
         android:id="@+id/imageView21"
         android:layout_width="289dp"
         android:layout_height="136dp"
-        android:layout_marginEnd="176dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.982"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="444dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/scrollView3"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView22"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.434"
         app:srcCompat="@drawable/cloud" />
 
     <TextView
@@ -107,12 +63,12 @@
         android:id="@+id/imageView22"
         android:layout_width="168dp"
         android:layout_height="121dp"
-        android:layout_marginBottom="504dp"
+        android:layout_marginBottom="480dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.752"
+        app:layout_constraintHorizontal_bias="0.325"
         app:layout_constraintStart_toStartOf="@+id/imageView21"
         app:srcCompat="@drawable/bird" />
 
@@ -123,14 +79,13 @@
         android:layout_gravity="right"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layoutDirection="rtl"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/imageView21"
-        app:layout_constraintTop_toBottomOf="@+id/imageView21"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TableLayout
             android:id="@+id/table1"

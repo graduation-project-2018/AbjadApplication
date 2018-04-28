@@ -93,17 +93,22 @@
         </activity>
 
         <activity android:name=".report_problem"
-            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"
+            android:screenOrientation="landscape"/>
 
         <activity android:name=".SignUp"
-            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
-        <activity android:name=".userTypeSelection">
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"
+            android:screenOrientation="landscape"/>
+        <activity android:name=".userTypeSelection"
+            android:screenOrientation="landscape">
 
         </activity>
         <activity android:name=".ResetPassword"
-            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"
+            android:screenOrientation="landscape"/>
         <activity android:name=".child_profile"
-            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan">
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"
+            android:screenOrientation="landscape">
 
         </activity>
 
@@ -129,23 +134,30 @@
 
 
         </activity>
-        <activity android:name=".child_change_password"></activity>
+        <activity android:name=".child_change_password"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"></activity>
         <activity android:name=".educator_profile"
-            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"
+            android:screenOrientation="landscape"/>
 
         <activity android:name=".change_password"
-            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"
+            android:screenOrientation="landscape"/>
         <activity android:name=".SigninEducator"
-            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan">
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"
+            android:screenOrientation="landscape">
 
         </activity>
 
         <activity
             android:name=".popUp_repert_problem"
-            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan" />
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"
+            android:screenOrientation="landscape"/>
 
         <activity android:name=".child_crad_model" />
-        <activity android:name=".adding_child_pop_up"></activity>
+        <activity android:name=".adding_child_pop_up"
+            android:screenOrientation="landscape"></activity>
     </application>
 
 </manifest>

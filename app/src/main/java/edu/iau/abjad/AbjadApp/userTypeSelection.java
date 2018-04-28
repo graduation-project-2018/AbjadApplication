@@ -2,6 +2,7 @@ package edu.iau.abjad.AbjadApp;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +15,8 @@ public class userTypeSelection extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
         setContentView(R.layout.activity_user_type_selection);
         final Intent intentOfChild=new Intent(getApplicationContext(), Signin.class );
         final Intent intentOfEdu=new Intent(getApplicationContext(), SigninEducator.class );
