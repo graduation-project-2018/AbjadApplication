@@ -11,6 +11,7 @@ public class childUnitInfo {
     Button next2lesson;
     ImageView Lock,Stars;
     String letters,lessonId;
+    double time;
 
     public childUnitInfo(int score, ImageView lock, ImageView stars, Button lesson, String letters) {
         this.score = score;
@@ -20,9 +21,11 @@ public class childUnitInfo {
         this.letters = letters;
     }
 
-    public childUnitInfo(int score, String letters) {
+    public childUnitInfo(int score, String letters,double time) {
         this.score = score;
         this.letters = letters;
+        this.time=time;
+
     }
 
     public Button getNext2lesson() {
