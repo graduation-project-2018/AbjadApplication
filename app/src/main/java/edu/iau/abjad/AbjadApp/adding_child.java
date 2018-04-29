@@ -4,6 +4,7 @@ import android.support.v7.app.AlertDialog;
 import android.content.Context;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.LayoutInflater;
@@ -56,6 +57,7 @@ public class adding_child  extends menu_educator {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         m.title = (TextView) findViewById(R.id.interface_title);
         m.title.setText("إضافة طفل");
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -170,6 +172,7 @@ public class adding_child  extends menu_educator {
                             email.requestFocus();
                             foundErrors =true;
                         }
+
                         else if (foundErrors == false){
                             String fname = firstName.getText().toString();
                             String lname = lastName.getText().toString();

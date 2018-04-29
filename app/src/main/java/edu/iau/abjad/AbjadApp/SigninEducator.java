@@ -1,6 +1,7 @@
 package edu.iau.abjad.AbjadApp;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -33,10 +34,12 @@ public class SigninEducator extends AppCompatActivity  implements View.OnClickLi
     private Intent Itn;
     static String id_edu;
     firebase_connection  r = new firebase_connection();
+    ImageButton back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_signin_educator);
 
         Uath= FirebaseAuth.getInstance();
@@ -45,6 +48,7 @@ public class SigninEducator extends AppCompatActivity  implements View.OnClickLi
         progressBar=(ProgressBar) findViewById(R.id.EprogressBar);
         Wuser=(ImageView) findViewById(R.id.Wuser);
         Wpas=(ImageView) findViewById(R.id.Wpas);
+        back = (ImageButton)findViewById(R.id.back_edu);
 
         //adding listeners to the buttons:
         findViewById(R.id.submit_btn_reset).setOnClickListener(this);
@@ -54,6 +58,14 @@ public class SigninEducator extends AppCompatActivity  implements View.OnClickLi
 
         Wpas.setVisibility(View.INVISIBLE);
         Wuser.setVisibility(View.INVISIBLE);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), userTypeSelection.class);
+                startActivity(intent);
+            }
+        });
     }
 
 
@@ -122,7 +134,7 @@ public class SigninEducator extends AppCompatActivity  implements View.OnClickLi
                             else {
 
                                 if(task.getException().getMessage().startsWith("The email address is badly formatted")){
-                                    Email.setError("الرجاء كتابة البريد الإلكتروني بشكل صحيح");
+                                    Email.setError("الرجاء كتابة البريد الإلكتروني كالتالي someone@example.com ");
                                    Email.requestFocus();
                                     Wuser.setVisibility(VISIBLE);
 

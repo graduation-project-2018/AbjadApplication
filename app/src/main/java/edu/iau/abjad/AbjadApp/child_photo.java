@@ -2,6 +2,7 @@ package edu.iau.abjad.AbjadApp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
@@ -50,6 +51,7 @@ public class child_photo  extends menu_educator {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         b.title = (TextView) findViewById(R.id.interface_title);
         b.title.setText("إضافة طفل");
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -153,6 +155,7 @@ public class child_photo  extends menu_educator {
         });
         //load();
     }
+
     private void addChild(){
 
      auth.createUserWithEmailAndPassword(completeObj.email,pass).addOnCompleteListener(this,
@@ -170,7 +173,7 @@ public class child_photo  extends menu_educator {
 
                         else{
 
-
+                            Toast.makeText(child_photo.this, "لم تتم إضافة الطفل , الرجاء المحاولة لاحقا", Toast.LENGTH_LONG).show();
                         }
                     }
                 });
@@ -181,21 +184,11 @@ public class child_photo  extends menu_educator {
 
     public void addChildInfo(){
 
-        r.ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+
                 r.ref.child("Children").child(child_ID).setValue(completeObj);
                 r.ref.child("Children").child(child_ID).child("educator_id").setValue(SigninEducator.id_edu);
                 r.ref.child("educator_home").child(SigninEducator.id_edu).child(child_ID).child("photo_URL").setValue(photo_url);
                 r.ref.child("educator_home").child(SigninEducator.id_edu).child(child_ID).child("first_name").setValue(completeObj.first_name);
-
-
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
 
 
 

@@ -1,5 +1,6 @@
 package edu.iau.abjad.AbjadApp;
 
+import android.content.pm.ActivityInfo;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -34,6 +35,7 @@ public class SignUp extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_sign_up);
         SignUpBtn = (Button) findViewById(R.id.SignUpButton);
         FN = (EditText) findViewById(R.id.FNFieldSU);
@@ -41,7 +43,7 @@ public class SignUp extends AppCompatActivity {
         Email = (EditText) findViewById(R.id.EmailFieldSU);
         Pass = (EditText) findViewById(R.id.PassFieldSU);
         Cpass = (EditText) findViewById(R.id.CPassFieldSU);
-        ArabicLetters = Pattern.compile("^[أ-ي ]+$");
+        ArabicLetters = Pattern.compile("^[ءئ ؤ إآ ى لآ لأ  لإ أ-ي ]+$");
         r = new firebase_connection();
         educatorHome= new Intent(this,educator_home.class);
 
@@ -127,8 +129,8 @@ public class SignUp extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()) {
                             Toast.makeText(SignUp.this, "تمت إضافة حساب المربي بنجاح", Toast.LENGTH_LONG).show();
-                            educatorID= mAuth.getCurrentUser().getUid();
-                            //    SigninEducator.id_edu = mAuth.getCurrentUser().getUid();
+                            //educatorID= mAuth.getCurrentUser().getUid();
+                            SigninEducator.id_edu = mAuth.getCurrentUser().getUid();
                             educator = new Educator(Email.getText().toString().trim(),FN.getText().toString(),LN.getText().toString());
 
 
@@ -137,7 +139,7 @@ public class SignUp extends AppCompatActivity {
                             r.ref.addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
-                                    r.ref.child("Educators").child( educatorID).setValue(educator);
+                                    r.ref.child("Educators").child(SigninEducator.id_edu).setValue(educator);
                                 }@Override
                                 public void onCancelled(DatabaseError databaseError) {
 

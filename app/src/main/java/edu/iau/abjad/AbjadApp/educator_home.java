@@ -2,6 +2,7 @@ package edu.iau.abjad.AbjadApp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -39,16 +40,18 @@ public class educator_home extends menu_educator {
    ImageView child_img;
    int counter = 0;
    DatabaseReference db;
+    DatabaseReference db2;
    TextView label;
     String childID;
     String child_ID;
     int i =0 ;
-    Boolean first_time;
+    Boolean first_time = true;
     children child = new children();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_educator_home);
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
 
         m.title = (TextView) findViewById(R.id.interface_title);
         m.title.setText("الرئيسية");
@@ -59,63 +62,30 @@ public class educator_home extends menu_educator {
 
         mDrawerLayout.addView(contentView, 0);
         btn = (Button) findViewById(R.id.add_new_child_btn);
+
         gv = (GridView)findViewById(R.id.gv);
-  gv.setNumColumns(2);
+        gv.setNumColumns(2);
         first_time = true;
-
         label = (TextView) findViewById(R.id.NoChildren);
-     db = FirebaseDatabase.getInstance().getReference().child("educator_home").child("educator1");
- /* db.addValueEventListener(new ValueEventListener() {
-      @Override
-      public void onDataChange(DataSnapshot dataSnapshot) {
-          fetch_children(dataSnapshot, ((int) dataSnapshot.getChildrenCount()));
-      }
+        db = FirebaseDatabase.getInstance().getReference().child("educator_home").child(SigninEducator.id_edu);
+        db.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(!dataSnapshot.exists()){
 
-      @Override
-      public void onCancelled(DatabaseError databaseError) {
+                    label.setVisibility(View.VISIBLE);
+                }
+                else{
+                    children_Events();
+                }
+            }
 
-      }
-  });*/
-     db.addChildEventListener(new ChildEventListener() {
-         @Override
-         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-             Toast.makeText(educator_home.this,"added", Toast.LENGTH_LONG).show();
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
-             fetch_children(dataSnapshot, ((int) dataSnapshot.getChildrenCount()));
-
-         }
-
-         @Override
-         public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-             Toast.makeText(educator_home.this,"changed", Toast.LENGTH_LONG).show();
-           //  children.clear();
-           //  child_changed(dataSnapshot);
-
-         }
-
-         @Override
-         public void onChildRemoved(DataSnapshot dataSnapshot) {
-             Toast.makeText(educator_home.this,"removed", Toast.LENGTH_LONG).show();
-           //  children.clear();
-          // child_removed(dataSnapshot);
-
-         }
-
-         @Override
-         public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-          //   children.clear();
-          //  fetch_children(dataSnapshot,((int) dataSnapshot.getChildrenCount()));
-             /////
-
-         }
-
-         @Override
-         public void onCancelled(DatabaseError databaseError) {
-
-         }
-     });//end of addChildEvent Listener
-
-        btn.setOnClickListener(new View.OnClickListener() {
+            }
+        });
+       btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(educator_home.this, adding_child.class);
@@ -125,61 +95,83 @@ public class educator_home extends menu_educator {
         });//end of btn listener
 
     }//end of onCreate function
-    public void child_removed(DataSnapshot dataSnapshot){
-        String  id = dataSnapshot.getKey();
-        for(int i =0; i<children.size();i++){
-
-            if(children.get(i).getChild_ID() == id ){
-                children.remove(children.get(i));
-                break;
-            }
-        }
-        adapter = new childrenAdapter(educator_home.this,children);
-        gv.setNumColumns(2);
-        gv.setAdapter(adapter);
-    }//end of child_removed
-    public void child_changed(DataSnapshot dataSnapshot){
-        String newName =  dataSnapshot.child("first_name").getValue().toString();
-        String newURL = dataSnapshot.child("photo_URL").getValue().toString();
-        String  id = dataSnapshot.getKey();
-        for(int i =0; i<children.size();i++){
-
-            if(children.get(i).getChild_ID() == id ){
-               children.get(i).setFirst_name(newName);
-               children.get(i).setPhoto_URL(newURL);
-               break;
-            }
-        }
-        adapter = new childrenAdapter(educator_home.this,children);
-
-        gv.setAdapter(adapter);
 
 
-    }//end of child_Changed
+
 public void fetch_children(DataSnapshot dataSnapshot, int NumOfChildren){
 
     if(dataSnapshot.exists()){
-
         String id = dataSnapshot.getKey();
         String photo =(String)(dataSnapshot.child("photo_URL").getValue()) ;
         String name = (String) (dataSnapshot.child("first_name").getValue());
         children s = new children(photo,name,id);
-
         i++;
         children.add(s);
         if(i>=NumOfChildren){
             adapter = new childrenAdapter(educator_home.this,children);
-
             gv.setAdapter(adapter);
         }
-
     }
-    else{
-
-        label.setVisibility(View.VISIBLE);
-    }
-
-
 
 }//end of fetch_children function
-}//en dof the class
+public void children_Events(){
+
+    db.addChildEventListener(new ChildEventListener() {
+        @Override
+        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+            fetch_children(dataSnapshot, ((int) dataSnapshot.getChildrenCount()));
+        }
+        @Override
+        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+            children_changed(dataSnapshot,"change");
+
+        }
+        @Override
+        public void onChildRemoved(DataSnapshot dataSnapshot) {
+            children_changed(dataSnapshot,"remove");
+
+        }
+
+        @Override
+        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+
+        }
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+
+        }
+    });//end of addChildEvent Listener
+
+
+
+}
+public void children_changed(DataSnapshot dataSnapshot, String status){
+
+
+    String  id = dataSnapshot.getKey();
+
+    for(int i=0;i<children.size();i++){
+        String current_ID = children.get(i).getChild_ID();
+        if(id.equals(current_ID)){
+            if(status.equals("remove")){
+            children.remove(children.get(i));
+            break;}
+            else {
+                children.get(i).setPhoto_URL(dataSnapshot.child("photo_URL").getValue().toString());
+                children.get(i).setFirst_name(dataSnapshot.child("first_name").getValue().toString());
+                 break;
+            }
+        }
+
+    }//for loop
+
+    adapter = new childrenAdapter(educator_home.this,children);
+    gv.setAdapter(adapter);
+
+}//end of children_changed
+
+
+}//end of the class

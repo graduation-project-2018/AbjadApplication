@@ -49,12 +49,15 @@ public class ChildProgress extends menu_educator {
     private firebase_connection test,nTest;
     private firebase_connection child,deleteChild_Children,deleteChild_edu,deleteChild_lesson,deleteChild_test;
     private String childID;
+    private   String name;
     private long unlookedLesson,testNo;
     int icomplete=0;
     int ihighestScore=0,ihighestLessonScore=0;
     double dleastTime;
-    String  sTime, sLeastTime,sHighstScoreLesson,sHighstScoreTest,lett,lettTest;
+    String  sTime, sLeastTime,sHighstScoreLesson,sHighstScoreTest,lett,lettTest,lastName;
     double dTime;
+    ArrayList <childUnitInfo> lessonScores;
+    ArrayList <childUnitInfo> testScore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,8 +70,6 @@ public class ChildProgress extends menu_educator {
         sTime=""; sLeastTime="";sHighstScoreLesson="";sHighstScoreTest="";lett="";
         mDrawerLayout.addView(contentView, 0);
         //intilization
-        viewChildProfile= findViewById(R.id.ChildProfile);
-        changePass=findViewById(R.id.changePass);
          nUnlokedLesson=findViewById(R.id.nUnlokedLesson);
          nDoneLesson=findViewById(R.id.nDoneLesson);
          nTimer=findViewById(R.id.nTimer);
@@ -84,37 +85,38 @@ public class ChildProgress extends menu_educator {
         letterLesson=new firebase_connection();
          test=new firebase_connection();
          child = new firebase_connection();
-         childID="fpkBRxosfPdV4cN7ct4mEgi4j2p2";//Signin.id_child;
+         Bundle b=getIntent().getExtras();
+         childID=b.getString("child_ID");
          deleteChild_Children=new firebase_connection();
          deleteChild_edu=new firebase_connection();
          deleteChild_lesson=new firebase_connection();
          deleteChild_test=new firebase_connection();
         nTest=new firebase_connection();
-        dleastTime=1000000000.00;
+        dleastTime=100000.00;
         sLeastTime="";
         sHighstScoreLesson="";
         sHighstScoreTest="";
         lett="";
+       lessonScores=new ArrayList<childUnitInfo>();
+       testScore=new ArrayList<childUnitInfo>();
+        lastName="";
+
         final String lessonh="";
         final Intent educatorHome=new Intent(this,educator_home.class);
         final Intent changePassword =new Intent(this, change_password.class );
 
-         //set onClickListener for 3 buttons
-         viewChildProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                 Intent childProfile =new Intent(ChildProgress.this, child_profile.class );
-                childProfile.putExtra("childID",childID);
-                setResult(RESULT_OK, childProfile);
-                startActivity(childProfile);
-            }
-        });
 
         final Intent c=new Intent(this,userTypeSelection.class);
-        changePass.setOnClickListener(new View.OnClickListener() {
+        child.ref.child("Children").child(childID).addValueEventListener(new ValueEventListener() {
             @Override
-            public void onClick(View v) {
-                startActivity(changePassword);
+            public void onDataChange(DataSnapshot dataSnapshot) {
+             name=dataSnapshot.child("first_name").getValue(String.class);
+             lastName=dataSnapshot.child("last_name").getValue(String.class);
+                m.title.setText(name +" "+ lastName);
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
             }
         });
@@ -160,16 +162,27 @@ public class ChildProgress extends menu_educator {
                                                     }
                                                     if(ilessonScore>=ihighestLessonScore){
                                                         ihighestLessonScore=ilessonScore;
-                                                        sHighstScoreLesson=lett;
+                                                        lessonScores.add(new childUnitInfo(ilessonScore,lett,dTime));
+                                                        //sHighstScoreLesson=lett;
                                                     }
                                                     if (dTime<=dleastTime){
                                                         dleastTime=dTime;
-                                                        sLeastTime=lett;
-
+                                                       // sLeastTime=lett;
 
                                                     }
+                                                    for(childUnitInfo child: lessonScores){
+                                                        if(dleastTime==child.time &&(!sLeastTime.contains(child.letters))){
+                                                            sLeastTime=lett+=child.letters+" ";
+                                                        }
+                                                    }
+                                                    for(childUnitInfo child: lessonScores){
+                                                        if(ihighestLessonScore==child.score &&(!sHighstScoreLesson.contains(child.letters))){
+                                                            sHighstScoreLesson+=child.letters+" ";
+                                                        }
+                                                    }
 
-                                                    nTimer.setText(dleastTime+" "+(dleastTime<1?"/ s":"/ m"));
+
+                                                    nTimer.setText(dleastTime+" "+(dleastTime<1?"/ ث":"/ د"));
                                                     highestScoreLesson.setText(ihighestLessonScore+" /7");
                                                     nDoneLesson.setText(icomplete+" ");
                                                     lessonNameScore.setText(sHighstScoreLesson+"");
@@ -246,17 +259,24 @@ public class ChildProgress extends menu_educator {
                                                     Log.i("TestID",dataSnapshot1.child(TestId).child("test_letters").getValue(String.class)+" ");
 
                                                     lettTest=dataSnapshot1.child(TestId).child("test_letters").getValue().toString();
-                                                    if(iTestScore>ihighestScore){
+                                                    Log.i("dsdasd",lettTest+"" );
+                                                    if(iTestScore>=ihighestScore){
                                                         Log.i("score",iTestScore+ " ");
-                                                        Log.i("score",ihighestLessonScore+ " ");
                                                         ihighestScore=iTestScore;
-                                                        sHighstScoreTest=lettTest+" ";
-                                                     }
+                                                       // sHighstScoreTest=lettTest+" ";
+                                                        testScore.add(new childUnitInfo(iTestScore,lettTest,dTime));
+
+                                                    }
 
                                                     Log.i("score3",ihighestScore+ " ");
-
+                                                    for(childUnitInfo child: testScore){
+                                                        if(ihighestScore==child.score&& (!sHighstScoreTest.contains(child.letters))){
+                                                            sHighstScoreTest+=child.letters+" ";
+                                                        }
+                                                    }
+                                                    Log.i("fffff",sHighstScoreTest+" ");
                                                     highestScoreTest.setText(ihighestScore+" /10");
-                                                    testName.setText(sHighstScoreTest.replace("_","،")+"");
+                                                    testName.setText(sHighstScoreTest.replace("_","،"));
 
                                                 }
 

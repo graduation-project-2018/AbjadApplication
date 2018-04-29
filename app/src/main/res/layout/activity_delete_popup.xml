@@ -36,13 +36,13 @@
 
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/delete_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:gravity="center"
             android:text="هل أنت متأكد من حذف الطفل؟"
-            android:textSize="14pt"
-            android:gravity="center"/>
+            android:textSize="14pt" />
     </LinearLayout>
 
 

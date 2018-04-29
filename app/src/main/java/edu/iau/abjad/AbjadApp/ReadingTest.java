@@ -73,6 +73,7 @@ public class ReadingTest extends child_menu {
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         m.title = (TextView) findViewById(R.id.interface_title);
         m.title.setText("اختبار القراءة");
+
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         //inflate your activity layout here!
@@ -100,8 +101,9 @@ public class ReadingTest extends child_menu {
         Test_Id=new firebase_connection();
         testIdq2=new firebase_connection();
         testIntent=new ArrayList<Intent>();
+        Test_letter=unit_interface.test_letter;
         speaker_btn.setVisibility(View.INVISIBLE);
-        choose_phrase =  rand.nextInt(10) + 1;
+
         next=findViewById(R.id.next);
         next.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,6 +130,7 @@ public class ReadingTest extends child_menu {
 
             }
         });
+        choose_phrase =  rand.nextInt(10) + 1;
         // choosen phrase is word
         if(choose_phrase <=5){
             chosen_index=  rand.nextInt(6) + 1;
@@ -140,17 +143,9 @@ public class ReadingTest extends child_menu {
             chosen_word = "sentence" + chosen_index;
             path = "sentences";
         }
-        System.out.println("choose_phrase: "+  choose_phrase);
-        System.out.println("chosen_index: "+ chosen_index);
-        System.out.println("chosen_word: "+chosen_word);
-        System.out.println("Path: "+path);
-        //Alaa
-        /*Intent test=getIntent();
-        Bundle b=test.getExtras();
-        if(b!=null){
-        Test_letter=b.getString("test_letter");
-        }*/
-        Test_letter=unit_interface.test_letter;
+
+
+
 
         //Alaa
         Test_Id.ref.child("Tests").addValueEventListener(new ValueEventListener() {
@@ -165,10 +160,8 @@ public class ReadingTest extends child_menu {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             if(key!=null){
                             String lettr=snapshot.child("test_letters").getValue().toString();
-                            Log.i("w2w2",lettr);
                             if(lettr.equals(Test_letter)){
                             test_id=key;
-                            Log.i("1234567",Test_letter+" "+ test_id);
                             }//Alaa
 
         Query query = r.ref.child("Tests").orderByKey().equalTo(test_id);

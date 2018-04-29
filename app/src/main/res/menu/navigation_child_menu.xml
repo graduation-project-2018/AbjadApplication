@@ -10,6 +10,10 @@
         android:icon="@drawable/password_blue"
         android:iconTint="#0B365C">
     </item>
+    <item android:id="@+id/edit_profile_child"
+        android:title="تعديل الملف الشخصي"
+        android:icon="@drawable/user_profile_icon">
+    </item>
 
     <item android:id="@+id/delete_child"
         android:title="حذف الحساب"

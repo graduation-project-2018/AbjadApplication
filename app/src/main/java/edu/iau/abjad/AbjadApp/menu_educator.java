@@ -1,6 +1,7 @@
 package edu.iau.abjad.AbjadApp;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -16,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -39,6 +41,7 @@ public class menu_educator extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_menu_educator);
 
         mDrawerLayout=(DrawerLayout) findViewById(R.id.menu_edu_drawer_layout);
@@ -88,6 +91,7 @@ public class menu_educator extends AppCompatActivity {
                     }
                     case R.id.delete_edu:{
                         popUpDelete();
+                        return true;
 
                     }
                     case R.id.sign_out:{
@@ -128,6 +132,9 @@ public class menu_educator extends AppCompatActivity {
         Button close_btn = (Button) mView.findViewById(R.id.close_btn_delete);
         Button cancel_btn = (Button) mView.findViewById(R.id.cancel_btn_delete);
         Button  confirm= (Button) mView.findViewById(R.id.submit_btn_delete);
+        TextView label = (TextView)mView.findViewById(R.id.delete_label);
+
+        label.setText("هل أنت متأكد من حذف حسابك ؟");
 
         mBuilder.setView(mView);
         final AlertDialog dialog = mBuilder.create();
@@ -203,6 +210,11 @@ public class menu_educator extends AppCompatActivity {
                                                         });
                                                     }
                                                 }
+
+                                                Intent usr = new Intent(menu_educator.this, userTypeSelection.class);
+                                                startActivity(usr);
+                                                finish();
+                                                Toast.makeText(menu_educator.this, "تم حذف المستخدم بنجاح", Toast.LENGTH_LONG).show();
                                             }
 
                                             @Override
@@ -221,10 +233,6 @@ public class menu_educator extends AppCompatActivity {
                                 }
                             });
 
-                            Intent usr = new Intent(menu_educator.this, userTypeSelection.class);
-                            startActivity(usr);
-                            finish();
-                            Toast.makeText(menu_educator.this, "تم حذف المستخدم بنجاح", Toast.LENGTH_LONG).show();
                         } else {
                             Log.e("Error", "deletion");
                         }
