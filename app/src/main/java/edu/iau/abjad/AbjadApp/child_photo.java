@@ -164,8 +164,8 @@ public class child_photo  extends menu_educator {
                             child_ID= auth.getCurrentUser().getUid();
                             addChildInfo();
                             auth.getInstance().signOut();
-finish();
-startActivity(backEducatorHome);
+                            finish();
+                            startActivity(backEducatorHome);
                         }
 
                         else{
