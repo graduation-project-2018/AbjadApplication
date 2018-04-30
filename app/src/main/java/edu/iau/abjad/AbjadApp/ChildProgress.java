@@ -271,7 +271,7 @@ public class ChildProgress extends menu_educator {
                                                     Log.i("score3",ihighestScore+ " ");
                                                     for(childUnitInfo child: testScore){
                                                         if(ihighestScore==child.score&& (!sHighstScoreTest.contains(child.letters))){
-                                                            sHighstScoreTest+=child.letters+" ";
+                                                            sHighstScoreTest+=child.letters+"/ ";
                                                         }
                                                     }
                                                     Log.i("fffff",sHighstScoreTest+" ");
