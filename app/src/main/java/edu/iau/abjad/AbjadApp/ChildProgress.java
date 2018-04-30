@@ -172,16 +172,21 @@ public class ChildProgress extends menu_educator {
                                                     }
                                                     for(childUnitInfo child: lessonScores){
                                                         if(dleastTime==child.time &&(!sLeastTime.contains(child.letters))){
-                                                            sLeastTime=lett+=child.letters+" ";
+                                                            sLeastTime=lett+=child.letters+" / ";
                                                         }
+                                                    }
+                                                    if(sLeastTime.length()!=0){
+                                                        String.valueOf(sLeastTime.charAt(sLeastTime.length()-1)).replace("/",".");
                                                     }
                                                     for(childUnitInfo child: lessonScores){
                                                         if(ihighestLessonScore==child.score &&(!sHighstScoreLesson.contains(child.letters))){
-                                                            sHighstScoreLesson+=child.letters+" ";
+                                                            sHighstScoreLesson+=child.letters+" / ";
                                                         }
                                                     }
 
-
+                                                    if(sHighstScoreLesson.length()!=0){
+                                                        String.valueOf(sHighstScoreLesson.charAt(sHighstScoreLesson.length()-1)).replace("/",".");
+                                                    }
                                                     nTimer.setText(dleastTime+" "+(dleastTime<1?"/ ث":"/ د"));
                                                     highestScoreLesson.setText(ihighestLessonScore+" /7");
                                                     nDoneLesson.setText(icomplete+" ");
@@ -273,6 +278,9 @@ public class ChildProgress extends menu_educator {
                                                         if(ihighestScore==child.score&& (!sHighstScoreTest.contains(child.letters))){
                                                             sHighstScoreTest+=child.letters+"/ ";
                                                         }
+                                                    }
+                                                    if(sHighstScoreTest.length()!=0){
+                                                    String.valueOf(sHighstScoreTest.charAt(sHighstScoreTest.length()-1)).replace("/",".c");
                                                     }
                                                     Log.i("fffff",sHighstScoreTest+" ");
                                                     highestScoreTest.setText(ihighestScore+" /10");
