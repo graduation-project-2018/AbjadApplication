@@ -86,7 +86,7 @@
 
     <ScrollView
         android:layout_width="1000dp"
-        android:layout_height="400dp"
+        android:layout_height="347dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -124,7 +124,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="116dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="112dp"
+                android:layout_marginTop="68dp"
                 android:drawablePadding="15dp"
                 android:drawableRight="@drawable/email_icon"
                 android:ems="100"
@@ -157,14 +157,11 @@
                 android:id="@+id/WpasScroll"
                 android:layout_width="45dp"
                 android:layout_height="35dp"
-                android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="475dp"
+                android:layout_marginTop="124dp"
                 android:visibility="invisible"
-                app:layout_constraintEnd_toStartOf="@+id/password"
-                app:layout_constraintHorizontal_bias="0.881"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/password"
                 app:srcCompat="@drawable/sshape" />
 
             <ProgressBar
