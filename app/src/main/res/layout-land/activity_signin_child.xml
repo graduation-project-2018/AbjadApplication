@@ -123,7 +123,8 @@
                 android:layout_width="654dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="116dp"
-                android:layout_marginTop="104dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="112dp"
                 android:drawablePadding="15dp"
                 android:drawableRight="@drawable/email_icon"
                 android:ems="100"
@@ -131,6 +132,8 @@
                 android:inputType="textEmailAddress"
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.743"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
@@ -138,27 +141,17 @@
                 android:layout_width="654dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="116dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="40dp"
                 android:drawablePadding="15dp"
                 android:drawableRight="@drawable/password_gray"
                 android:ems="10"
                 android:hint="كلمة المرور"
                 android:inputType="textPassword"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/Username" />
-
-            <ImageView
-                android:id="@+id/Wpas"
-                android:layout_width="45dp"
-                android:layout_height="35dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="36dp"
-                app:layout_constraintEnd_toStartOf="@+id/password"
-                app:layout_constraintHorizontal_bias="0.88"
+                app:layout_constraintHorizontal_bias="0.743"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/Wuser"
-                app:srcCompat="@drawable/sshape" />
+                app:layout_constraintTop_toBottomOf="@+id/Username" />
 
             <ImageView
                 android:id="@+id/WpasScroll"
@@ -166,23 +159,10 @@
                 android:layout_height="35dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="320dp"
+                android:layout_marginTop="475dp"
                 android:visibility="invisible"
                 app:layout_constraintEnd_toStartOf="@+id/password"
                 app:layout_constraintHorizontal_bias="0.881"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/Wuser"
-                app:srcCompat="@drawable/sshape" />
-
-            <ImageView
-                android:id="@+id/Wuser"
-                android:layout_width="45dp"
-                android:layout_height="35dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="120dp"
-                app:layout_constraintEnd_toStartOf="@+id/Username"
-                app:layout_constraintHorizontal_bias="0.875"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/sshape" />
@@ -194,7 +174,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="44dp"
                 android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

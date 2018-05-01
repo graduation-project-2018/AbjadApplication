@@ -84,7 +84,7 @@
                 android:layout_width="654dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:layout_marginStart="28dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="68dp"
                 android:drawablePadding="15dp"
                 android:drawableRight="@drawable/email_icon"
@@ -93,8 +93,7 @@
                 android:inputType="textEmailAddress"
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/Wuser"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
@@ -103,15 +102,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="124dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="28dp"
+                android:layout_marginTop="24dp"
                 android:drawablePadding="15dp"
                 android:drawableRight="@drawable/password_gray"
                 android:ems="100"
                 android:hint="كلمة المرور"
                 android:inputType="textPassword"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/Wpas"
+                app:layout_constraintHorizontal_bias="0.754"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/Email_e" />
 
             <TextView
@@ -120,26 +119,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="20dp"
                 android:fontFamily="casual"
                 android:text="نسيت كلمة المرور؟"
                 android:textColor="@android:color/black"
                 android:textSize="18sp"
                 android:typeface="normal"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.173"
+                app:layout_constraintHorizontal_bias="0.167"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/password" />
-
-            <ImageView
-                android:id="@+id/Wpas"
-                android:layout_width="45dp"
-                android:layout_height="35dp"
-                android:layout_marginStart="160dp"
-                android:layout_marginTop="48dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/Wuser"
-                app:srcCompat="@drawable/sshape" />
 
             <ImageView
                 android:id="@+id/WpasScroll"
@@ -152,16 +141,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/password"
                 app:srcCompat="@drawable/sshape" />
 
-            <ImageView
-                android:id="@+id/Wuser"
-                android:layout_width="45dp"
-                android:layout_height="35dp"
-                android:layout_marginStart="160dp"
-                android:layout_marginTop="92dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/sshape" />
-
 
             <ProgressBar
                 android:id="@+id/EprogressBar"
@@ -170,6 +149,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="480dp"
                 android:layout_marginTop="36dp"
+                android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/password"
                 tools:visibility="invisible" />
