@@ -121,11 +121,7 @@
             android:name=".splash_screen"
             android:screenOrientation="landscape">
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".child_change_password"></activity>
         <activity android:name=".educator_profile"
@@ -134,8 +130,12 @@
         <activity android:name=".change_password"
             android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
         <activity android:name=".SigninEducator"
-            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan">
+            android:windowSoftInputMode="stateHidden|adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".popUp_repert_problem"
