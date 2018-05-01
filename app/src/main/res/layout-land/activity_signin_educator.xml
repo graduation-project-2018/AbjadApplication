@@ -172,7 +172,7 @@
                 android:layout_marginTop="36dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/password"
-                tools:visibility="visible" />
+                tools:visibility="invisible" />
 
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
