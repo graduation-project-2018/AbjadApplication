@@ -91,9 +91,10 @@ public class SigninEducator extends AppCompatActivity  implements View.OnClickLi
             flag = false;
 
         }
-        progressBar.setVisibility(View.VISIBLE);
+
 
         if(flag){
+            progressBar.setVisibility(View.VISIBLE);
             //core of sign in
             //validate email/password then rerutn the sign in state
             // if worked then finshies this view and shows the Edu home
