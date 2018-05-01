@@ -3,6 +3,7 @@ package edu.iau.abjad.AbjadApp;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.provider.Settings;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -38,13 +39,11 @@ public class educator_home extends menu_educator {
    GridView gv;
    TextView child_name;
    ImageView child_img;
-   int counter = 0;
+
    DatabaseReference db;
-    DatabaseReference db2;
+
    TextView label;
-    String childID;
-    String child_ID;
-    int i =0 ;
+
     Boolean first_time = true;
     children child = new children();
     @Override
@@ -76,6 +75,7 @@ public class educator_home extends menu_educator {
                     label.setVisibility(View.VISIBLE);
                 }
                 else{
+
                     children_Events();
                 }
             }
@@ -98,19 +98,17 @@ public class educator_home extends menu_educator {
 
 
 
-public void fetch_children(DataSnapshot dataSnapshot, int NumOfChildren){
+public void fetch_children(DataSnapshot dataSnapshot){
 
     if(dataSnapshot.exists()){
         String id = dataSnapshot.getKey();
         String photo =(String)(dataSnapshot.child("photo_URL").getValue()) ;
         String name = (String) (dataSnapshot.child("first_name").getValue());
         children s = new children(photo,name,id);
-        i++;
+
         children.add(s);
-        if(i>=NumOfChildren){
-            adapter = new childrenAdapter(educator_home.this,children);
-            gv.setAdapter(adapter);
-        }
+
+
     }
 
 }//end of fetch_children function
@@ -120,7 +118,9 @@ public void children_Events(){
         @Override
         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
-            fetch_children(dataSnapshot, ((int) dataSnapshot.getChildrenCount()));
+            fetch_children(dataSnapshot);
+            adapter = new childrenAdapter(educator_home.this,children);
+            gv.setAdapter(adapter);
         }
         @Override
         public void onChildChanged(DataSnapshot dataSnapshot, String s) {

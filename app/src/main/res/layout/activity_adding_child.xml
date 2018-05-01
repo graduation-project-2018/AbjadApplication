@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="edu.iau.abjad.AbjadApp.adding_child"
+    android:background="@drawable/educator_backgrpund">
+
+    <include
+        android:id="@+id/include5"
+        layout="@layout/navigation_action_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    <Button
+
+        android:id="@+id/addBtn"
+        android:layout_width="657dp"
+        android:layout_height="104dp"
+        android:layout_marginBottom="37dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/rectanglee"
+        android:fontFamily="casual"
+        android:text="إضافة"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
+        android:typeface="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView4"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <ScrollView
+        android:id="@+id/scrollView4"
+        style="@android:style/Widget.Holo.Light.ScrollView"
+        android:layout_width="1010dp"
+        android:layout_height="384dp"
+        android:layout_marginBottom="68dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/transbg"
+        android:foregroundGravity="bottom"
+        android:gravity="bottom"
+        android:scrollbarStyle="outsideOverlay"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include5"
+        app:layout_editor_absoluteX="50dp"
+        app:layout_editor_absoluteY="50dp">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="parent"
+            app:layout_constraintVertical_bias="1.0">
+
+            <RadioGroup
+                android:id="@+id/genderRadioGroup"
+                android:layout_width="119dp"
+                android:layout_height="33dp"
+                android:layout_margin="4dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginTop="68dp"
+                android:gravity="bottom"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@+id/genderEr"
+                app:layout_constraintEnd_toStartOf="@+id/genderIcon"
+                app:layout_constraintTop_toBottomOf="@+id/conPasswordTxt"
+                app:layout_constraintVertical_bias="1.0">
+
+
+                <RadioButton
+                    android:id="@+id/femaleRadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="Arabic Typesetting"
+                    android:gravity="bottom"
+                    android:layoutDirection="rtl"
+                    android:text="أنثى"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp" />
+
+                <RadioButton
+                    android:id="@+id/maleRadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="Arabic Typesetting"
+                    android:gravity="bottom"
+                    android:layoutDirection="rtl"
+                    android:text="ذكر"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp" />
+
+            </RadioGroup>
+
+            <EditText
+                android:id="@+id/conPasswordTxt"
+                android:layout_width="728dp"
+                android:layout_height="69dp"
+                android:layout_marginTop="60dp"
+                android:drawablePadding="15dp"
+                android:drawableRight="@drawable/password_gray"
+                android:ems="100"
+                android:gravity="bottom"
+                android:hint="تأكيد كلمة المرور"
+                android:inputType="textPassword"
+
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/passwordTxt" />
+
+            <EditText
+                android:id="@+id/passwordTxt"
+                android:layout_width="728dp"
+                android:layout_height="69dp"
+                android:layout_marginTop="60dp"
+                android:drawablePadding="15dp"
+                android:drawableRight="@drawable/password_gray"
+                android:ems="100"
+                android:gravity="bottom"
+                android:hint="كلمة المرور"
+                android:inputType="textPassword"
+                app:layout_constraintHorizontal_bias="0.514"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/emailTxt" />
+
+            <EditText
+                android:id="@+id/emailTxt"
+                android:layout_width="728dp"
+                android:layout_height="66dp"
+                android:layout_marginTop="60dp"
+                android:drawablePadding="10dp"
+                android:drawableRight="@drawable/username"
+                android:ems="100"
+                android:gravity="bottom"
+                android:hint="البريد الإلكتروني للطفل"
+                android:inputType="textPersonName"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lnTxt" />
+
+            <!--
+            <TextView
+                android:id="@+id/ErrorMsgSU2"
+                android:layout_width="65dp"
+                android:layout_height="28dp"
+                android:layout_marginEnd="68dp"
+                android:layout_marginStart="8dp"
+                android:fontFamily="casual"
+                android:gravity="bottom"
+                android:text="TextView"
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="16sp"
+                android:typeface="normal"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.915"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:layout_editor_absoluteY="808dp" />-->
+
+            <EditText
+                android:id="@+id/lnTxt"
+                android:layout_width="728dp"
+                android:layout_height="66dp"
+                android:layout_marginTop="60dp"
+                android:drawablePadding="1dp"
+                android:drawableRight="@drawable/child_gray"
+                android:ems="100"
+                android:gravity="bottom"
+                android:hint="     اللقب"
+                android:inputType="textPersonName"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fnTxt" />
+
+            <EditText
+                android:id="@+id/fnTxt"
+                android:layout_width="728dp"
+                android:layout_height="66dp"
+                android:layout_marginRight="152dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="32dp"
+                android:drawablePadding="15dp"
+                android:drawableRight="@drawable/child_gray"
+                android:ems="100"
+                android:gravity="bottom"
+                android:hint="الإسم الأول"
+                android:inputType="textPersonName"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="spread_inside" />
+
+            <ImageView
+                android:id="@+id/genderIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="144dp"
+                android:layout_marginTop="36dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/conPasswordTxt"
+                app:srcCompat="@drawable/gender" />
+
+            <ImageView
+                android:id="@+id/genderErIcon"
+                android:layout_width="45dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="48dp"
+                android:layout_marginTop="56dp"
+                android:visibility="invisible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/conPasswordTxt"
+                app:srcCompat="@drawable/sshape" />
+
+            <TextView
+                android:id="@+id/genderEr"
+                android:layout_width="wrap_content"
+                android:layout_height="28dp"
+                android:layout_marginEnd="140dp"
+                android:layout_marginTop="96dp"
+                android:fontFamily="casual"
+                android:gravity="bottom"
+                android:text="TextView"
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="16sp"
+                android:typeface="normal"
+                android:visibility="invisible"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/conPasswordTxt" />
+
+            <TextView
+                android:id="@+id/empty"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="128dp"
+                android:layout_marginTop="248dp"
+                android:text="       "
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/genderEr" />
+
+
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+
+
+</android.support.constraint.ConstraintLayout>
