@@ -29,7 +29,7 @@ public class SigninEducator extends AppCompatActivity  implements View.OnClickLi
     private FirebaseAuth Uath; //pravite?
     private EditText Email, EdPassword;
     private ProgressBar progressBar;
-    private ImageView Wuser,Wpas;
+
     private ImageButton enter;
     private Intent Itn;
     static String id_edu;
@@ -46,8 +46,7 @@ public class SigninEducator extends AppCompatActivity  implements View.OnClickLi
         Email= (EditText) findViewById(R.id.Email_e);
         EdPassword=(EditText) findViewById(R.id.password);
         progressBar=(ProgressBar) findViewById(R.id.EprogressBar);
-        Wuser=(ImageView) findViewById(R.id.Wuser);
-        Wpas=(ImageView) findViewById(R.id.Wpas);
+
         back = (ImageButton)findViewById(R.id.back_edu);
 
         //adding listeners to the buttons:
@@ -56,8 +55,7 @@ public class SigninEducator extends AppCompatActivity  implements View.OnClickLi
         findViewById(R.id.rgs).setOnClickListener(this);
         Itn =new Intent(this,educator_home.class);
 
-        Wpas.setVisibility(View.INVISIBLE);
-        Wuser.setVisibility(View.INVISIBLE);
+
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,7 +79,7 @@ public class SigninEducator extends AppCompatActivity  implements View.OnClickLi
         if (email.isEmpty()) {
             Email.setError("أدخل البريد الإلكتروني من فضلك");
             Email.requestFocus();
-            Wpas.setVisibility(View.VISIBLE);
+
             flag = false;
 
         }
@@ -89,13 +87,14 @@ public class SigninEducator extends AppCompatActivity  implements View.OnClickLi
         if (password.isEmpty()) {
             EdPassword.setError("أدخل كلمة المرور من فضلك");
             EdPassword.requestFocus();
-            Wuser.setVisibility(View.VISIBLE);
+
             flag = false;
 
         }
-        progressBar.setVisibility(View.VISIBLE);
+
 
         if(flag){
+            progressBar.setVisibility(View.VISIBLE);
             //core of sign in
             //validate email/password then rerutn the sign in state
             // if worked then finshies this view and shows the Edu home
@@ -112,14 +111,14 @@ public class SigninEducator extends AppCompatActivity  implements View.OnClickLi
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {
                                         if(dataSnapshot.exists()){
-                                            Wuser.setVisibility(View.INVISIBLE);
+
                                             finish();
                                             startActivity(Itn);
                                         }
                                         else{
                                             Email.setError("الرجاء كتابة البريد الإلكتروني الخاص بالمربي");
                                             Email.requestFocus();
-                                            Wuser.setVisibility(VISIBLE);
+
 
                                         }
                                     }
@@ -136,19 +135,19 @@ public class SigninEducator extends AppCompatActivity  implements View.OnClickLi
                                 if(task.getException().getMessage().startsWith("The email address is badly formatted")){
                                     Email.setError("الرجاء كتابة البريد الإلكتروني كالتالي someone@example.com ");
                                    Email.requestFocus();
-                                    Wuser.setVisibility(VISIBLE);
+
 
                                 }
                                 else if(task.getException().getMessage().startsWith("There is no user record")){
                                     Email.setError("لا يوجد مستخدم بهذا الحساب ، الرجاء التحقق من البريد الإلكتروني");
                                    Email.requestFocus();
-                                    Wuser.setVisibility(VISIBLE);
+
 
                                 }
                                 else if (task.getException().getMessage().startsWith("The password is invalid")){
                                    EdPassword.setError("كلمة المرور خاطئة ، الرجاء التحقق منها");
                                    EdPassword.requestFocus();
-                                    Wpas.setVisibility(View.VISIBLE);
+
                                 }
                                 //Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             }

@@ -1,6 +1,7 @@
 package edu.iau.abjad.AbjadApp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -71,6 +72,8 @@ public class change_profile_photo extends child_menu {
                     public void onClick(View v) {
                         FBchildPhotoUrl.ref.child("Children").child(Signin.id_child).child("photo_URL").setValue(photo_url);
                         Toast.makeText(change_profile_photo.this, "تم تغيير الصورة بنجاح", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(getApplicationContext(),child_home.class);
+                        startActivity(intent);
 
                     }
                 });

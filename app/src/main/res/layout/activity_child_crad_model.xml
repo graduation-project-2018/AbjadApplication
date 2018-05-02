@@ -5,7 +5,7 @@
     android:layout_margin="10dp"
     card_view:cardCornerRadius="5dp"
     card_view:cardElevation="5dp"
-    android:layout_height="300dp"
+    android:layout_height="350dp"
     >
 
     <LinearLayout
@@ -16,8 +16,8 @@
 
         <ImageView
             android:id="@+id/child_img"
-            android:layout_width="240dp"
-            android:layout_height="240dp"
+            android:layout_width="200dp"
+            android:layout_height="285dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
             android:scaleType="centerCrop"
@@ -27,7 +27,7 @@
             android:id="@+id/child_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="125dp"
+            android:layout_marginLeft="110dp"
             android:layout_marginTop="10dp"
             android:text="اسم الطفل"
             android:textAlignment="center"

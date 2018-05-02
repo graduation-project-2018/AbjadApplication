@@ -32,7 +32,7 @@ public class Signin extends AppCompatActivity  implements View.OnClickListener{
     private FirebaseAuth Uath;
     private EditText ChildUsername, ChildPassword;//ResetPassword; for navgation to the activity
 
-    private ImageView Wuser,Wpas;
+
     private ProgressBar PB;
     private Intent Itn;
     String username;
@@ -56,16 +56,14 @@ public class Signin extends AppCompatActivity  implements View.OnClickListener{
         // enter=findViewById(R.id.SendButton);
         PB= (ProgressBar) findViewById(R.id.CprogressBar);
         // back=findViewById(R.id.back);
-        Wuser=(ImageView) findViewById(R.id.Wuser);
-        Wpas=(ImageView) findViewById(R.id.Wpas);
+
         Itn =new Intent(Signin.this,child_home.class);
         //adding listeners to the buttons:
         findViewById(R.id.submit_btn_reset).setOnClickListener(this);
         findViewById(R.id.back).setOnClickListener(this);
         findViewById(R.id.ResetPassword).setOnClickListener(this);
 
-        Wpas.setVisibility(View.INVISIBLE);
-        Wuser.setVisibility(View.INVISIBLE);
+
 
 
 
@@ -84,11 +82,11 @@ public class Signin extends AppCompatActivity  implements View.OnClickListener{
         if (username.isEmpty()) {
             ChildUsername.setError("ادخل البريد الإلكتروني من فضلك ");
             ChildUsername.requestFocus();
-            Wuser.setVisibility(VISIBLE);
+
            flag = false;
         }
         else {
-            Wuser.setVisibility(View.INVISIBLE);
+
         }
 
 
@@ -96,11 +94,11 @@ public class Signin extends AppCompatActivity  implements View.OnClickListener{
         if (password.isEmpty()) {
             ChildPassword.setError("ادخل كلمة المرور من فضلك ");
             ChildPassword.requestFocus();
-            Wpas.setVisibility(View.VISIBLE);
+
             flag = false;
         }
         else{
-            Wpas.setVisibility(View.INVISIBLE);
+
         }
         if(flag){
 
@@ -112,8 +110,7 @@ public class Signin extends AppCompatActivity  implements View.OnClickListener{
                     PB.setVisibility(View.GONE);
                     if(task.isSuccessful())
                     {
-                        Wuser.setVisibility(View.INVISIBLE);
-                        Wpas.setVisibility(View.INVISIBLE);
+
                         id_child= Uath.getCurrentUser().getUid();
                         Query query = r.ref.child("Children").orderByKey().equalTo(id_child);
                         query.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -125,7 +122,7 @@ public class Signin extends AppCompatActivity  implements View.OnClickListener{
                                 else{
                                     ChildUsername.setError("الرجاء كتابة البريد الإلكتروني الخاص بالطفل");
                                     ChildUsername.requestFocus();
-                                    Wuser.setVisibility(VISIBLE);
+
 
                                 }
                             }
@@ -145,19 +142,18 @@ public class Signin extends AppCompatActivity  implements View.OnClickListener{
                         if(task.getException().getMessage().startsWith("The email address is badly formatted")){
                             ChildUsername.setError("الرجاء كتابة البريد الإلكتروني كالتالي someone@example.com ");
                             ChildUsername.requestFocus();
-                            Wuser.setVisibility(VISIBLE);
+
 
                     }
                     else if(task.getException().getMessage().startsWith("There is no user record")){
                             ChildUsername.setError("لا يوجد مستخدم بهذا الحساب ، الرجاء التحقق من البريد الإلكتروني");
                             ChildUsername.requestFocus();
-                            Wuser.setVisibility(VISIBLE);
 
                         }
                         else if (task.getException().getMessage().startsWith("The password is invalid")){
                             ChildPassword.setError("كلمة المرور خاطئة ، الرجاء التحقق منها");
                             ChildPassword.requestFocus();
-                            Wpas.setVisibility(View.VISIBLE);
+
                         }
                         //Toast.makeText(getApplicationContext(),task.getException().getMessage(),Toast.LENGTH_SHORT).show();
                     }

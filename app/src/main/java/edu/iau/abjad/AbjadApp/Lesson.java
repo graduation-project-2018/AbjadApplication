@@ -702,7 +702,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
     public void listen_word_feedback(int globalCost, int word_length, double max_match){
 
         if(word.equals("لعبت")){
-            if(choosenPhrase.startsWith("لعب")){
+            if(choosenPhrase.startsWith("لعب") || choosenPhrase.endsWith("ات")){
                 fullScore();
                 return;
             }
@@ -800,6 +800,10 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
             }
         }
         if(word.equals("في مدينتي جسور وابراج عاليه") && globalCost == 2){
+            fullScore();
+            return;
+        }
+        if(word.equals("فرح الفريق بالفوز") && globalCost == 2){
             fullScore();
             return;
         }
