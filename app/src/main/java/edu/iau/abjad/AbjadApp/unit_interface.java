@@ -17,6 +17,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import java.io.IOException;
+import java.security.spec.ECField;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -322,6 +323,7 @@ public class unit_interface extends child_menu {
         unitConnicetion.ref.child("Units").child(unitID).child("unit letters").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
                 for(DataSnapshot s: dataSnapshot.getChildren()){
                     lessons.add(s.getValue().toString());
                 }
@@ -344,114 +346,117 @@ public class unit_interface extends child_menu {
                     childScoreConnection.ref.child("child_takes_lesson").child(childID).child(unitID).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
+
                             for (DataSnapshot s : dataSnapshot.getChildren()) {
                                 childLessons.add(s.getKey());
                             }
                             setChildLessons(childLessons);
-                            if(childLessons.size()!=0){
+
+                            if (childLessons.size() != 0) {
                                 getscore.ref.child("Lessons").addValueEventListener(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {
-                                            for (final DataSnapshot KeySnapshot : dataSnapshot.getChildren()) {
-                                              final String lKey=KeySnapshot.getKey();
-                                              DatabaseReference k=childLockConnection.ref.child(lKey).child("lesson_letter");
-                                              ValueEventListener vla=new ValueEventListener() {
-                                                  @Override
-                                                  public void onDataChange(DataSnapshot dataSnapshot) {
-                                                      for (String childLesson:childLessons){
-                                                      if (lKey.equals(childLesson)){
-                                                          String lval=KeySnapshot.child("lesson_letter").getValue(String.class);
-                                                          for(String letr:lessons){
-                                                              if (letr.equals(lval)){
-                                                                  lessonsInfo.get(lessons.indexOf(lval)).setLessonId(lKey);
-                                                              }
-                                                          }
-                                                          }
-                                                      }
-                                                      getChildScoreConnection.ref.child("child_takes_lesson").child(childID).child(unitID).addValueEventListener(new ValueEventListener() {
-                                                          @Override
-                                                          public void onDataChange(DataSnapshot dataSnapshot) {
-                                                              for(final DataSnapshot score:dataSnapshot.getChildren()){
-                                                                  final String Lkey=score.getKey();
-                                                                  DatabaseReference scorRef=innerScore.ref.child(Lkey).child("score");
-                                                                  ValueEventListener scoreValEventLesiner=new ValueEventListener() {
-                                                                      @Override
-                                                                      public void onDataChange(DataSnapshot dataSnapshot) {
-                                                                         for(childUnitInfo obj:lessonsInfo){
-                                                                             if(obj.getLessonId()!=null){
-                                                                             if(obj.getLessonId().equals(Lkey)){
-                                                                               Log.i("Score", score.child("score").getValue(Integer.class)+" ");
-                                                                               obj.setScore(score.child("score").getValue(Integer.class));
-                                                                             }
-                                                                         }}
-                                                                          for (childUnitInfo childUnitInfo_lessonID:lessonsInfo) {
-                                                                              if(childUnitInfo_lessonID.getLessonId()!=null){
-                                                                                  if(childUnitInfo_lessonID.getScore()<4&& childUnitInfo_lessonID.getScore()>0){
-                                                                                      childUnitInfo_lessonID.getStars().setImageResource(R.drawable.one_gold_stars_group);
-                                                                                      childUnitInfo_lessonID.getNextLesson().setClickable(true);
-                                                                                      childUnitInfo_lessonID.getNextLesson().setOnClickListener(lessonCliked);
-                                                                                      childUnitInfo_lessonID.getNextLesson().bringToFront();
-                                                                                  }else if(childUnitInfo_lessonID.getScore()>3&& childUnitInfo_lessonID.getScore()<6){
-                                                                                      childUnitInfo_lessonID.getStars().setImageResource(R.drawable.two_gold_stars_group);
-                                                                                      childUnitInfo_lessonID.getNextLesson().setClickable(true);
-                                                                                      childUnitInfo_lessonID.getNextLesson().setOnClickListener(lessonCliked);
-                                                                                      childUnitInfo_lessonID.getNextLesson().bringToFront();
-                                                                                  }else if(childUnitInfo_lessonID.getScore()>5&& childUnitInfo_lessonID.getScore()<8){
-                                                                                      childUnitInfo_lessonID.getStars().setImageResource(R.drawable.gold_three_stars);
-                                                                                      childUnitInfo_lessonID.getNextLesson().setClickable(true);
-                                                                                      childUnitInfo_lessonID.getNextLesson().setOnClickListener(lessonCliked);
-                                                                                      childUnitInfo_lessonID.getNextLesson().bringToFront();
-                                                                                  }else if(childUnitInfo_lessonID.getScore()==0){
-                                                                                      childUnitInfo_lessonID.getStars().setImageResource(R.drawable.gray_three_stars);
-                                                                                      childUnitInfo_lessonID.getNextLesson().setClickable(true);
-                                                                                      childUnitInfo_lessonID.getNextLesson().setOnClickListener(lessonCliked);
-                                                                                      childUnitInfo_lessonID.getNextLesson().bringToFront();
-                                                                                  }
-                                                                              }
-                                                                              if(childUnitInfo_lessonID.getLock()!=null && childUnitInfo_lessonID.getLessonId()!=null&&childUnitInfo_lessonID.getNextLesson()!=null){
-                                                                                  childUnitInfo_lessonID.getLock().setVisibility(View.GONE);
-                                                                                  childUnitInfo_lessonID.getLock().getVisibility();
-                                                                                  childUnitInfo_lessonID.getLesson().setClickable(true);
-                                                                                  childUnitInfo_lessonID.getLesson().bringToFront();
-                                                                              }
-                                                                              if(childUnitInfo_lessonID.getLesson().isClickable() && childUnitInfo_lessonID.getLock()!=null){
-                                                                                  childUnitInfo_lessonID.getLock().setVisibility(View.GONE);
-                                                                                  childUnitInfo_lessonID.getLock().getVisibility();
-                                                                              }
+                                        for (final DataSnapshot KeySnapshot : dataSnapshot.getChildren()) {
+                                            final String lKey = KeySnapshot.getKey();
+                                            DatabaseReference k = childLockConnection.ref.child(lKey).child("lesson_letter");
+                                            ValueEventListener vla = new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                                    for (String childLesson : childLessons) {
+                                                        if (lKey.equals(childLesson)) {
+                                                            String lval = KeySnapshot.child("lesson_letter").getValue(String.class);
+                                                            for (String letr : lessons) {
+                                                                if (letr.equals(lval)) {
+                                                                    lessonsInfo.get(lessons.indexOf(lval)).setLessonId(lKey);
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                    getChildScoreConnection.ref.child("child_takes_lesson").child(childID).child(unitID).addValueEventListener(new ValueEventListener() {
+                                                        @Override
+                                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                                            for (final DataSnapshot score : dataSnapshot.getChildren()) {
+                                                                final String Lkey = score.getKey();
+                                                                DatabaseReference scorRef = innerScore.ref.child(Lkey).child("score");
+                                                                ValueEventListener scoreValEventLesiner = new ValueEventListener() {
+                                                                    @Override
+                                                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                                                        for (childUnitInfo obj : lessonsInfo) {
+                                                                            if (obj.getLessonId() != null) {
+                                                                                if (obj.getLessonId().equals(Lkey)) {
+                                                                                    Log.i("Score", score.child("score").getValue(Integer.class) + " ");
+                                                                                    obj.setScore(score.child("score").getValue(Integer.class));
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                        for (childUnitInfo childUnitInfo_lessonID : lessonsInfo) {
+                                                                            if (childUnitInfo_lessonID.getLessonId() != null) {
+                                                                                if (childUnitInfo_lessonID.getScore() < 4 && childUnitInfo_lessonID.getScore() > 0) {
+                                                                                    childUnitInfo_lessonID.getStars().setImageResource(R.drawable.one_gold_stars_group);
+                                                                                    childUnitInfo_lessonID.getNextLesson().setClickable(true);
+                                                                                    childUnitInfo_lessonID.getNextLesson().setOnClickListener(lessonCliked);
+                                                                                    childUnitInfo_lessonID.getNextLesson().bringToFront();
+                                                                                } else if (childUnitInfo_lessonID.getScore() > 3 && childUnitInfo_lessonID.getScore() < 6) {
+                                                                                    childUnitInfo_lessonID.getStars().setImageResource(R.drawable.two_gold_stars_group);
+                                                                                    childUnitInfo_lessonID.getNextLesson().setClickable(true);
+                                                                                    childUnitInfo_lessonID.getNextLesson().setOnClickListener(lessonCliked);
+                                                                                    childUnitInfo_lessonID.getNextLesson().bringToFront();
+                                                                                } else if (childUnitInfo_lessonID.getScore() > 5 && childUnitInfo_lessonID.getScore() < 8) {
+                                                                                    childUnitInfo_lessonID.getStars().setImageResource(R.drawable.gold_three_stars);
+                                                                                    childUnitInfo_lessonID.getNextLesson().setClickable(true);
+                                                                                    childUnitInfo_lessonID.getNextLesson().setOnClickListener(lessonCliked);
+                                                                                    childUnitInfo_lessonID.getNextLesson().bringToFront();
+                                                                                } else if (childUnitInfo_lessonID.getScore() == 0) {
+                                                                                    childUnitInfo_lessonID.getStars().setImageResource(R.drawable.gray_three_stars);
+                                                                                    childUnitInfo_lessonID.getNextLesson().setClickable(true);
+                                                                                    childUnitInfo_lessonID.getNextLesson().setOnClickListener(lessonCliked);
+                                                                                    childUnitInfo_lessonID.getNextLesson().bringToFront();
+                                                                                }
+                                                                            }
+                                                                            if (childUnitInfo_lessonID.getLock() != null && childUnitInfo_lessonID.getLessonId() != null && childUnitInfo_lessonID.getNextLesson() != null) {
+                                                                                childUnitInfo_lessonID.getLock().setVisibility(View.GONE);
+                                                                                childUnitInfo_lessonID.getLock().getVisibility();
+                                                                                childUnitInfo_lessonID.getLesson().setClickable(true);
+                                                                                childUnitInfo_lessonID.getLesson().bringToFront();
+                                                                            }
+                                                                            if (childUnitInfo_lessonID.getLesson().isClickable() && childUnitInfo_lessonID.getLock() != null) {
+                                                                                childUnitInfo_lessonID.getLock().setVisibility(View.GONE);
+                                                                                childUnitInfo_lessonID.getLock().getVisibility();
+                                                                            }
 
-                                                                          }
+                                                                        }
 
-                                                                      }
+                                                                    }
 
-                                                                      @Override
-                                                                      public void onCancelled(DatabaseError databaseError) {
+                                                                    @Override
+                                                                    public void onCancelled(DatabaseError databaseError) {
 
-                                                                      }
-                                                                  };
-                                                                    scorRef.addValueEventListener(scoreValEventLesiner);
+                                                                    }
+                                                                };
+                                                                scorRef.addValueEventListener(scoreValEventLesiner);
 
 
+                                                            }
 
-                                                              }
+                                                        }
 
-                                                          }
+                                                        @Override
+                                                        public void onCancelled(DatabaseError databaseError) {
 
-                                                          @Override
-                                                          public void onCancelled(DatabaseError databaseError) {
+                                                        }
+                                                    });
+                                                }
 
-                                                          }
-                                                      });
-                                                  }
+                                                @Override
+                                                public void onCancelled(DatabaseError databaseError) {
 
-                                                  @Override
-                                                  public void onCancelled(DatabaseError databaseError) {
+                                                }
+                                            };
+                                            k.addValueEventListener(vla);
 
-                                                  }
-                                              };
-                                              k.addValueEventListener(vla);
+                                        }
+                                    }
 
-                                            }
-                                       }
                                     @Override
                                     public void onCancelled(DatabaseError databaseError) {
 
@@ -561,6 +566,7 @@ public class unit_interface extends child_menu {
                                 }
                             });
                         }
+
                     }
 
                     @Override
@@ -569,7 +575,10 @@ public class unit_interface extends child_menu {
                     }
                 });
 
+
             }
+
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
 

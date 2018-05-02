@@ -58,7 +58,7 @@ public class ChildProgress extends menu_educator {
     String  sTime, sLeastTime,sHighstScoreLesson,sHighstScoreTest,lett,lettTest,lastName;
     double dTime;
     ArrayList <childUnitInfo> lessonScores;
-    ArrayList <childUnitInfo> testScore;
+    ArrayList <childUnitInfo> testScore, timeCom;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +101,8 @@ public class ChildProgress extends menu_educator {
         lett="";
        lessonScores=new ArrayList<childUnitInfo>();
        testScore=new ArrayList<childUnitInfo>();
+        timeCom=new ArrayList<childUnitInfo>();
+
         lastName="";
 
         final String lessonh="";
@@ -169,22 +171,28 @@ public class ChildProgress extends menu_educator {
                                                     }
                                                     if (dTime<=dleastTime){
                                                         dleastTime=dTime;
+                                                       timeCom.add( new childUnitInfo(0,lett,dleastTime) );
                                                        // sLeastTime=lett;
 
                                                     }
-                                                    for(childUnitInfo child: lessonScores){
+                                                    for(childUnitInfo child: timeCom){
                                                         if(dleastTime==child.time &&(!sLeastTime.contains(child.letters))){
-                                                            sLeastTime=lett+=child.letters+" ";
+                                                            sLeastTime=child.letters+" /";
                                                         }
+                                                    }
+                                                    if(sLeastTime.length()!=0){
+                                                     sLeastTime= sLeastTime.substring(0,sLeastTime.length()-1);
                                                     }
                                                     for(childUnitInfo child: lessonScores){
                                                         if(ihighestLessonScore==child.score &&(!sHighstScoreLesson.contains(child.letters))){
-                                                            sHighstScoreLesson+=child.letters+" ";
+                                                            sHighstScoreLesson+=child.letters+" /";
                                                         }
                                                     }
 
-
-                                                    nTimer.setText(dleastTime+" "+(dleastTime<1?"/ ث":"/ د"));
+                                                    if(sHighstScoreLesson.length()!=0){
+                                                        sHighstScoreLesson=sHighstScoreLesson.substring(0,sHighstScoreLesson.length()-1);
+                                                    }
+                                                    nTimer.setText(dleastTime+" "+(dleastTime<1?"ثانية":" دقيقة"));
                                                     highestScoreLesson.setText(ihighestLessonScore+" /7");
                                                     nDoneLesson.setText(icomplete+" ");
                                                     lessonNameScore.setText(sHighstScoreLesson+"");
@@ -265,6 +273,7 @@ public class ChildProgress extends menu_educator {
                                                     if(iTestScore>=ihighestScore){
                                                         Log.i("score",iTestScore+ " ");
                                                         ihighestScore=iTestScore;
+
                                                        // sHighstScoreTest=lettTest+" ";
                                                         testScore.add(new childUnitInfo(iTestScore,lettTest,dTime));
 
@@ -273,13 +282,17 @@ public class ChildProgress extends menu_educator {
                                                     Log.i("score3",ihighestScore+ " ");
                                                     for(childUnitInfo child: testScore){
                                                         if(ihighestScore==child.score&& (!sHighstScoreTest.contains(child.letters))){
-                                                            sHighstScoreTest+=child.letters+" ";
+                                                            sHighstScoreTest+=child.letters+" / ";
                                                         }
+                                                    }
+                                                    if(sHighstScoreTest.length()!=0) {
+                                                        //sHighstScoreTest.replace("_","،");
+                                                      // sHighstScoreTest=
+                                                        Log.i("sHighstScore",sHighstScoreTest.substring(0,sHighstScoreTest.length()-1));
                                                     }
                                                     Log.i("fffff",sHighstScoreTest+" ");
                                                     highestScoreTest.setText(ihighestScore+" /10");
-                                                    testName.setText(sHighstScoreTest.replace("_","،"));
-
+                                                    testName.setText(sHighstScoreTest.substring(0,sHighstScoreTest.length()-2).replace("_","،"));
                                                 }
 
                                                 @Override
