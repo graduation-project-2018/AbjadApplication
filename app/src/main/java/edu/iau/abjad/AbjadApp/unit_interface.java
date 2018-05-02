@@ -323,7 +323,7 @@ public class unit_interface extends child_menu {
         unitConnicetion.ref.child("Units").child(unitID).child("unit letters").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                try{
+
                 for(DataSnapshot s: dataSnapshot.getChildren()){
                     lessons.add(s.getValue().toString());
                 }
@@ -575,8 +575,7 @@ public class unit_interface extends child_menu {
                     }
                 });
 
-                }
-                catch(Exception e){System.out.println(e);}
+
             }
 
 
