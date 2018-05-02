@@ -146,6 +146,7 @@
                 android:drawablePadding="15dp"
                 android:drawableRight="@drawable/password_gray"
                 android:ems="10"
+                android:gravity="right"
                 android:hint="كلمة المرور"
                 android:inputType="textPassword"
                 app:layout_constraintEnd_toEndOf="parent"

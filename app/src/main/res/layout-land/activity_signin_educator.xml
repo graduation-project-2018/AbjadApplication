@@ -106,6 +106,8 @@
                 android:drawablePadding="15dp"
                 android:drawableRight="@drawable/password_gray"
                 android:ems="100"
+
+                android:gravity="right"
                 android:hint="كلمة المرور"
                 android:inputType="textPassword"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -190,7 +192,7 @@
         android:id="@+id/rgs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="68dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:fontFamily="casual"
@@ -198,12 +200,10 @@
         android:textColor="@android:color/black"
         android:textSize="18sp"
         android:typeface="normal"
-        app:layout_constraintBottom_toBottomOf="@+id/lesson2Cloud"
+        app:layout_constraintBottom_toTopOf="@+id/Send"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.243"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/submit_btn_reset"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintHorizontal_bias="0.152"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 

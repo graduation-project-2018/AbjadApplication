@@ -719,7 +719,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
             return;
 
         }
-        if(globalCost == 1 && word_length ==3){
+        if(globalCost == 1){
             anim.start();
             playAudioInstructions(audio_URLs.perfect_only_one_mistake);
             setOnCompleteListener(audio_instruction);
@@ -736,14 +736,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
             score_img.setImageResource(R.drawable.one);
             child_score = 1;
         }
-        else if(globalCost == 1 && word_length>3){
-            child_score =6;
-            anim.start();
-            playAudioInstructions(audio_URLs.not_fully_good);
-            setOnCompleteListener(audio_instruction);
-            score_img.setVisibility(View.VISIBLE);
-            score_img.setImageResource(R.drawable.six);
-        }
+
         else if(max_match>=0.49 && word_length > 3){
             anim.start();
             playAudioInstructions(audio_URLs.not_fully_good);
@@ -753,6 +746,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
             child_score = 4;
 
         }
+
         else if(max_match<=0.49 && max_match >= 0.39 && word_length>3){
             anim.start();
             playAudioInstructions(audio_URLs.good_with_revision);
