@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/educator_backgrpund"
     tools:context="edu.iau.abjad.AbjadApp.change_profile_photo"
-    >
+    tools:ignore="MissingDefaultResource">
 
     <include
         android:id="@+id/include2"

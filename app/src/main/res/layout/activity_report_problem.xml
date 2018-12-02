@@ -6,7 +6,8 @@
     tools:context=".report_problem"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/educator_backgrpund">
+    android:background="@drawable/educator_backgrpund"
+    tools:ignore="MissingDefaultResource">
 
     <include
         layout="@layout/navigation_action_bar"

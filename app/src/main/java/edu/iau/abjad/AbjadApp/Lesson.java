@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -16,6 +17,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -37,7 +39,7 @@ import java.util.Calendar;
 public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener {
     menu_variables m = new menu_variables();
     TextView word_label;
-    TextView sentence_label;
+    TextView sentence_label, nextLabel;
     Button mic_btn;
     SpeechRecognizer mSpeechRecognizer ;
     Intent mSpeechRecognizerIntent ;
@@ -84,7 +86,12 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
 
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         Intent h=getIntent();
+        Bundle extras = h.getExtras();
+        if(extras != null){
         Log.i("getExtra",h.getStringExtra("Lessonltr"));
+        }
+
+
 
         //inflate your activity layout here!
         View contentView = inflater.inflate(R.layout.activity_lesson, null, false);
@@ -93,13 +100,14 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
         //to get user permission of mice
         ActivityCompat.requestPermissions(this,permissions , REQUEST_RECORD_AUDIO_PERMISSION);
 
+
         r = new firebase_connection();
         unit_id = "unit2";
 
         letter = h.getStringExtra("Lessonltr");
         m.title.setText(  "حرف "+"( " +letter+ " ) " );
         wordsArrayList = new ArrayList<lesson_words>();
-
+        nextLabel = findViewById(R.id.nextLabel);
         next_lesson_btn = (Button) findViewById(R.id.next_lesson);
         word_label = (TextView) findViewById(R.id.word_label);
         sentence_label = (TextView) findViewById(R.id.sentence_label);
@@ -123,6 +131,43 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
         a1= new MediaPlayer();
         lesson_audio = new MediaPlayer();
         audio_instruction = new MediaPlayer();
+
+
+
+        int screenSize = getResources().getConfiguration().screenLayout &
+                Configuration.SCREENLAYOUT_SIZE_MASK;
+        switch(screenSize) {
+            case Configuration.SCREENLAYOUT_SIZE_XLARGE:
+                word_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,50);
+                nextLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,32);
+                m.title.setTextSize(TypedValue.COMPLEX_UNIT_SP,32);
+                Log.i("scsize","X Large" );
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_LARGE:
+                word_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,40);
+                nextLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,22);
+                m.title.setTextSize(TypedValue.COMPLEX_UNIT_SP,22);
+                Log.i("scsize","Large" );
+
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_NORMAL:
+                word_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+                nextLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
+                m.title.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
+                Log.i("scsize","Normal" );
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_SMALL:
+                word_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+                nextLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,8);
+                m.title.setTextSize(TypedValue.COMPLEX_UNIT_SP,10);
+                Log.i("scsize","Small" );
+                break;
+            default:
+                word_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+                nextLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
+                m.title.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+
+        }//end switch
 
 
 
@@ -389,7 +434,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                 public void onResults(Bundle bundle) {
                     int word_length = word.length();
                     boolean found = false, found_with_repetition=false;
-                    System.out.println("Word is: "+ word);
+                    System.out.println("Word is: "+ "إشارة");
 
                     // matches contains many results but we will display the best one and it useually the first one.
                     ArrayList<String> matches = bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);

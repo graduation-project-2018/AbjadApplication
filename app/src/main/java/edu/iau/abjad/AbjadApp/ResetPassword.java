@@ -2,14 +2,17 @@ package edu.iau.abjad.AbjadApp;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -27,6 +30,7 @@ public class ResetPassword extends AppCompatActivity {
     firebase_connection r = new firebase_connection();
     String emailAddress;
     String node;
+    TextView ResetPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +42,32 @@ public class ResetPassword extends AppCompatActivity {
         submit = (ImageButton) findViewById(R.id.submit_btn_reset);
         err = (ImageView) findViewById(R.id.error_symbol);
         email = (EditText) findViewById(R.id.email_reset);
+        ResetPassword = findViewById(R.id.ResetPassword);
 
         final FirebaseAuth auth = FirebaseAuth.getInstance();
 
         err.setVisibility(View.INVISIBLE);
+
+        int screenSize = getResources().getConfiguration().screenLayout &
+                Configuration.SCREENLAYOUT_SIZE_MASK;
+        switch(screenSize) {
+            case Configuration.SCREENLAYOUT_SIZE_XLARGE:
+                ResetPassword.setTextSize(TypedValue.COMPLEX_UNIT_SP,60);
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_LARGE:
+                ResetPassword.setTextSize(TypedValue.COMPLEX_UNIT_SP,50);
+
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_NORMAL:
+                ResetPassword.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_SMALL:
+                ResetPassword.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+                break;
+            default:
+                ResetPassword.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+
+        }//end switch
         node = "Educators";
 
         Intent intent = getIntent();

@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:textAlignment="center"
     tools:context="edu.iau.abjad.AbjadApp.MatchingTest"
-    tools:layout_editor_absoluteY="25dp">
+    tools:layout_editor_absoluteY="25dp"
+    tools:ignore="MissingDefaultResource">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -56,7 +57,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="44dp"
         android:layout_marginTop="103dp"
-        app:srcCompat="@drawable/next_lesson" />
+        app:srcCompat="@drawable/next_arrow" />
 
     <ImageView
         android:id="@+id/Pic3"

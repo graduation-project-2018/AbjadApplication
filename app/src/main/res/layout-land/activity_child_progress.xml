@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/educator_backgrpund"
-    tools:context="edu.iau.abjad.AbjadApp.ChildProgress">
+    tools:context="edu.iau.abjad.AbjadApp.ChildProgress"
+    tools:ignore="MissingDefaultResource">
 
     <include
         layout="@layout/navigation_action_bar"

@@ -10,7 +10,5 @@ import android.widget.TextView;
  */
 
 public class menu_variables {
-
-
     TextView title;
 }

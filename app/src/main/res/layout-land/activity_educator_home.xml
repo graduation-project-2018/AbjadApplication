@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:background="@drawable/educator_backgrpund"
     tools:context=".educator_home"
-    tools:layout_editor_absoluteY="25dp">
+    tools:layout_editor_absoluteY="25dp"
+    tools:ignore="MissingDefaultResource">
 
     <include
         layout="@layout/navigation_action_bar"

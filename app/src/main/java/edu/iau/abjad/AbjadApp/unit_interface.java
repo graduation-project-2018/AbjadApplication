@@ -320,7 +320,7 @@ public class unit_interface extends child_menu {
         unedatble();
         Log.i("Lesson1",lesson1.isClickable()+" ");
 
-        unitConnicetion.ref.child("Units").child(unitID).child("unit letters").addValueEventListener(new ValueEventListener() {
+        unitConnicetion.ref.child("Units").child(unitID).child("unit_letters").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 

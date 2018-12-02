@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="edu.iau.abjad.AbjadApp.educator_profile"
-    android:background="@drawable/educator_backgrpund">
+    android:background="@drawable/educator_backgrpund"
+    tools:ignore="MissingDefaultResource">
 
     <include
         layout="@layout/navigation_action_bar"
@@ -111,7 +112,7 @@
         android:layout_height="384dp"
         android:layout_marginBottom="68dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/transbg"
+        android:background="@drawable/user_type_bg"
         android:foregroundGravity="bottom"
         android:gravity="bottom"
         android:scrollbarStyle="outsideOverlay"

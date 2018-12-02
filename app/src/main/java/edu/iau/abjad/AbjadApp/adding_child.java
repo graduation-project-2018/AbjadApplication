@@ -42,7 +42,7 @@ public class adding_child  extends menu_educator {
     Intent intent;
     boolean backFlag=false;
     TextView genderError;
-    ImageView genderErrorIcon;
+
     DatabaseReference rf;
     Boolean foundErrors;
 
@@ -81,7 +81,6 @@ public class adding_child  extends menu_educator {
         addBtn = (Button)findViewById(R.id.addBtn);
         intent = new Intent(this, child_photo.class);
         genderError = (TextView)findViewById(R.id.genderEr);
-        genderErrorIcon = (ImageView)findViewById(R.id.genderErIcon);
         addBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -141,7 +140,6 @@ public class adding_child  extends menu_educator {
 
 
         genderError.setVisibility(View.INVISIBLE);
-        genderErrorIcon.setVisibility(View.INVISIBLE);
         foundErrors =false;
         checkFirstName();
         checkLastName();
@@ -240,9 +238,7 @@ public class adding_child  extends menu_educator {
 
         if(radioGroup.getCheckedRadioButtonId() == -1)
         {
-            genderError.setText("قم باختيار جنس الطفل");
             genderError.setVisibility(View.VISIBLE);
-            genderErrorIcon.setVisibility(View.VISIBLE);
             foundErrors =true;
         }
 

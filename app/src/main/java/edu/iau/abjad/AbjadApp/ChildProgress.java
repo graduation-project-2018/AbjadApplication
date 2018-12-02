@@ -156,8 +156,7 @@ public class ChildProgress extends menu_educator {
                                                     final int ilessonScore=s.child("score").getValue(Integer.class);
                                                     sTime=s.child("time").getValue().toString();
                                                     dTime=Double.parseDouble(sTime);
-                                                    Log.i("GGGGGGGG",dataSnapshot.child(lessonKey)
-                                                            .child("lesson_letter").getValue().toString()+" juju");
+
                                                    lett=dataSnapshot.child(lessonKey)
                                                             .child("lesson_letter").getValue().toString();
                                                     Log.i("time",dTime+" m");
@@ -294,7 +293,6 @@ public class ChildProgress extends menu_educator {
                                                     highestScoreTest.setText(ihighestScore+" /10");
                                                     testName.setText(sHighstScoreTest.substring(0,sHighstScoreTest.length()-2).replace("_","،"));
                                                 }
-
                                                 @Override
                                                 public void onCancelled(DatabaseError databaseError) {
 
