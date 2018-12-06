@@ -1,15 +1,22 @@
 package edu.iau.abjad.AbjadApp;
 
+import android.content.res.Configuration;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.ScaleDrawable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.content.Context;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -29,20 +36,14 @@ public class adding_child  extends menu_educator {
 
     FirebaseDatabase db;
     firebase_connection r;
-    TextView firstName;
-    TextView lastName;
+    EditText firstName, lastName, password,confirmedPassword, email;
     RadioGroup radioGroup;
     RadioButton radioButton;
-
-    TextView password;
-    TextView confirmedPassword;
-    TextView email;
     Button addBtn;
     childInformation child;
     Intent intent;
     boolean backFlag=false;
     TextView genderError;
-
     DatabaseReference rf;
     Boolean foundErrors;
 
@@ -71,13 +72,12 @@ public class adding_child  extends menu_educator {
         rf = db.getReference();
         r = new firebase_connection();
 
-        firstName = (TextView)findViewById(R.id.fnTxt);
-        lastName = (TextView)findViewById(R.id.lnTxt);
-
+        firstName = findViewById(R.id.fnTxt);
+        lastName = findViewById(R.id.lnTxt);
         radioGroup = (RadioGroup) findViewById(R.id.genderRadioGroup);
-        password = (TextView)findViewById(R.id.passwordTxt);
-        confirmedPassword = (TextView)findViewById(R.id.conPasswordTxt);
-        email = (TextView)findViewById(R.id.emailTxt);
+        password = findViewById(R.id.passwordTxt);
+        confirmedPassword = findViewById(R.id.conPasswordTxt);
+        email = findViewById(R.id.emailTxt);
         addBtn = (Button)findViewById(R.id.addBtn);
         intent = new Intent(this, child_photo.class);
         genderError = (TextView)findViewById(R.id.genderEr);
@@ -88,6 +88,57 @@ public class adding_child  extends menu_educator {
                 checkInputs();
 
             } });
+
+        int screenSize = getResources().getConfiguration().screenLayout &
+                Configuration.SCREENLAYOUT_SIZE_MASK;
+        switch(screenSize) {
+            case Configuration.SCREENLAYOUT_SIZE_XLARGE:
+                addBtn.setTextSize(TypedValue.COMPLEX_UNIT_SP,32);
+                m.setTitle_XLarge();
+                // change the right icon of Edit text based on screen size
+                firstName.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray, 0);
+                lastName.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray, 0);
+                m.auth_setRight_icon_XLarge(email,password);
+                confirmedPassword.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.password_gray, 0);
+                Log.i("scsize","X Large" );
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_LARGE:
+                addBtn.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+                m.setTitle_Large();
+                firstName.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray_2x, 0);
+                lastName.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray_2x, 0);
+                m.auth_setRight_icon_Large(email,password);
+                confirmedPassword.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.password_2x, 0);
+                Log.i("scsize","Large" );
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_NORMAL:
+                addBtn.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
+                m.setTitle_Normal();
+                firstName.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray_15x, 0);
+                lastName.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray_15x, 0);
+                m.auth_setRight_icon_Normal(email,password);
+                confirmedPassword.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.password_15x, 0);
+                Log.i("scsize","Normal" );
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_SMALL:
+                addBtn.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
+                m.setTitle_Small();
+                firstName.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray_1x, 0);
+                lastName.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray_1x, 0);
+                m.auth_setRight_icon_Small(email,password);
+                confirmedPassword.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.password_1x, 0);
+                Log.i("scsize","Small" );
+                break;
+            default:
+                addBtn.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
+                m.setTitle_Default();
+                firstName.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray_1x, 0);
+                lastName.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray_1x, 0);
+                m.auth_setRight_icon_Default(email,password);
+                confirmedPassword.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.password_1x, 0);
+
+                Log.i("scsize","Default screen" );
+        }//end switch
 
     }//end of onCreate function
 

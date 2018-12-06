@@ -1,10 +1,13 @@
 package edu.iau.abjad.AbjadApp;
 
 import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,6 +26,7 @@ import android.content.Intent;
 import java.util.regex.Pattern;
 
 public class SignUp extends AppCompatActivity {
+    menu_variables m = new menu_variables();
     Button SignUpBtn;
     EditText FN ,LN,Email,Pass,Cpass;
     boolean condition=true;
@@ -30,8 +34,9 @@ public class SignUp extends AppCompatActivity {
     firebase_connection r;
     Pattern ArabicLetters;
     Educator educator;
-    String educatorID="";
- private   Intent educatorHome;
+    ImageView back_btn;
+    private Intent educatorHome;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +51,63 @@ public class SignUp extends AppCompatActivity {
         ArabicLetters = Pattern.compile("^[ءئ ؤ إآ ى لآ لأ  لإ أ-ي ]+$");
         r = new firebase_connection();
         educatorHome= new Intent(this,educator_home.class);
+        back_btn = findViewById(R.id.back_signUp);
 
+        // Listener of back button to return the user to Sign in page
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // take the user to the previous Activity
+                finish();
+                Intent intent = new Intent(SignUp.this, SigninEducator.class);
+                startActivity(intent);
+            }
+        });
+
+        int screenSize = getResources().getConfiguration().screenLayout &
+                Configuration.SCREENLAYOUT_SIZE_MASK;
+        switch(screenSize) {
+            case Configuration.SCREENLAYOUT_SIZE_XLARGE:
+                SignUpBtn.setTextSize(TypedValue.COMPLEX_UNIT_SP,32);
+                // change the right icon of Edit text based on screen size
+                FN.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.user_icon_4x, 0);
+                LN.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.user_icon_4x, 0);
+                m.auth_setRight_icon_XLarge(Email,Pass);
+                Cpass.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.password_gray, 0);
+                Log.i("scsize","X Large" );
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_LARGE:
+                SignUpBtn.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+                FN.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.user_icon_2x, 0);
+                LN.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.user_icon_2x, 0);
+                m.auth_setRight_icon_Large(Email,Pass);
+                Cpass.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.password_2x, 0);
+                Log.i("scsize","Large" );
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_NORMAL:
+                SignUpBtn.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
+                FN.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.user_icon_15x, 0);
+                LN.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.user_icon_15x, 0);
+                m.auth_setRight_icon_Normal(Email,Pass);
+                Cpass.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.password_15x, 0);
+                Log.i("scsize","Normal" );
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_SMALL:
+                SignUpBtn.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
+                FN.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.user_icon_1x, 0);
+                LN.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.user_icon_1x, 0);
+                m.auth_setRight_icon_Small(Email,Pass);
+                Cpass.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.password_1x, 0);
+                Log.i("scsize","Small" );
+                break;
+            default:
+                SignUpBtn.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
+                FN.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.user_icon_1x, 0);
+                LN.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.user_icon_1x, 0);
+                m.auth_setRight_icon_Default(Email,Pass);
+                Cpass.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.password_1x, 0);
+                Log.i("scsize","Default screen" );
+        }//end switch
 
 
         mAuth = FirebaseAuth.getInstance();
@@ -79,10 +140,6 @@ public class SignUp extends AppCompatActivity {
                     }
 
                 }
-
-
-
-
 
                 if (Email.getText().toString().trim().isEmpty()) {
                     Email.setError("قم بتعبئة الحقل بالبريد الإلكتروني");
@@ -132,10 +189,6 @@ public class SignUp extends AppCompatActivity {
                             //educatorID= mAuth.getCurrentUser().getUid();
                             SigninEducator.id_edu = mAuth.getCurrentUser().getUid();
                             educator = new Educator(Email.getText().toString().trim(),FN.getText().toString(),LN.getText().toString());
-
-
-
-
                             r.ref.addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -162,13 +215,7 @@ public class SignUp extends AppCompatActivity {
                         }
                     }
                 });
-
-
-
-
     }
-
-
 
     }
 

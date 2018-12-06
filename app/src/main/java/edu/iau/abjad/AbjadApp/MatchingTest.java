@@ -4,6 +4,7 @@ import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -55,6 +56,9 @@ public class MatchingTest extends child_menu {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
+
+
         m.title = (TextView) findViewById(R.id.interface_title);
         m.title.setText("اختبار التوصيل");
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -63,6 +67,8 @@ public class MatchingTest extends child_menu {
         View contentView = inflater.inflate(R.layout.activity_matching_test, null, false);
 
         myDrawerLayout.addView(contentView, 0);
+
+
 
 
          Pic1 = (ImageView) findViewById(R.id.Pic1);

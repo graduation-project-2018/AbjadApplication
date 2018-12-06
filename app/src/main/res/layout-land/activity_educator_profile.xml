@@ -6,12 +6,11 @@
     android:layout_height="match_parent"
     tools:context="edu.iau.abjad.AbjadApp.educator_profile"
     android:background="@drawable/educator_backgrpund"
-    tools:ignore="MissingDefaultResource">
+    >
 
     <include
         layout="@layout/navigation_action_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+      />
 
 
 
@@ -156,7 +155,7 @@
                 android:layout_height="66dp"
                 android:layout_marginTop="40dp"
                 android:drawablePadding="1dp"
-                android:drawableRight="@drawable/user_male"
+                android:drawableRight="@drawable/user_icon_4x"
                 android:ems="100"
                 android:gravity="bottom"
                 android:hint="     اللقب"
@@ -170,11 +169,9 @@
                 android:id="@+id/fnTxt"
                 android:layout_width="728dp"
                 android:layout_height="66dp"
-                android:layout_marginRight="152dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="28dp"
+                android:drawableRight="@drawable/user_icon_4x"
                 android:drawablePadding="15dp"
-                android:drawableRight="@drawable/user_male"
                 android:ems="100"
                 android:gravity="bottom"
                 android:hint="الإسم الأول"

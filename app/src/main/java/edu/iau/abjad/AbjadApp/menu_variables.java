@@ -3,6 +3,8 @@ package edu.iau.abjad.AbjadApp;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.TypedValue;
+import android.widget.EditText;
 import android.widget.TextView;
 
 /**
@@ -11,4 +13,52 @@ import android.widget.TextView;
 
 public class menu_variables {
     TextView title;
+
+    public void setTitle_XLarge(){
+        title.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
+    }
+
+    public void setTitle_Large(){
+        title.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+    }
+
+    public void setTitle_Normal(){
+        title.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+    }
+
+    public void setTitle_Small(){
+        title.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
+    }
+
+    public void setTitle_Default(){
+        title.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+    }
+
+    public void auth_setRight_icon_XLarge(EditText email, EditText pass){
+        email.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.email_icon, 0);
+        pass.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.password_gray, 0);
+    }
+
+    public void auth_setRight_icon_Large(EditText email, EditText pass){
+        email.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.email_icon_2x, 0);
+        pass.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.password_2x, 0);
+    }
+
+    public void auth_setRight_icon_Normal(EditText email, EditText pass){
+        email.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.email_icon_15x, 0);
+        pass.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.password_15x, 0);
+    }
+
+    public void auth_setRight_icon_Small(EditText email, EditText pass){
+        email.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.email_icon_1x, 0);
+        pass.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.password_1x, 0);
+    }
+
+    public void auth_setRight_icon_Default(EditText email, EditText pass){
+        email.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.email_icon_1x, 0);
+        pass.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.password_1x, 0);
+    }
+
+
 }
+

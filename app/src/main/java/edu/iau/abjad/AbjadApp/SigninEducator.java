@@ -2,15 +2,18 @@ package edu.iau.abjad.AbjadApp;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Patterns;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -25,16 +28,15 @@ import com.google.firebase.database.ValueEventListener;
 import static android.view.View.VISIBLE;
 
 public class SigninEducator extends AppCompatActivity  implements View.OnClickListener{
-
-    private FirebaseAuth Uath; //pravite?
+    menu_variables m = new menu_variables();
+    private FirebaseAuth Uath;
     private EditText Email, EdPassword;
     private ProgressBar progressBar;
-
-    private ImageButton enter;
     private Intent Itn;
     static String id_edu;
+    TextView signIn_label, send_label, new_account_label, reset_pass_label;
     firebase_connection  r = new firebase_connection();
-    ImageButton back;
+    ImageView back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,14 +48,58 @@ public class SigninEducator extends AppCompatActivity  implements View.OnClickLi
         Email= (EditText) findViewById(R.id.Email_e);
         EdPassword=(EditText) findViewById(R.id.password);
         progressBar=(ProgressBar) findViewById(R.id.EprogressBar);
+        signIn_label = findViewById(R.id.signIn_label_edu);
+        send_label = findViewById(R.id.send_label_on_btn_edu);
+        new_account_label= findViewById(R.id.rgs);
+        reset_pass_label= findViewById(R.id.ResetPassword);
 
-        back = (ImageButton)findViewById(R.id.back_edu);
+        back = findViewById(R.id.back_edu);
 
         //adding listeners to the buttons:
         findViewById(R.id.submit_btn_reset).setOnClickListener(this);
         findViewById(R.id.ResetPassword).setOnClickListener(this);
         findViewById(R.id.rgs).setOnClickListener(this);
         Itn =new Intent(this,educator_home.class);
+
+        int screenSize = getResources().getConfiguration().screenLayout &
+                Configuration.SCREENLAYOUT_SIZE_MASK;
+        switch(screenSize) {
+            case Configuration.SCREENLAYOUT_SIZE_XLARGE:
+                signIn_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
+                m.auth_setRight_icon_XLarge(Email,EdPassword);
+                send_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+                new_account_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
+                reset_pass_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_LARGE:
+                signIn_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,23);
+                m.auth_setRight_icon_Large(Email,EdPassword);
+                send_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
+                new_account_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,16);
+                reset_pass_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,16);
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_NORMAL:
+                signIn_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
+                m.auth_setRight_icon_Normal(Email,EdPassword);
+                send_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,14);
+                new_account_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,14);
+                reset_pass_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,14);
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_SMALL:
+                signIn_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,14);
+                m.auth_setRight_icon_Small(Email,EdPassword);
+                send_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,10);
+                new_account_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
+                reset_pass_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
+                break;
+            default:
+                signIn_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+                m.auth_setRight_icon_Default(Email,EdPassword);
+                send_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
+                new_account_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
+                reset_pass_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
+
+        }//end switch
 
 
 

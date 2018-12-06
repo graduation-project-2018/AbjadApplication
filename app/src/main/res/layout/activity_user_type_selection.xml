@@ -18,7 +18,6 @@
         android:layout_marginBottom="8dp"
         android:background="@drawable/user_type_bg"
         app:layout_constraintBottom_toBottomOf="@+id/guideline7"
-        app:layout_constraintDimensionRatio="H,"
         app:layout_constraintEnd_toEndOf="@+id/guideline9"
         app:layout_constraintStart_toStartOf="@+id/guideline8"
         app:layout_constraintTop_toTopOf="@+id/guideline6" />
@@ -27,31 +26,31 @@
         android:id="@+id/educator_Btn"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-        app:layout_constraintDimensionRatio="H,16:7"
+        app:layout_constraintDimensionRatio="H,16:16"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
         app:layout_constraintTop_toTopOf="@+id/imageView2"
-        app:srcCompat="@drawable/educator" />
+        android:src="@drawable/educator"/>
 
     <ImageView
         android:id="@+id/child_btn"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/child"
         app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-        app:layout_constraintDimensionRatio="H,16:7"
+        app:layout_constraintDimensionRatio="H,16:15.5"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline10"
         app:layout_constraintTop_toTopOf="@+id/imageView2"
-        app:srcCompat="@drawable/child" />
+        app:layout_constraintVertical_bias="0.513" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline"
@@ -59,7 +58,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent="0.5" />
+        app:layout_constraintGuide_percent="0.40" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline2"
@@ -67,7 +66,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent="0.07" />
+        app:layout_constraintGuide_percent="0.2" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline3"
@@ -75,7 +74,15 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent="0.93"/>
+        app:layout_constraintGuide_percent="0.8"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.57"/>
 
     <TextView
         android:id="@+id/educatortext"
@@ -134,6 +141,8 @@
         android:orientation="vertical"
         app:layout_constraintGuide_begin="20dp"
         app:layout_constraintGuide_percent="0.88" />
+
+
 
 
 </android.support.constraint.ConstraintLayout>

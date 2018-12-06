@@ -34,6 +34,7 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Locale;
 
 
 public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener {
@@ -84,14 +85,16 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
 
+
+
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        //to get the lesson letter from Unit interface.
         Intent h=getIntent();
         Bundle extras = h.getExtras();
         if(extras != null){
         Log.i("getExtra",h.getStringExtra("Lessonltr"));
         }
-
-
 
         //inflate your activity layout here!
         View contentView = inflater.inflate(R.layout.activity_lesson, null, false);
@@ -101,11 +104,13 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
         ActivityCompat.requestPermissions(this,permissions , REQUEST_RECORD_AUDIO_PERMISSION);
 
 
-        r = new firebase_connection();
-        unit_id = "unit2";
 
+
+        r = new firebase_connection();
         letter = h.getStringExtra("Lessonltr");
+        //set Lesson title
         m.title.setText(  "حرف "+"( " +letter+ " ) " );
+
         wordsArrayList = new ArrayList<lesson_words>();
         nextLabel = findViewById(R.id.nextLabel);
         next_lesson_btn = (Button) findViewById(R.id.next_lesson);
@@ -138,34 +143,39 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                 Configuration.SCREENLAYOUT_SIZE_MASK;
         switch(screenSize) {
             case Configuration.SCREENLAYOUT_SIZE_XLARGE:
-                word_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,50);
+                word_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,70);
+                sentence_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,50);
                 nextLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,32);
-                m.title.setTextSize(TypedValue.COMPLEX_UNIT_SP,32);
+                m.setTitle_XLarge();
                 Log.i("scsize","X Large" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_LARGE:
-                word_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,40);
+                word_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,60);
+                sentence_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,40);
                 nextLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,22);
-                m.title.setTextSize(TypedValue.COMPLEX_UNIT_SP,22);
+                m.setTitle_Large();
                 Log.i("scsize","Large" );
 
                 break;
             case Configuration.SCREENLAYOUT_SIZE_NORMAL:
-                word_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+                word_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,40);
+                sentence_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
                 nextLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
-                m.title.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
+                m.setTitle_Normal();
                 Log.i("scsize","Normal" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_SMALL:
-                word_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+                word_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
+                sentence_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
                 nextLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,8);
-                m.title.setTextSize(TypedValue.COMPLEX_UNIT_SP,10);
+                m.setTitle_Small();
                 Log.i("scsize","Small" );
                 break;
             default:
                 word_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+                sentence_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
                 nextLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
-                m.title.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+                m.setTitle_Default();
 
         }//end switch
 
@@ -434,7 +444,6 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                 public void onResults(Bundle bundle) {
                     int word_length = word.length();
                     boolean found = false, found_with_repetition=false;
-                    System.out.println("Word is: "+ "إشارة");
 
                     // matches contains many results but we will display the best one and it useually the first one.
                     ArrayList<String> matches = bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
@@ -455,6 +464,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                             break;
                         }
                     }
+                    //check if there is a repetition in words only.
                     if(sentence_label.getText()==""){
                         for(int i =0 ; i<matches.size();i++){
                             String[] duplicates= matches.get(i).split(" ");

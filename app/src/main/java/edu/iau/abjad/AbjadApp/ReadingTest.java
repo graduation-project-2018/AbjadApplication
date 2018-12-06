@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -17,6 +18,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.ActionProvider;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -40,11 +42,11 @@ public class ReadingTest extends child_menu {
     menu_variables m = new menu_variables();
     Button mic_btn, speaker_btn;
     static firebase_connection r;
-    TextView word_test_label ;
+    TextView word_test_label, sentence_test_label ;
     final int REQUEST_RECORD_AUDIO_PERMISSION = 200;
     private boolean permissionToRecordAccepted = false;
     private String [] permissions = {android.Manifest.permission.RECORD_AUDIO};
-   static String test_id ;
+    static String test_id ;
     int choose_phrase ;
     Button next;
     int chosen_index;
@@ -62,6 +64,7 @@ public class ReadingTest extends child_menu {
     ImageView abjad;
     AnimationDrawable anim;
     boolean flag2, move_child ;
+    TextView nextLabel;
 
     //Alaa
     firebase_connection Test_Id,testIdq2;
@@ -83,14 +86,15 @@ public class ReadingTest extends child_menu {
         //to get user permission of mice
         ActivityCompat.requestPermissions(this,permissions , REQUEST_RECORD_AUDIO_PERMISSION);
 
-        abjad = (ImageView) findViewById(R.id.abjad_reading_test);
+        abjad =  findViewById(R.id.abjad_reading_test);
         abjad.setBackgroundResource(R.drawable.abjad_speak);
         anim =(AnimationDrawable) abjad.getBackground();
 
-        mic_btn= (Button) findViewById(R.id.test_mic_btn);
-        speaker_btn = (Button) findViewById(R.id.test_speaker_btn);
+        mic_btn=  findViewById(R.id.test_mic_btn);
+        speaker_btn =  findViewById(R.id.test_speaker_btn);
         r = new firebase_connection();
-        word_test_label =(TextView) findViewById(R.id.word_test);
+        word_test_label = findViewById(R.id.word_test);
+        sentence_test_label = findViewById(R.id.sentence_test);
         test_id = "Test1";
         child_score=0;
         reading_child_score =0;
@@ -103,8 +107,50 @@ public class ReadingTest extends child_menu {
         testIntent=new ArrayList<Intent>();
         Test_letter=unit_interface.test_letter;
         speaker_btn.setVisibility(View.INVISIBLE);
-
         next=findViewById(R.id.next);
+        nextLabel = findViewById(R.id.nextLabel_test);
+
+        int screenSize = getResources().getConfiguration().screenLayout &
+                Configuration.SCREENLAYOUT_SIZE_MASK;
+        switch(screenSize) {
+            case Configuration.SCREENLAYOUT_SIZE_XLARGE:
+
+                word_test_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,70);
+                sentence_test_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,50);
+                nextLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,32);
+                m.setTitle_XLarge();
+                Log.i("scsize","X Large" );
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_LARGE:
+                word_test_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,60);
+                sentence_test_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,43);
+                nextLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,22);
+                m.setTitle_Large();
+                Log.i("scsize","Large" );
+
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_NORMAL:
+                word_test_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,40);
+                sentence_test_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,27);
+                nextLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
+                m.setTitle_Normal();
+                Log.i("scsize","Normal" );
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_SMALL:
+                word_test_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
+                sentence_test_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,22);
+                nextLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,8);
+                m.setTitle_Small();
+                Log.i("scsize","Small" );
+                break;
+            default:
+                word_test_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,35);
+                sentence_test_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+                nextLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
+                m.setTitle_Default();
+
+        }//end switch
+
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -173,7 +219,14 @@ public class ReadingTest extends child_menu {
                         word = test.child(path).child(chosen_word).child("content").getValue().toString();
                         word_audio = test.child(path).child(chosen_word).child("audio_file").getValue().toString();
 
-                        word_test_label.setText(word);
+                        if (path.equals("sentences")){
+                            sentence_test_label.setText(word);
+                        }
+                        else{
+                            word_test_label.setText(word);
+                        }
+
+
 
                         check_ta();
                         check_alef();

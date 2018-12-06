@@ -5,12 +5,17 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
+import android.support.v4.view.ViewCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ScrollView;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +34,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.io.FileInputStream;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import static java.security.AccessController.getContext;
 
@@ -60,6 +66,8 @@ public class ChildProgress extends menu_educator {
     ArrayList <childUnitInfo> lessonScores;
     ArrayList <childUnitInfo> testScore, timeCom;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,10 +75,18 @@ public class ChildProgress extends menu_educator {
         m.title = (TextView) findViewById(R.id.interface_title);
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
+
+
         //inflate your activity layout here!
         final View contentView = inflater.inflate(R.layout.activity_child_progress, null, false);
         sTime=""; sLeastTime="";sHighstScoreLesson="";sHighstScoreTest="";lett="";
         mDrawerLayout.addView(contentView, 0);
+
+
+
+
+
+
         //intilization
          nUnlokedLesson=findViewById(R.id.nUnlokedLesson);
          nDoneLesson=findViewById(R.id.nDoneLesson);

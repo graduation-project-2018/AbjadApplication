@@ -66,6 +66,9 @@ public class educator_home extends menu_educator {
         gv.setNumColumns(2);
         first_time = true;
         label = (TextView) findViewById(R.id.NoChildren);
+
+        // to avoid craching
+        if(SigninEducator.id_edu != null)
         db = FirebaseDatabase.getInstance().getReference().child("educator_home").child(SigninEducator.id_edu);
         db.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

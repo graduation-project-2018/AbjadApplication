@@ -45,7 +45,7 @@ public class HeardWordTest extends child_menu  {
     private ArrayList<heard_word_content> wordsGroupList = new ArrayList<heard_word_content>();
     private MediaPlayer test_audio = new MediaPlayer();
     private MediaPlayer audio_feedback = new MediaPlayer();
-    private ImageButton speaker;
+    private Button speaker;
     String selected_word ;
     String url;
     audio_URLs audio_urLs = new audio_URLs();
@@ -93,7 +93,7 @@ public class HeardWordTest extends child_menu  {
         w3=(Button)findViewById(R.id.word3);
         abjad = (ImageView) findViewById(R.id.abjad_heard_word);
         final_heard_child_score =-1;
-        speaker= (ImageButton) findViewById(R.id.speaker);
+        speaker= findViewById(R.id.speaker);
         flag = true;
         flag2 = true;
         selected_word ="";
