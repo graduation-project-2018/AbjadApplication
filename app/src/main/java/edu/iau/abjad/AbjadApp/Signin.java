@@ -83,13 +83,13 @@ public class Signin extends AppCompatActivity  implements View.OnClickListener{
                 m.auth_setRight_icon_Normal(ChildEmail,ChildPassword);
                 back_btn.setImageResource(R.drawable.back_btn_2x);
                 send_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,14);
-                reset_pass_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
+                reset_pass_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,14);
                 break;
             case Configuration.SCREENLAYOUT_SIZE_SMALL:
                 signIn_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,14);
                 m.auth_setRight_icon_Small(ChildEmail,ChildPassword);
                 send_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,10);
-                reset_pass_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,10);
+                reset_pass_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
                 break;
             default:
                 signIn_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
