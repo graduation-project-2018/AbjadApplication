@@ -3,11 +3,13 @@ package edu.iau.abjad.AbjadApp;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.provider.Settings;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,7 +68,34 @@ public class educator_home extends menu_educator {
         gv.setNumColumns(2);
         first_time = true;
         label = (TextView) findViewById(R.id.NoChildren);
-        db = FirebaseDatabase.getInstance().getReference().child("educator_home").child(SigninEducator.id_edu);
+        int screenSize = getResources().getConfiguration().screenLayout &
+                Configuration.SCREENLAYOUT_SIZE_MASK;
+
+        switch(screenSize) {
+            case Configuration.SCREENLAYOUT_SIZE_XLARGE:
+                label.setTextSize(TypedValue.COMPLEX_UNIT_SP,60);
+
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_LARGE:
+                label.setTextSize(TypedValue.COMPLEX_UNIT_SP,50);
+
+                break;
+
+            case Configuration.SCREENLAYOUT_SIZE_NORMAL:
+                label.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
+
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_SMALL:
+                label.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+
+                break;
+            default:
+                label.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+
+
+        }
+        //SigninEducator.id_edu
+        db = FirebaseDatabase.getInstance().getReference().child("educator_home").child("oZZXSvGB8JahysdZAqjaVwSQQbi2");
         db.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

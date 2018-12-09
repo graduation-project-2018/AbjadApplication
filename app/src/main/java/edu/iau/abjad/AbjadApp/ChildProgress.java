@@ -87,13 +87,12 @@ public class ChildProgress extends menu_educator {
         letterLesson=new firebase_connection();
          test=new firebase_connection();
          child = new firebase_connection();
-         Bundle b=getIntent().getExtras();
-         childID=b.getString("child_ID");
+
          deleteChild_Children=new firebase_connection();
          deleteChild_edu=new firebase_connection();
          deleteChild_lesson=new firebase_connection();
          deleteChild_test=new firebase_connection();
-        nTest=new firebase_connection();
+         nTest=new firebase_connection();
         dleastTime=100000.00;
         sLeastTime="";
         sHighstScoreLesson="";
@@ -109,7 +108,8 @@ public class ChildProgress extends menu_educator {
         final Intent educatorHome=new Intent(this,educator_home.class);
         final Intent changePassword =new Intent(this, change_password.class );
 
-
+        Bundle b=getIntent().getExtras();
+        childID=b.getString("child_ID");
         final Intent c=new Intent(this,userTypeSelection.class);
         child.ref.child("Children").child(childID).addValueEventListener(new ValueEventListener() {
             @Override
@@ -147,7 +147,6 @@ public class ChildProgress extends menu_educator {
                                     ValueEventListener completeEvent=new ValueEventListener() {
                                         @Override
                                         public void onDataChange(DataSnapshot dataSnapshot) {
-
                                             DatabaseReference getLetter=letterLesson.ref.child("Lessons");
                                             ValueEventListener evntLetr=new ValueEventListener() {
                                                 @Override
@@ -156,6 +155,7 @@ public class ChildProgress extends menu_educator {
                                                     final int ilessonScore=s.child("score").getValue(Integer.class);
                                                     sTime=s.child("time").getValue().toString();
                                                     dTime=Double.parseDouble(sTime);
+                                                    Log.i("LessonLAtter_InTHEEVENT",lessonKey+" ");
                                                     Log.i("GGGGGGGG",dataSnapshot.child(lessonKey)
                                                             .child("lesson_letter").getValue().toString()+" juju");
                                                    lett=dataSnapshot.child(lessonKey)

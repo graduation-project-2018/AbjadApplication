@@ -101,7 +101,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
         wordsArrayList = new ArrayList<lesson_words>();
 
         next_lesson_btn = (Button) findViewById(R.id.next_lesson);
-        word_label = (TextView) findViewById(R.id.word_label);
+        word_label = (TextView) findViewById(R.id.school);
         sentence_label = (TextView) findViewById(R.id.sentence_label);
         lesson_pic = (ImageView) findViewById(R.id.lesson_pic);
         words_counter =0;

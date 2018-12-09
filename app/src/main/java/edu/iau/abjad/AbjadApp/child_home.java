@@ -3,8 +3,10 @@ package edu.iau.abjad.AbjadApp;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -20,7 +22,7 @@ public class child_home extends child_menu {
     menu_variables m = new menu_variables();
      Intent intentOfUnit;
      Button family , homeLand, school;
-
+     TextView family_textView,school_textView,homeLand_textView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -41,7 +43,43 @@ public class child_home extends child_menu {
         school=findViewById(R.id.schoolButton);
         homeLand=findViewById(R.id.homeButton);
         family=findViewById(R.id.familyButton);
-        school.setOnClickListener(new View.OnClickListener() {
+        family_textView=findViewById(R.id.family);
+        school_textView=findViewById(R.id.school);
+        homeLand_textView=findViewById(R.id.city);
+        int screenSize = getResources().getConfiguration().screenLayout &
+                Configuration.SCREENLAYOUT_SIZE_MASK;
+
+        switch(screenSize) {
+            case Configuration.SCREENLAYOUT_SIZE_XLARGE:
+                family_textView.setTextSize(TypedValue.COMPLEX_UNIT_SP,60);
+                school_textView.setTextSize(TypedValue.COMPLEX_UNIT_SP,60);
+                homeLand_textView.setTextSize(TypedValue.COMPLEX_UNIT_SP,60);
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_LARGE:
+                family_textView.setTextSize(TypedValue.COMPLEX_UNIT_SP,50);
+                school_textView.setTextSize(TypedValue.COMPLEX_UNIT_SP,50);
+                homeLand_textView.setTextSize(TypedValue.COMPLEX_UNIT_SP,50);
+                break;
+
+            case Configuration.SCREENLAYOUT_SIZE_NORMAL:
+                family_textView.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
+                school_textView.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
+                homeLand_textView.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_SMALL:
+                family_textView.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+                school_textView.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+                homeLand_textView.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+                break;
+            default:
+                family_textView.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+                school_textView.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+                homeLand_textView.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+
+
+        }
+
+            school.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String unitId="unit2";
