@@ -94,8 +94,8 @@ public class educator_home extends menu_educator {
 
 
         }
-        //SigninEducator.id_edu
-        db = FirebaseDatabase.getInstance().getReference().child("educator_home").child("oZZXSvGB8JahysdZAqjaVwSQQbi2");
+
+        db = FirebaseDatabase.getInstance().getReference().child("educator_home").child(SigninEducator.id_edu);
         db.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
