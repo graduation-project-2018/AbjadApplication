@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -20,6 +21,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -58,7 +60,7 @@ public class report_problem extends child_menu {
     private firebase_connection report;
     private String daownloadURL;
     private RadioGroup  rg;
-    private RadioButton problemType;
+    private RadioButton problemType,p1,p2,p3,p4,p5,p6,p7,p8,p9;
     private String ProbType;
     private String dis;
     private EditText moreDetails;
@@ -69,6 +71,7 @@ public class report_problem extends child_menu {
     private ProgressDialog mProgressDialog;
     private boolean onCliked=false;
     private Bundle email;
+    private TextView textView12, textView16;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,6 +94,94 @@ public class report_problem extends child_menu {
         dis="-";
         moreDetails=findViewById(R.id.moredetails);
         mProgressDialog=new ProgressDialog(this);
+        textView12=findViewById(R.id.textView12);
+        textView16=findViewById(R.id.textView16);
+        p1=findViewById(R.id.Problem_type_1);
+        p2=findViewById(R.id.Problem_type_2);
+        p3=findViewById(R.id.Problem_type_3);
+        p4=findViewById(R.id.Problem_type_4);
+        p5=findViewById(R.id.Problem_type_5);
+        p6=findViewById(R.id.Problem_type_6);
+        p7=findViewById(R.id.Problem_type_7);
+        p8=findViewById(R.id.Problem_type_8);
+        p9=findViewById(R.id.more);
+
+        // Text size
+        int screenSize = getResources().getConfiguration().screenLayout &
+                Configuration.SCREENLAYOUT_SIZE_MASK;
+
+        switch(screenSize) {
+            case Configuration.SCREENLAYOUT_SIZE_XLARGE:
+                ImgNameTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP,60);
+                textView12.setTextSize(TypedValue.COMPLEX_UNIT_SP,60);
+                textView16.setTextSize(TypedValue.COMPLEX_UNIT_SP,60);
+                p1.setTextSize(TypedValue.COMPLEX_UNIT_SP,60);
+                p2.setTextSize(TypedValue.COMPLEX_UNIT_SP,60);
+                p3.setTextSize(TypedValue.COMPLEX_UNIT_SP,60);
+                p4.setTextSize(TypedValue.COMPLEX_UNIT_SP,60);
+                p5.setTextSize(TypedValue.COMPLEX_UNIT_SP,60);
+                p6.setTextSize(TypedValue.COMPLEX_UNIT_SP,60);
+                p7.setTextSize(TypedValue.COMPLEX_UNIT_SP,60);
+                p8.setTextSize(TypedValue.COMPLEX_UNIT_SP,60);
+                p9.setTextSize(TypedValue.COMPLEX_UNIT_SP,60);
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_LARGE:
+                ImgNameTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP,50);
+                textView12.setTextSize(TypedValue.COMPLEX_UNIT_SP,50);
+                textView16.setTextSize(TypedValue.COMPLEX_UNIT_SP,50);
+                p1.setTextSize(TypedValue.COMPLEX_UNIT_SP,50);
+                p2.setTextSize(TypedValue.COMPLEX_UNIT_SP,50);
+                p3.setTextSize(TypedValue.COMPLEX_UNIT_SP,50);
+                p4.setTextSize(TypedValue.COMPLEX_UNIT_SP,50);
+                p5.setTextSize(TypedValue.COMPLEX_UNIT_SP,50);
+                p6.setTextSize(TypedValue.COMPLEX_UNIT_SP,50);
+                p7.setTextSize(TypedValue.COMPLEX_UNIT_SP,50);
+                p8.setTextSize(TypedValue.COMPLEX_UNIT_SP,50);
+                p9.setTextSize(TypedValue.COMPLEX_UNIT_SP,50);
+                break;
+
+            case Configuration.SCREENLAYOUT_SIZE_NORMAL:
+                ImgNameTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
+                textView12.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
+                textView16.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
+                p1.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
+                p2.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
+                p3.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
+                p4.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
+                p5.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
+                p6.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
+                p7.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
+                p8.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
+                p9.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_SMALL:
+                ImgNameTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+                textView12.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+                textView16.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+                p1.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+                p2.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+                p3.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+                p4.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+                p5.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+                p6.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+                p7.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+                p8.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+                p9.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+                break;
+            default:
+                ImgNameTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+                textView12.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+                textView16.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+                p1.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+                p2.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+                p3.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+                p4.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+                p5.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+                p6.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+                p7.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+                p8.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+                p9.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+        }
         //firbase storge refrance
         mStorge = FirebaseStorage.getInstance().getReference();
         report=new firebase_connection();
