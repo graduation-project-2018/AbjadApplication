@@ -68,7 +68,7 @@ public class SignUp extends AppCompatActivity {
                 Configuration.SCREENLAYOUT_SIZE_MASK;
         switch(screenSize) {
             case Configuration.SCREENLAYOUT_SIZE_XLARGE:
-                SignUpBtn.setTextSize(TypedValue.COMPLEX_UNIT_SP,32);
+                m.setButton_text_XLarge(SignUpBtn);
                 // change the right icon of Edit text based on screen size
                 FN.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.user_icon_4x, 0);
                 LN.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.user_icon_4x, 0);
@@ -77,7 +77,7 @@ public class SignUp extends AppCompatActivity {
                 Log.i("scsize","X Large" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_LARGE:
-                SignUpBtn.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+                m.setButton_text_Large(SignUpBtn);
                 FN.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.user_icon_2x, 0);
                 LN.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.user_icon_2x, 0);
                 m.auth_setRight_icon_Large(Email,Pass);
@@ -85,7 +85,7 @@ public class SignUp extends AppCompatActivity {
                 Log.i("scsize","Large" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_NORMAL:
-                SignUpBtn.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
+                m.setButton_text_Normal(SignUpBtn);
                 FN.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.user_icon_15x, 0);
                 LN.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.user_icon_15x, 0);
                 m.auth_setRight_icon_Normal(Email,Pass);
@@ -93,7 +93,7 @@ public class SignUp extends AppCompatActivity {
                 Log.i("scsize","Normal" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_SMALL:
-                SignUpBtn.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
+                m.setButton_text_Small(SignUpBtn);
                 FN.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.user_icon_1x, 0);
                 LN.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.user_icon_1x, 0);
                 m.auth_setRight_icon_Small(Email,Pass);
@@ -101,7 +101,7 @@ public class SignUp extends AppCompatActivity {
                 Log.i("scsize","Small" );
                 break;
             default:
-                SignUpBtn.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
+                m.setButton_text_Default(SignUpBtn);
                 FN.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.user_icon_1x, 0);
                 LN.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.user_icon_1x, 0);
                 m.auth_setRight_icon_Default(Email,Pass);

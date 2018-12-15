@@ -93,8 +93,8 @@ public class adding_child  extends menu_educator {
                 Configuration.SCREENLAYOUT_SIZE_MASK;
         switch(screenSize) {
             case Configuration.SCREENLAYOUT_SIZE_XLARGE:
-                addBtn.setTextSize(TypedValue.COMPLEX_UNIT_SP,32);
                 m.setTitle_XLarge();
+                m.setButton_text_XLarge(addBtn);
                 // change the right icon of Edit text based on screen size
                 firstName.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray, 0);
                 lastName.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray, 0);
@@ -103,7 +103,7 @@ public class adding_child  extends menu_educator {
                 Log.i("scsize","X Large" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_LARGE:
-                addBtn.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+                m.setButton_text_Large(addBtn);
                 m.setTitle_Large();
                 firstName.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray_2x, 0);
                 lastName.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray_2x, 0);
@@ -112,7 +112,7 @@ public class adding_child  extends menu_educator {
                 Log.i("scsize","Large" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_NORMAL:
-                addBtn.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
+                m.setButton_text_Normal(addBtn);
                 m.setTitle_Normal();
                 firstName.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray_15x, 0);
                 lastName.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray_15x, 0);
@@ -121,7 +121,7 @@ public class adding_child  extends menu_educator {
                 Log.i("scsize","Normal" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_SMALL:
-                addBtn.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
+                m.setButton_text_Small(addBtn);
                 m.setTitle_Small();
                 firstName.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray_1x, 0);
                 lastName.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray_1x, 0);
@@ -130,7 +130,7 @@ public class adding_child  extends menu_educator {
                 Log.i("scsize","Small" );
                 break;
             default:
-                addBtn.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
+                m.setButton_text_Default(addBtn);
                 m.setTitle_Default();
                 firstName.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray_1x, 0);
                 lastName.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray_1x, 0);

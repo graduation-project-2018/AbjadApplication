@@ -6,22 +6,11 @@
     android:layout_height="match_parent"
     android:background="#ffffff"
     android:orientation="horizontal"
-    tools:context="edu.iau.abjad.AbjadApp.HeardWordTest"
-
-    tools:ignore="MissingDefaultResource">
-
+    tools:context="edu.iau.abjad.AbjadApp.HeardWordTest">
     <include
         android:id="@+id/include"
         layout="@layout/navigation_action_bar"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline18"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline17"
-        app:layout_constraintVertical_bias="1.0" />
+        />
 
 
     <android.support.constraint.Guideline
@@ -46,19 +35,17 @@
     <Button
         android:id="@+id/next_lesson2"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="12dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/next_arrow"
         app:layout_constraintBottom_toTopOf="@+id/guideline4"
-        app:layout_constraintDimensionRatio="#,11:7"
-        app:layout_constraintEnd_toStartOf="@+id/guideline14"
-        app:layout_constraintHorizontal_bias="0.056"
+        app:layout_constraintDimensionRatio="#,16:13"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline3"
         app:layout_constraintVertical_bias="0.0" />
+
+
 
 
     <android.support.constraint.Guideline
@@ -77,29 +64,35 @@
         app:layout_constraintGuide_begin="20dp"
         app:layout_constraintGuide_percent="0.13" />
 
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline14"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="380dp"
-        app:layout_constraintGuide_percent="0.25" />
 
     <ImageView
         android:id="@+id/abjad_heard_word"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="24dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintDimensionRatio="20:28"
-        app:layout_constraintEnd_toStartOf="@+id/guideline14"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline20"
-        app:layout_constraintTop_toTopOf="@+id/guideline21"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintEnd_toStartOf="@+id/guideline37"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guideline38" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline38"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.65" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline37"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.25" />
 
 
     <android.support.constraint.Guideline
@@ -141,11 +134,11 @@
     <Button
         android:id="@+id/word1"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:autoSizeTextType="uniform"
         android:background="@color/common_google_signin_btn_text_dark_pressed"
 
@@ -162,11 +155,11 @@
     <Button
         android:id="@+id/word2"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:autoSizeTextType="uniform"
         android:background="@color/common_google_signin_btn_text_dark_pressed"
 
@@ -183,11 +176,11 @@
     <Button
         android:id="@+id/word3"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:autoSizeTextType="uniform"
         android:background="@color/common_google_signin_btn_text_dark_pressed"
 
@@ -274,5 +267,25 @@
         app:layout_constraintStart_toStartOf="@+id/guideline24"
         app:layout_constraintTop_toTopOf="@+id/guideline26"
         app:layout_constraintVertical_bias="0.727" />
+
+    <TextView
+        android:id="@+id/loading_label_heard_test"
+        android:layout_width="wrap_content"
+        android:layout_height="37dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:drawableRight="@drawable/loading2"
+        android:drawablePadding="8dp"
+        android:text="جاري التحميل"
+        android:textSize="24sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.223" />
 
 </android.support.constraint.ConstraintLayout>

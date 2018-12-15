@@ -3,11 +3,13 @@ package edu.iau.abjad.AbjadApp;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.provider.Settings;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -67,6 +69,27 @@ public class educator_home extends menu_educator {
         first_time = true;
         label = (TextView) findViewById(R.id.NoChildren);
 
+        int screenSize = getResources().getConfiguration().screenLayout &
+                Configuration.SCREENLAYOUT_SIZE_MASK;
+
+        switch(screenSize) {
+            case Configuration.SCREENLAYOUT_SIZE_XLARGE:
+                label.setTextSize(TypedValue.COMPLEX_UNIT_SP,60);
+
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_LARGE:
+                label.setTextSize(TypedValue.COMPLEX_UNIT_SP,50);
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_NORMAL:
+                label.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
+
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_SMALL:
+                label.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+                break;
+            default:
+                label.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+        }
         // to avoid craching
         if(SigninEducator.id_edu != null)
         db = FirebaseDatabase.getInstance().getReference().child("educator_home").child(SigninEducator.id_edu);

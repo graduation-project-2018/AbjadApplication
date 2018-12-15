@@ -17,10 +17,11 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/bg"
-        app:layout_constraintEnd_toStartOf="@+id/guideline41"
-        app:layout_constraintStart_toStartOf="@+id/guideline40"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar6" />
+        app:layout_constraintBottom_toBottomOf="@+id/bg"
+        app:layout_constraintEnd_toStartOf="@+id/guideline49"
+        app:layout_constraintHorizontal_bias="0.562"
+        app:layout_constraintStart_toStartOf="@+id/guideline44"
+        app:layout_constraintTop_toBottomOf="@+id/password" />
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar6"
@@ -41,16 +42,18 @@
         app:layout_constraintGuide_begin="20dp"
         app:layout_constraintGuide_percent="0.12" />
 
-<ImageView
-    android:id="@+id/bg"
-    android:layout_width="0dp"
-    android:layout_height="0dp"
-    android:layout_marginBottom="17dp"
-    android:background="@drawable/user_type_bg"
-    app:layout_constraintBottom_toTopOf="@+id/guideline43"
-    app:layout_constraintEnd_toStartOf="@+id/guideline41"
-    app:layout_constraintStart_toStartOf="@+id/guideline40"
-    app:layout_constraintTop_toTopOf="@+id/guideline42" />
+    <ImageView
+        android:id="@+id/bg"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="17dp"
+        android:background="@drawable/user_type_bg"
+        app:layout_constraintBottom_toTopOf="@+id/guideline43"
+        app:layout_constraintEnd_toStartOf="@+id/guideline41"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline40"
+        app:layout_constraintTop_toTopOf="@+id/guideline42"
+        app:layout_constraintVertical_bias="0.0" />
 
 
     <TextView

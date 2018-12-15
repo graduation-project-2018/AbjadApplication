@@ -3,6 +3,7 @@ package edu.iau.abjad.AbjadApp;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -55,6 +56,36 @@ public class change_profile_photo extends child_menu {
 
         imgsUrl = new ArrayList<String>();
         SaveChanges=(Button)findViewById(R.id.SaveChangeImg);
+
+        int screenSize = getResources().getConfiguration().screenLayout &
+                Configuration.SCREENLAYOUT_SIZE_MASK;
+        switch(screenSize) {
+            case Configuration.SCREENLAYOUT_SIZE_XLARGE:
+                m.setButton_text_XLarge(SaveChanges);
+                m.setTitle_XLarge();
+                Log.i("scsize","X Large" );
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_LARGE:
+                m.setButton_text_Large(SaveChanges);
+                m.setTitle_Large();
+                Log.i("scsize","Large" );
+
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_NORMAL:
+                m.setButton_text_Normal(SaveChanges);
+                m.setTitle_Normal();
+                Log.i("scsize","Normal" );
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_SMALL:
+                m.setButton_text_Small(SaveChanges);
+                m.setTitle_Small();
+                Log.i("scsize","Small" );
+                break;
+            default:
+                m.setButton_text_Default(SaveChanges);
+                m.setTitle_Default();
+
+        }//end switch
         FBchildPhotoUrl.ref.child("ChildPhoto").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

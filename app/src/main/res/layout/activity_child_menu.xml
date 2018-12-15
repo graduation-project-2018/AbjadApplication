@@ -5,28 +5,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".child_menu"
+    android:fadeScrollbars="false"
+    android:scrollbarFadeDuration="0"
     android:id="@+id/drawer_layout_child">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
-        <include layout="@layout/navigation_action_bar"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"/>
+        android:fadeScrollbars="false"
+        android:scrollbarFadeDuration="0">
+
+        <include layout="@layout/navigation_action_bar"/>
 
     </android.support.constraint.ConstraintLayout>
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
-        android:layout_width="wrap_content"
+        android:layout_width="230dp"
         android:layout_height="match_parent"
         tools:ignore="ExtraText"
+        android:fadeScrollbars="false"
+        android:scrollbarFadeDuration="0"
         app:menu="@menu/navigation_child_menu"
         app:headerLayout="@layout/navigation_header"
-        android:layout_gravity="start"
-        >
-
+        android:layout_gravity="start">
     </android.support.design.widget.NavigationView>
 
 </android.support.v4.widget.DrawerLayout>

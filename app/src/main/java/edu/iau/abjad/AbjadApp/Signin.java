@@ -3,6 +3,8 @@ package edu.iau.abjad.AbjadApp;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -62,6 +64,7 @@ public class Signin extends AppCompatActivity  implements View.OnClickListener{
         back_btn.setOnClickListener(this);
         findViewById(R.id.ResetPassword).setOnClickListener(this);
         signIn_label= findViewById(R.id.signIn_label);
+        PB.getIndeterminateDrawable().setColorFilter(	0xFF0B365C, android.graphics.PorterDuff.Mode.MULTIPLY);
 
         int screenSize = getResources().getConfiguration().screenLayout &
                 Configuration.SCREENLAYOUT_SIZE_MASK;
@@ -69,32 +72,31 @@ public class Signin extends AppCompatActivity  implements View.OnClickListener{
             case Configuration.SCREENLAYOUT_SIZE_XLARGE:
                 signIn_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
                 m.auth_setRight_icon_XLarge(ChildEmail,ChildPassword);
-                send_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+                m.setButton_text_XLarge(send_label);
                 reset_pass_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
                 break;
             case Configuration.SCREENLAYOUT_SIZE_LARGE:
                 signIn_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,23);
                 m.auth_setRight_icon_Large(ChildEmail,ChildPassword);
-                send_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
+                m.setButton_text_Large(send_label);
                 reset_pass_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,16);
                 break;
             case Configuration.SCREENLAYOUT_SIZE_NORMAL:
                 signIn_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
                 m.auth_setRight_icon_Normal(ChildEmail,ChildPassword);
-                back_btn.setImageResource(R.drawable.back_btn_2x);
-                send_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,14);
+                m.setButton_text_Normal(send_label);
                 reset_pass_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,14);
                 break;
             case Configuration.SCREENLAYOUT_SIZE_SMALL:
                 signIn_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,14);
                 m.auth_setRight_icon_Small(ChildEmail,ChildPassword);
-                send_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,10);
+                m.setButton_text_Small(send_label);
                 reset_pass_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
                 break;
             default:
                 signIn_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
                 m.auth_setRight_icon_Default(ChildEmail,ChildPassword);
-                send_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
+                m.setButton_text_Default(send_label);
                 reset_pass_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
 
         }//end switch
@@ -124,16 +126,12 @@ public class Signin extends AppCompatActivity  implements View.OnClickListener{
         }
 
         if(flag){
-
             PB.setVisibility(View.VISIBLE);
-
             Uath.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
-                    PB.setVisibility(View.GONE);
                     if(task.isSuccessful())
                     {
-
                         id_child= Uath.getCurrentUser().getUid();
                         Query query = r.ref.child("Children").orderByKey().equalTo(id_child);
                         query.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -145,15 +143,12 @@ public class Signin extends AppCompatActivity  implements View.OnClickListener{
                                 else{
                                     ChildEmail.setError("الرجاء كتابة البريد الإلكتروني الخاص بالطفل");
                                     ChildEmail.requestFocus();
-
-
                                 }
                             }
                             @Override
                             public void onCancelled(DatabaseError databaseError) {
                             }
                         });
-
                     }
                     else
                     {

@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -68,6 +69,7 @@ public class child_menu extends AppCompatActivity {
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         myToggle= new ActionBarDrawerToggle(this,myDrawerLayout,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
         myToolBar = (Toolbar) findViewById(R.id.nav_action_bar);
+
         setSupportActionBar(myToolBar);
         myDrawerLayout.addDrawerListener(myToggle);
         myToggle.syncState();

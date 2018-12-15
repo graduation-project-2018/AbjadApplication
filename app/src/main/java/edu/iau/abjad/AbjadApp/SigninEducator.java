@@ -60,6 +60,7 @@ public class SigninEducator extends AppCompatActivity  implements View.OnClickLi
         findViewById(R.id.ResetPassword).setOnClickListener(this);
         findViewById(R.id.rgs).setOnClickListener(this);
         Itn =new Intent(this,educator_home.class);
+        progressBar.getIndeterminateDrawable().setColorFilter(0xFF0B365C, android.graphics.PorterDuff.Mode.MULTIPLY);
 
         int screenSize = getResources().getConfiguration().screenLayout &
                 Configuration.SCREENLAYOUT_SIZE_MASK;
@@ -67,35 +68,35 @@ public class SigninEducator extends AppCompatActivity  implements View.OnClickLi
             case Configuration.SCREENLAYOUT_SIZE_XLARGE:
                 signIn_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
                 m.auth_setRight_icon_XLarge(Email,EdPassword);
-                send_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+                m.setButton_text_XLarge(send_label);
                 new_account_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
                 reset_pass_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
                 break;
             case Configuration.SCREENLAYOUT_SIZE_LARGE:
                 signIn_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,23);
                 m.auth_setRight_icon_Large(Email,EdPassword);
-                send_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
+                m.setButton_text_Large(send_label);
                 new_account_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,16);
                 reset_pass_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,16);
                 break;
             case Configuration.SCREENLAYOUT_SIZE_NORMAL:
                 signIn_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
                 m.auth_setRight_icon_Normal(Email,EdPassword);
-                send_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,14);
+                m.setButton_text_Normal(send_label);
                 new_account_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,14);
                 reset_pass_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,14);
                 break;
             case Configuration.SCREENLAYOUT_SIZE_SMALL:
                 signIn_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,14);
                 m.auth_setRight_icon_Small(Email,EdPassword);
-                send_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,10);
+                m.setButton_text_Small(send_label);
                 new_account_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
                 reset_pass_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
                 break;
             default:
                 signIn_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
                 m.auth_setRight_icon_Default(Email,EdPassword);
-                send_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
+                m.setButton_text_Default(send_label);
                 new_account_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
                 reset_pass_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
 
@@ -148,7 +149,6 @@ public class SigninEducator extends AppCompatActivity  implements View.OnClickLi
                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            progressBar.setVisibility(View.GONE);
                             if (task.isSuccessful()) {
 
                                 id_edu = Uath.getCurrentUser().getUid();

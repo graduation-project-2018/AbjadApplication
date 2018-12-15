@@ -7,10 +7,14 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.support.percent.PercentLayoutHelper;
+import android.support.percent.PercentRelativeLayout;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.*;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -30,8 +34,8 @@ public class MatchingTest extends child_menu {
     menu_variables m = new menu_variables();
     ImageView Pic1,Pic2 ,Pic3;
     TextView Word1,Word2,Word3, Text1,Text2,Text3;
-    ImageButton  Restart;
-    ImageView Next;
+    ImageButton  Restart, Restart2, Restart3;
+    ImageView Next, Next2, Next3;
     ArrayList<MatchingTestContent> Content;
     MatchingTestContent obj;
     firebase_connection rfb;
@@ -68,9 +72,6 @@ public class MatchingTest extends child_menu {
 
         myDrawerLayout.addView(contentView, 0);
 
-
-
-
          Pic1 = (ImageView) findViewById(R.id.Pic1);
          Pic2 = (ImageView) findViewById(R.id.Pic2);
          Pic3 = (ImageView) findViewById(R.id.Pic3);
@@ -83,8 +84,12 @@ public class MatchingTest extends child_menu {
          abjad = (ImageView) findViewById(R.id.abjad_matching);
         abjad.setBackgroundResource(R.drawable.abjad_speak);
         anim =(AnimationDrawable) abjad.getBackground();
-        Next = (ImageView) findViewById(R.id.NextTest);
-        Restart = (ImageButton) findViewById(R.id.Restart);
+        Next = findViewById(R.id.NextTest);
+        Next2 = findViewById(R.id.NextTest2);
+        Next3 = findViewById(R.id.NextTest3);
+        Restart = findViewById(R.id.Restart);
+        Restart2 = findViewById(R.id.Restart2);
+        Restart3 = findViewById(R.id.Restart3);
         Content =  new ArrayList<MatchingTestContent>();
         Checking=new MatchingTestContent[3];
         rfb=new firebase_connection();
@@ -95,9 +100,69 @@ public class MatchingTest extends child_menu {
         flag2 = true;
         move_child = false;
         test_finish = false;
-
         correct=false;
         counter=0;
+
+
+
+        int screenSize = getResources().getConfiguration().screenLayout &
+                Configuration.SCREENLAYOUT_SIZE_MASK;
+        switch(screenSize) {
+            case Configuration.SCREENLAYOUT_SIZE_XLARGE:
+                Word3.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
+                Word2.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
+                Word1.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
+                Text1.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
+                Text2.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
+                Text3.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
+                Restart.setVisibility(View.VISIBLE);
+                Next.setVisibility(View.VISIBLE);
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_LARGE:
+                Word3.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+                Word2.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+                Word1.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+                Text1.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+                Text2.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+                Text3.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+                Restart.setVisibility(View.VISIBLE);
+                Next.setVisibility(View.VISIBLE);
+
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_NORMAL:
+                Word3.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
+                Word2.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
+                Word1.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
+                Text1.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
+                Text2.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
+                Text3.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
+                Restart2.setVisibility(View.VISIBLE);
+                Next2.setVisibility(View.VISIBLE);
+
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_SMALL:
+                Word3.setTextSize(TypedValue.COMPLEX_UNIT_SP,8);
+                Word2.setTextSize(TypedValue.COMPLEX_UNIT_SP,8);
+                Word1.setTextSize(TypedValue.COMPLEX_UNIT_SP,8);
+                Text1.setTextSize(TypedValue.COMPLEX_UNIT_SP,8);
+                Text2.setTextSize(TypedValue.COMPLEX_UNIT_SP,8);
+                Text3.setTextSize(TypedValue.COMPLEX_UNIT_SP,8);
+                Restart3.setVisibility(View.VISIBLE);
+                Next3.setVisibility(View.VISIBLE);
+
+                break;
+            default:
+                Word3.setTextSize(TypedValue.COMPLEX_UNIT_SP,10);
+                Word2.setTextSize(TypedValue.COMPLEX_UNIT_SP,10);
+                Word1.setTextSize(TypedValue.COMPLEX_UNIT_SP,10);
+                Text1.setTextSize(TypedValue.COMPLEX_UNIT_SP,10);
+                Text2.setTextSize(TypedValue.COMPLEX_UNIT_SP,10);
+                Text3.setTextSize(TypedValue.COMPLEX_UNIT_SP,10);
+                Restart2.setVisibility(View.VISIBLE);
+                Next2.setVisibility(View.VISIBLE);
+
+        } //end
+
         Word1.setOnLongClickListener(longClickListener);
         Word2.setOnLongClickListener(longClickListener);
         Word3.setOnLongClickListener(longClickListener);
@@ -105,6 +170,11 @@ public class MatchingTest extends child_menu {
         Text2.setOnDragListener(dragListener2);
         Text3.setOnDragListener(dragListener3);
         Restart.setOnClickListener(RestartListener);
+        Restart2.setOnClickListener(RestartListener);
+        Restart3.setOnClickListener(RestartListener);
+        Next.setOnClickListener(nextBtnListener);
+        Next2.setOnClickListener(nextBtnListener);
+        Next3.setOnClickListener(nextBtnListener);
         WordsNumber[0] = r.nextInt(7);
         while(WordsNumber[0]==0){
         WordsNumber[0] = r.nextInt(7);
@@ -187,100 +257,8 @@ public class MatchingTest extends child_menu {
             setOnCompleteListener(MatchingTest);
 
 for (int i =0 ; i<Checking.length ; i++){
-
     Checking[i]= new MatchingTestContent(Content.get(WordsNumber[i]).Pic,"");
 }
-
-           Next.setOnClickListener(new View.OnClickListener() {
-               @Override
-               public void onClick(View view) {
-                   if(Text1.getText().toString().isEmpty()&& Text2.getText().toString().isEmpty()&&Text3.getText().toString().isEmpty()){
-
-                   }
-                   else{
-
-                           for(int j = 0 ; j<Checking.length ; j++){
-                               if(Checking[0].Pic.equals(Content.get(j).Pic)){
-                                   if(Text1.getText().toString().equals(Content.get(j).Word)){
-                                       counter++;
-                                       correct=true;
-
-
-                                   }
-                               }
-
-                           }
-                           if(correct==true){
-                               Text1.setBackgroundColor(getColor(R.color.correct));
-                               correct=false;
-                           }
-                           else {Text1.setBackgroundColor(getColor(R.color.wrong));
-                               }
-                       for(int j = 0 ; j<Checking.length ; j++){
-                           if(Checking[1].Pic.equals(Content.get(j).Pic)){
-                               if(Text2.getText().toString().equals(Content.get(j).Word)){
-                                   counter++;
-                                   correct=true;
-
-                               }
-                           }}
-                           if(correct==true){
-                               Text2.setBackgroundColor(getColor(R.color.correct));
-                               correct=false;
-                           }
-                           else{ Text2.setBackgroundColor(getColor(R.color.wrong));
-
-                           }
-                       for(int j = 0 ; j<Checking.length ; j++){
-                           if(Checking[2].Pic.equals(Content.get(j).Pic)){
-                               if(Text3.getText().toString().equals(Content.get(j).Word)){
-                                   counter++;
-                                   correct=true;
-
-                               }
-                           }
-
-                       }
-                       if(correct==true){
-                           Text3.setBackgroundColor(getColor(R.color.correct));
-                           correct=false;
-                       }
-                       else {Text3.setBackgroundColor(getColor(R.color.wrong));
-                           }
-
-                       if(counter==3){
-                           abjad.setBackgroundResource(R.drawable.abjad_happy);
-                           anim =(AnimationDrawable) abjad.getBackground();
-                          anim.start();
-                           score=10;
-                           test_finish = true;
-                          playAudio(voice.perfect_top_feedback);
-                          setOnCompleteListener(MatchingTest);
-
-                       }
-                       else if(counter==1){
-                           anim.start();
-                           score=3;
-                           test_finish = true;
-                       playAudio(voice.good_feedback);
-                       setOnCompleteListener(MatchingTest);
-
-                       }
-                       else if(counter==0){
-                       anim.start();
-                           score=0;
-                           test_finish = true;
-                       playAudio(voice.revise_previous_lessons);
-                       setOnCompleteListener(MatchingTest);
-
-                       }
-               }
-
-
-
-               }
-           });
-
         }
 
         @Override
@@ -331,12 +309,97 @@ View.OnClickListener RestartListener = new View.OnClickListener() {
         Word3.setVisibility(View.VISIBLE);
         counter=0;
         correct=false;
-
-
-
-
     }
 };
+
+    View.OnClickListener nextBtnListener = new View.OnClickListener(){
+        public void onClick(View view) {
+            if(Text1.getText().toString().isEmpty()&& Text2.getText().toString().isEmpty()&&Text3.getText().toString().isEmpty()){
+
+            }
+            else{
+
+                for(int j = 0 ; j<Checking.length ; j++){
+                    if(Checking[0].Pic.equals(Content.get(j).Pic)){
+                        if(Text1.getText().toString().equals(Content.get(j).Word)){
+                            counter++;
+                            correct=true;
+
+
+                        }
+                    }
+
+                }
+                if(correct==true){
+                    Text1.setBackgroundColor(getColor(R.color.correct));
+                    correct=false;
+                }
+                else {Text1.setBackgroundColor(getColor(R.color.wrong));
+                }
+                for(int j = 0 ; j<Checking.length ; j++){
+                    if(Checking[1].Pic.equals(Content.get(j).Pic)){
+                        if(Text2.getText().toString().equals(Content.get(j).Word)){
+                            counter++;
+                            correct=true;
+
+                        }
+                    }}
+                if(correct==true){
+                    Text2.setBackgroundColor(getColor(R.color.correct));
+                    correct=false;
+                }
+                else{ Text2.setBackgroundColor(getColor(R.color.wrong));
+
+                }
+                for(int j = 0 ; j<Checking.length ; j++){
+                    if(Checking[2].Pic.equals(Content.get(j).Pic)){
+                        if(Text3.getText().toString().equals(Content.get(j).Word)){
+                            counter++;
+                            correct=true;
+
+                        }
+                    }
+
+                }
+                if(correct==true){
+                    Text3.setBackgroundColor(getColor(R.color.correct));
+                    correct=false;
+                }
+                else {Text3.setBackgroundColor(getColor(R.color.wrong));
+                }
+
+                if(counter==3){
+                    abjad.setBackgroundResource(R.drawable.abjad_happy);
+                    anim =(AnimationDrawable) abjad.getBackground();
+                    anim.start();
+                    score=10;
+                    test_finish = true;
+                    playAudio(voice.perfect_top_feedback);
+                    setOnCompleteListener(MatchingTest);
+
+                }
+                else if(counter==1){
+                    anim.start();
+                    score=3;
+                    test_finish = true;
+                    playAudio(voice.good_feedback);
+                    setOnCompleteListener(MatchingTest);
+
+                }
+                else if(counter==0){
+                    anim.start();
+                    score=0;
+                    test_finish = true;
+                    playAudio(voice.revise_previous_lessons);
+                    setOnCompleteListener(MatchingTest);
+
+                }
+            }
+
+
+
+        }
+    };
 
     View.OnLongClickListener longClickListener = new View.OnLongClickListener() {
         @Override

@@ -3,12 +3,16 @@ package edu.iau.abjad.AbjadApp;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.util.Patterns;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,9 +36,9 @@ public class educator_profile extends menu_educator {
     menu_variables m = new menu_variables();
     FirebaseDatabase db;
     firebase_connection r;
-    TextView firstName;
-    TextView lastName;
-    TextView email;
+    EditText firstName;
+    EditText lastName;
+    EditText email;
     Button saveBtn;
     Intent intent;
     Boolean foundErrors;
@@ -64,10 +68,56 @@ public class educator_profile extends menu_educator {
         Uath= FirebaseAuth.getInstance();
         db = FirebaseDatabase.getInstance();
         r = new firebase_connection();
-        firstName = (TextView)findViewById(R.id.fnTxt);
-        lastName = (TextView)findViewById(R.id.lnTxt);
-        email = (TextView)findViewById(R.id.emailTxt);
+        firstName = findViewById(R.id.fnTxt);
+        lastName = findViewById(R.id.lnTxt);
+        email = findViewById(R.id.emailTxt);
         saveBtn = (Button)findViewById(R.id.saveChangesBtn);
+
+        int screenSize = getResources().getConfiguration().screenLayout &
+                Configuration.SCREENLAYOUT_SIZE_MASK;
+        switch(screenSize) {
+            case Configuration.SCREENLAYOUT_SIZE_XLARGE:
+                m.setTitle_XLarge();
+                // change the right icon of Edit text based on screen size
+                firstName.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.user_icon_4x, 0);
+                lastName.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.user_icon_4x, 0);
+                m.auth_setRight_icon_XLarge(email,null);
+                m.setButton_text_XLarge(saveBtn);
+                Log.i("scsize","X Large" );
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_LARGE:
+                m.setTitle_Large();
+                firstName.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.user_icon_2x, 0);
+                lastName.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.user_icon_2x, 0);
+                m.auth_setRight_icon_Large(email,null);
+                m.setButton_text_Large(saveBtn);
+                Log.i("scsize","Large" );
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_NORMAL:
+                m.setTitle_Normal();
+                firstName.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.user_icon_15x, 0);
+                lastName.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.user_icon_15x, 0);
+                m.auth_setRight_icon_Normal(email,null);
+                m.setButton_text_Normal(saveBtn);
+                Log.i("scsize","Normal" );
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_SMALL:
+                m.setTitle_Small();
+                firstName.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.user_icon_1x, 0);
+                lastName.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.user_icon_1x, 0);
+                m.auth_setRight_icon_Small(email,null);
+                m.setButton_text_Small(saveBtn);
+                Log.i("scsize","Small" );
+                break;
+            default:
+                m.setTitle_Default();
+                firstName.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.user_icon_1x, 0);
+                lastName.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.user_icon_1x, 0);
+                m.auth_setRight_icon_Default(email,null);
+                m.setButton_text_Default(saveBtn);
+                Log.i("scsize","Default screen" );
+        }//end switch
+
 
 
         getCurrentEducatorInfo();

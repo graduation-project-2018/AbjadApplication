@@ -3,7 +3,8 @@
 
     <item android:id="@+id/edit_profile"
         android:title="تغيير صورة الملف الشخصي"
-        android:icon="@drawable/childicon">
+        android:icon="@drawable/childicon"
+        >
     </item>
     <item android:id="@+id/change_pass_child"
         android:title="تغيير كلمة المرور"

@@ -95,7 +95,7 @@ public class ReadingTest extends child_menu {
         r = new firebase_connection();
         word_test_label = findViewById(R.id.word_test);
         sentence_test_label = findViewById(R.id.sentence_test);
-        test_id = "Test1";
+        test_id = "";
         child_score=0;
         reading_child_score =0;
         flag = true;
@@ -116,14 +116,14 @@ public class ReadingTest extends child_menu {
             case Configuration.SCREENLAYOUT_SIZE_XLARGE:
 
                 word_test_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,70);
-                sentence_test_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,50);
+                sentence_test_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,65);
                 nextLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,32);
                 m.setTitle_XLarge();
                 Log.i("scsize","X Large" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_LARGE:
                 word_test_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,60);
-                sentence_test_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,43);
+                sentence_test_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,50);
                 nextLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,22);
                 m.setTitle_Large();
                 Log.i("scsize","Large" );
@@ -131,14 +131,14 @@ public class ReadingTest extends child_menu {
                 break;
             case Configuration.SCREENLAYOUT_SIZE_NORMAL:
                 word_test_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,40);
-                sentence_test_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,27);
+                sentence_test_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,33);
                 nextLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
                 m.setTitle_Normal();
                 Log.i("scsize","Normal" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_SMALL:
                 word_test_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
-                sentence_test_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,22);
+                sentence_test_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
                 nextLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,8);
                 m.setTitle_Small();
                 Log.i("scsize","Small" );
@@ -176,9 +176,9 @@ public class ReadingTest extends child_menu {
 
             }
         });
-        choose_phrase =  rand.nextInt(10) + 1;
+        choose_phrase =  rand.nextInt(100) + 1;
         // choosen phrase is word
-        if(choose_phrase <=5){
+        if(choose_phrase <=50){
             chosen_index=  rand.nextInt(6) + 1;
             chosen_word = "word" + chosen_index;
             path = "words";
@@ -225,9 +225,6 @@ public class ReadingTest extends child_menu {
                         else{
                             word_test_label.setText(word);
                         }
-
-
-
                         check_ta();
                         check_alef();
 
@@ -411,6 +408,7 @@ public class ReadingTest extends child_menu {
                         break;
                     }
                 }
+                //choosen phrase is word
                 if (choose_phrase <= 5) {
                     for (int i = 0; i < matches.size(); i++) {
                         String[] duplicates = matches.get(i).split(" ");
@@ -652,19 +650,32 @@ public class ReadingTest extends child_menu {
     public void listen_sentence_feedback(int globalCost, int word_length, double max_match){
 
         if(globalCost==1){
-            System.out.println("full score!!!!!!!");
-            child_score=10;
-            abjad.setBackgroundResource(R.drawable.abjad_happy);
-            anim =(AnimationDrawable) abjad.getBackground();
-            anim.start();
-            playAudioInstructions(audio_URLs.perfect_top_feedback);
-            setOnCompleteListener(feedback_audio);
+            fullScore();
+            return;
+        }
+
+        if(word.equals("صنعت قلعه من الرمل") && globalCost == 2){
+            fullScore();
+            return;
+        }
+        if(word.equals("الصبار يعيش في الصحراء") && globalCost == 2){
+            fullScore();
+            return;
+        }
+        if(word.equals("انظف اسناني بالفرشاه") && globalCost == 2){
+            fullScore();
+            return;
+        }
+        if(word.equals("حلق الطائر في السماء") && globalCost == 2){
+            fullScore();
+            return;
         }
         else if(max_match>=0.89){
             anim.start();
             playAudioInstructions(audio_URLs.not_fully_good);
             setOnCompleteListener(feedback_audio);
             child_score =8;
+            return;
 
         }
         else if(max_match>=0.75){
@@ -672,12 +683,14 @@ public class ReadingTest extends child_menu {
             anim.start();
             playAudioInstructions(audio_URLs.not_fully_good);
             setOnCompleteListener(feedback_audio);
+            return;
         }
         else if(max_match <= 0.75 && max_match>=0.5){
             child_score=6;
             anim.start();
             playAudioInstructions(audio_URLs.not_fully_good);
             setOnCompleteListener(feedback_audio);
+            return;
 
         }
         else if(max_match<=0.5 && max_match>=0.4){
@@ -685,12 +698,14 @@ public class ReadingTest extends child_menu {
             anim.start();
             playAudioInstructions(audio_URLs.good_with_revision);
             setOnCompleteListener(feedback_audio);
+            return;
         }
         else if (max_match>=0.25){
             child_score=2;
             anim.start();
             playAudioInstructions(audio_URLs.listen_to_abjad);
             setOnCompleteListener(feedback_audio);
+            return;
         }
         else if(max_match<0.25){
             child_score=1;
@@ -701,9 +716,20 @@ public class ReadingTest extends child_menu {
 
     }
 
+    private void fullScore() {
+        child_score=10;
+        abjad.setBackgroundResource(R.drawable.abjad_happy);
+        anim =(AnimationDrawable) abjad.getBackground();
+        anim.start();
+        playAudioInstructions(audio_URLs.perfect_top_feedback);
+        setOnCompleteListener(feedback_audio);
+    }
+
     public void check_alef(){
-        if(word.indexOf('أ')!= -1){
+        if(word.indexOf('أ')!= -1 || word.indexOf('إ')!= -1 || word.indexOf('آ')!= -1){
             word = word.replace('أ','ا');
+            word = word.replace('آ','ا');
+            word = word.replace('إ','ا');
         }
 
     }

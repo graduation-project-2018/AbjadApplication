@@ -1,168 +1,227 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.percent.PercentRelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:textAlignment="center"
+    xmlns:percent="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:textAlignment="center"
-    tools:context="edu.iau.abjad.AbjadApp.MatchingTest"
-    tools:layout_editor_absoluteY="25dp"
-    tools:ignore="MissingDefaultResource">
+    tools:context="edu.iau.abjad.AbjadApp.MatchingTest">
 
-    <RelativeLayout
+    <include
+        android:id="@+id/include3"
+        layout="@layout/navigation_action_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true">
+        android:layout_height="wrap_content" />
 
-        <include
-            android:id="@+id/include3"
-            layout="@layout/navigation_action_bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+    <ImageButton
+        android:id="@+id/Restart"
+        android:background="@drawable/refresh"
+        android:visibility="invisible"
+        app:layout_heightPercent="12%"
+        app:layout_marginLeftPercent="90%"
+        app:layout_marginRightPercent="2%"
+        app:layout_marginTopPercent="14%"
+        app:layout_widthPercent="7%" />
 
-    </RelativeLayout>
+    <ImageButton
+        android:id="@+id/Restart2"
+        android:background="@drawable/refresh"
+        android:visibility="invisible"
+        app:layout_heightPercent="12%"
+        app:layout_marginLeftPercent="90%"
+        app:layout_marginRightPercent="2%"
+        app:layout_marginTopPercent="19%"
+        app:layout_widthPercent="7%" />
 
-    <ImageView
-        android:id="@+id/abjad_matching"
-        android:layout_width="290dp"
-        android:layout_height="385dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true" />
-
-    <ImageView
-        android:id="@+id/Pic1"
-        android:layout_width="260dp"
-        android:layout_height="190dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginEnd="148dp"
-        android:layout_marginTop="195dp"
-        android:background="@color/colorAccent" />
-
-    <ImageView
-        android:id="@+id/Pic2"
-        android:layout_width="260dp"
-        android:layout_height="190dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/Pic1"
-        android:layout_marginEnd="484dp"
-        android:background="@color/colorAccent" />
-
+    <ImageButton
+        android:id="@+id/Restart3"
+        app:layout_widthPercent="7%"
+        app:layout_heightPercent="12%"
+        app:layout_marginTopPercent="22%"
+        app:layout_marginRightPercent="2%"
+        app:layout_marginLeftPercent="90%"
+        android:visibility="invisible"
+        android:background="@drawable/refresh" />
     <ImageView
         android:id="@+id/NextTest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="103dp"
+        app:layout_marginLeftPercent="2.5%"
+        app:layout_marginTopPercent="14%"
+        app:layout_widthPercent="7%"
+        app:layout_heightPercent="9.5%"
+        android:visibility="invisible"
+        app:srcCompat="@drawable/next_arrow" />
+
+    <ImageView
+        android:id="@+id/NextTest2"
+        app:layout_marginLeftPercent="2.5%"
+        app:layout_marginTopPercent="19%"
+        app:layout_widthPercent="7%"
+        app:layout_heightPercent="9.5%"
+        android:visibility="invisible"
+        app:srcCompat="@drawable/next_arrow" />
+
+    <ImageView
+        android:id="@+id/NextTest3"
+        app:layout_marginLeftPercent="2.5%"
+        app:layout_marginTopPercent="22%"
+        app:layout_widthPercent="7%"
+        app:layout_heightPercent="9.5%"
+        android:visibility="invisible"
         app:srcCompat="@drawable/next_arrow" />
 
     <ImageView
         android:id="@+id/Pic3"
-        android:layout_width="260dp"
-        android:layout_height="190dp"
-        android:layout_alignStart="@+id/Text3"
-        android:layout_alignTop="@+id/Pic1"
-        android:background="@color/colorAccent" />
-
-    <TextView
-        android:id="@+id/Word1"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="85dp"
-        android:layout_marginEnd="347dp"
-        android:background="@color/normal"
-        android:textAlignment="center"
-        android:textColor="@android:color/black"
-        android:textSize="36dp" />
-
-
-    <TextView
-        android:id="@+id/Word2"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/Word1"
-        android:layout_marginEnd="570dp"
-        android:background="@color/normal"
-        android:textAlignment="center"
-        android:textColor="@android:color/black"
-        android:textSize="36dp"
-        tools:layout_editor_absoluteX="1398dp"
-        tools:layout_editor_absoluteY="406dp" />
-
-    <TextView
-        android:id="@+id/Word3"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignTop="@+id/Word1"
-        android:layout_marginStart="326dp"
-        android:background="@color/normal"
-        android:textAlignment="center"
-        android:textColor="@android:color/black"
-        android:textSize="36dp" />
-
-    <TextView
-        android:id="@+id/Text1"
-        android:layout_width="260dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/Pic1"
-        android:layout_marginBottom="226dp"
-        android:background="#e6e6e6"
-        android:paddingBottom="30dp"
-        android:paddingLeft="50dp"
-        android:paddingRight="50dp"
-        android:paddingTop="30dp"
-        android:textAlignment="center"
-        android:textColor="@android:color/black"
-        android:textSize="36dp" />
-
-    <TextView
-        android:id="@+id/Text2"
-        android:layout_width="260dp"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/Pic2"
-        android:layout_alignTop="@+id/Text1"
-        android:background="#e6e6e6"
-        android:paddingBottom="30dp"
-        android:paddingLeft="50dp"
-        android:paddingRight="50dp"
-        android:paddingTop="30dp"
-        android:textAlignment="center"
-        android:textColor="@android:color/black"
-        android:textSize="36dp" />
+        app:layout_widthPercent="20%"
+        app:layout_heightPercent="25%"
+        android:background="@color/colorAccent"
+        app:layout_marginTopPercent="30%"
+        app:layout_marginLeftPercent="15%"
+        />
+    <ImageView
+        android:id="@+id/Pic2"
+        app:layout_widthPercent="20%"
+        app:layout_heightPercent="25%"
+        android:background="@color/colorAccent"
+        app:layout_marginTopPercent="30%"
+        app:layout_marginRightPercent="40%"
+        app:layout_marginLeftPercent="40%"
+        />
+    <ImageView
+        android:id="@+id/Pic1"
+        app:layout_widthPercent="20%"
+        app:layout_heightPercent="25%"
+        android:background="@color/colorAccent"
+        app:layout_marginTopPercent="30%"
+        app:layout_marginRightPercent="15%"
+        app:layout_marginLeftPercent="65%"
+        />
 
     <TextView
         android:id="@+id/Text3"
-        android:layout_width="260dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignTop="@+id/Text1"
-        android:layout_marginStart="171dp"
+        app:layout_widthPercent="20%"
+        app:layout_heightPercent="13%"
+        app:layout_marginTopPercent="56.5%"
         android:background="#e6e6e6"
-        android:paddingBottom="30dp"
-        android:paddingLeft="50dp"
-        android:paddingRight="50dp"
-        android:paddingTop="30dp"
+        android:padding="8dp"
+        android:gravity="center"
         android:textAlignment="center"
         android:textColor="@android:color/black"
-        android:textSize="36dp" />
+        app:layout_marginLeftPercent="15%"
+        />
+    <TextView
+        android:id="@+id/Text1"
+        app:layout_widthPercent="20%"
+        app:layout_heightPercent="13%"
+        app:layout_marginTopPercent="56.5%"
+        android:background="#e6e6e6"
+        android:padding="8dp"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:gravity="center"
+        app:layout_marginRightPercent="15%"
+        app:layout_marginLeftPercent="65%"
 
-    <ImageButton
-        android:id="@+id/Restart"
-        android:layout_width="84dp"
-        android:layout_height="82dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginEnd="41dp"
-        android:layout_marginTop="94dp"
-        android:background="@drawable/refresh" />
+        />
+    <TextView
+        android:id="@+id/Text2"
+        app:layout_widthPercent="20%"
+        app:layout_heightPercent="13%"
+        app:layout_marginTopPercent="56.5%"
+        android:background="#e6e6e6"
+        android:padding="8dp"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:gravity="center"
+        app:layout_marginLeftPercent="40%"
+        app:layout_marginRightPercent="40%"
+        />
+    <TextView
+        android:id="@+id/Word3"
+        app:layout_widthPercent="12%"
+        app:layout_heightPercent="7%"
+        app:layout_marginTopPercent="85%"
+        android:background="@color/normal"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textColor="@android:color/black"
+        app:layout_marginLeftPercent="25%"
+        />
+    <TextView
+        android:id="@+id/Word1"
+        app:layout_widthPercent="12%"
+        app:layout_heightPercent="7%"
+        app:layout_marginTopPercent="85%"
+        android:background="@color/normal"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textColor="@android:color/black"
+        app:layout_marginRightPercent="25%"
+        app:layout_marginLeftPercent="63%"
+
+        />
+    <TextView
+        android:id="@+id/Word2"
+        app:layout_widthPercent="12%"
+        app:layout_heightPercent="7%"
+        app:layout_marginTopPercent="85%"
+        android:background="@color/normal"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textColor="@android:color/black"
+        app:layout_marginRightPercent="44%"
+        app:layout_marginLeftPercent="44%"
+
+        />
+    <ImageView
+        android:id="@+id/abjad_matching"
+        app:layout_widthPercent="21%"
+        app:layout_heightPercent="30%"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        />
+
+    <TextView
+        android:id="@+id/loading_matching_small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="جاري التحميل"
+        android:textSize="20sp"
+        android:drawablePadding="8dp"
+        android:visibility="invisible"
+        android:drawableRight="@drawable/loading_small"
+        app:layout_marginBottomPercent="70%"
+        />
+
+    <TextView
+        android:id="@+id/loading_matching_large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="جاري التحميل"
+        android:textSize="25sp"
+        android:drawablePadding="8dp"
+        android:visibility="invisible"
+        android:drawableRight="@drawable/loading2"
+        app:layout_marginBottomPercent="80%"
+        />
+
+    <TextView
+        android:id="@+id/loading_matching_normal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="جاري التحميل"
+        android:textSize="20sp"
+        android:drawablePadding="8dp"
+        android:visibility="invisible"
+        android:drawableRight="@drawable/loading_small"
+        app:layout_marginBottomPercent="75%"
+        />
 
 
-</RelativeLayout>
+</android.support.percent.PercentRelativeLayout >
