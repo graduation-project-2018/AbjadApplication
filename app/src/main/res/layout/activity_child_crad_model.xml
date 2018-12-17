@@ -72,6 +72,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="اسم الطفل"
+            android:gravity="center_vertical"
             tools:layout_editor_absoluteX="110dp" />
 
     </LinearLayout>

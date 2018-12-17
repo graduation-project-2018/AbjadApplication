@@ -10,33 +10,16 @@
     <include
         android:id="@+id/include4"
         layout="@layout/navigation_action_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        android:layout_marginTop="4dp"
-        app:layout_constraintBottom_toTopOf="@+id/family"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+ />
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="28dp"
-        android:progressDrawable="@android:color/holo_green_dark"
-        android:progressTint="@android:color/holo_green_dark"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/schoolButton"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginStart="23dp"
         android:background="@drawable/school_unit_icon"
         app:layout_constraintBottom_toTopOf="@+id/guidelinefamilyB3"
         app:layout_constraintDimensionRatio="h,1:1"
@@ -50,79 +33,70 @@
         android:id="@+id/homeButton"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginEnd="13dp"
-        android:layout_marginStart="2dp"
+        android:layout_marginTop="45dp"
         android:background="@drawable/watani_unit_icon"
-        app:layout_constraintBottom_toTopOf="@+id/guidelinefamilyB3"
         app:layout_constraintDimensionRatio="h,1:1"
         app:layout_constraintEnd_toStartOf="@+id/guideline11"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/guideline12" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/guideline12"
+        app:layout_constraintTop_toTopOf="@+id/guidelinefamilyB4" />
 
     <Button
         android:id="@+id/familyButton"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="3dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="45dp"
         android:background="@drawable/family_unit_icon"
-        app:layout_constraintBottom_toTopOf="@+id/guidelinefamilyB3"
         app:layout_constraintDimensionRatio="h,1:1"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/guidelinefamilyB"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/guidelinefamilyB2"
-        app:layout_constraintTop_toTopOf="@+id/guideline3"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toTopOf="@+id/guideline3" />
 
     <TextView
         android:id="@+id/city"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="4dp"
         android:text="مدينتي"
-        android:textSize="40dp"
-        app:layout_constraintBottom_toTopOf="@+id/guidelinefamilyB4"
-        app:layout_constraintDimensionRatio="h,1:1"
-        app:layout_constraintEnd_toStartOf="@+id/guideline28"
-        app:layout_constraintStart_toEndOf="@+id/guideline27"
-        app:layout_constraintTop_toTopOf="@+id/guideline" />
+        android:textSize="40sp"
+        app:layout_constraintBottom_toTopOf="@+id/homeButton"
+        app:layout_constraintDimensionRatio="h,"
+        app:layout_constraintEnd_toEndOf="@+id/homeButton"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="@+id/homeButton"
+        app:layout_constraintTop_toTopOf="@+id/guideline"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/school"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginStart="3dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
         android:text="مدرستي"
-        android:textSize="40dp"
-        app:layout_constraintBottom_toTopOf="@+id/guidelinefamilyB4"
-        app:layout_constraintDimensionRatio="h,1:1"
-        app:layout_constraintEnd_toStartOf="@+id/guideline26"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/guideline13"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/schoolButton"
+        app:layout_constraintDimensionRatio="h,"
+        app:layout_constraintEnd_toEndOf="@+id/schoolButton"
+        app:layout_constraintStart_toStartOf="@+id/schoolButton"
         app:layout_constraintTop_toTopOf="@+id/guideline"
-        app:layout_constraintVertical_bias="0.35" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/family"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="12dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
         android:text="أسرتي"
-        android:textSize="40dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline3"
-        app:layout_constraintDimensionRatio="h,1:1"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintHorizontal_bias="0.111"
-        app:layout_constraintStart_toStartOf="@+id/guideline4"
-        app:layout_constraintTop_toBottomOf="@+id/guideline" />
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/familyButton"
+        app:layout_constraintDimensionRatio="h,"
+        app:layout_constraintEnd_toEndOf="@+id/familyButton"
+        app:layout_constraintStart_toStartOf="@+id/familyButton"
+        app:layout_constraintTop_toBottomOf="@+id/guideline"
+        app:layout_constraintVertical_bias="1.0" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline"
@@ -162,7 +136,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent="0.97" />
+        app:layout_constraintGuide_percent="0.95" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guidelinefamilyB2"
@@ -170,7 +144,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent="0.75" />
+        app:layout_constraintGuide_percent="0.71" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guidelinefamilyB3"
@@ -178,7 +152,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="737dp"
-        app:layout_constraintGuide_percent="0.70" />
+        app:layout_constraintGuide_percent="0.72" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guidelinefamilyB4"
@@ -210,7 +184,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent="0.26" />
+        app:layout_constraintGuide_percent="0.29" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline12"
@@ -218,7 +192,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent="0.01" />
+        app:layout_constraintGuide_percent="0.05" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline13"

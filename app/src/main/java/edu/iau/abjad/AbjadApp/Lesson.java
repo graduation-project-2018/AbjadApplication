@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -13,14 +14,17 @@ import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.ActivityCompat;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,16 +36,17 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Locale;
 
 
 public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener {
     menu_variables m = new menu_variables();
-    TextView word_label;
-    TextView sentence_label;
+    TextView word_label, loading_label;
+    TextView sentence_label, nextLabel, prevLabel;
     Button mic_btn;
     SpeechRecognizer mSpeechRecognizer ;
     Intent mSpeechRecognizerIntent ;
-    Button next_lesson_btn;
+    Button next_lesson_btn, prev_lesson_btn;
     static int words_counter;
     String word;
     static firebase_connection r;
@@ -56,6 +61,8 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
     final int REQUEST_RECORD_AUDIO_PERMISSION = 200;
     private boolean permissionToRecordAccepted = false;
     private String [] permissions = {Manifest.permission.RECORD_AUDIO};
+    /* I make all of these variables below as Static because they will be used in Static function, so it requires that all used variables
+     inside it should be static. */
     static int child_score ,currentScore ;
     static String status,childTime;
     static long startTime, endTime;
@@ -68,9 +75,9 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
     MediaPlayer a1;
     String letter ;
     ImageView score_img;
-    static String unit_id;
     boolean move_child ;
     String choosenPhrase;
+
 
 
     @SuppressLint("ClickableViewAccessibility")
@@ -81,10 +88,14 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
         m.title = (TextView) findViewById(R.id.interface_title);
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
-
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        //to get the lesson letter from Unit interface.
         Intent h=getIntent();
+        Bundle extras = h.getExtras();
+        if(extras != null){
         Log.i("getExtra",h.getStringExtra("Lessonltr"));
+        }
 
         //inflate your activity layout here!
         View contentView = inflater.inflate(R.layout.activity_lesson, null, false);
@@ -93,24 +104,31 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
         //to get user permission of mice
         ActivityCompat.requestPermissions(this,permissions , REQUEST_RECORD_AUDIO_PERMISSION);
 
+
         r = new firebase_connection();
-        unit_id = "unit2";
-
         letter = h.getStringExtra("Lessonltr");
+        //set Lesson title
         m.title.setText(  "حرف "+"( " +letter+ " ) " );
-        wordsArrayList = new ArrayList<lesson_words>();
 
-        next_lesson_btn = (Button) findViewById(R.id.next_lesson);
-        word_label = (TextView) findViewById(R.id.school);
-        sentence_label = (TextView) findViewById(R.id.sentence_label);
-        lesson_pic = (ImageView) findViewById(R.id.lesson_pic);
+        wordsArrayList = new ArrayList<lesson_words>();
+        nextLabel = findViewById(R.id.nextLabel);
+        next_lesson_btn = findViewById(R.id.next_lesson);
+        prev_lesson_btn = findViewById(R.id.prev_lesson);
+        prevLabel = findViewById(R.id.prev_label);
+        word_label = findViewById(R.id.word_label);
+        sentence_label = findViewById(R.id.sentence_label);
+        lesson_pic =  findViewById(R.id.lesson_pic);
+        loading_label = findViewById(R.id.loading_label);
         words_counter =0;
-        speaker_btn = (Button) findViewById (R.id.speaker_btn);
+        speaker_btn = findViewById (R.id.speaker_btn);
         child_score = 0;
-        abjad = (ImageView) findViewById(R.id.abjad);
+        //set animation for Abjad
+        abjad = findViewById(R.id.abjad);
         abjad.setBackgroundResource(R.drawable.abjad_speak);
         anim =(AnimationDrawable) abjad.getBackground();
-        score_img = (ImageView) findViewById(R.id.score_img);
+
+
+        score_img = findViewById(R.id.score_img);
         incomplete = false;
         sum=0;
         child_score=0;
@@ -126,6 +144,50 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
 
 
 
+        int screenSize = getResources().getConfiguration().screenLayout &
+                Configuration.SCREENLAYOUT_SIZE_MASK;
+        switch(screenSize) {
+            case Configuration.SCREENLAYOUT_SIZE_XLARGE:
+                word_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,70);
+                sentence_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,47);
+                nextLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,32);
+                prevLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,32);
+                m.setTitle_XLarge();
+                Log.i("scsize","X Large" );
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_LARGE:
+                word_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,60);
+                sentence_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,37);
+                nextLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,22);
+                prevLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,22);
+                m.setTitle_Large();
+                Log.i("scsize","Large" );
+
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_NORMAL:
+                word_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,40);
+                sentence_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,23);
+                nextLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
+                prevLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
+                m.setTitle_Normal();
+                Log.i("scsize","Normal" );
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_SMALL:
+                word_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
+                sentence_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,17);
+                nextLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,8);
+                prevLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,8);
+                m.setTitle_Small();
+                Log.i("scsize","Small" );
+                break;
+            default:
+                word_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+                sentence_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+                nextLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
+                prevLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,8);
+                m.setTitle_Default();
+
+        }//end switch
 
         //getting the lesson ID of the selected letter in Unit interface.
         Query query = r.ref.child("Lessons").orderByChild("lesson_letter").equalTo(letter);
@@ -150,8 +212,9 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                                     // Add to the arrayList
                                     wordsArrayList.add(obj);
                                     word = wordsArrayList.get(words_counter).content;
-
                                     word_label.setText(word);
+                                    // stop the progress bar after showing the content
+
                                     check_alef();
                                     check_ta();
                                     Picasso.get().load(wordsArrayList.get(words_counter).pic_file).into(lesson_pic);
@@ -159,15 +222,17 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                                     // start the instruction audio before the lesson begin
                                     anim.start();
                                     playAudio(audio_URLs.lesson_begin);
+                                    loading_label.setVisibility(View.INVISIBLE);
+
 
                                     // On complete listener that fire when the instruction audio finish to start the lesson audio.
                                     lesson_audio.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                                         @Override
                                         public void onCompletion(MediaPlayer mediaPlayer) {
                                             //this flag to prevent calling this method multiple times.
-                                            if(flag == false){
+                                            if(flag == false)
                                                 return;
-                                            }
+
                                             anim.stop();
                                             flag = false;
 
@@ -210,55 +275,66 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                                             }
                                         }
                                     });
+
+
+
+                                    //next button listener
                                     next_lesson_btn.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View view) {
-                                            audio_instruction.stop();
-                                            abjad.setBackgroundResource(R.drawable.abjad_speak);
-                                            anim =(AnimationDrawable) abjad.getBackground();
-
                                             words_counter++;
-                                            score_img.setVisibility(View.INVISIBLE);
-                                            if(words_counter == 4){
-                                                word_label.setVisibility(View.INVISIBLE);
-                                                //next_lesson_btn.setVisibility(View.INVISIBLE);
-                                            }
-                                            if(words_counter < 4){
-                                                word = wordsArrayList.get(words_counter).content;
-                                                word_label.setText(word);
-
-                                                Picasso.get().load(wordsArrayList.get(words_counter).pic_file).into(lesson_pic);
-                                                anim.start();
-                                                playAudio(wordsArrayList.get(words_counter).audio_file);
-                                                setOnCompleteListener(lesson_audio);
-                                            }
-                                            else if (words_counter > 3 && words_counter < 7){
-                                                word = wordsArrayList.get(words_counter).content;
-                                                sentence_label.setText(word);
-                                                Picasso.get().load(wordsArrayList.get(words_counter).pic_file).into(lesson_pic);
-                                                anim.start();
-                                                playAudio(wordsArrayList.get(words_counter).audio_file);
-                                                setOnCompleteListener(lesson_audio);
-
-                                            }
-                                            else if (words_counter == 7){
-                                                // move to unit interface
-                                                computeChildScore();
-                                                Intent intent = new Intent(Lesson.this, unit_interface.class);
-                                                intent.putExtra("unitID",unit_interface.unitID);
-                                                intent.putExtra("preIntent","Lesson");
-                                                setResult(RESULT_OK, intent);
-                                                startActivity(intent);
-                                                finish();
-                                            }
-                                            check_alef();
-                                            check_ta();
-
-
-
+                                       move_to_word_listener();
+                                            prev_lesson_btn.setVisibility(View.VISIBLE);
+                                            prevLabel.setVisibility(View.VISIBLE);
                                         }
                                     });
+
+                                    nextLabel.setOnClickListener(new View.OnClickListener(){
+                                        @Override
+                                        public void onClick(View view) {
+                                            words_counter++;
+                                            move_to_word_listener();
+                                            prev_lesson_btn.setVisibility(View.VISIBLE);
+                                            prevLabel.setVisibility(View.VISIBLE);
+                                        }
+                                    });
+
+                                    //previous button listener
+                                    prev_lesson_btn.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            words_counter--;
+                                            move_to_word_listener();
+                                            if(words_counter ==0 ){
+                                                prev_lesson_btn.setVisibility(View.INVISIBLE);
+                                                prevLabel.setVisibility(View.INVISIBLE);
+                                            }
+                                            else{
+                                                prev_lesson_btn.setVisibility(View.VISIBLE);
+                                                prevLabel.setVisibility(View.VISIBLE);
+                                            }
+                                        }
+                                    });
+
+                                   prevLabel.setOnClickListener(new View.OnClickListener(){
+                                        @Override
+                                        public void onClick(View view) {
+                                            words_counter--;
+                                            move_to_word_listener();
+                                            if(words_counter ==0 ){
+                                                prev_lesson_btn.setVisibility(View.INVISIBLE);
+                                                prevLabel.setVisibility(View.INVISIBLE);
+                                            }
+                                            else{
+                                                prev_lesson_btn.setVisibility(View.VISIBLE);
+                                                prevLabel.setVisibility(View.VISIBLE);
+                                            }
+                                        }
+                                    });
+
                                 }
+
+
 
                                 //Start reading sentences from firebase
 
@@ -389,7 +465,6 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                 public void onResults(Bundle bundle) {
                     int word_length = word.length();
                     boolean found = false, found_with_repetition=false;
-                    System.out.println("Word is: "+ word);
 
                     // matches contains many results but we will display the best one and it useually the first one.
                     ArrayList<String> matches = bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
@@ -410,6 +485,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                             break;
                         }
                     }
+                    //check if there is a repetition in words only.
                     if(sentence_label.getText()==""){
                         for(int i =0 ; i<matches.size();i++){
                             String[] duplicates= matches.get(i).split(" ");
@@ -449,7 +525,6 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                             //The displayed phrase is sentence
                             else{
                                listen_sentence_feedback(globalCost,word_length,max_match);
-
                             }
                         }
 
@@ -527,16 +602,13 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
             lesson_audio.setDataSource(url);
             lesson_audio.prepare();
             lesson_audio.start();
-
         }
         catch (IOException e){
             Log.d("5","inside IOException ");
         }
-
         catch (IllegalArgumentException e){
             Log.d("5"," inside IllegalArgumentException");
         }
-
         catch (Exception e) {
             e.printStackTrace();
             Log.d("5","Inside exception");
@@ -549,16 +621,13 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
            audio_instruction.setDataSource(url);
            audio_instruction.prepare();
            audio_instruction.start();
-
         }
         catch (IOException e){
             Log.d("5","inside IOException ");
         }
-
         catch (IllegalArgumentException e){
             Log.d("5"," inside IllegalArgumentException");
         }
-
         catch (Exception e) {
             e.printStackTrace();
             Log.d("5","Inside exception");
@@ -582,10 +651,12 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
         }
 
     }
+
     public void check_alef(){
-        if(word.indexOf('أ')!= -1){
+        if(word.indexOf('أ')!= -1 || word.indexOf('إ')!= -1 || word.indexOf('آ')!= -1){
             word = word.replace('أ','ا');
             word = word.replace('آ','ا');
+            word = word.replace('إ','ا');
         }
 
     }
@@ -693,14 +764,9 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
         setOnCompleteListener(audio_instruction);
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        System.out.println("onStart function");
-    }
+
 
     public void listen_word_feedback(int globalCost, int word_length, double max_match){
-
         if(word.equals("لعبت")){
             if(choosenPhrase.startsWith("لعب") || choosenPhrase.endsWith("ات")){
                 fullScore();
@@ -719,7 +785,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
             return;
 
         }
-        if(globalCost == 1 && word_length ==3){
+        if(globalCost == 1){
             anim.start();
             playAudioInstructions(audio_URLs.perfect_only_one_mistake);
             setOnCompleteListener(audio_instruction);
@@ -736,14 +802,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
             score_img.setImageResource(R.drawable.one);
             child_score = 1;
         }
-        else if(globalCost == 1 && word_length>3){
-            child_score =6;
-            anim.start();
-            playAudioInstructions(audio_URLs.not_fully_good);
-            setOnCompleteListener(audio_instruction);
-            score_img.setVisibility(View.VISIBLE);
-            score_img.setImageResource(R.drawable.six);
-        }
+
         else if(max_match>=0.49 && word_length > 3){
             anim.start();
             playAudioInstructions(audio_URLs.not_fully_good);
@@ -753,6 +812,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
             child_score = 4;
 
         }
+
         else if(max_match<=0.49 && max_match >= 0.39 && word_length>3){
             anim.start();
             playAudioInstructions(audio_URLs.good_with_revision);
@@ -764,28 +824,29 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
         else if(max_match<0.39 && word_length>3){
             anim.start();
             playAudioInstructions(audio_URLs.listen_to_abjad);
+            score_img.setImageResource(R.drawable.one);
             setOnCompleteListener(audio_instruction);
             score_img.setVisibility(View.VISIBLE);
-            score_img.setImageResource(R.drawable.one);
             child_score=1;
         }
 
     }
 
     public void listen_sentence_feedback(int globalCost, int word_length, double max_match){
+
+        if(globalCost==1){
+            fullScore();
+            return;
+        }
         if(globalCost == 2 && word.equals("المطر غزير")){
          fullScore();
          return;
-
-
         }
         if( word.equals("ذهب مهند ليغسل يديه")){
             if(choosenPhrase.startsWith("ذهب مهند") && choosenPhrase.endsWith("يغسل يديه")){
              fullScore();
              return;
             }
-
-
         }
         if(word.equals("هي تزرع الفواكه والخضراوات")){
             if(choosenPhrase.startsWith("هي تزرع") && choosenPhrase.endsWith("الفواكه والخضراوات")){
@@ -803,13 +864,10 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
             fullScore();
             return;
         }
+
         if(word.equals("فرح الفريق بالفوز") && globalCost == 2){
             fullScore();
             return;
-        }
-
-        if(globalCost==1){
-         fullScore();
         }
 
         else if(max_match>=0.89){
@@ -819,6 +877,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
             child_score =6;
             score_img.setVisibility(View.VISIBLE);
             score_img.setImageResource(R.drawable.six);
+            return;
 
         }
         else if(max_match>=0.75){
@@ -828,6 +887,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
             setOnCompleteListener(audio_instruction);
             score_img.setVisibility(View.VISIBLE);
             score_img.setImageResource(R.drawable.five);
+            return;
         }
         else if(max_match <= 0.75 && max_match>=0.5){
             child_score=4;
@@ -836,6 +896,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
             setOnCompleteListener(audio_instruction);
             score_img.setVisibility(View.VISIBLE);
             score_img.setImageResource(R.drawable.four);
+            return;
 
         }
         else if(max_match<=0.5 && max_match>=0.4){
@@ -845,12 +906,16 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
             setOnCompleteListener(audio_instruction);
             score_img.setVisibility(View.VISIBLE);
             score_img.setImageResource(R.drawable.three);
+            return;
         }
         else if (max_match>=0.25){
             child_score=2;
             anim.start();
             playAudioInstructions(audio_URLs.listen_to_abjad);
             setOnCompleteListener(audio_instruction);
+            score_img.setVisibility(View.VISIBLE);
+            score_img.setImageResource(R.drawable.two);
+            return;
         }
         else if(max_match<0.25){
             child_score=1;
@@ -898,4 +963,51 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
         score_img.setVisibility(View.VISIBLE);
         score_img.setImageResource(R.drawable.seven);
     }
+
+    // this function to move to next or previous word based on the button clicked
+    public void move_to_word_listener(){
+        audio_instruction.stop();
+        abjad.setBackgroundResource(R.drawable.abjad_speak);
+        anim =(AnimationDrawable) abjad.getBackground();
+        score_img.setVisibility(View.INVISIBLE);
+        if(words_counter == 4){
+            word_label.setVisibility(View.INVISIBLE);
+        }
+        if(words_counter < 4){
+            word = wordsArrayList.get(words_counter).content;
+            word_label.setVisibility(View.VISIBLE);
+            sentence_label.setVisibility(View.INVISIBLE);
+            word_label.setText(word);
+            Picasso.get().load(wordsArrayList.get(words_counter).pic_file).into(lesson_pic);
+            anim.start();
+            playAudio(wordsArrayList.get(words_counter).audio_file);
+            setOnCompleteListener(lesson_audio);
+        }
+        else if (words_counter > 3 && words_counter < 7){
+            word_label.setVisibility(View.INVISIBLE);
+            sentence_label.setVisibility(View.VISIBLE);
+            word = wordsArrayList.get(words_counter).content;
+            sentence_label.setText(word);
+            Picasso.get().load(wordsArrayList.get(words_counter).pic_file).into(lesson_pic);
+            anim.start();
+            playAudio(wordsArrayList.get(words_counter).audio_file);
+            setOnCompleteListener(lesson_audio);
+        }
+        else if (words_counter == 7){
+            // move to unit interface
+            computeChildScore();
+            Intent intent = new Intent(Lesson.this, unit_interface.class);
+            intent.putExtra("unitID",unit_interface.unitID);
+            intent.putExtra("preIntent","Lesson");
+            setResult(RESULT_OK, intent);
+            startActivity(intent);
+            finish();
+        }
+        check_alef();
+        check_ta();
+    }
+
+
+
+
 }

@@ -5,22 +5,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/menu_edu_drawer_layout"
+    android:fadeScrollbars="false"
+    android:scrollbarFadeDuration="0"
     tools:context="edu.iau.abjad.AbjadApp.menu_educator">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fadeScrollbars="false"
+        android:scrollbarFadeDuration="0"
         >
         <include layout="@layout/navigation_action_bar"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"/>
+           />
 
     </android.support.constraint.ConstraintLayout>
 
     <android.support.design.widget.NavigationView
-        android:layout_width="wrap_content"
+        android:layout_width="230dp"
         android:layout_height="match_parent"
         tools:ignore="ExtraText"
+        android:fadeScrollbars="false"
+        android:scrollbarFadeDuration="0"
         app:menu="@menu/navigation_menu"
         app:headerLayout="@layout/navigation_header"
         android:layout_gravity="start"

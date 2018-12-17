@@ -2,9 +2,12 @@ package edu.iau.abjad.AbjadApp;
 
 import android.content.Context;
 import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -52,6 +55,52 @@ public class change_password extends menu_educator {
 
          user = FirebaseAuth.getInstance().getCurrentUser();
          node = "Educators";
+
+
+        int screenSize = getResources().getConfiguration().screenLayout &
+                Configuration.SCREENLAYOUT_SIZE_MASK;
+        switch(screenSize) {
+            case Configuration.SCREENLAYOUT_SIZE_XLARGE:
+                m.setButton_text_XLarge(save_changes);
+                m.setTitle_XLarge();
+                m.auth_setRight_icon_XLarge(null,current_pass);
+                m.auth_setRight_icon_XLarge(null,new_pass);
+                m.auth_setRight_icon_XLarge(null,confirm_pass);
+                Log.i("scsize","X Large" );
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_LARGE:
+                m.setButton_text_Large(save_changes);
+                m.setTitle_Large();
+                m.auth_setRight_icon_Large(null,current_pass);
+                m.auth_setRight_icon_Large(null,new_pass);
+                m.auth_setRight_icon_Large(null,confirm_pass);
+                Log.i("scsize","Large" );
+
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_NORMAL:
+                m.setButton_text_Normal(save_changes);
+                m.setTitle_Normal();
+                m.auth_setRight_icon_Normal(null,current_pass);
+                m.auth_setRight_icon_Normal(null,new_pass);
+                m.auth_setRight_icon_Normal(null,confirm_pass);
+                Log.i("scsize","Normal" );
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_SMALL:
+               m.setButton_text_Small(save_changes);
+                m.setTitle_Small();
+                m.auth_setRight_icon_Small(null, current_pass);
+                m.auth_setRight_icon_Small(null, new_pass);
+                m.auth_setRight_icon_Small(null, confirm_pass);
+                Log.i("scsize","Small" );
+                break;
+            default:
+                m.setButton_text_Default(save_changes);
+                m.auth_setRight_icon_Default(null, current_pass);
+                m.auth_setRight_icon_Default(null, new_pass);
+                m.auth_setRight_icon_Default(null, confirm_pass);
+                m.setTitle_Default();
+
+        }//end switch
 
 
          save_changes.setOnClickListener(new View.OnClickListener() {

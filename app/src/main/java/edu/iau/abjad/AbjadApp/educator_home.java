@@ -68,6 +68,7 @@ public class educator_home extends menu_educator {
         gv.setNumColumns(2);
         first_time = true;
         label = (TextView) findViewById(R.id.NoChildren);
+
         int screenSize = getResources().getConfiguration().screenLayout &
                 Configuration.SCREENLAYOUT_SIZE_MASK;
 
@@ -78,23 +79,19 @@ public class educator_home extends menu_educator {
                 break;
             case Configuration.SCREENLAYOUT_SIZE_LARGE:
                 label.setTextSize(TypedValue.COMPLEX_UNIT_SP,50);
-
                 break;
-
             case Configuration.SCREENLAYOUT_SIZE_NORMAL:
                 label.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
 
                 break;
             case Configuration.SCREENLAYOUT_SIZE_SMALL:
                 label.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
-
                 break;
             default:
                 label.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
-
-
         }
-
+        // to avoid craching
+        if(SigninEducator.id_edu != null)
         db = FirebaseDatabase.getInstance().getReference().child("educator_home").child(SigninEducator.id_edu);
         db.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

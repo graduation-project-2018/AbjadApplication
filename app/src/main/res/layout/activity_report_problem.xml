@@ -1,27 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".report_problem"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/educator_backgrpund">
+    android:background="@drawable/educator_backgrpund"
+    tools:context=".report_problem"
+    tools:ignore="MissingDefaultResource">
 
-    <include
-        layout="@layout/navigation_action_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    <include layout="@layout/navigation_action_bar" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.12" />
+
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.80" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.25" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.75" />
 
     <ScrollView
-        android:layout_width="1260dp"
-        android:layout_height="553dp"
-        android:layout_marginEnd="8dp"
+        android:id="@+id/scroll"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="96dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/guideline1"
+        app:layout_constraintVertical_bias="0.0">
 
 
         <android.support.constraint.ConstraintLayout
@@ -29,104 +72,60 @@
             android:layout_height="match_parent">
 
             <Button
-                android:id="@+id/button14"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginEnd="32dp"
-                android:layout_marginTop="52dp"
-                android:background="@drawable/help_icon"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <Button
-                android:id="@+id/uplodBtn"
-                android:layout_width="110dp"
-                android:layout_height="81dp"
+                android:id="@+id/help_btn"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="112dp"
-                android:background="@drawable/upload_icon"
-                android:onClick="onImgGalleryCliked"
-                app:layout_constraintBottom_toTopOf="@+id/imageView9"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.714"
-                app:layout_constraintStart_toEndOf="@+id/imgname"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.628" />
-
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginTop="50dp"
-                app:layout_constraintEnd_toStartOf="@+id/button14"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/screenshot_icon" />
-
-            <TextView
-                android:id="@+id/textView12"
-                android:layout_width="wrap_content"
-                android:layout_height="52dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginTop="50dp"
-                android:text="صورة لموقع المشكلة"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textColor="#0B365C"
-                android:textSize="18pt"
-                app:layout_constraintEnd_toStartOf="@+id/imageView2"
+                android:background="@drawable/help_icon_15x"
+                app:layout_constraintBottom_toTopOf="@+id/guideline9"
+                app:layout_constraintDimensionRatio="h,1:1"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/imgname"
-                android:layout_width="326dp"
-                android:layout_height="68dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginStart="780dp"
-                android:layout_marginTop="144dp"
-                android:textSize="14pt"
-                app:layout_constraintBottom_toTopOf="@+id/textView16"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
-
-            <ImageView
-                android:id="@+id/imageView9"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginEnd="100dp"
-                android:layout_marginTop="136dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView2"
-                app:srcCompat="@drawable/problem_icon" />
-
-            <TextView
-                android:id="@+id/textView16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:drawableRight="@drawable/upload_icon_2x"
+                android:drawablePadding="15dp"
+                android:gravity="bottom"
+                android:onClick="onImgGalleryCliked"
+                android:text="اضغط هنا لرفع صورة لقطة الشاشة"
+                android:textSize="22sp"
+                app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/problem_type_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="236dp"
+                android:layout_marginBottom="8dp"
+                android:drawableRight="@drawable/problem_icon_15x"
+                android:drawablePadding="15dp"
                 android:text="نوع المشكلة"
                 android:textColor="#0B365C"
-                android:textSize="18pt"
-                app:layout_constraintEnd_toStartOf="@+id/imageView9"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/imgname"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:textSize="25sp"
+                app:layout_constraintBottom_toTopOf="@+id/radioButtonsGroup"
+                app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                app:layout_constraintTop_toBottomOf="@+id/imgname"
+                app:layout_constraintVertical_bias="0.0" />
 
             <RadioGroup
                 android:id="@+id/radioButtonsGroup"
-                android:layout_width="match_parent"
-                android:layout_height="804dp"
-                android:layout_marginTop="300dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:gravity="right"
                 android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="@+id/guideline5"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="@+id/guideline4">
 
                 <RadioButton
                     android:id="@+id/Problem_type_1"
@@ -139,8 +138,8 @@
                     android:onClick="isChosed"
                     android:paddingRight="102dp"
                     android:text=" عدم تطابق الصوت مع الكلمة أو الجملة"
-
-                    android:textSize="30dp" />
+                    android:drawablePadding="10dp"
+                    android:textSize="30sp" />
 
                 <RadioButton
                     android:id="@+id/Problem_type_2"
@@ -153,6 +152,7 @@
                     android:onClick="isChosed"
                     android:paddingRight="102dp"
                     android:text=" عدم وضوح الصوت"
+                    android:drawablePadding="10dp"
                     android:textSize="30dp" />
 
                 <RadioButton
@@ -166,7 +166,7 @@
                     android:onClick="isChosed"
                     android:paddingRight="102dp"
                     android:text=" الصوت لا يعمل"
-
+                    android:drawablePadding="10dp"
                     android:textSize="30dp" />
 
                 <RadioButton
@@ -180,6 +180,7 @@
                     android:onClick="isChosed"
                     android:paddingRight="102dp"
                     android:text=" تم تقييم الطفل بشكل خاطئ"
+                    android:drawablePadding="10dp"
                     android:textSize="30dp" />
 
                 <RadioButton
@@ -193,6 +194,7 @@
                     android:onClick="isChosed"
                     android:paddingRight="102dp"
                     android:text=" المحتوى لا يتطابق مع الصورة المعروضة"
+                    android:drawablePadding="10dp"
                     android:textSize="30dp" />
 
                 <RadioButton
@@ -206,6 +208,7 @@
                     android:onClick="isChosed"
                     android:paddingRight="102dp"
                     android:text=" لم يتم سماع تقييم الطفل"
+                    android:drawablePadding="10dp"
                     android:textSize="30dp" />
 
                 <RadioButton
@@ -218,21 +221,10 @@
                     android:layoutDirection="rtl"
                     android:onClick="isChosed"
                     android:paddingRight="102dp"
-                    android:text=" زر التسجيل لا يعمل"
+                    android:text=" زر تسجيل الصوت لا يعمل"
+                    android:drawablePadding="10dp"
                     android:textSize="30dp" />
 
-                <RadioButton
-                    android:id="@+id/Problem_type_8"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:button="@null"
-                    android:drawableRight="@android:drawable/btn_radio"
-                    android:gravity="right"
-                    android:layoutDirection="rtl"
-                    android:onClick="isChosed"
-                    android:paddingRight="102dp"
-                    android:text=" الصوت غير واضح"
-                    android:textSize="30dp" />
 
                 <RadioButton
                     android:id="@+id/more"
@@ -244,50 +236,115 @@
                     android:layoutDirection="rtl"
                     android:onClick="isChosed"
                     android:paddingRight="102dp"
+                    android:drawablePadding="10dp"
                     android:text="أخرى"
                     android:textSize="30dp"
                     tools:ignore="OnClick" />
 
                 <EditText
                     android:id="@+id/moredetails"
-                    android:layout_width="500dp"
+                    android:layout_width="380dp"
                     android:layout_height="180dp"
                     android:layout_marginRight="102dp"
                     android:background="#F2F2F2"
-                    android:editable="true"
                     android:ems="10"
                     android:enabled="false"
                     android:gravity="top"
-                    android:hint="الوصف "
                     android:inputType="textMultiLine"
                     android:scrollbarAlwaysDrawVerticalTrack="true"
                     android:text=" "
                     android:textColor="#7D7C7C"
                     android:textColorHint="@android:color/black"
                     tools:hint="الوصف"
+                    android:textSize="20sp"
                     tools:layout_editor_absoluteX="170dp"
                     tools:layout_editor_absoluteY="192dp" />
+
+
             </RadioGroup>
 
-            <Button
-                android:id="@+id/reportButn"
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="35dp"
-                android:background="@drawable/circle_button"
-                android:text="إبلاغ عن المشكلة"
-                android:textColor="#ffffff"
-                android:textSize="18pt"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/radioButtonsGroup" />
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="20dp"
+                app:layout_constraintGuide_percent="0.98" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="20dp"
+                app:layout_constraintGuide_percent="0.4" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline5"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="20dp"
+                app:layout_constraintGuide_percent="0.78" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline9"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="20dp"
+                app:layout_constraintGuide_percent="0.1" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline10"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="982dp"
+                app:layout_constraintGuide_percent="0.93" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline11"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="20dp"
+                app:layout_constraintGuide_percent="0.02" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="مساعدة"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="@+id/help_btn"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/help_btn"
+                app:layout_constraintTop_toBottomOf="@+id/help_btn" />
 
 
         </android.support.constraint.ConstraintLayout>
 
     </ScrollView>
+
+    <Button
+        android:id="@+id/reportButn"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/circle_button"
+        android:text="إبلاغ عن المشكلة"
+        android:textColor="#ffffff"
+        android:textSize="18pt"
+        app:layout_constraintBottom_toTopOf="@+id/guideline8"
+        app:layout_constraintDimensionRatio="h,16:2.3"
+        app:layout_constraintEnd_toStartOf="@+id/guideline7"
+        app:layout_constraintStart_toStartOf="@+id/guideline6"
+        app:layout_constraintTop_toBottomOf="@+id/guideline2" />
 
 
 </android.support.constraint.ConstraintLayout>

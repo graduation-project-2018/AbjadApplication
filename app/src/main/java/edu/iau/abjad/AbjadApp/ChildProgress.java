@@ -5,12 +5,17 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
+import android.support.v4.view.ViewCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ScrollView;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +34,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.io.FileInputStream;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import static java.security.AccessController.getContext;
 
@@ -60,6 +66,8 @@ public class ChildProgress extends menu_educator {
     ArrayList <childUnitInfo> lessonScores;
     ArrayList <childUnitInfo> testScore, timeCom;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,10 +75,18 @@ public class ChildProgress extends menu_educator {
         m.title = (TextView) findViewById(R.id.interface_title);
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
+
+
         //inflate your activity layout here!
         final View contentView = inflater.inflate(R.layout.activity_child_progress, null, false);
         sTime=""; sLeastTime="";sHighstScoreLesson="";sHighstScoreTest="";lett="";
         mDrawerLayout.addView(contentView, 0);
+
+
+
+
+
+
         //intilization
          nUnlokedLesson=findViewById(R.id.nUnlokedLesson);
          nDoneLesson=findViewById(R.id.nDoneLesson);
@@ -87,12 +103,13 @@ public class ChildProgress extends menu_educator {
         letterLesson=new firebase_connection();
          test=new firebase_connection();
          child = new firebase_connection();
-
+         Bundle b=getIntent().getExtras();
+         childID=b.getString("child_ID");
          deleteChild_Children=new firebase_connection();
          deleteChild_edu=new firebase_connection();
          deleteChild_lesson=new firebase_connection();
          deleteChild_test=new firebase_connection();
-         nTest=new firebase_connection();
+        nTest=new firebase_connection();
         dleastTime=100000.00;
         sLeastTime="";
         sHighstScoreLesson="";
@@ -108,8 +125,7 @@ public class ChildProgress extends menu_educator {
         final Intent educatorHome=new Intent(this,educator_home.class);
         final Intent changePassword =new Intent(this, change_password.class );
 
-        Bundle b=getIntent().getExtras();
-        childID=b.getString("child_ID");
+
         final Intent c=new Intent(this,userTypeSelection.class);
         child.ref.child("Children").child(childID).addValueEventListener(new ValueEventListener() {
             @Override
@@ -147,6 +163,7 @@ public class ChildProgress extends menu_educator {
                                     ValueEventListener completeEvent=new ValueEventListener() {
                                         @Override
                                         public void onDataChange(DataSnapshot dataSnapshot) {
+
                                             DatabaseReference getLetter=letterLesson.ref.child("Lessons");
                                             ValueEventListener evntLetr=new ValueEventListener() {
                                                 @Override
@@ -155,9 +172,7 @@ public class ChildProgress extends menu_educator {
                                                     final int ilessonScore=s.child("score").getValue(Integer.class);
                                                     sTime=s.child("time").getValue().toString();
                                                     dTime=Double.parseDouble(sTime);
-                                                    Log.i("LessonLAtter_InTHEEVENT",lessonKey+" ");
-                                                    Log.i("GGGGGGGG",dataSnapshot.child(lessonKey)
-                                                            .child("lesson_letter").getValue().toString()+" juju");
+
                                                    lett=dataSnapshot.child(lessonKey)
                                                             .child("lesson_letter").getValue().toString();
                                                     Log.i("time",dTime+" m");
@@ -294,7 +309,6 @@ public class ChildProgress extends menu_educator {
                                                     highestScoreTest.setText(ihighestScore+" /10");
                                                     testName.setText(sHighstScoreTest.substring(0,sHighstScoreTest.length()-2).replace("_","،"));
                                                 }
-
                                                 @Override
                                                 public void onCancelled(DatabaseError databaseError) {
 

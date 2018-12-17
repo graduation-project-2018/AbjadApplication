@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -53,6 +54,8 @@ public class child_menu extends AppCompatActivity {
     EditText email;
     DatabaseReference read;
     String id;
+    ImageView menu_btn;
+
 
 
 
@@ -66,10 +69,24 @@ public class child_menu extends AppCompatActivity {
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         myToggle= new ActionBarDrawerToggle(this,myDrawerLayout,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
         myToolBar = (Toolbar) findViewById(R.id.nav_action_bar);
+
         setSupportActionBar(myToolBar);
         myDrawerLayout.addDrawerListener(myToggle);
         myToggle.syncState();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+
+
+        menu_btn = findViewById(R.id.menu_icon);
+        menu_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            // If navigation drawer is not open yet open it,  else close it.
+            public void onClick(View view) {
+                if(!myDrawerLayout.isDrawerOpen(GravityCompat.START))
+                    myDrawerLayout.openDrawer(Gravity.START);
+                else myDrawerLayout.closeDrawer(Gravity.END);
+            }
+        });
 
 
 
@@ -134,7 +151,7 @@ public class child_menu extends AppCompatActivity {
             }
         });
 
-        home_icon=(ImageView) findViewById(R.id.home_icon);
+        home_icon= findViewById(R.id.home_icon);
 
         home_icon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,9 +166,6 @@ public class child_menu extends AppCompatActivity {
 
 
     }
-
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(myToggle.onOptionsItemSelected(item)){

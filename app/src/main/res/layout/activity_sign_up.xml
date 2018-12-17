@@ -4,84 +4,112 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/educator_backgrpund"
     tools:context="edu.iau.abjad.AbjadApp.SignUp"
-    android:background="@drawable/educator_backgrpund">
-
-
-
+    tools:ignore="MissingDefaultResource">
 
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar8"
         android:layout_width="match_parent"
-        android:layout_height="97dp"
-        android:layout_marginBottom="632dp"
+        android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <TextView
         android:id="@+id/Signup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:fontFamily="casual"
         android:text="تسجيل حساب جديد"
         android:textColor="@android:color/black"
-        android:textSize="36sp"
+        android:textSize="18sp"
         android:typeface="normal"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar8"
         app:layout_constraintEnd_toEndOf="@+id/toolbar8"
         app:layout_constraintStart_toStartOf="@+id/toolbar8"
-        app:layout_constraintTop_toTopOf="@+id/toolbar8"
-        app:layout_constraintVertical_bias="0.444" />
+        app:layout_constraintTop_toTopOf="@+id/toolbar8" />
 
 
     <Button
 
         android:id="@+id/SignUpButton"
-        android:layout_width="657dp"
-        android:layout_height="104dp"
-        android:layout_marginBottom="37dp"
-        android:layout_marginEnd="8dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/rectanglee"
         android:fontFamily="casual"
-        android:text="تسجيل حساب"
+        android:text="تسجيل"
         android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textSize="24sp"
         android:typeface="normal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView4"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintBottom_toTopOf="@+id/guideline32"
+        app:layout_constraintEnd_toStartOf="@+id/guideline31"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="@+id/guideline30"
+        app:layout_constraintTop_toBottomOf="@+id/guideline23" />
+
+    <ImageView
+        android:id="@+id/back_signUp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="4dp"
+        android:src="@drawable/back_btn_2x"
+        app:layout_constraintBottom_toTopOf="@+id/guideline7"
+        app:layout_constraintDimensionRatio="H,16:11"
+        app:layout_constraintEnd_toEndOf="@+id/toolbar8"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline39"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.12" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline39"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.95" />
 
     <ScrollView
         android:id="@+id/scrollView4"
         style="@android:style/Widget.Holo.Light.ScrollView"
-        android:layout_width="1010dp"
-        android:layout_height="384dp"
-        android:layout_marginBottom="68dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/transbg"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/user_type_bg"
         android:foregroundGravity="bottom"
         android:gravity="bottom"
         android:scrollbarStyle="outsideOverlay"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar8"
-        app:layout_constraintVertical_bias="0.52"
+        app:layout_constraintBottom_toTopOf="@+id/guideline23"
+        app:layout_constraintEnd_toStartOf="@+id/guideline16"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline19"
+        app:layout_constraintTop_toTopOf="@+id/guideline22"
+        app:layout_constraintVertical_bias="1.0"
         app:layout_editor_absoluteX="50dp"
         app:layout_editor_absoluteY="50dp">
 
@@ -94,110 +122,156 @@
             app:layout_constraintTop_toBottomOf="parent"
             app:layout_constraintVertical_bias="1.0">
 
-            <TextView
-                android:id="@+id/textView"
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline28"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="904dp"
-                android:layout_marginTop="260dp"
-                android:text="TextView"
-                android:visibility="invisible"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/CPassFieldSU" />
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="20dp"
+                app:layout_constraintGuide_percent="0.1" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline29"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="20dp"
+                app:layout_constraintGuide_percent="0.9" />
+
 
             <EditText
                 android:id="@+id/CPassFieldSU"
-                android:layout_width="728dp"
-                android:layout_height="69dp"
-                android:layout_marginTop="60dp"
-                android:drawablePadding="15dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:drawableRight="@drawable/password_gray"
+                android:drawablePadding="15dp"
                 android:ems="100"
-                android:gravity="bottom"
-                android:hint="     تأكيد كلمة المرور"
+                android:gravity="right"
+                android:hint="تأكيد كلمة المرور"
                 android:inputType="textPassword"
-
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideline29"
+                app:layout_constraintStart_toEndOf="@+id/guideline28"
                 app:layout_constraintTop_toBottomOf="@+id/PassFieldSU" />
 
 
             <EditText
                 android:id="@+id/PassFieldSU"
-                android:layout_width="728dp"
-                android:layout_height="69dp"
-                android:layout_marginTop="60dp"
-                android:drawablePadding="15dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:drawableRight="@drawable/password_gray"
+                android:drawablePadding="15dp"
                 android:ems="100"
-                android:gravity="bottom"
-                android:hint="               كلمة المرور"
+                android:gravity="right"
+                android:hint="كلمة المرور"
                 android:inputType="textPassword"
-
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideline29"
+                app:layout_constraintStart_toEndOf="@+id/guideline28"
                 app:layout_constraintTop_toBottomOf="@+id/EmailFieldSU" />
-
 
 
             <EditText
                 android:id="@+id/EmailFieldSU"
-                android:layout_width="728dp"
-                android:layout_height="66dp"
-                android:layout_marginTop="60dp"
-                android:drawablePadding="10dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:drawableRight="@drawable/email_icon"
+                android:drawablePadding="10dp"
                 android:ems="100"
-                android:gravity="bottom"
+                android:gravity="right"
                 android:hint="البريد الإلكتروني"
-                android:inputType="textPersonName"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                android:inputType="textEmailAddress"
+                app:layout_constraintEnd_toStartOf="@+id/guideline29"
+                app:layout_constraintStart_toEndOf="@+id/guideline28"
                 app:layout_constraintTop_toBottomOf="@+id/LNFieldSU" />
-
-
-
 
 
             <EditText
                 android:id="@+id/LNFieldSU"
-                android:layout_width="728dp"
-                android:layout_height="66dp"
-                android:layout_marginTop="60dp"
-                android:drawablePadding="1dp"
-                android:drawableRight="@drawable/user_male"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/user_icon_4x"
+                android:drawablePadding="15dp"
                 android:ems="100"
-                android:gravity="bottom"
-                android:hint="     اللقب"
+                android:gravity="right"
+                android:hint="اللقب"
                 android:inputType="textPersonName"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideline29"
+                app:layout_constraintStart_toEndOf="@+id/guideline28"
                 app:layout_constraintTop_toBottomOf="@+id/FNFieldSU" />
-
 
 
             <EditText
                 android:id="@+id/FNFieldSU"
-                android:layout_width="728dp"
-                android:layout_height="66dp"
-                android:layout_marginRight="152dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="32dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/user_icon_4x"
                 android:drawablePadding="15dp"
-                android:drawableRight="@drawable/user_male"
                 android:ems="100"
-                android:gravity="bottom"
+                android:gravity="right"
                 android:hint="اسم المربي"
                 android:inputType="textPersonName"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideline29"
+                app:layout_constraintStart_toEndOf="@+id/guideline28"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_chainStyle="spread_inside" />
 
-
-
-                    </android.support.constraint.ConstraintLayout>
+        </android.support.constraint.ConstraintLayout>
     </ScrollView>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.91" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline19"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.20" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline23"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.75" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline30"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.24" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline31"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.76" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline32"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.93" />
 
 
 </android.support.constraint.ConstraintLayout>

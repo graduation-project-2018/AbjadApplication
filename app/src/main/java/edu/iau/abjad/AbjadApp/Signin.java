@@ -2,17 +2,19 @@ package edu.iau.abjad.AbjadApp;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputConnection;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -23,20 +25,17 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-
-import static android.view.View.VISIBLE;
-
 public class Signin extends AppCompatActivity  implements View.OnClickListener{
 
-
+    menu_variables m = new menu_variables();
     private FirebaseAuth Uath;
-    private EditText ChildUsername, ChildPassword;//ResetPassword; for navgation to the activity
-
-
+    private EditText ChildEmail, ChildPassword;
     private ProgressBar PB;
     private Intent Itn;
-    String username;
+    String email;
     static String id_child;
+    ImageView back_btn;
+    TextView send_label, signIn_label, reset_pass_label;
     firebase_connection r = new firebase_connection();
 
 
@@ -51,44 +50,72 @@ public class Signin extends AppCompatActivity  implements View.OnClickListener{
         //set values -noNeedForCasting-
 
         Uath= FirebaseAuth.getInstance();
-        ChildUsername= (EditText) findViewById(R.id.Username);
+        ChildEmail= (EditText) findViewById(R.id.child_email);
         ChildPassword=(EditText) findViewById(R.id.password);
         // enter=findViewById(R.id.SendButton);
         PB= (ProgressBar) findViewById(R.id.CprogressBar);
-        // back=findViewById(R.id.back);
+        back_btn =findViewById(R.id.back);
+        send_label = findViewById(R.id.send_label_on_btn);
+        reset_pass_label= findViewById(R.id.ResetPassword);
 
         Itn =new Intent(Signin.this,child_home.class);
         //adding listeners to the buttons:
         findViewById(R.id.submit_btn_reset).setOnClickListener(this);
-        findViewById(R.id.back).setOnClickListener(this);
+        back_btn.setOnClickListener(this);
         findViewById(R.id.ResetPassword).setOnClickListener(this);
+        signIn_label= findViewById(R.id.signIn_label);
+        PB.getIndeterminateDrawable().setColorFilter(	0xFF0B365C, android.graphics.PorterDuff.Mode.MULTIPLY);
 
+        int screenSize = getResources().getConfiguration().screenLayout &
+                Configuration.SCREENLAYOUT_SIZE_MASK;
+        switch(screenSize) {
+            case Configuration.SCREENLAYOUT_SIZE_XLARGE:
+                signIn_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
+                m.auth_setRight_icon_XLarge(ChildEmail,ChildPassword);
+                m.setButton_text_XLarge(send_label);
+                reset_pass_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_LARGE:
+                signIn_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,23);
+                m.auth_setRight_icon_Large(ChildEmail,ChildPassword);
+                m.setButton_text_Large(send_label);
+                reset_pass_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,16);
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_NORMAL:
+                signIn_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
+                m.auth_setRight_icon_Normal(ChildEmail,ChildPassword);
+                m.setButton_text_Normal(send_label);
+                reset_pass_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,14);
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_SMALL:
+                signIn_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,14);
+                m.auth_setRight_icon_Small(ChildEmail,ChildPassword);
+                m.setButton_text_Small(send_label);
+                reset_pass_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
+                break;
+            default:
+                signIn_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+                m.auth_setRight_icon_Default(ChildEmail,ChildPassword);
+                m.setButton_text_Default(send_label);
+                reset_pass_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
 
-
+        }//end switch
 
 
     }//end of OnCreate
 
-
-
     private void signIn(){
-        username = ChildUsername.getText().toString().trim();
+        email =  ChildEmail.getText().toString().trim();
         String password = ChildPassword.getText().toString().trim();
         boolean flag = true;
 
-
-
         //check username is not empty
-        if (username.isEmpty()) {
-            ChildUsername.setError("ادخل البريد الإلكتروني من فضلك ");
-            ChildUsername.requestFocus();
+        if (email.isEmpty()) {
+            ChildEmail.setError("ادخل البريد الإلكتروني من فضلك ");
+            ChildEmail.requestFocus();
 
            flag = false;
         }
-        else {
-
-        }
-
 
         //check password is not empty
         if (password.isEmpty()) {
@@ -97,20 +124,14 @@ public class Signin extends AppCompatActivity  implements View.OnClickListener{
 
             flag = false;
         }
-        else{
 
-        }
         if(flag){
-
             PB.setVisibility(View.VISIBLE);
-
-            Uath.signInWithEmailAndPassword(username,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            Uath.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
-                    PB.setVisibility(View.GONE);
                     if(task.isSuccessful())
                     {
-
                         id_child= Uath.getCurrentUser().getUid();
                         Query query = r.ref.child("Children").orderByKey().equalTo(id_child);
                         query.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -120,40 +141,28 @@ public class Signin extends AppCompatActivity  implements View.OnClickListener{
                                     startActivity(Itn);
                                 }
                                 else{
-                                    ChildUsername.setError("الرجاء كتابة البريد الإلكتروني الخاص بالطفل");
-                                    ChildUsername.requestFocus();
-
-
+                                    ChildEmail.setError("الرجاء كتابة البريد الإلكتروني الخاص بالطفل");
+                                    ChildEmail.requestFocus();
                                 }
                             }
-
                             @Override
                             public void onCancelled(DatabaseError databaseError) {
-
                             }
                         });
-
-
-
-
                     }
                     else
                     {
                         if(task.getException().getMessage().startsWith("The email address is badly formatted")){
-                            ChildUsername.setError("الرجاء كتابة البريد الإلكتروني كالتالي someone@example.com ");
-                            ChildUsername.requestFocus();
-
-
+                            ChildEmail.setError("الرجاء كتابة البريد الإلكتروني كالتالي someone@example.com ");
+                            ChildEmail.requestFocus();
                     }
                     else if(task.getException().getMessage().startsWith("There is no user record")){
-                            ChildUsername.setError("لا يوجد مستخدم بهذا الحساب ، الرجاء التحقق من البريد الإلكتروني");
-                            ChildUsername.requestFocus();
-
+                            ChildEmail.setError("لا يوجد مستخدم بهذا الحساب ، الرجاء التحقق من البريد الإلكتروني");
+                            ChildEmail.requestFocus();
                         }
                         else if (task.getException().getMessage().startsWith("The password is invalid")){
                             ChildPassword.setError("كلمة المرور خاطئة ، الرجاء التحقق منها");
                             ChildPassword.requestFocus();
-
                         }
                         //Toast.makeText(getApplicationContext(),task.getException().getMessage(),Toast.LENGTH_SHORT).show();
                     }

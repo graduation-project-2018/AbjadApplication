@@ -51,15 +51,4 @@ public class lesson_words {
         r.ref.child("Lessons").child("lesson3").child("sentences").child("sentenرce3").child("content").setValue("-");
         r.ref.child("Lessons").child("lesson3").child("sentences").child("sentence3").child("pic_file").setValue("-");*/
 
-            /*countDownTimer= new CountDownTimer(10000, 1000) {
 
-                                        public void onTick(long millisUntilFinished) {
-                                            System.out.println("onTick methed");
-                                        }
-
-                                        public void onFinish() {
-
-                                            System.out.println("onFinish methed");
-                                            playAudio(wordsArrayList.get(words_counter).audio_file);
-                                        }
-                                    }.start();*/

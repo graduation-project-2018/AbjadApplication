@@ -2,10 +2,15 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraint_progress"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="right"
+    android:layoutDirection="rtl"
+
     android:background="@drawable/educator_backgrpund"
-    tools:context="edu.iau.abjad.AbjadApp.ChildProgress">
+    tools:context="edu.iau.abjad.AbjadApp.ChildProgress"
+    tools:ignore="MissingDefaultResource">
 
     <include
         layout="@layout/navigation_action_bar"
@@ -24,76 +29,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/cloudswp" />
 
-    <LinearLayout
-        android:id="@+id/side"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.231">
-
-        <ImageView
-            android:id="@+id/ChildProfile"
-            android:layout_width="match_parent"
-            android:layout_height="114dp"
-            android:layout_marginBottom="4dp"
-            android:layout_marginStart="40dp"
-            app:layout_constraintBottom_toTopOf="@+id/deleteChild"
-            app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/profile" />
-
-        <ImageView
-            android:id="@+id/changePass"
-            android:layout_width="match_parent"
-            android:layout_height="114dp"
-            android:layout_marginBottom="4dp"
-            android:layout_marginStart="40dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/password" />
-
-        <ImageView
-            android:id="@+id/deleteChild"
-            android:layout_width="match_parent"
-            android:layout_height="114dp"
-            android:layout_marginBottom="16dp"
-            android:layout_marginStart="40dp"
-            app:layout_constraintBottom_toTopOf="@+id/changePass"
-            app:layout_constraintStart_toStartOf="@+id/side"
-            app:srcCompat="@drawable/dele" />
-    </LinearLayout>
-
 
     <ImageView
         android:id="@+id/imageView21"
         android:layout_width="289dp"
         android:layout_height="136dp"
-        android:layout_marginEnd="176dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.982"
+        android:layout_marginStart="444dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/scrollView3"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView22"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.434"
         app:srcCompat="@drawable/cloud" />
 
     <TextView
         android:id="@+id/imgname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/imageView21"
         android:layout_alignLeft="@id/imageView21"
-        android:layout_alignRight="@id/imageView21"
         android:layout_alignTop="@id/imageView21"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_alignRight="@id/imageView21"
+        android:layout_alignBottom="@id/imageView21"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:fontFamily="Arabic Typesetting"
         android:text="مـعلومـات أداء الطـفل"
         android:textColor="@android:color/black"
@@ -107,12 +68,12 @@
         android:id="@+id/imageView22"
         android:layout_width="168dp"
         android:layout_height="121dp"
-        android:layout_marginBottom="504dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="480dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.752"
+        app:layout_constraintHorizontal_bias="0.325"
         app:layout_constraintStart_toStartOf="@+id/imageView21"
         app:srcCompat="@drawable/bird" />
 
@@ -121,26 +82,25 @@
         android:layout_width="741dp"
         android:layout_height="202dp"
         android:layout_gravity="right"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:layoutDirection="rtl"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/imageView21"
-        app:layout_constraintTop_toBottomOf="@+id/imageView21"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TableLayout
             android:id="@+id/table1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="right"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="16dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="3dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
             android:gravity="right"
             android:layoutDirection="rtl"
             android:stretchColumns="*"
@@ -171,7 +131,7 @@
                     android:layout_gravity="right"
                     android:fontFamily="Arabic Typesetting"
                     android:padding="0dp"
-                    android:text="١٣"
+                    android:text="-"
                     android:textDirection="rtl"
                     android:textSize="20sp" />
             </TableRow>
@@ -198,7 +158,7 @@
                     android:layout_gravity="right"
                     android:fontFamily="Arabic Typesetting"
                     android:padding="0dp"
-                    android:text="٥"
+                    android:text="-"
                     android:textDirection="rtl"
                     android:textSize="24sp" />
             </TableRow>
@@ -219,7 +179,7 @@
                     android:id="@+id/nTimer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="٥ دقائق"
+                    android:text="-"
                     android:textAlignment="viewStart"
                     android:textSize="20sp" />
 
@@ -235,7 +195,7 @@
                     android:id="@+id/LessonNameTimer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="ل"
+                    android:text="-"
                     android:textSize="20sp" />
 
             </TableRow>
@@ -261,7 +221,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="Arabic Typesetting"
                     android:padding="0dp"
-                    android:text="٩/١٠"
+                    android:text="-"
                     android:textDirection="rtl"
                     android:textSize="20sp" />
 
@@ -281,7 +241,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="Arabic Typesetting"
                     android:padding="0dp"
-                    android:text="م "
+                    android:text="-"
                     android:textDirection="rtl"
                     android:textSize="24sp" />
 
@@ -304,7 +264,7 @@
                     android:id="@+id/nDoneTest"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text=" ٣"
+                    android:text="-"
                     android:textDirection="rtl"
                     android:textSize="24dp" />
 
@@ -327,7 +287,7 @@
                     android:id="@+id/highestScoreTest"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="١٠/١٠"
+                    android:text="-"
                     android:textSize="20dp" />
 
 
@@ -347,7 +307,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="Arabic Typesetting"
                     android:padding="0dp"
-                    android:text="م،ب"
+                    android:text="-"
                     android:textDirection="rtl"
                     android:textSize="20sp" />
 

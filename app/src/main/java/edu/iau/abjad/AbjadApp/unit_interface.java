@@ -2,10 +2,12 @@ package edu.iau.abjad.AbjadApp;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -60,6 +62,9 @@ public class unit_interface extends child_menu {
     private String unitName;
 
 
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,7 +105,6 @@ public class unit_interface extends child_menu {
         bal1=findViewById(R.id.ballon1);
         bal2=findViewById(R.id.ballon2);
         bal3=findViewById(R.id.ballon3);
-
         Bundle child=getIntent().getExtras();
         m.title.setText(child.getString("Unitname"));
 
@@ -141,7 +145,76 @@ public class unit_interface extends child_menu {
         lesson5Stars=findViewById(R.id.lesson5Stars);
         lesson6Stars=findViewById(R.id.lesson6Stars);
         instructions=new MediaPlayer();
-       // Log.i("dsdjcgjsd",unitID);
+
+
+        int screenSize = getResources().getConfiguration().screenLayout &
+                Configuration.SCREENLAYOUT_SIZE_MASK;
+        switch(screenSize) {
+            case Configuration.SCREENLAYOUT_SIZE_XLARGE:
+                m.setTitle_Large();
+                test3.setTextSize(TypedValue.COMPLEX_UNIT_SP,40);
+                test2.setTextSize(TypedValue.COMPLEX_UNIT_SP,40);
+                test1.setTextSize(TypedValue.COMPLEX_UNIT_SP,40);
+                lesson1.setTextSize(TypedValue.COMPLEX_UNIT_SP,70);
+                lesson2.setTextSize(TypedValue.COMPLEX_UNIT_SP,70);
+                lesson3.setTextSize(TypedValue.COMPLEX_UNIT_SP,70);
+                lesson4.setTextSize(TypedValue.COMPLEX_UNIT_SP,70);
+                lesson5.setTextSize(TypedValue.COMPLEX_UNIT_SP,70);
+                lesson6.setTextSize(TypedValue.COMPLEX_UNIT_SP,70);
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_LARGE:
+                m.setTitle_Large();
+                test3.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
+                test2.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
+                test1.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
+                lesson1.setTextSize(TypedValue.COMPLEX_UNIT_SP,60);
+                lesson2.setTextSize(TypedValue.COMPLEX_UNIT_SP,60);
+                lesson3.setTextSize(TypedValue.COMPLEX_UNIT_SP,60);
+                lesson4.setTextSize(TypedValue.COMPLEX_UNIT_SP,60);
+                lesson5.setTextSize(TypedValue.COMPLEX_UNIT_SP,60);
+                lesson6.setTextSize(TypedValue.COMPLEX_UNIT_SP,60);
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_NORMAL:
+                m.setTitle_Normal();
+                test3.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
+                test2.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
+                test1.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
+                lesson1.setTextSize(TypedValue.COMPLEX_UNIT_SP,35);
+                lesson2.setTextSize(TypedValue.COMPLEX_UNIT_SP,35);
+                lesson3.setTextSize(TypedValue.COMPLEX_UNIT_SP,35);
+                lesson4.setTextSize(TypedValue.COMPLEX_UNIT_SP,35);
+                lesson5.setTextSize(TypedValue.COMPLEX_UNIT_SP,35);
+                lesson6.setTextSize(TypedValue.COMPLEX_UNIT_SP,35);
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_SMALL:
+                m.setTitle_Small();
+                test3.setTextSize(TypedValue.COMPLEX_UNIT_SP,10);
+                test2.setTextSize(TypedValue.COMPLEX_UNIT_SP,10);
+                test1.setTextSize(TypedValue.COMPLEX_UNIT_SP,10);
+                lesson1.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+                lesson2.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+                lesson3.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+                lesson4.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+                lesson5.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+                lesson6.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+                break;
+            default:
+                m.setTitle_Default();
+                test3.setTextSize(TypedValue.COMPLEX_UNIT_SP,10);
+                test2.setTextSize(TypedValue.COMPLEX_UNIT_SP,10);
+                test1.setTextSize(TypedValue.COMPLEX_UNIT_SP,10);
+                lesson1.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+                lesson2.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+                lesson3.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+                lesson4.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+                lesson5.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+                lesson6.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+
+        }//end switch
+
+
+
+
        Bundle intent=getIntent().getExtras();
        if(intent.getString("preIntent").equals("Lesson")){
            this.unitID=intent.getString("unitID");
@@ -244,6 +317,8 @@ public class unit_interface extends child_menu {
         testInfo.add(test1obj);
         testInfo.add(test2obj);
         testInfo.add(test3obj);
+
+        //listener for lessons when clicked
          final View.OnClickListener lessonCliked=new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -320,10 +395,9 @@ public class unit_interface extends child_menu {
         unedatble();
         Log.i("Lesson1",lesson1.isClickable()+" ");
 
-        unitConnicetion.ref.child("Units").child(unitID).child("unit letters").addValueEventListener(new ValueEventListener() {
+        unitConnicetion.ref.child("Units").child(unitID).child("unit_letters").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
                 for(DataSnapshot s: dataSnapshot.getChildren()){
                     lessons.add(s.getValue().toString());
                 }

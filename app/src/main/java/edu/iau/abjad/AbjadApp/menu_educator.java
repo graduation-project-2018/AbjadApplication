@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -12,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,6 +38,7 @@ public class menu_educator extends AppCompatActivity {
     protected Toolbar mToolBar;
     ImageView home_icon;
     NavigationView navigationView ;
+    ImageView menu_btn;
     firebase_connection r = new firebase_connection();
 
     @Override
@@ -52,12 +55,18 @@ public class menu_educator extends AppCompatActivity {
         mDrawerLayout.addDrawerListener(mToggle);
 
         mToggle.syncState();
-        ActionBar actionBar = getSupportActionBar();
 
-        if(actionBar != null){
-            actionBar.setHomeButtonEnabled(true);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
+        menu_btn = findViewById(R.id.menu_icon);
+        menu_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            // If navigation drawer is not open yet open it,  else close it.
+            public void onClick(View view) {
+                if(!mDrawerLayout.isDrawerOpen(GravityCompat.START))
+                    mDrawerLayout.openDrawer(Gravity.START);
+                else mDrawerLayout.closeDrawer(Gravity.END);
+            }
+        });
+
         navigationView= (NavigationView) findViewById(R.id.menu_educator);
         home_icon=(ImageView) findViewById(R.id.home_icon);
 

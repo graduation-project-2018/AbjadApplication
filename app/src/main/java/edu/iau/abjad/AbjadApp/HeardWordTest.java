@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.AudioManager;
@@ -11,6 +12,7 @@ import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -45,31 +47,16 @@ public class HeardWordTest extends child_menu  {
     private ArrayList<heard_word_content> wordsGroupList = new ArrayList<heard_word_content>();
     private MediaPlayer test_audio = new MediaPlayer();
     private MediaPlayer audio_feedback = new MediaPlayer();
-    private ImageButton speaker;
+    private Button speaker;
     String selected_word ;
-    String url;
     audio_URLs audio_urLs = new audio_URLs();
-    boolean flag , child_amswer;
+    boolean flag ;
     static  int final_heard_child_score;
     AnimationDrawable anim;
     ImageView abjad;
     boolean flag2, move_child;
     static String test_id;
     String Test_letter;
-    ArrayList<Intent> testIntent;
-
-    //check if user is signed in or return 'em back a sign in look
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        /*FirebaseUser currentUser = auth.getCurrentUser();
-        if(currentUser==null)
-        {
-            finish();
-            startActivity(new Intent(this, Signin.class));
-        }*/
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,12 +80,54 @@ public class HeardWordTest extends child_menu  {
         w3=(Button)findViewById(R.id.word3);
         abjad = (ImageView) findViewById(R.id.abjad_heard_word);
         final_heard_child_score =-1;
-        speaker= (ImageButton) findViewById(R.id.speaker);
+        speaker= findViewById(R.id.speaker);
         flag = true;
         flag2 = true;
         selected_word ="";
         test_id="";
         nextButn=findViewById(R.id.next_lesson2);
+
+
+        int screenSize = getResources().getConfiguration().screenLayout &
+                Configuration.SCREENLAYOUT_SIZE_MASK;
+        switch(screenSize) {
+            case Configuration.SCREENLAYOUT_SIZE_XLARGE:
+                w1.setTextSize(TypedValue.COMPLEX_UNIT_SP,70);
+                w2.setTextSize(TypedValue.COMPLEX_UNIT_SP,70);
+                w3.setTextSize(TypedValue.COMPLEX_UNIT_SP,70);
+                m.setTitle_XLarge();
+                Log.i("scsize","X Large" );
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_LARGE:
+                w1.setTextSize(TypedValue.COMPLEX_UNIT_SP,60);
+                w2.setTextSize(TypedValue.COMPLEX_UNIT_SP,60);
+                w3.setTextSize(TypedValue.COMPLEX_UNIT_SP,60);
+                m.setTitle_Large();
+                Log.i("scsize","Large" );
+
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_NORMAL:
+                w1.setTextSize(TypedValue.COMPLEX_UNIT_SP,40);
+                w2.setTextSize(TypedValue.COMPLEX_UNIT_SP,40);
+                w3.setTextSize(TypedValue.COMPLEX_UNIT_SP,40);
+                m.setTitle_Normal();
+                Log.i("scsize","Normal" );
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_SMALL:
+                w1.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
+                w2.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
+                w3.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
+                m.setTitle_Small();
+                Log.i("scsize","Small" );
+                break;
+            default:
+                w1.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+                w2.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+                w3.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+                m.setTitle_Default();
+
+        }//end switch
+
 
 
         abjad.setBackgroundResource(R.drawable.abjad_speak);
