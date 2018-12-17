@@ -46,8 +46,7 @@ public class adding_child  extends menu_educator {
     TextView genderError;
     DatabaseReference rf;
     Boolean foundErrors;
-
-
+    Intent i;
 
 
 
@@ -166,13 +165,14 @@ public class adding_child  extends menu_educator {
         final AlertDialog dialog = mBuilder.create();
         dialog.setCanceledOnTouchOutside(false);
         dialog.setCancelable(false);
-
+        i = new Intent(adding_child.this, educator_home.class);
         dialog.show();
         ok_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 dialog.dismiss();
+                startActivity(i);
             }
         });
 
@@ -181,6 +181,7 @@ public class adding_child  extends menu_educator {
             public void onClick(View view) {
 
                 dialog.dismiss();
+                startActivity(i);
             }
         });
 
