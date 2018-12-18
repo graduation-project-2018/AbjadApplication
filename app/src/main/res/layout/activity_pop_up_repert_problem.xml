@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
-       >
+        >
 
         <EditText
             android:id="@+id/edu_email"
@@ -81,7 +81,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
-      >
+        >
 
         <Button
             android:id="@+id/submit_btn"

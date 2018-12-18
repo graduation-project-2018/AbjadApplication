@@ -91,41 +91,40 @@ public class educator_home extends menu_educator {
                 label.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
         }
         // to avoid craching
-        if(SigninEducator.id_edu != null)
-        db = FirebaseDatabase.getInstance().getReference().child("educator_home").child(SigninEducator.id_edu);
-        db.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(!dataSnapshot.exists()){
+        if(signin_new.id_edu != null) {
+            db = FirebaseDatabase.getInstance().getReference().child("educator_home").child(signin_new.id_edu);
+            db.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (!dataSnapshot.exists()) {
 
-                    label.setVisibility(View.VISIBLE);
+                        label.setVisibility(View.VISIBLE);
+                    } else {
+
+                        children_Events();
+                    }
                 }
-                else{
 
-                    children_Events();
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
                 }
-            }
+            });
+            btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(educator_home.this, new_add_child.class);
+                    startActivity(intent);
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-       btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(educator_home.this, adding_child.class);
-                startActivity(intent);
-
-            }
-        });//end of btn listener
+                }
+            });//end of btn listener
+        }// end if
 
     }//end of onCreate function
 
 
 
 public void fetch_children(DataSnapshot dataSnapshot){
-
     if(dataSnapshot.exists()){
         String id = dataSnapshot.getKey();
         String photo =(String)(dataSnapshot.child("photo_URL").getValue()) ;
@@ -133,7 +132,6 @@ public void fetch_children(DataSnapshot dataSnapshot){
         children s = new children(photo,name,id);
 
         children.add(s);
-
 
     }
 

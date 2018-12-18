@@ -75,7 +75,7 @@ public class unit_interface extends child_menu {
         View contentView = inflater.inflate(R.layout.activity_unit_interface, null, false);
         myDrawerLayout.addView(contentView, 0);
         //initilization
-        childID = Signin.id_child;
+        childID = child_after_signin.id_child;
         lessons=new ArrayList<String>();
         childTests=new ArrayList<String>();
         innerScore=new firebase_connection();
@@ -787,14 +787,14 @@ public class unit_interface extends child_menu {
                     TrueFalseTest.true_false_test_score + MatchingTest.score;
             finalScore=finalScore/4;
 
-            Query query =  r.ref.child("child_takes_test").child(Signin.id_child).child(unit_interface.unitID).orderByKey().equalTo(test_id);
+            Query query =  r.ref.child("child_takes_test").child(child_after_signin.id_child).child(unit_interface.unitID).orderByKey().equalTo(test_id);
             query.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if(dataSnapshot.exists()){
                         System.out.println("Eixist!!!!!!!!");
                         try{
-                            DatabaseReference read_score =  r.ref.child("child_takes_test").child(Signin.id_child).child(unit_interface.unitID).child(test_id);
+                            DatabaseReference read_score =  r.ref.child("child_takes_test").child(child_after_signin.id_child).child(unit_interface.unitID).child(test_id);
                             read_score.addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -805,9 +805,9 @@ public class unit_interface extends child_menu {
                                         childTime = dataSnapshot.child("time").getValue().toString();
                                     }
                                     if(currentScore<finalScore){
-                                        r.ref.child("child_takes_test").child(Signin.id_child)
+                                        r.ref.child("child_takes_test").child(child_after_signin.id_child)
                                                 .child(unit_interface.unitID).child(test_id).child("score").setValue(finalScore);
-                                        r.ref.child("child_takes_test").child(Signin.id_child)
+                                        r.ref.child("child_takes_test").child(child_after_signin.id_child)
                                                 .child(unit_interface.unitID).child(test_id).child("time").setValue(actual_time);
                                     }
                                 }
@@ -823,8 +823,8 @@ public class unit_interface extends child_menu {
                     }
                     else{
 
-                        r.ref.child("child_takes_test").child(Signin.id_child).child(unit_interface.unitID).child(test_id).child("score").setValue(finalScore);
-                        r.ref.child("child_takes_test").child(Signin.id_child).child(unit_interface.unitID).child(test_id).child("time").setValue(actual_time);
+                        r.ref.child("child_takes_test").child(child_after_signin.id_child).child(unit_interface.unitID).child(test_id).child("score").setValue(finalScore);
+                        r.ref.child("child_takes_test").child(child_after_signin.id_child).child(unit_interface.unitID).child(test_id).child("time").setValue(actual_time);
                     }
                 }
                 @Override

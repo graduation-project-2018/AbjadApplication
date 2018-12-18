@@ -57,6 +57,7 @@ public class HeardWordTest extends child_menu  {
     boolean flag2, move_child;
     static String test_id;
     String Test_letter;
+    TextView loading_label;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +80,7 @@ public class HeardWordTest extends child_menu  {
         w2=(Button)findViewById(R.id.word2);
         w3=(Button)findViewById(R.id.word3);
         abjad = (ImageView) findViewById(R.id.abjad_heard_word);
+        loading_label = findViewById(R.id.loading_label_heard_test);
         final_heard_child_score =-1;
         speaker= findViewById(R.id.speaker);
         flag = true;
@@ -198,10 +200,8 @@ public class HeardWordTest extends child_menu  {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             if(key!=null){
                                 String lettr=snapshot.child("test_letters").getValue().toString();
-                                Log.i("w2w2",lettr);
                                 if(lettr.equals(Test_letter)){
                                     test_id=key;
-                                    Log.i("1234567",Test_letter+" "+ test_id);
                                 }//Alaa
 
           Query WG = r.ref.child("Tests").child(test_id).child("heard_word_test").orderByKey().equalTo(sltG);   //to retive the word audio
@@ -233,6 +233,7 @@ public class HeardWordTest extends child_menu  {
                         selected_word = wordsGroupList.get(y-1).content;
                         anim.start();
                         playAudioFeedback(audio_urLs.choose_heard_audio);
+                        loading_label.setVisibility(View.INVISIBLE);
 
                         // On complete listener that fire when the instruction audio finish to start the lesson audio.
                        audio_feedback.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {

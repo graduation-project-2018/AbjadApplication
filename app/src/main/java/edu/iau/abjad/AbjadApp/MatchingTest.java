@@ -54,6 +54,7 @@ public class MatchingTest extends child_menu {
     boolean flag2,move_child ;
     static String Test_letter,test_id;
     boolean test_finish;
+    TextView loading_label_large, loading_label_normal, loading_label_small;
 
 
     @Override
@@ -90,6 +91,9 @@ public class MatchingTest extends child_menu {
         Restart = findViewById(R.id.Restart);
         Restart2 = findViewById(R.id.Restart2);
         Restart3 = findViewById(R.id.Restart3);
+        loading_label_large = findViewById(R.id.loading_matching_large);
+        loading_label_normal = findViewById(R.id.loading_matching_normal);
+        loading_label_small = findViewById(R.id.loading_matching_small);
         Content =  new ArrayList<MatchingTestContent>();
         Checking=new MatchingTestContent[3];
         rfb=new firebase_connection();
@@ -117,6 +121,7 @@ public class MatchingTest extends child_menu {
                 Text3.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
                 Restart.setVisibility(View.VISIBLE);
                 Next.setVisibility(View.VISIBLE);
+                loading_label_large.setVisibility(View.VISIBLE);
                 break;
             case Configuration.SCREENLAYOUT_SIZE_LARGE:
                 Word3.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
@@ -127,6 +132,7 @@ public class MatchingTest extends child_menu {
                 Text3.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
                 Restart.setVisibility(View.VISIBLE);
                 Next.setVisibility(View.VISIBLE);
+                loading_label_large.setVisibility(View.VISIBLE);
 
                 break;
             case Configuration.SCREENLAYOUT_SIZE_NORMAL:
@@ -138,6 +144,7 @@ public class MatchingTest extends child_menu {
                 Text3.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
                 Restart2.setVisibility(View.VISIBLE);
                 Next2.setVisibility(View.VISIBLE);
+                loading_label_normal.setVisibility(View.VISIBLE);
 
                 break;
             case Configuration.SCREENLAYOUT_SIZE_SMALL:
@@ -149,6 +156,7 @@ public class MatchingTest extends child_menu {
                 Text3.setTextSize(TypedValue.COMPLEX_UNIT_SP,8);
                 Restart3.setVisibility(View.VISIBLE);
                 Next3.setVisibility(View.VISIBLE);
+                loading_label_small.setVisibility(View.VISIBLE);
 
                 break;
             default:
@@ -160,6 +168,7 @@ public class MatchingTest extends child_menu {
                 Text3.setTextSize(TypedValue.COMPLEX_UNIT_SP,10);
                 Restart2.setVisibility(View.VISIBLE);
                 Next2.setVisibility(View.VISIBLE);
+                loading_label_normal.setVisibility(View.VISIBLE);
 
         } //end
 
@@ -254,6 +263,9 @@ public class MatchingTest extends child_menu {
             Picasso.get().load(Content.get(WordsNumber[2]).Pic).into(Pic3);
             anim.start();
             playAudio(voice.MatchingTestInst);
+            loading_label_large.setVisibility(View.INVISIBLE);
+            loading_label_normal.setVisibility(View.INVISIBLE);
+            loading_label_small.setVisibility(View.INVISIBLE);
             setOnCompleteListener(MatchingTest);
 
 for (int i =0 ; i<Checking.length ; i++){
@@ -284,13 +296,6 @@ for (int i =0 ; i<Checking.length ; i++){
             }
         });
     }
-
-
-
-
-
-
-
 
 View.OnClickListener RestartListener = new View.OnClickListener() {
     @Override
@@ -378,13 +383,19 @@ View.OnClickListener RestartListener = new View.OnClickListener() {
                     setOnCompleteListener(MatchingTest);
 
                 }
+                else if(counter==2){
+                    anim.start();
+                    score=7;
+                    test_finish = true;
+                    playAudio(voice.good_feedback);
+                    setOnCompleteListener(MatchingTest);
+                }
                 else if(counter==1){
                     anim.start();
                     score=3;
                     test_finish = true;
                     playAudio(voice.good_feedback);
                     setOnCompleteListener(MatchingTest);
-
                 }
                 else if(counter==0){
                     anim.start();
@@ -621,7 +632,6 @@ View.OnDragListener dragListener1 = new View.OnDragListener() {
                         unit_interface.test_score(test_id);
                         startActivity(intent);
                         finish();
-
                     }
                 }
 

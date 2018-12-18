@@ -680,14 +680,14 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
             }
         }
         sum=sum/7; //get avg
-        Query query =  r.ref.child("child_takes_lesson").child(Signin.id_child).child(unit_interface.unitID).orderByKey().equalTo(lessonID);
+        Query query =  r.ref.child("child_takes_lesson").child(child_after_signin.id_child).child(unit_interface.unitID).orderByKey().equalTo(lessonID);
        query.addListenerForSingleValueEvent(new ValueEventListener() {
            @Override
            public void onDataChange(DataSnapshot dataSnapshot) {
                if(dataSnapshot.exists()){
                    System.out.println("Eixist!!!!!!!!");
                    try{
-                       DatabaseReference read_score =  r.ref.child("child_takes_lesson").child(Signin.id_child).child(unit_interface.unitID).child(lessonID);
+                       DatabaseReference read_score =  r.ref.child("child_takes_lesson").child(child_after_signin.id_child).child(unit_interface.unitID).child(lessonID);
                        read_score.addValueEventListener(new ValueEventListener() {
                            @Override
                            public void onDataChange(DataSnapshot dataSnapshot) {
@@ -699,12 +699,12 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                                        childTime = dataSnapshot.child("time").getValue().toString();
                                    }
                                    if(currentScore<sum){
-                                       r.ref.child("child_takes_lesson").child(Signin.id_child).child(unit_interface.unitID).child(lessonID).child("score").setValue(sum);
-                                       r.ref.child("child_takes_lesson").child(Signin.id_child).child(unit_interface.unitID).child(lessonID).child("time").setValue(acTime);
+                                       r.ref.child("child_takes_lesson").child(child_after_signin.id_child).child(unit_interface.unitID).child(lessonID).child("score").setValue(sum);
+                                       r.ref.child("child_takes_lesson").child(child_after_signin.id_child).child(unit_interface.unitID).child(lessonID).child("time").setValue(acTime);
 
                                    }
                                    if(incomplete==false && status != "مكتمل"){
-                                       r.ref.child("child_takes_lesson").child(Signin.id_child).child(unit_interface.unitID).child(lessonID).child("status").setValue("مكتمل");
+                                       r.ref.child("child_takes_lesson").child(child_after_signin.id_child).child(unit_interface.unitID).child(lessonID).child("status").setValue("مكتمل");
                                    }
                            }
                            @Override
@@ -719,14 +719,14 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                }
                else{
                    if(incomplete){
-                       r.ref.child("child_takes_lesson").child(Signin.id_child).child(unit_interface.unitID).child(lessonID).child("status").setValue("غير مكتمل");
+                       r.ref.child("child_takes_lesson").child(child_after_signin.id_child).child(unit_interface.unitID).child(lessonID).child("status").setValue("غير مكتمل");
                    }
                    else{
-                       r.ref.child("child_takes_lesson").child(Signin.id_child).child(unit_interface.unitID).child(lessonID).child("status").setValue("مكتمل");
+                       r.ref.child("child_takes_lesson").child(child_after_signin.id_child).child(unit_interface.unitID).child(lessonID).child("status").setValue("مكتمل");
 
                    }
-                   r.ref.child("child_takes_lesson").child(Signin.id_child).child(unit_interface.unitID).child(lessonID).child("score").setValue(sum);
-                   r.ref.child("child_takes_lesson").child(Signin.id_child).child(unit_interface.unitID).child(lessonID).child("time").setValue(acTime);
+                   r.ref.child("child_takes_lesson").child(child_after_signin.id_child).child(unit_interface.unitID).child(lessonID).child("score").setValue(sum);
+                   r.ref.child("child_takes_lesson").child(child_after_signin.id_child).child(unit_interface.unitID).child(lessonID).child("time").setValue(acTime);
                }
            }
            @Override

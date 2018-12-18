@@ -64,7 +64,7 @@ public class ReadingTest extends child_menu {
     ImageView abjad;
     AnimationDrawable anim;
     boolean flag2, move_child ;
-    TextView nextLabel;
+    TextView nextLabel, loading_label;
 
     //Alaa
     firebase_connection Test_Id,testIdq2;
@@ -95,6 +95,7 @@ public class ReadingTest extends child_menu {
         r = new firebase_connection();
         word_test_label = findViewById(R.id.word_test);
         sentence_test_label = findViewById(R.id.sentence_test);
+        loading_label = findViewById(R.id.loading_label_reading_test);
         test_id = "";
         child_score=0;
         reading_child_score =0;
@@ -148,7 +149,6 @@ public class ReadingTest extends child_menu {
                 sentence_test_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
                 nextLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
                 m.setTitle_Default();
-
         }//end switch
 
         next.setOnClickListener(new View.OnClickListener() {
@@ -159,7 +159,6 @@ public class ReadingTest extends child_menu {
                     unit_interface.Rand.remove(nextTest);
                     startActivity(nextTest);
                     finish();
-
                 }
                 else{
                     unit_interface.endtest=true;
@@ -189,8 +188,6 @@ public class ReadingTest extends child_menu {
             chosen_word = "sentence" + chosen_index;
             path = "sentences";
         }
-
-
 
 
         //Alaa
@@ -230,6 +227,7 @@ public class ReadingTest extends child_menu {
 
                         anim.start();
                         playAudio(audio_URLs.reading_test);
+                        loading_label.setVisibility(View.INVISIBLE);
 
                      test_audio.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                             @Override
@@ -765,7 +763,6 @@ public class ReadingTest extends child_menu {
     }
     @Override
     protected void onRestart() {
-
         super.onRestart();
         System.out.println("onRestart function");
         feedback_audio = new MediaPlayer();

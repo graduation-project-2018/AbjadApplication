@@ -31,7 +31,7 @@ public class child_profile extends child_menu {
 
 
     menu_variables m = new menu_variables();
-    EditText FNChild, LNChild,Email;
+    EditText FNChild, LNChild;
     ImageView ChildImage;
 
     firebase_connection r;
@@ -42,7 +42,7 @@ public class child_profile extends child_menu {
     String oldFname;
     String oldLname;
    Boolean foundErrors;
-    String photo_URL, oldEmail;
+    String photo_URL;
     FirebaseUser user;
     Boolean z;
 
@@ -60,7 +60,6 @@ public class child_profile extends child_menu {
         View contentView = inflater.inflate(R.layout.activity_child_profile, null, false);
 
         myDrawerLayout.addView(contentView, 0);
-        Email = (EditText) findViewById(R.id.emailTxt);
         FNChild = (EditText) findViewById(R.id.fnameTxt);
         LNChild = (EditText) findViewById(R.id.lnameTxt);
         ChildImage = (ImageView) findViewById(R.id.childImage);
@@ -89,13 +88,12 @@ public class child_profile extends child_menu {
         foundErrors= false;
         checkFirstName();
         checkLastName();
-        checkEmail();
 
     }//end of checkInputs function
 
     public void getCurrentChildInfo(){
 
-        Query query = r.ref.child("Children").child(Signin.id_child);
+        Query query = r.ref.child("Children").child(child_after_signin.id_child);
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -103,12 +101,9 @@ public class child_profile extends child_menu {
                     oldLname = dataSnapshot.child("last_name").getValue().toString();
                     oldFname  = dataSnapshot.child("first_name").getValue().toString();
                     photo_URL = dataSnapshot.child("photo_URL").getValue().toString();
-                    oldEmail = dataSnapshot.child("email").getValue().toString();
-
                     FNChild .setText(oldFname);
                     LNChild.setText(oldLname);
                     Picasso.get().load(photo_URL).into(ChildImage);
-                    Email.setText(oldEmail);
                 }
                 else{
                     Toast.makeText(child_profile.this, "المستخدم غير موجود", Toast.LENGTH_LONG).show();
@@ -124,69 +119,22 @@ public class child_profile extends child_menu {
 
 
     }//end of getCurrentChildInfo function
-    public void checkEmail(){
-        if (Email.getText().toString().isEmpty()) {
-
-            Email.setError("قم بتعبئة الحقل بالبريد الإلكتروني");
-
-            foundErrors =true;
-
-        } else if (!Patterns.EMAIL_ADDRESS.matcher(Email.getText().toString().trim()).matches()) {
-
-            Email.setError("البريد الإلكتروني ليس على النمط someone@example.com ");
-
-            foundErrors =true;
-
-        }
 
 
-    }//end of checkEmail function
+
+
     public void editChild(){
 
         final String newFname = FNChild.getText().toString();
         final String newLname = LNChild.getText().toString();
-        final String newEmail = Email.getText().toString().trim();
 
-                r.ref.child("Children").child(Signin.id_child).child("first_name").setValue(newFname);
-                r.ref.child("Children").child(Signin.id_child).child("last_name").setValue(newLname);
-                if (!newEmail.equals(oldEmail)){
-                    boolean x =  updateEmail(newEmail);
-                    if(x==true){
-
-                        r.ref.child("Children").child(Signin.id_child).child("email").setValue(newEmail);
-
-                    }//end of nested if
-                }
+                r.ref.child("Children").child(child_after_signin.id_child).child("first_name").setValue(newFname);
+                r.ref.child("Children").child(child_after_signin.id_child).child("last_name").setValue(newLname);
                 Toast.makeText(child_profile.this, " تم حفظ التغييرات بنجاح", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(child_profile.this,child_home.class);
                 startActivity(intent);
 
     }//end of editChild function
-
-
-    public boolean updateEmail(String newEmail){
-
-        user = FirebaseAuth.getInstance().getCurrentUser();
-
-        user.updateEmail(newEmail)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (!task.isSuccessful()) {
-                            Toast.makeText(child_profile.this,"حدث خطأ خلال تغيير البريد الإلكتروني الرجاء المحاولة لاحقا", Toast.LENGTH_LONG).show();
-                            z = false;
-                        }
-                        else
-                            z =true;
-                    }
-                });
-
-        return z;
-
-
-
-    }//end of updateEmail function
-
 
     public void checkFirstName(){
 

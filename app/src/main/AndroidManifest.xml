@@ -21,7 +21,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Lesson"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".educator_home"
             android:screenOrientation="landscape" />
@@ -40,7 +40,7 @@
         <activity
             android:name=".adding_child"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"></activity>
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan" />
         <activity
             android:name=".HeardWordTest"
             android:screenOrientation="landscape" />
@@ -60,11 +60,7 @@
             android:name=".Signin"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden|adjustResize|adjustPan">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".report_problem"
@@ -72,15 +68,15 @@
         <activity
             android:name=".SignUp"
             android:windowSoftInputMode="stateHidden|adjustResize|adjustPan" />
-        <activity android:name=".userTypeSelection"></activity>
+        <activity android:name=".userTypeSelection" />
         <activity
             android:name=".ResetPassword"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"></activity>
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan" />
         <activity
             android:name=".child_profile"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"></activity>
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan" />
         <activity
             android:name=".menu_educator"
             android:screenOrientation="landscape" />
@@ -89,7 +85,7 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".splash_screen"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape" />
         <activity android:name=".child_change_password" />
         <activity
             android:name=".educator_profile"
@@ -108,6 +104,19 @@
             android:windowSoftInputMode="stateHidden|adjustResize|adjustPan" />
         <activity android:name=".child_crad_model" />
         <activity android:name=".adding_child_pop_up" />
+        <activity
+            android:name=".signin_new"
+            android:screenOrientation="landscape">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".new_add_child" />
+        <activity android:name=".child_after_signin" />
+        <activity android:name=".new_child_photo" />
+        <activity android:name=".select_user_type"></activity>
     </application>
 
 </manifest>
