@@ -10,8 +10,7 @@
 
     <include
         android:id="@+id/include"
-        layout="@layout/navigation_action_bar"
-       />
+        layout="@layout/navigation_action_bar" />
 
 
     <Button
@@ -24,28 +23,13 @@
         app:layout_constraintStart_toStartOf="@+id/guideline16"
         app:layout_constraintTop_toTopOf="@+id/ButtonGL" />
 
-    <TextView
-        android:id="@+id/NoChildren"
-        android:layout_width="wrap_content"
-        android:layout_height="26dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="48dp"
-        android:layout_marginTop="8dp"
-        android:text="لا يوجد لديك أطفال مسجلين حاليا, لإضافة طفل جديد لطفا اضغط زر الإضافة"
-        android:textSize="24sp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/scrollView2"
-        app:layout_constraintEnd_toStartOf="@+id/add_new_child_btn"
-        app:layout_constraintTop_toTopOf="@+id/scrollView2"
-        app:layout_constraintVertical_bias="0.557" />
-
     <android.support.constraint.Guideline
         android:id="@+id/gridViewGL"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="186dp"
-        app:layout_constraintGuide_percent="0.18" />
+        app:layout_constraintGuide_percent="0.28" />
 
     <android.support.constraint.Guideline
         android:id="@+id/gridView2GL"
@@ -60,8 +44,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent="0.20" />
+        app:layout_constraintGuide_begin="129dp"
+        app:layout_constraintGuide_percent="0.27" />
 
     <android.support.constraint.Guideline
         android:id="@+id/gridView4GL"
@@ -70,26 +54,6 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="20dp"
         app:layout_constraintGuide_percent="0.82" />
-
-    <ScrollView
-        android:id="@+id/scrollView2"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/gridView4GL"
-        app:layout_constraintEnd_toStartOf="@+id/gridView2GL"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/gridViewGL"
-        app:layout_constraintTop_toTopOf="@+id/gridView3GL"
-        app:layout_constraintVertical_bias="1.0">
-
-
-        <GridView
-            android:id="@+id/gv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </ScrollView>
 
     <android.support.constraint.Guideline
         android:id="@+id/ButtonGL"
@@ -122,6 +86,69 @@
         android:orientation="vertical"
         app:layout_constraintGuide_begin="601dp"
         app:layout_constraintGuide_percent="0.88" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="601dp"
+        app:layout_constraintGuide_percent="0.55" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline21"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="601dp"
+        app:layout_constraintGuide_percent="0.3" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="186dp"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline23"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="601dp"
+        app:layout_constraintGuide_percent="0.44" />
+
+
+    <TextView
+        android:id="@+id/NoChildren"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:textAlignment="center"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/guideline20"
+        app:layout_constraintEnd_toStartOf="@+id/gridView2GL"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline22"
+        app:layout_constraintTop_toTopOf="@+id/guideline23" />
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/gridView4GL"
+        app:layout_constraintEnd_toStartOf="@+id/gridView2GL"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/gridViewGL"
+        app:layout_constraintTop_toTopOf="@+id/gridView3GL"
+        app:layout_constraintVertical_bias="0.0">
+
+
+        <GridView
+            android:id="@+id/gv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </ScrollView>
 
 
 </android.support.constraint.ConstraintLayout>
