@@ -38,6 +38,7 @@
         android:drawableRight="@drawable/email_icon"
         android:ems="10"
         android:hint="البريد الإلكتروني"
+        android:gravity="right"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/guideline18"
         app:layout_constraintEnd_toStartOf="@+id/guideline12"
