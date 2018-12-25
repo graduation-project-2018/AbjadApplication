@@ -112,6 +112,14 @@ public class menu_educator extends AppCompatActivity {
                         return true;
 
                     }
+                    case R.id.contact_us:{
+                        Intent intent = new Intent(menu_educator.this, contact_us.class);
+                        startActivity(intent);
+
+
+                        return true;
+
+                    }
 
                 }
                 return true;

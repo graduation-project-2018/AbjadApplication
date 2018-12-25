@@ -3,6 +3,7 @@ package edu.iau.abjad.AbjadApp;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Patterns;
@@ -79,7 +80,52 @@ public class child_profile extends child_menu {
         }
     }
 });//end of onClick function
+        int screenSize = getResources().getConfiguration().screenLayout &
+                Configuration.SCREENLAYOUT_SIZE_MASK;
+        switch(screenSize) {
+            case Configuration.SCREENLAYOUT_SIZE_XLARGE:
+                m.setTitle_XLarge();
+                m.setButton_text_XLarge(saveChanges);
+                // change the right icon of Edit text based on screen size
+                FNChild.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray, 0);
+                LNChild.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray, 0);
+                Email.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.email_icon, 0);
+                Log.i("scsize","X Large" );
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_LARGE:
+                m.setButton_text_Large(saveChanges);
+                m.setTitle_Large();
+                FNChild.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray_2x, 0);
+                LNChild.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray_2x, 0);
+                Email.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.email_icon_2x, 0);
+                Log.i("scsize","Large" );
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_NORMAL:
+                m.setButton_text_Normal(saveChanges);
+                m.setTitle_Normal();
+                FNChild.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray_15x, 0);
+                LNChild.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray_15x, 0);
+                Email.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.email_icon_15x, 0);
 
+                Log.i("scsize","Normal" );
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_SMALL:
+                m.setButton_text_Small(saveChanges);
+                m.setTitle_Small();
+                FNChild.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray_1x, 0);
+                LNChild.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray_1x, 0);
+                Email.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.email_icon_1x, 0);
+                Log.i("scsize","Small" );
+                break;
+            default:
+                m.setButton_text_Default(saveChanges);
+                m.setTitle_Default();
+                FNChild.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray_1x, 0);
+                LNChild.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray_1x, 0);
+                Email.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.email_icon_1x, 0);
+
+                Log.i("scsize","Default screen" );
+        }//end switch
 
     }//end of onCreate
     private void checkInputs(){

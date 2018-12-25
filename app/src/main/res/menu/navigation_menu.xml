@@ -2,21 +2,28 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/edit_profile"
         android:title="تعديل الملف الشخصي"
-        android:icon="@drawable/user_icon_4x">
+        android:icon="@drawable/user_profile_icon">
     </item>
 
     <item android:id="@+id/change_pass"
         android:title="تغيير كلمة المرور"
-        android:icon="@drawable/password_gray"
+        android:icon="@drawable/password_blue"
         android:iconTint="#0B365C">
     </item>
+
     <item android:id="@+id/add_child"
         android:title="إضافة طفل"
         android:icon="@drawable/add_new_child"></item>
+
     <item android:id="@+id/delete_edu"
         android:title="حذف الحساب"
         android:icon="@drawable/basket_delete"></item>
     <item android:id="@+id/sign_out"
         android:title="تسجيل الخروج"
         android:icon="@drawable/signout_icon"></item>
+
+    <item android:id="@+id/contact_us"
+        android:title="اتصل بنا"
+        android:icon="@drawable/phone_15x"></item>
+
 </menu>

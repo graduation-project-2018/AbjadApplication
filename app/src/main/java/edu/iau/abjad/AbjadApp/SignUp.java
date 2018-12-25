@@ -32,7 +32,7 @@ public class SignUp extends AppCompatActivity {
     boolean condition=true;
     private FirebaseAuth mAuth;
     firebase_connection r;
-    Pattern ArabicLetters;
+    Pattern ArabicLetters,ps;
     Educator educator;
     ImageView back_btn;
     private Intent educatorHome;
@@ -52,7 +52,7 @@ public class SignUp extends AppCompatActivity {
         r = new firebase_connection();
         educatorHome= new Intent(this,educator_home.class);
         back_btn = findViewById(R.id.back_signUp);
-
+        ps = Pattern.compile("^[a-zA-Z ]+$");
         // Listener of back button to return the user to Sign in page
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,8 +121,8 @@ public class SignUp extends AppCompatActivity {
                     FN.requestFocus();
                     condition = false;
                 } else if (!FN.getText().toString().contains(" ") || FN.getText().toString().contains(" ")) {
-                    if (!ArabicLetters.matcher(FN.getText().toString()).matches()) {
-                        FN.setError("قم بكتابة اسم المربي باللغة العربية ");
+                    if (!ArabicLetters.matcher(FN.getText().toString()).matches()&& !ps.matcher(FN.getText().toString()).matches()) {
+                        FN.setError("اسم المربي يجب أن لا يحتوي على رموز أخرى غير الحروف ");
                         FN.requestFocus();
                         condition=false;
                     }
@@ -133,8 +133,8 @@ public class SignUp extends AppCompatActivity {
                     LN.requestFocus();
                     condition= false;
                 } else if (!LN.getText().toString().contains(" ") || LN.getText().toString().contains(" ")) {
-                    if (!ArabicLetters.matcher(LN.getText().toString()).matches()) {
-                        LN.setError("قم بكتابة لقب المربي باللغة العربية ");
+                    if (!ArabicLetters.matcher(LN.getText().toString()).matches()&& !ps.matcher(LN.getText().toString()).matches()) {
+                        LN.setError("لقب المربي يجب أن لا يحتوي على رموز أخرى غير الحروف ");
                         LN.requestFocus();
                         condition=false;
                     }
