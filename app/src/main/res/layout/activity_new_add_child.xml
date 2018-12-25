@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/educator_backgrpund"
-    tools:context="edu.iau.abjad.AbjadApp.adding_child"
-    >
+    tools:context=".new_add_child">
 
     <include
         android:id="@+id/include5"
@@ -71,15 +70,12 @@
                 android:layout_width="119dp"
                 android:layout_height="33dp"
                 android:layout_margin="4dp"
-                android:layout_marginTop="68dp"
                 android:layout_marginEnd="4dp"
                 android:layout_marginBottom="8dp"
                 android:gravity="bottom"
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toTopOf="@+id/genderEr"
-                app:layout_constraintEnd_toStartOf="@+id/genderIcon"
-                app:layout_constraintTop_toBottomOf="@+id/conPasswordTxt"
-                app:layout_constraintVertical_bias="0.63">
+                app:layout_constraintEnd_toStartOf="@+id/genderIcon">
 
 
                 <RadioButton
@@ -108,56 +104,6 @@
 
             </RadioGroup>
 
-            <EditText
-                android:id="@+id/conPasswordTxt"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:drawableRight="@drawable/password_gray"
-                android:drawablePadding="15dp"
-                android:ems="100"
-                android:gravity="right"
-
-                android:hint="تأكيد كلمة المرور"
-                android:inputType="textPassword"
-                app:layout_constraintEnd_toStartOf="@+id/guideline29"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/guideline28"
-                app:layout_constraintTop_toBottomOf="@+id/passwordTxt" />
-
-            <EditText
-                android:id="@+id/passwordTxt"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:drawableRight="@drawable/password_gray"
-                android:drawablePadding="15dp"
-                android:ems="100"
-                android:gravity="right"
-                android:hint="كلمة المرور"
-                android:inputType="textPassword"
-                app:layout_constraintEnd_toStartOf="@+id/guideline29"
-                app:layout_constraintStart_toStartOf="@+id/guideline28"
-                app:layout_constraintTop_toBottomOf="@+id/emailTxt" />
-
-            <EditText
-                android:id="@+id/emailTxt"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:drawableRight="@drawable/email_icon"
-                android:drawablePadding="10dp"
-                android:ems="100"
-                android:gravity="bottom"
-                android:hint="البريد الإلكتروني للطفل"
-                android:inputType="textPersonName"
-                app:layout_constraintEnd_toStartOf="@+id/guideline29"
-                app:layout_constraintStart_toStartOf="@+id/guideline28"
-                app:layout_constraintTop_toBottomOf="@+id/lnTxt" />
-
             <!--
             <TextView
                 android:id="@+id/ErrorMsgSU2"
@@ -182,6 +128,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
                 android:drawableRight="@drawable/child_gray"
                 android:drawablePadding="15dp"
@@ -218,10 +165,10 @@
                 android:id="@+id/genderIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 app:layout_constraintEnd_toEndOf="@+id/guideline29"
-                app:layout_constraintTop_toBottomOf="@+id/conPasswordTxt"
+                app:layout_constraintTop_toBottomOf="@+id/lnTxt"
                 app:srcCompat="@drawable/gender" />
 
             <TextView

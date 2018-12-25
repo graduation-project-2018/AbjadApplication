@@ -135,7 +135,7 @@ public class child_change_password extends child_menu {
                     counter++;
                 }
                 if(counter == 0){
-                    Query query = r.ref.child(node).orderByKey().equalTo(Signin.id_child);
+                    Query query = r.ref.child(node).orderByKey().equalTo(child_after_signin.id_child);
                     query.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {

@@ -94,7 +94,7 @@ public class menu_educator extends AppCompatActivity {
                         return true;
                     }
                     case R.id.add_child:{
-                        Intent intent = new Intent(menu_educator.this, adding_child.class);
+                        Intent intent = new Intent(menu_educator.this, new_add_child.class);
                         startActivity(intent);
                         return true;
                     }
@@ -105,7 +105,7 @@ public class menu_educator extends AppCompatActivity {
                     }
                     case R.id.sign_out:{
                         FirebaseAuth.getInstance().signOut();
-                        Intent intent = new Intent(menu_educator.this, userTypeSelection.class);
+                        Intent intent = new Intent(menu_educator.this, signin_new.class);
                         startActivity(intent);
 
 
@@ -228,7 +228,7 @@ public class menu_educator extends AppCompatActivity {
                                                     }
                                                 }
 
-                                                Intent usr = new Intent(menu_educator.this, userTypeSelection.class);
+                                                Intent usr = new Intent(menu_educator.this, signin_new.class);
                                                 startActivity(usr);
                                                 finish();
                                                 Toast.makeText(menu_educator.this, "تم حذف المستخدم بنجاح", Toast.LENGTH_LONG).show();

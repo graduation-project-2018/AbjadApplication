@@ -35,7 +35,7 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
     Button true_btn;
     Button false_btn,nextTest;
     firebase_connection r;
-    TextView sentenceLabel;
+    TextView sentenceLabel, loading_label;
     //previous_Intent = getIntent();
     String selectedSentence;
     static int true_false_test_score;
@@ -68,6 +68,7 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
         true_btn = (Button)findViewById(R.id.imageButton7);
         false_btn = (Button)findViewById(R.id.imageButton6);
         sentenceLabel = (TextView)findViewById(R.id.phrase_true_false);
+        loading_label = findViewById(R.id.loading_label_true_test);
         abjad = (ImageView) findViewById(R.id.abjad_true_false);
         abjad.setBackgroundResource(R.drawable.abjad_speak);
         anim =(AnimationDrawable) abjad.getBackground();
@@ -83,40 +84,31 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
                 Configuration.SCREENLAYOUT_SIZE_MASK;
         switch(screenSize) {
             case Configuration.SCREENLAYOUT_SIZE_XLARGE:
-                sentenceLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,70);
+                sentenceLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,60);
                 m.setTitle_XLarge();
                 Log.i("scsize","X Large" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_LARGE:
-                sentenceLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,60);
-                //sentence_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,40);
+                sentenceLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,50);
                 m.setTitle_Large();
                 Log.i("scsize","Large" );
 
                 break;
             case Configuration.SCREENLAYOUT_SIZE_NORMAL:
-                sentenceLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,40);
-                //sentence_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
-                //nextLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
+                sentenceLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,33);
                 m.setTitle_Normal();
                 Log.i("scsize","Normal" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_SMALL:
-                sentenceLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
-               // sentence_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
-               // nextLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,8);
+                sentenceLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,27);
                 m.setTitle_Small();
                 Log.i("scsize","Small" );
                 break;
             default:
                 sentenceLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
-                //sentence_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
-               // nextLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
                 m.setTitle_Default();
 
         }//end switch
-
-
 
         //Alaa
         nextTest.setOnClickListener(new View.OnClickListener() {
@@ -165,10 +157,8 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             if(key!=null){
                                 String lettr=snapshot.child("test_letters").getValue().toString();
-                                Log.i("w2w2",lettr);
                                 if(lettr.equals(Test_letter)) {
                                     test_id = key;
-                                    Log.i("1234567", Test_letter + " " + test_id);
 
                                     //Alaa
                                     DatabaseReference read = r.ref.child("Tests").child(test_id).child("sentences").child("sentence" + retreive_sentence);
@@ -191,6 +181,7 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
                                             // start the instruction audio before the test begin
                                             anim.start();
                                             playAudio(audio_obj.true_false_test_begin_url);
+                                            loading_label.setVisibility(View.INVISIBLE);
 
 
                                             // On complete listener that fire when the instruction audio finish to start the lesson audio.

@@ -201,13 +201,12 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:drawableRight="@drawable/loading2"
+        android:drawablePadding="8dp"
         android:text="جاري التحميل"
         android:textSize="25sp"
-        android:drawablePadding="8dp"
         android:visibility="invisible"
-        android:drawableRight="@drawable/loading2"
-        app:layout_marginBottomPercent="80%"
-        />
+        app:layout_marginBottomPercent="80%" />
 
     <TextView
         android:id="@+id/loading_matching_normal"

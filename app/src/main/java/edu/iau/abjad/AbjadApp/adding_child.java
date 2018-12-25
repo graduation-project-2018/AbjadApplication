@@ -50,7 +50,7 @@ public class adding_child  extends menu_educator {
 
 
 
-   int errorCounts;
+    int errorCounts;
     Pattern ArabicLetters = Pattern.compile("^[ءئ ؤ إآ ى لآ لأ  لإ أ-ي ]+$");
     Query q;
     Pattern ps;

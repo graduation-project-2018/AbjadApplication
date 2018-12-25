@@ -11,19 +11,16 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class userTypeSelection extends AppCompatActivity {
-
+public class select_user_type extends AppCompatActivity {
     TextView eduLabel, childLabel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        setContentView(R.layout.activity_user_type_selection);
-
-        final Intent intentOfChild=new Intent(getApplicationContext(), signin_new.class );
-        final Intent intentOfEdu=new Intent(getApplicationContext(), SigninEducator.class );
+        setContentView(R.layout.activity_select_user_type);
+        final Intent intentOfChild=new Intent(getApplicationContext(), child_after_signin.class );
+        final Intent intentOfEdu=new Intent(getApplicationContext(), educator_home.class );
 
         ImageView ChildIcon = findViewById(R.id.child_btn);
         ImageView EduIcon = findViewById(R.id.educator_Btn);
@@ -41,7 +38,6 @@ public class userTypeSelection extends AppCompatActivity {
             case Configuration.SCREENLAYOUT_SIZE_LARGE:
                 eduLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,40);
                 childLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,40);
-
                 Log.i("scsize","Large" );
 
                 break;
@@ -54,15 +50,12 @@ public class userTypeSelection extends AppCompatActivity {
             case Configuration.SCREENLAYOUT_SIZE_SMALL:
                 eduLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
                 childLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
-
                 Log.i("scsize","Small" );
                 break;
             default:
-               eduLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+                eduLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
                 childLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
                 Log.i("scsize","Default screen" );
-
-
         }//end switch
 
 

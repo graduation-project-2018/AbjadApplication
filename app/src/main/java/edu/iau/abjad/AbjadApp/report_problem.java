@@ -324,6 +324,7 @@ private  void requestStoragePermission(){
       }
     }
 
+    // this function to set the size of radio buttons accroading to the screen size.
 public void setRadioButtons_Sizes(int text_size, float scale_size, int padding_right){
 
         for(RadioButton r : array_of_problems){
