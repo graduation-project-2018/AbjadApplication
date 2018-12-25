@@ -36,7 +36,6 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
     Button false_btn,nextTest;
     firebase_connection r;
     TextView sentenceLabel, loading_label;
-    //previous_Intent = getIntent();
     String selectedSentence;
     static int true_false_test_score;
     boolean flag ;
@@ -45,7 +44,7 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
     private  static CountDownTimer countDownTimer;
     ImageView abjad;
     AnimationDrawable anim;
-    boolean flag2, move_child;
+    boolean flag2, move_child, finish_child_score;
     String audio;
     static String test_id;
     String Test_letter;
@@ -74,6 +73,7 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
         anim =(AnimationDrawable) abjad.getBackground();
         flag = true;
         flag2 = true;
+        finish_child_score= false;
         Random rand = new Random();
         true_or_false = rand.nextInt(2);
         sentence_number = rand.nextInt(4);
@@ -114,32 +114,9 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
         nextTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(unit_interface.Rand.size()!=0){
-                    Intent nextTest=unit_interface.Rand.get(0);
-                    unit_interface.Rand.remove(nextTest);
-                    startActivity(nextTest);
-                    finish();
-                }
-                else{
-                    unit_interface.endtest=true;
-                    unit_interface.EndTime= Calendar.getInstance().getTimeInMillis();
-                    Intent intent = new Intent(TrueFalseTest.this, unit_interface.class);
-                    intent.putExtra("unitID",unit_interface.unitID);
-                    intent.putExtra("preIntent","trueFalse");
-                    setResult(RESULT_OK, intent);
-                    System.out.println("Testttt ID: "+ test_id);
-                    unit_interface.test_score(test_id);
-                    startActivity(intent);
-                    finish();
-                }
-
+                next_test_or_go_home();
             }
         });
-       /* Intent test=getIntent();
-        Bundle b=test.getExtras();
-        if(b!=null){
-            Test_letter=b.getString("test_letter");
-        }*/
 
         Test_letter=unit_interface.test_letter;
 
@@ -225,6 +202,7 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
                                                         playAudio(audio_obj.perfect_top_feedback);
                                                         setOnCompleteListener(test_sentence_audio);
                                                         true_false_test_score = 10;
+                                                        finish_child_score = true;
 
                                                     }
                                                     //get the next intent and redirect if Iam the last intent I should stop the
@@ -243,6 +221,7 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
                                                         playAudio(audio_obj.perfect_top_feedback);
                                                         setOnCompleteListener(test_sentence_audio);
                                                         true_false_test_score = 10;
+                                                        finish_child_score = true;
 
                                                     } else {
                                                         anim.start();
@@ -351,6 +330,10 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
                     startActivity(intent);
                 }
 
+                if(finish_child_score){
+                    next_test_or_go_home();
+                }
+
             }
 
         });
@@ -368,6 +351,28 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
         playAudio(audio_obj.cant_continue_test);
         move_child = true;
         setOnCompleteListener(test_sentence_audio);
+    }
+
+    public void next_test_or_go_home() {
+        if(unit_interface.Rand.size()!=0){
+            Intent nextTest=unit_interface.Rand.get(0);
+            unit_interface.Rand.remove(nextTest);
+            startActivity(nextTest);
+            finish();
+        }
+        else{
+            unit_interface.endtest=true;
+            unit_interface.EndTime= Calendar.getInstance().getTimeInMillis();
+            Intent intent = new Intent(TrueFalseTest.this, unit_interface.class);
+            intent.putExtra("unitID",unit_interface.unitID);
+            intent.putExtra("preIntent","trueFalse");
+            setResult(RESULT_OK, intent);
+            System.out.println("Testttt ID: "+ test_id);
+            unit_interface.test_score(test_id);
+            startActivity(intent);
+            finish();
+        }
+
     }
 
 

@@ -42,7 +42,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="17dp"
-        android:background="@drawable/transbgg"
+        android:background="@drawable/unit_background"
         app:layout_constraintBottom_toTopOf="@+id/guideline4"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintHorizontal_bias="1.0"
@@ -153,21 +153,6 @@
         app:layout_constraintGuide_percent="0.95" />
 
 
-    <ImageView
-        android:id="@+id/imageView37"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline54"
-        app:layout_constraintEnd_toStartOf="@+id/guideline53"
-        app:layout_constraintStart_toEndOf="@+id/guideline52"
-        app:layout_constraintTop_toBottomOf="@+id/guideline7"
-        app:srcCompat="@drawable/birdd" />
-
     <ImageButton
         android:id="@+id/submit_btn_reset"
         android:layout_width="0dp"
@@ -176,7 +161,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="10dp"
-        android:background="@drawable/rectanglee"
+        android:background="@drawable/button"
         app:layout_constraintBottom_toTopOf="@+id/guideline60"
         app:layout_constraintEnd_toStartOf="@+id/guideline55"
         app:layout_constraintHorizontal_bias="0.505"

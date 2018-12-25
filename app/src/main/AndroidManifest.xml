@@ -18,7 +18,8 @@
         android:label="@string/app_name"
         android:largeHeap="true"
         android:supportsRtl="false"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:icon="@drawable/abjad_logo">
         <activity
             android:name=".Lesson"
             android:screenOrientation="landscape" />

@@ -3,22 +3,24 @@
 
     <item android:id="@+id/edit_profile"
         android:title="تغيير صورة الملف الشخصي"
-        android:icon="@drawable/childicon"
+        android:icon="@drawable/child_gray"
         >
     </item>
     <item android:id="@+id/change_pass_child"
         android:title="تغيير كلمة المرور"
-        android:icon="@drawable/password_blue"
+        android:icon="@drawable/password_gray"
         android:iconTint="#0B365C">
     </item>
     <item android:id="@+id/edit_profile_child"
         android:title="تعديل الملف الشخصي"
-        android:icon="@drawable/user_profile_icon">
+        android:icon="@drawable/user_icon_4x">
     </item>
 
     <item android:id="@+id/delete_child"
         android:title="حذف الحساب"
-        android:icon="@drawable/basket_delete"></item>
+        android:icon="@drawable/basket_delete">
+    </item>
+
     <item android:id="@+id/report_problem"
         android:title="الإبلاغ عن مشكلة"
         android:icon="@drawable/report_icon"

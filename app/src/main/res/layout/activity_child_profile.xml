@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/circle_button"
+        android:background="@drawable/button"
         android:fontFamily="casual"
         android:text="حفظ التغييرات"
         android:textColor="#ffffff"
@@ -159,7 +159,7 @@
         android:layout_marginTop="116dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include"
-        app:srcCompat="@drawable/childicon" />
+        app:srcCompat="@drawable/child_gray_2x" />
 
 
 

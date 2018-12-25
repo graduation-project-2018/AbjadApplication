@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/educator_backgrpund"
-    tools:context=".child_after_signin">
+    tools:context=".child_after_signin"
+    tools:ignore="MissingDefaultResource">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar6"

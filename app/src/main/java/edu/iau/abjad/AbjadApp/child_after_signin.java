@@ -41,6 +41,7 @@ import java.util.ArrayList;
         child_pic = findViewById(R.id.child_pic);
         child_name = findViewById(R.id.child_name);
         loading_label = findViewById(R.id.loading_label_child_after_signin);
+        children_list = new ArrayList<children>();
         id_child = "";
 
         // get all educator children that exist in "educator_home" node.

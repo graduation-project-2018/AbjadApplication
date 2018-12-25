@@ -5,25 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".signin_new"
-    android:background="@drawable/bgg">
+    android:background="@drawable/bgg"
+    tools:ignore="MissingDefaultResource">
 
 
 
-    <ProgressBar
-        android:id="@+id/CprogressBar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/bg"
-        app:layout_constraintEnd_toStartOf="@+id/guideline49"
-        app:layout_constraintHorizontal_bias="0.562"
-        app:layout_constraintStart_toStartOf="@+id/guideline44"
-        app:layout_constraintTop_toBottomOf="@+id/password" />
+
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar6"
@@ -173,6 +160,22 @@
         android:typeface="normal"
         app:layout_constraintBottom_toBottomOf="@+id/bg"
         app:layout_constraintEnd_toStartOf="@+id/guideline45"
+        app:layout_constraintTop_toBottomOf="@+id/password" />
+
+    <ProgressBar
+        android:id="@+id/CprogressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/bg"
+        app:layout_constraintEnd_toStartOf="@+id/guideline49"
+        app:layout_constraintHorizontal_bias="0.562"
+        app:layout_constraintStart_toStartOf="@+id/guideline44"
         app:layout_constraintTop_toBottomOf="@+id/password" />
 
     <android.support.constraint.Guideline

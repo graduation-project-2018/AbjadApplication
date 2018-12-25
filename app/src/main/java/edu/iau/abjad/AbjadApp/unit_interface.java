@@ -459,6 +459,7 @@ public class unit_interface extends child_menu {
                                                                             if (obj.getLessonId() != null) {
                                                                                 if (obj.getLessonId().equals(Lkey)) {
                                                                                     Log.i("Score", score.child("score").getValue(Integer.class) + " ");
+                                                                                    if(obj != null)
                                                                                     obj.setScore(score.child("score").getValue(Integer.class));
                                                                                 }
                                                                             }
@@ -792,13 +793,11 @@ public class unit_interface extends child_menu {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if(dataSnapshot.exists()){
-                        System.out.println("Eixist!!!!!!!!");
                         try{
                             DatabaseReference read_score =  r.ref.child("child_takes_test").child(child_after_signin.id_child).child(unit_interface.unitID).child(test_id);
                             read_score.addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
-                                    System.out.println("Inside read");
 
                                     for (final DataSnapshot info: dataSnapshot.getChildren()){
                                         currentScore = Integer.valueOf(dataSnapshot.child("score").getValue().toString());

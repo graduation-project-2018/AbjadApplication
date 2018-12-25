@@ -47,7 +47,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/rectanglee"
+        android:background="@drawable/button"
         android:fontFamily="casual"
         android:text="تسجيل"
         android:textAlignment="center"
