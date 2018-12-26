@@ -30,7 +30,6 @@ import java.util.ArrayList;
     children child_obj ;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

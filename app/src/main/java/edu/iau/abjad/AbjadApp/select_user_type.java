@@ -8,11 +8,15 @@ import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class select_user_type extends AppCompatActivity {
     TextView eduLabel, childLabel;
+    ImageView back_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +30,19 @@ public class select_user_type extends AppCompatActivity {
         ImageView EduIcon = findViewById(R.id.educator_Btn);
         eduLabel = findViewById(R.id.educatortext);
         childLabel = findViewById(R.id.childtext);
+        back_btn = findViewById(R.id.back_select_user_type);
+
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(select_user_type.this,signin_new.class));
+            }
+        });
+
+
+
 
         int screenSize = getResources().getConfiguration().screenLayout &
                 Configuration.SCREENLAYOUT_SIZE_MASK;
@@ -74,5 +91,12 @@ public class select_user_type extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        FirebaseAuth.getInstance().signOut();
+        startActivity(new Intent(select_user_type.this,signin_new.class));
     }
 }

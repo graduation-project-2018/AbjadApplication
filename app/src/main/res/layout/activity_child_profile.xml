@@ -18,7 +18,7 @@
         android:id="@+id/saveChangesBtn"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/circle_button"
+        android:background="@drawable/button"
         android:fontFamily="casual"
         android:text="حفظ التغييرات"
         android:textColor="#ffffff"
@@ -29,21 +29,6 @@
         app:layout_constraintStart_toStartOf="@+id/guideline1"
         app:layout_constraintTop_toTopOf="@+id/guideline3" />
 
-
-    <EditText
-        android:id="@+id/emailTxt"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:drawablePadding="4dp"
-        android:drawableRight="@drawable/email_icon"
-        android:ems="10"
-        android:hint="البريد الإلكتروني"
-        android:gravity="right"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/guideline18"
-        app:layout_constraintEnd_toStartOf="@+id/guideline12"
-        app:layout_constraintStart_toStartOf="@+id/guideline11"
-        app:layout_constraintTop_toTopOf="@+id/guideline15" />
 
     <EditText
         android:id="@+id/lnameTxt"
@@ -81,7 +66,7 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline8"
         app:layout_constraintEnd_toStartOf="@+id/blueBackground"
         app:layout_constraintStart_toStartOf="@+id/guideline5"
-        app:layout_constraintTop_toTopOf="@+id/guideline7"
+        app:layout_constraintTop_toTopOf="@+id/guideline_back_h_2"
         />
 
     <android.support.constraint.Guideline
@@ -133,7 +118,7 @@
         app:layout_constraintGuide_percent="0.35" />
 
     <android.support.constraint.Guideline
-        android:id="@+id/guideline7"
+        android:id="@+id/guideline_back_h_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -228,12 +213,12 @@
         android:id="@+id/blueBackground"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/transbgg"
+        android:background="@drawable/user_type_bg"
         app:layout_constraintBottom_toTopOf="@+id/guideline8"
         app:layout_constraintEnd_toStartOf="@+id/guideline10"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline9"
-        app:layout_constraintTop_toTopOf="@+id/guideline7"
+        app:layout_constraintTop_toTopOf="@+id/guideline_back_h_2"
         app:layout_constraintVertical_bias="0.0" />
 
 </android.support.constraint.ConstraintLayout>

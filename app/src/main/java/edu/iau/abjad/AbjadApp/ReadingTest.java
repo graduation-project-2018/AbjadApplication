@@ -153,6 +153,13 @@ public class ReadingTest extends child_menu {
                 m.setTitle_Default();
         }//end switch
 
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

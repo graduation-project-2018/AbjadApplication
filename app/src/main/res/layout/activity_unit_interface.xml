@@ -10,9 +10,7 @@
 
     <include
         android:id="@+id/include"
-        layout="@layout/navigation_action_bar"
-         />
-
+        layout="@layout/navigation_action_bar" />
 
     <Button
         android:id="@+id/test3"

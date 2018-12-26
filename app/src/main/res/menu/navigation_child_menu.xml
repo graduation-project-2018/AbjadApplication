@@ -6,11 +6,6 @@
         android:icon="@drawable/child_gray"
         >
     </item>
-    <item android:id="@+id/change_pass_child"
-        android:title="تغيير كلمة المرور"
-        android:icon="@drawable/password_gray"
-        android:iconTint="#0B365C">
-    </item>
     <item android:id="@+id/edit_profile_child"
         android:title="تعديل الملف الشخصي"
         android:icon="@drawable/user_icon_4x">
@@ -23,11 +18,7 @@
 
     <item android:id="@+id/report_problem"
         android:title="الإبلاغ عن مشكلة"
-        android:icon="@drawable/report_icon"
-        >
+        android:icon="@drawable/report_icon">
     </item>
-    <item android:id="@+id/sign_out"
-        android:title="تسجيل الخروج"
-        android:icon="@drawable/signout_icon"></item>
 
 </menu>

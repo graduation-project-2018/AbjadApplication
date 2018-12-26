@@ -65,6 +65,7 @@ public class unit_interface extends child_menu {
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -145,6 +146,14 @@ public class unit_interface extends child_menu {
         lesson5Stars=findViewById(R.id.lesson5Stars);
         lesson6Stars=findViewById(R.id.lesson6Stars);
         instructions=new MediaPlayer();
+
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                startActivity(new Intent(unit_interface.this,child_home.class));
+            }
+        });
 
 
         int screenSize = getResources().getConfiguration().screenLayout &
@@ -412,7 +421,7 @@ public class unit_interface extends child_menu {
                     int j=0;
                     //set test buttons
                     for (int i=0;i<3;i++) {
-                        testInfo.get(i).Lesson.setText(lessons.get(j) + "," + lessons.get(j + 1));
+                        testInfo.get(i).Lesson.setText(lessons.get(j) + "،" + lessons.get(j + 1));
                         testInfo.get(i).setLetters(lessons.get(j) + "_" + lessons.get(j + 1));
                         j += 2;
                     }
@@ -836,4 +845,11 @@ public class unit_interface extends child_menu {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        startActivity(new Intent(unit_interface.this,child_home.class));
+
+    }
 }

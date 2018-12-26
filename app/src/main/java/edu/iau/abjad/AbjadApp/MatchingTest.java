@@ -107,6 +107,13 @@ public class MatchingTest extends child_menu {
         correct=false;
         counter=0;
 
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
 
 
         int screenSize = getResources().getConfiguration().screenLayout &

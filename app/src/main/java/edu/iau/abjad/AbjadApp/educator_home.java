@@ -90,6 +90,15 @@ public class educator_home extends menu_educator {
             default:
                 label.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
         }
+
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                finish();
+                startActivity(new Intent(educator_home.this,select_user_type.class));
+            }
+        });
         // to avoid craching
         if(signin_new.id_edu != null) {
             db = FirebaseDatabase.getInstance().getReference().child("educator_home").child(signin_new.id_edu);
@@ -196,6 +205,13 @@ public void children_changed(DataSnapshot dataSnapshot, String status){
     gv.setAdapter(adapter);
 
 }//end of children_changed
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        startActivity(new Intent(educator_home.this,select_user_type.class));
+    }
+
 
 
 }//end of the class

@@ -9,9 +9,6 @@
     tools:ignore="MissingDefaultResource">
 
 
-
-
-
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar6"
         android:layout_width="match_parent"
@@ -24,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.constraint.Guideline
-        android:id="@+id/guideline7"
+        android:id="@+id/guideline_back_h_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -237,7 +234,7 @@
         app:layout_constraintGuide_percent="0.75" />
 
     <android.support.constraint.Guideline
-        android:id="@+id/guideline39"
+        android:id="@+id/guideline_back_v"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"

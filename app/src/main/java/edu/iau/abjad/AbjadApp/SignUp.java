@@ -59,7 +59,7 @@ public class SignUp extends AppCompatActivity {
             public void onClick(View v) {
                 // take the user to the previous Activity
                 finish();
-                Intent intent = new Intent(SignUp.this, SigninEducator.class);
+                Intent intent = new Intent(SignUp.this, signin_new.class);
                 startActivity(intent);
             }
         });

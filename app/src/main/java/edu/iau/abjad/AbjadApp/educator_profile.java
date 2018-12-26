@@ -118,7 +118,13 @@ public class educator_profile extends menu_educator {
                 Log.i("scsize","Default screen" );
         }//end switch
 
-
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                startActivity(new Intent(educator_profile.this,educator_home.class));
+            }
+        });
 
         getCurrentEducatorInfo();
         saveBtn.setOnClickListener(new View.OnClickListener(){
@@ -200,7 +206,7 @@ public class educator_profile extends menu_educator {
 
     public void getCurrentEducatorInfo(){
         //educator ID need to be changed
-        Query query = r.ref.child("Educators").child(SigninEducator.id_edu);
+        Query query = r.ref.child("Educators").child(signin_new.id_edu);
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -208,7 +214,6 @@ public class educator_profile extends menu_educator {
                                     oldLname = dataSnapshot.child("last_name").getValue().toString();
                                     oldFname = dataSnapshot.child("first_name").getValue().toString();
                                     oldEmail = dataSnapshot.child("email").getValue().toString();
-
                                     email.setText(oldEmail);
                                     firstName.setText(oldFname);
                                     lastName.setText(oldLname);
@@ -233,15 +238,15 @@ public class educator_profile extends menu_educator {
         newEmail = email.getText().toString().trim();
         final String newFname = firstName.getText().toString();
         final String newLname = lastName.getText().toString();
-        r.ref.child("Educators").child(SigninEducator.id_edu).child("first_name").setValue(newFname);
-        r.ref.child("Educators").child(SigninEducator.id_edu).child("last_name").setValue(newLname);
+        r.ref.child("Educators").child(signin_new.id_edu).child("first_name").setValue(newFname);
+        r.ref.child("Educators").child(signin_new.id_edu).child("last_name").setValue(newLname);
                 if (!newEmail.equals(oldEmail))
                 {
                   boolean x =  updateEmail();
 
                   if(x==true){
 
-                      r.ref.child("Educators").child(SigninEducator.id_edu).child("email").setValue(newEmail);
+                      r.ref.child("Educators").child(signin_new.id_edu).child("email").setValue(newEmail);
 
                   }//end of nested if
                 }//end of outer if
@@ -276,4 +281,9 @@ public class educator_profile extends menu_educator {
 
     }//end of updateEmail function
 
+    @Override
+    public void onBackPressed() {
+        finish();
+        startActivity(new Intent(educator_profile.this,educator_home.class));
+    }
 }//end of the class

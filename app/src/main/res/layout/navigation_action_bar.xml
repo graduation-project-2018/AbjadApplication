@@ -65,6 +65,20 @@
             app:layout_constraintGuide_begin="20dp"
             app:layout_constraintGuide_percent="0.5"/>
 
+        <ImageView
+            android:id="@+id/back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/back_btn_2x" />
+
+
+
     </android.support.constraint.ConstraintLayout>
 
 

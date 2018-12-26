@@ -117,6 +117,13 @@ public class report_problem extends child_menu {
         int screenSize = getResources().getConfiguration().screenLayout &
                 Configuration.SCREENLAYOUT_SIZE_MASK;
 
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
         switch(screenSize) {
             case Configuration.SCREENLAYOUT_SIZE_XLARGE:
                 ImgNameTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);

@@ -38,7 +38,7 @@ public class menu_educator extends AppCompatActivity {
     protected Toolbar mToolBar;
     ImageView home_icon;
     NavigationView navigationView ;
-    ImageView menu_btn;
+    ImageView menu_btn, back_btn;
     firebase_connection r = new firebase_connection();
 
     @Override
@@ -57,6 +57,7 @@ public class menu_educator extends AppCompatActivity {
         mToggle.syncState();
 
         menu_btn = findViewById(R.id.menu_icon);
+        back_btn = findViewById(R.id.back_button);
         menu_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             // If navigation drawer is not open yet open it,  else close it.

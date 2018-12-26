@@ -41,6 +41,7 @@ public class new_add_child extends menu_educator {
     TextView genderError;
     DatabaseReference rf;
     Boolean foundErrors;
+    Intent i;
 
     int errorCounts;
     Pattern ArabicLetters = Pattern.compile("^[ءئ ؤ إآ ى لآ لأ  لإ أ-ي ]+$");
@@ -115,6 +116,13 @@ public class new_add_child extends menu_educator {
                 Log.i("scsize","Default screen" );
         }//end switch
 
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
     }// end OnCreate()
 
     @Override
@@ -158,6 +166,7 @@ public class new_add_child extends menu_educator {
         View mView = getLayoutInflater().inflate(R.layout.activity_adding_child_pop_up,null);
         Button close_btn = (Button) mView.findViewById(R.id.close_btn);
         Button ok_btn = (Button) mView.findViewById(R.id.ok_btn);
+        i = new Intent(new_add_child.this, educator_home.class);
         mBuilder.setView(mView);
         final AlertDialog dialog = mBuilder.create();
         dialog.setCanceledOnTouchOutside(false);
@@ -167,16 +176,16 @@ public class new_add_child extends menu_educator {
         ok_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 dialog.dismiss();
+                startActivity(i);
             }
         });
 
         close_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 dialog.dismiss();
+                startActivity(i);
             }
         });
 
@@ -220,5 +229,7 @@ public class new_add_child extends menu_educator {
             foundErrors =true;
         }
     }//end of checkGender function
+
+
 
 }

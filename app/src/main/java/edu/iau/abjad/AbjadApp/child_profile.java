@@ -34,7 +34,6 @@ public class child_profile extends child_menu {
     menu_variables m = new menu_variables();
     EditText FNChild, LNChild;
     ImageView ChildImage;
-
     firebase_connection r;
     childInformation child;
     DatabaseReference read;
@@ -42,7 +41,7 @@ public class child_profile extends child_menu {
     Pattern ArabicLetters;
     String oldFname;
     String oldLname;
-   Boolean foundErrors;
+    Boolean foundErrors;
     String photo_URL;
     FirebaseUser user;
     Boolean z;
@@ -80,6 +79,14 @@ public class child_profile extends child_menu {
         }
     }
 });//end of onClick function
+
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
         int screenSize = getResources().getConfiguration().screenLayout &
                 Configuration.SCREENLAYOUT_SIZE_MASK;
         switch(screenSize) {
@@ -89,7 +96,6 @@ public class child_profile extends child_menu {
                 // change the right icon of Edit text based on screen size
                 FNChild.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray, 0);
                 LNChild.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray, 0);
-                Email.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.email_icon, 0);
                 Log.i("scsize","X Large" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_LARGE:
@@ -97,7 +103,6 @@ public class child_profile extends child_menu {
                 m.setTitle_Large();
                 FNChild.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray_2x, 0);
                 LNChild.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray_2x, 0);
-                Email.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.email_icon_2x, 0);
                 Log.i("scsize","Large" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_NORMAL:
@@ -105,7 +110,6 @@ public class child_profile extends child_menu {
                 m.setTitle_Normal();
                 FNChild.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray_15x, 0);
                 LNChild.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray_15x, 0);
-                Email.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.email_icon_15x, 0);
 
                 Log.i("scsize","Normal" );
                 break;
@@ -114,7 +118,6 @@ public class child_profile extends child_menu {
                 m.setTitle_Small();
                 FNChild.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray_1x, 0);
                 LNChild.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray_1x, 0);
-                Email.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.email_icon_1x, 0);
                 Log.i("scsize","Small" );
                 break;
             default:
@@ -122,7 +125,7 @@ public class child_profile extends child_menu {
                 m.setTitle_Default();
                 FNChild.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray_1x, 0);
                 LNChild.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray_1x, 0);
-                Email.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.email_icon_1x, 0);
+
 
                 Log.i("scsize","Default screen" );
         }//end switch

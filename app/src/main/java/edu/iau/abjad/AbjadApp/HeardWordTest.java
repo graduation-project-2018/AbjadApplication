@@ -131,6 +131,13 @@ public class HeardWordTest extends child_menu  {
 
         }//end switch
 
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
 
 
         abjad.setBackgroundResource(R.drawable.abjad_speak);
@@ -454,7 +461,10 @@ public class HeardWordTest extends child_menu  {
             final_heard_child_score = 10;
             System.out.println("الجواب صح");
             finish_child_score = true;
-
+        }
+        else{
+            // to make the automatic move of tests works correctly even if the child does not choose the correct answer in the first time.
+            finish_child_score = true;
         }
 
     }
@@ -465,7 +475,6 @@ public class HeardWordTest extends child_menu  {
         setOnCompleteListener(audio_feedback);
         if(final_heard_child_score ==-1){
             final_heard_child_score = 0;
-
         }
     }
 

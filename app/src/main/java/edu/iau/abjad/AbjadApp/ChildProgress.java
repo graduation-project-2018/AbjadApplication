@@ -102,13 +102,18 @@ public class ChildProgress extends menu_educator {
         normal=14;
         small = 10;
         default_size = 16;
-        
-
         lastName="";
 
         final String lessonh="";
         final Intent educatorHome=new Intent(this,educator_home.class);
         final Intent changePassword =new Intent(this, change_password.class );
+
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
 
         // screen size

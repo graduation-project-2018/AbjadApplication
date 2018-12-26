@@ -142,6 +142,13 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
         lesson_audio = new MediaPlayer();
         audio_instruction = new MediaPlayer();
 
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
 
 
         int screenSize = getResources().getConfiguration().screenLayout &

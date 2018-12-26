@@ -79,6 +79,13 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
         sentence_number = rand.nextInt(4);
         final int retreive_sentence = sentence_number+1;
 
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
 
         int screenSize = getResources().getConfiguration().screenLayout &
                 Configuration.SCREENLAYOUT_SIZE_MASK;
