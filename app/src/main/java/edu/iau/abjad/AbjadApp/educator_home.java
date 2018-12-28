@@ -129,7 +129,7 @@ public void fetch_children(DataSnapshot dataSnapshot){
         String id = dataSnapshot.getKey();
         String photo =(String)(dataSnapshot.child("photo_URL").getValue()) ;
         String name = (String) (dataSnapshot.child("first_name").getValue());
-        children s = new children(photo,name,id);
+        children s = new children(photo,name,id,"childProgress");
 
         children.add(s);
 

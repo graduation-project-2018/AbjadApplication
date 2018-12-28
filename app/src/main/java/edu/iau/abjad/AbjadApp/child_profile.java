@@ -32,7 +32,7 @@ public class child_profile extends child_menu {
 
 
     menu_variables m = new menu_variables();
-    EditText FNChild, LNChild;
+    EditText FNChild, LNChild,Email;
     ImageView ChildImage;
 
     firebase_connection r;
@@ -64,7 +64,7 @@ public class child_profile extends child_menu {
         FNChild = (EditText) findViewById(R.id.fnameTxt);
         LNChild = (EditText) findViewById(R.id.lnameTxt);
         ChildImage = (ImageView) findViewById(R.id.childImage);
-
+        Email=findViewById(R.id.emailTxt);
         //UsernameMsg = (TextView) findViewById(R.id.UsernameErrorMsgCP);
         saveChanges = (Button) findViewById(R.id.saveChangesBtn);
         ArabicLetters = Pattern.compile("^[ءئ ؤ إآ ى لآ لأ  لإ أ-ي ]+$");
