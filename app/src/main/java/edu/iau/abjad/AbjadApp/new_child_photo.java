@@ -41,7 +41,8 @@ public class new_child_photo extends menu_educator  {
     private child_info_new completeObj;
     private Button addChild;
     private Intent backEducatorHome;
-
+    String gender;
+    String category;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +70,7 @@ public class new_child_photo extends menu_educator  {
         childObj = getIntent().getExtras();
         if(childObj!=null){
             completeObj=(child_info_new)childObj.getSerializable("object");
+            gender = completeObj.gender;
         }
 
         int screenSize = getResources().getConfiguration().screenLayout &
@@ -100,10 +102,16 @@ public class new_child_photo extends menu_educator  {
                 m.setTitle_Default();
 
         }//end switch
+        if(gender.equals("ذكر")){
+            category = "boys";
+        }
+        else{
+
+            category = "girls";
+        }
 
 
-
-        FBchildPhotoUri.ref.child("ChildPhoto").addValueEventListener(new ValueEventListener() {
+        FBchildPhotoUri.ref.child("ChildPhoto").child(category).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot childSnapShot : dataSnapshot.getChildren()) {

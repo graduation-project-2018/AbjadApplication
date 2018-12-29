@@ -33,7 +33,7 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".child_photo"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape">     </activity>
         <activity
             android:name=".ChildProgress"
             android:screenOrientation="landscape" />
@@ -62,7 +62,9 @@
             android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"></activity>
         <activity
             android:name=".report_problem"
-            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan" />
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan">
+
+        </activity>
         <activity
             android:name=".SignUp"
             android:windowSoftInputMode="stateHidden|adjustResize|adjustPan" />
