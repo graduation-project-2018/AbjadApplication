@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.provider.Settings;
+import android.support.constraint.ConstraintLayout;
+import android.support.constraint.Guideline;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -41,13 +43,16 @@ public class educator_home extends menu_educator {
    GridView gv;
    TextView child_name;
    ImageView child_img;
-
-   DatabaseReference db;
+    TextView  loading_label;
+   DatabaseReference db,db2;
 
    TextView label;
 
     Boolean first_time = true;
     children child = new children();
+    Guideline gr,gl ;
+    String x  ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,11 +68,13 @@ public class educator_home extends menu_educator {
 
         mDrawerLayout.addView(contentView, 0);
         btn = (Button) findViewById(R.id.add_new_child_btn);
-
+        gl = findViewById(R.id.gridViewGL);
+        gr = findViewById(R.id.gridView2GL);
         gv = (GridView)findViewById(R.id.gv);
         gv.setNumColumns(2);
         first_time = true;
         label = (TextView) findViewById(R.id.NoChildren);
+        loading_label = findViewById(R.id.loading_label_child_after_signin);
         label.setText("لا يوجد لديك أطفال مسجلين حاليا, لإضافة طفل جديد لطفا اضغط زر الإضافة");
         int screenSize = getResources().getConfiguration().screenLayout &
                 Configuration.SCREENLAYOUT_SIZE_MASK;
@@ -75,20 +82,25 @@ public class educator_home extends menu_educator {
         switch(screenSize) {
             case Configuration.SCREENLAYOUT_SIZE_XLARGE:
                 label.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
+                loading_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
 
                 break;
             case Configuration.SCREENLAYOUT_SIZE_LARGE:
                 label.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+                loading_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
                 break;
             case Configuration.SCREENLAYOUT_SIZE_NORMAL:
                 label.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
+                loading_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
 
                 break;
             case Configuration.SCREENLAYOUT_SIZE_SMALL:
                 label.setTextSize(TypedValue.COMPLEX_UNIT_SP,10);
+                loading_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,10);
                 break;
             default:
                 label.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
+                loading_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
         }
         // to avoid craching
         if(signin_new.id_edu != null) {
@@ -101,7 +113,9 @@ public class educator_home extends menu_educator {
                         label.setVisibility(View.VISIBLE);
                     } else {
 
+                        loading_label.setVisibility(View.VISIBLE);
                         children_Events();
+
                     }
                 }
 
@@ -136,6 +150,38 @@ public void fetch_children(DataSnapshot dataSnapshot){
     }
 
 }//end of fetch_children function
+    public void checkNumOfChildren(){
+        db2 = FirebaseDatabase.getInstance().getReference().child("educator_home").child(signin_new.id_edu).child("childrenNumber");
+        db2.addListenerForSingleValueEvent(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    x = dataSnapshot.getValue().toString();
+                    if(x.equals("1")){
+
+
+                        gv.setNumColumns(1);
+                        ConstraintLayout.LayoutParams lp = (ConstraintLayout.LayoutParams) gr.getLayoutParams();
+                        lp.guidePercent = (float) 0.665;
+                        gr.setLayoutParams(lp);
+                        ConstraintLayout.LayoutParams llp = (ConstraintLayout.LayoutParams) gl.getLayoutParams();
+                        llp.guidePercent = (float) 0.435;
+                        gl.setLayoutParams(llp);
+                    }
+
+                } else {
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }//end of function
 public void children_Events(){
 
     db.addChildEventListener(new ChildEventListener() {
@@ -143,16 +189,21 @@ public void children_Events(){
         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
             fetch_children(dataSnapshot);
+            checkNumOfChildren();
             adapter = new childrenAdapter(educator_home.this,children);
             gv.setAdapter(adapter);
+            loading_label.setVisibility(View.INVISIBLE);
+
         }
         @Override
         public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+            loading_label.setVisibility(View.VISIBLE);
             children_changed(dataSnapshot,"change");
 
         }
         @Override
         public void onChildRemoved(DataSnapshot dataSnapshot) {
+            loading_label.setVisibility(View.VISIBLE);
             children_changed(dataSnapshot,"remove");
 
         }
@@ -192,8 +243,10 @@ public void children_changed(DataSnapshot dataSnapshot, String status){
 
     }//for loop
 
+    checkNumOfChildren();
     adapter = new childrenAdapter(educator_home.this,children);
     gv.setAdapter(adapter);
+    loading_label.setVisibility(View.INVISIBLE);
 
 }//end of children_changed
 

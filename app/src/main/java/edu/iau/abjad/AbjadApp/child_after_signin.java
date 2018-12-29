@@ -170,10 +170,9 @@ import java.util.ArrayList;
 
                 fetch_children(dataSnapshot);
                 checkNumOfChildren();
-
-                     adapter = new childrenAdapter(child_after_signin.this,children);
-                     gv.setAdapter(adapter);
-                     loading_label.setVisibility(View.INVISIBLE);
+                adapter = new childrenAdapter(child_after_signin.this,children);
+                 gv.setAdapter(adapter);
+                 loading_label.setVisibility(View.INVISIBLE);
 
              }
              @Override
