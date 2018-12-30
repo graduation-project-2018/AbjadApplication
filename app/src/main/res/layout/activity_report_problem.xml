@@ -253,7 +253,7 @@
                     android:gravity="top"
                     android:inputType="textMultiLine"
                     android:scrollbarAlwaysDrawVerticalTrack="true"
-                    android:text=" "
+                    android:text=""
                     android:textColor="#7D7C7C"
                     android:textColorHint="@android:color/black"
                     tools:hint="الوصف"

@@ -61,7 +61,7 @@ public class report_problem extends child_menu {
     private firebase_connection report;
     private String daownloadURL;
     private RadioGroup  rg;
-    private RadioButton problemType;
+    private RadioButton problemType,selectedRadioButton ;
     private String ProbType;
     private String dis;
     private EditText moreDetails;
@@ -178,6 +178,11 @@ public class report_problem extends child_menu {
                 if(ImgNameTextView.getText().equals("اضغط هنا لرفع صورة لقطة الشاشة")== false){onCliked=true;}
                 if(onCliked){
                 if (rg.getCheckedRadioButtonId()!=-1){
+                    selectedRadioButton = (RadioButton)findViewById(rg.getCheckedRadioButtonId());
+                    if(( moreDetails.getText().toString().equals("")|| moreDetails.getText().toString().equals(" ")||moreDetails.getText().toString().equals("الوصف"))&& selectedRadioButton.getText().toString().equals("أخرى")){
+                        Toast.makeText(report_problem.this,"الرجاء إدخال وصف البلاغ", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                 final StorageReference filePath = mStorge.child("ReportProblemScreenshots").child(imgURI.getLastPathSegment());
                     StorageTask<UploadTask.TaskSnapshot> taskSnapshotStorageTask = filePath.putFile(imgURI).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
