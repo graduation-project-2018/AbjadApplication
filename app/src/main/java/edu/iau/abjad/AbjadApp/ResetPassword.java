@@ -94,11 +94,6 @@ public class ResetPassword extends AppCompatActivity {
         });
 
         node = "Educators";
-        Intent intent = getIntent();
-        final Bundle bd = intent.getExtras();
-        if(bd != null){
-          node = "Children";
-        }
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override

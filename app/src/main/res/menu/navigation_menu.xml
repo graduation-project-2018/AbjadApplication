@@ -22,6 +22,8 @@
         android:title="تسجيل الخروج"
         android:icon="@drawable/signout_icon"></item>
 
-
+    <item android:id="@+id/contact_us"
+        android:title="اتصل بنا"
+        android:icon="@drawable/phone_15x"></item>
 
 </menu>

@@ -101,7 +101,7 @@ public class change_profile_photo extends child_menu {
                SaveChanges.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        FBchildPhotoUrl.ref.child("Children").child(Signin.id_child).child("photo_URL").setValue(photo_url);
+                        FBchildPhotoUrl.ref.child("Children").child(child_after_signin.id_child).child("photo_URL").setValue(photo_url);
                         Toast.makeText(change_profile_photo.this, "تم تغيير الصورة بنجاح", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(getApplicationContext(),child_home.class);
                         startActivity(intent);

@@ -46,15 +46,14 @@ public class adding_child  extends menu_educator {
     TextView genderError;
     DatabaseReference rf;
     Boolean foundErrors;
+    Intent i;
 
 
 
-
-
-   int errorCounts;
+    int errorCounts;
     Pattern ArabicLetters = Pattern.compile("^[ءئ ؤ إآ ى لآ لأ  لإ أ-ي ]+$");
     Query q;
-
+    Pattern ps;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,7 +70,7 @@ public class adding_child  extends menu_educator {
         db = FirebaseDatabase.getInstance();
         rf = db.getReference();
         r = new firebase_connection();
-
+        ps = Pattern.compile("^[a-zA-Z ]+$");
         firstName = findViewById(R.id.fnTxt);
         lastName = findViewById(R.id.lnTxt);
         radioGroup = (RadioGroup) findViewById(R.id.genderRadioGroup);
@@ -166,13 +165,14 @@ public class adding_child  extends menu_educator {
         final AlertDialog dialog = mBuilder.create();
         dialog.setCanceledOnTouchOutside(false);
         dialog.setCancelable(false);
-
+        i = new Intent(adding_child.this, educator_home.class);
         dialog.show();
         ok_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 dialog.dismiss();
+                startActivity(i);
             }
         });
 
@@ -181,6 +181,7 @@ public class adding_child  extends menu_educator {
             public void onClick(View view) {
 
                 dialog.dismiss();
+                startActivity(i);
             }
         });
 
@@ -262,8 +263,8 @@ public class adding_child  extends menu_educator {
             firstName.requestFocus();
             foundErrors =true;
         }
-        else if (!ArabicLetters.matcher(firstName.getText().toString()).matches()) {
-            firstName.setError("قم بكتابة الإسم الأول باللغة العربية فقط");
+        else if (!ArabicLetters.matcher(firstName.getText().toString()).matches()&& !ps.matcher(firstName.getText().toString()).matches()) {
+            firstName.setError("اسم الطفل يجب أن لا يحتوي على رموز أخرى غير الحروف");
             firstName.requestFocus();
             foundErrors =true;
         }
@@ -278,8 +279,8 @@ public class adding_child  extends menu_educator {
             lastName.requestFocus();
             foundErrors =true;
         }
-        else if (!ArabicLetters.matcher(lastName.getText().toString()).matches()) {
-            lastName.setError("قم بكتابة اللقب باللغة العربية فقط ");
+        else if (!ArabicLetters.matcher(lastName.getText().toString()).matches()&& !ps.matcher(lastName.getText().toString()).matches()) {
+            lastName.setError("لقب الطفل يجب أن لا يحتوي على رموز أخرى غير الحروف ");
             lastName.requestFocus();
             foundErrors =true;
         }

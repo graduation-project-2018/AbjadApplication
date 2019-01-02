@@ -68,64 +68,63 @@ public class educator_home extends menu_educator {
         gv.setNumColumns(2);
         first_time = true;
         label = (TextView) findViewById(R.id.NoChildren);
-
+        label.setText("لا يوجد لديك أطفال مسجلين حاليا, لإضافة طفل جديد لطفا اضغط زر الإضافة");
         int screenSize = getResources().getConfiguration().screenLayout &
                 Configuration.SCREENLAYOUT_SIZE_MASK;
 
         switch(screenSize) {
             case Configuration.SCREENLAYOUT_SIZE_XLARGE:
-                label.setTextSize(TypedValue.COMPLEX_UNIT_SP,60);
-
-                break;
-            case Configuration.SCREENLAYOUT_SIZE_LARGE:
-                label.setTextSize(TypedValue.COMPLEX_UNIT_SP,50);
-                break;
-            case Configuration.SCREENLAYOUT_SIZE_NORMAL:
                 label.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
 
                 break;
+            case Configuration.SCREENLAYOUT_SIZE_LARGE:
+                label.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_NORMAL:
+                label.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
+
+                break;
             case Configuration.SCREENLAYOUT_SIZE_SMALL:
-                label.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+                label.setTextSize(TypedValue.COMPLEX_UNIT_SP,10);
                 break;
             default:
-                label.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+                label.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
         }
         // to avoid craching
-        if(SigninEducator.id_edu != null)
-        db = FirebaseDatabase.getInstance().getReference().child("educator_home").child(SigninEducator.id_edu);
-        db.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(!dataSnapshot.exists()){
+        if(signin_new.id_edu != null) {
+            db = FirebaseDatabase.getInstance().getReference().child("educator_home").child(signin_new.id_edu);
+            db.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (!dataSnapshot.exists()) {
 
-                    label.setVisibility(View.VISIBLE);
+                        label.setVisibility(View.VISIBLE);
+                    } else {
+
+                        children_Events();
+                    }
                 }
-                else{
 
-                    children_Events();
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
                 }
-            }
+            });
+            btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(educator_home.this, new_add_child.class);
+                    startActivity(intent);
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-       btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(educator_home.this, adding_child.class);
-                startActivity(intent);
-
-            }
-        });//end of btn listener
+                }
+            });//end of btn listener
+        }// end if
 
     }//end of onCreate function
 
 
 
 public void fetch_children(DataSnapshot dataSnapshot){
-
     if(dataSnapshot.exists()){
         String id = dataSnapshot.getKey();
         String photo =(String)(dataSnapshot.child("photo_URL").getValue()) ;
@@ -133,7 +132,6 @@ public void fetch_children(DataSnapshot dataSnapshot){
         children s = new children(photo,name,id);
 
         children.add(s);
-
 
     }
 

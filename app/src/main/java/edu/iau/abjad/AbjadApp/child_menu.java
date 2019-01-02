@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
@@ -76,7 +77,6 @@ public class child_menu extends AppCompatActivity {
 
 
 
-
         menu_btn = findViewById(R.id.menu_icon);
         menu_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,7 +139,7 @@ public class child_menu extends AppCompatActivity {
                             Lesson.computeChildScore();
                         }
                         FirebaseAuth.getInstance().signOut();
-                        Intent intent = new Intent(child_menu.this, userTypeSelection.class);
+                        Intent intent = new Intent(child_menu.this, signin_new.class);
                         startActivity(intent);
 
                         return true;
@@ -196,21 +196,18 @@ public class child_menu extends AppCompatActivity {
             public void onClick(View view) {
                 edu_email = email.getText().toString();
                 try {
-                    read = r.ref.child("Children").child(Signin.id_child).child("educator_id");
+                    read = r.ref.child("Children").child(child_after_signin.id_child).child("educator_id");
                     read.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             if (dataSnapshot.exists()) {
-
                                 id = dataSnapshot.getValue().toString();
-                                System.out.println("الرقم" + id);
 
                                 Query query = r.ref.child("Educators").orderByKey().equalTo(id);
                                 query.addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {
                                         if (dataSnapshot.exists()) {
-                                            System.out.println("لقاه");
                                             for (DataSnapshot e : dataSnapshot.getChildren()) {
                                                 String em = e.child("email").getValue().toString();
 
@@ -251,7 +248,7 @@ public class child_menu extends AppCompatActivity {
                                 });
 
                             } else {
-                                Intent usr = new Intent(child_menu.this, userTypeSelection.class);
+                                Intent usr = new Intent(child_menu.this, signin_new.class);
                                 startActivity(usr);
                                 finish();
                                 Toast.makeText(child_menu.this, "تم حذف الطفل بنجاح", Toast.LENGTH_LONG).show();
@@ -287,7 +284,6 @@ public class child_menu extends AppCompatActivity {
                    dialog.dismiss();
                }
            });
-
     }
 
     public void popUpDelete(){
@@ -319,25 +315,21 @@ public class child_menu extends AppCompatActivity {
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            r.ref.child("Children").child(Signin.id_child).removeValue().addOnFailureListener(new OnFailureListener() {
+
+                            r.ref.child("Children").child(child_after_signin.id_child).removeValue().addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
                                     Log.e("NotFound",e.getMessage());
                                 }
                             });
 
-                            r.ref.child("child_takes_lesson").child(Signin.id_child).removeValue().addOnFailureListener(new OnFailureListener() {
+                            r.ref.child("child_takes_lesson").child(child_after_signin.id_child).removeValue().addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
                                     Log.e("NotFound",e.getMessage());
                                 }
                             });
-                            r.ref.child("child_takes_test").child(Signin.id_child).removeValue().addOnFailureListener(new OnFailureListener() {
+                            r.ref.child("child_takes_test").child(child_after_signin.id_child).removeValue().addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
                                     Log.e("NotFound",e.getMessage());
@@ -354,8 +346,8 @@ public class child_menu extends AppCompatActivity {
                                             public void onDataChange(DataSnapshot dataSnapshot) {
                                                 for (DataSnapshot dataSnapshot2:dataSnapshot.getChildren()){
                                                     String child_id=dataSnapshot2.getKey();
-                                                    if(child_id.equals(Signin.id_child)){
-                                                        r.ref.child("educator_home").child(eduKey).child(Signin.id_child).removeValue();
+                                                    if(child_id.equals(child_after_signin.id_child)){
+                                                        r.ref.child("educator_home").child(eduKey).child(child_after_signin.id_child).removeValue();
                                                     }
                                                 }
                                             }
@@ -367,7 +359,7 @@ public class child_menu extends AppCompatActivity {
                                         };child_eduhome.addValueEventListener(eventListenerhome);
 
                                     }
-                                    Intent usr=new Intent(child_menu.this,userTypeSelection.class);
+                                    Intent usr=new Intent(child_menu.this,signin_new.class);
                                     startActivity(usr);
                                     finish();
                                     Toast.makeText(child_menu.this,"تم حذف الطفل بنجاح",Toast.LENGTH_LONG).show();
@@ -378,18 +370,11 @@ public class child_menu extends AppCompatActivity {
 
                                 }
                             });
-
-
-                        } else {
-                            Log.e("Error","deletion");
-                        }
-                    }
-                });
             }
-        });
+        }); // end confirm button listener
+    }// end Popup Delete
 
-    }
-    }
+    } // end Class
 
 
 
