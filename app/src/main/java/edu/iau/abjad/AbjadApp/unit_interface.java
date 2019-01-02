@@ -1,6 +1,7 @@
 package edu.iau.abjad.AbjadApp;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.media.AudioManager;
@@ -107,7 +108,7 @@ public class unit_interface extends child_menu {
         bal3=findViewById(R.id.ballon3);
         Bundle child=getIntent().getExtras();
         m.title.setText(child.getString("Unitname"));
-
+        unitName=child.getString("Unitname");
         testInfo=new ArrayList<childUnitInfo>();
         matchingTest_Intent=  new Intent(this, MatchingTest.class );
         readingTest_Intent=   new Intent(this, ReadingTest.class );
@@ -145,6 +146,8 @@ public class unit_interface extends child_menu {
         lesson5Stars=findViewById(R.id.lesson5Stars);
         lesson6Stars=findViewById(R.id.lesson6Stars);
         instructions=new MediaPlayer();
+        SharedPreferences settings = getSharedPreferences("prefs", 0);
+        boolean firstRun = settings.getBoolean("firstRun", true);
 
 
         int screenSize = getResources().getConfiguration().screenLayout &
@@ -212,19 +215,20 @@ public class unit_interface extends child_menu {
 
         }//end switch
 
-
-
-
        Bundle intent=getIntent().getExtras();
        if(intent.getString("preIntent").equals("Lesson")){
            this.unitID=intent.getString("unitID");
+
+
        }
        else if(intent.getString("preIntent").equals("heardTest")){
            this.unitID=intent.getString("unitID");
 
+
        }
        else if(intent.getString("preIntent").equals("trueFalse")){
            this.unitID=intent.getString("unitID");
+
 
        }
        else if(intent.getString("preIntent").equals("matchingTest")){
@@ -233,14 +237,19 @@ public class unit_interface extends child_menu {
        }
        else if(intent.getString("preIntent").equals("readingTest")){
            this.unitID=intent.getString("unitID");
+           m.title.setText(unitName);
+
        }else if(intent.getString("preIntent").equals("childHome")){
            Log.i("ifStm","Iam here");
            this.unitID=intent.getString("id");
+
            Log.i("Unitid",this.unitID);
        }else{
            Log.i("ifStm","noone");
        }
-       if(unitID.equals("unit1") && intent.getString("preIntent").equals("childHome")){
+       if(unitID.equals("unit1") && intent.getString("preIntent").equals("childHome") && firstRun ){
+
+           settings.edit().putBoolean("firstRun", false).commit();
             playAudio(audio.unit_Tip_One);
             instructions.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
@@ -254,6 +263,19 @@ public class unit_interface extends child_menu {
 
                 }
             });
+
+        }
+
+        if(unitID.equals("unit1")){
+            m.title.setText("أسرتي");
+
+        }
+        else if (unitID.equals("unit2")){
+            m.title.setText("مدرستي");
+
+        }
+        else{
+            m.title.setText("مدينتي");
 
         }
         final MediaPlayer aduio_CannotStartLesson=new MediaPlayer();
@@ -565,8 +587,8 @@ public class unit_interface extends child_menu {
                                                         String testletter = test.child("test_letters").getValue(String.class);
                                                         for (childUnitInfo test : testInfo) {
                                                             String letter = test.getLetters();
-                                                            Log.i("let", letter);
-                                                            Log.i("try", letter.contains(testletter) + " " + letter + " " + testletter);
+                                                           // Log.i("let", letter+" ");
+//                                                            Log.i("try", letter.contains(testletter) + " " + letter + " " + testletter);
                                                             if (letter.equals(testletter)) {
                                                                 test.setLessonId(testkey);
                                                                 Log.i("TestID", test.getLessonId() + " ");
