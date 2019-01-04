@@ -131,6 +131,16 @@ public class child_menu extends AppCompatActivity {
                         return true;
                     }
 
+                    case R.id.sign_out:{
+                        if(Lesson.words_counter==6){
+                            Lesson.computeChildScore();
+                        }
+                        finish();
+                        Intent intent = new Intent(child_menu.this, select_user_type.class);
+                        startActivity(intent);
+                        return true;
+                    }
+
 
                 }
                 return true;

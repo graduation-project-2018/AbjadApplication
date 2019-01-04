@@ -162,53 +162,39 @@
                 android:inputType="textPassword"
                 app:layout_constraintEnd_toStartOf="@+id/guideline29"
                 app:layout_constraintStart_toEndOf="@+id/guideline28"
-                app:layout_constraintTop_toBottomOf="@+id/EmailFieldSU" />
+                app:layout_constraintTop_toBottomOf="@+id/confirm_email" />
 
 
             <EditText
-                android:id="@+id/EmailFieldSU"
+                android:id="@+id/confirm_email"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:drawableRight="@drawable/email_icon"
                 android:drawablePadding="10dp"
                 android:ems="100"
                 android:gravity="right"
+                android:hint="تأكيد البريد الإلكتروني"
+                android:inputType="textEmailAddress"
+                app:layout_constraintEnd_toStartOf="@+id/guideline29"
+                app:layout_constraintStart_toEndOf="@+id/guideline28"
+                app:layout_constraintTop_toBottomOf="@+id/email_field" />
+
+
+            <EditText
+                android:id="@+id/email_field"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:drawableRight="@drawable/email_icon"
+                android:drawablePadding="15dp"
+                android:ems="100"
+                android:gravity="right"
                 android:hint="البريد الإلكتروني"
                 android:inputType="textEmailAddress"
                 app:layout_constraintEnd_toStartOf="@+id/guideline29"
                 app:layout_constraintStart_toEndOf="@+id/guideline28"
-                app:layout_constraintTop_toBottomOf="@+id/LNFieldSU" />
+                app:layout_constraintTop_toTopOf="parent" />
 
-
-            <EditText
-                android:id="@+id/LNFieldSU"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:drawableRight="@drawable/user_icon_4x"
-                android:drawablePadding="15dp"
-                android:ems="100"
-                android:gravity="right"
-                android:hint="اللقب"
-                android:inputType="textPersonName"
-                app:layout_constraintEnd_toStartOf="@+id/guideline29"
-                app:layout_constraintStart_toEndOf="@+id/guideline28"
-                app:layout_constraintTop_toBottomOf="@+id/FNFieldSU" />
-
-
-            <EditText
-                android:id="@+id/FNFieldSU"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:drawableRight="@drawable/user_icon_4x"
-                android:drawablePadding="15dp"
-                android:ems="100"
-                android:gravity="right"
-                android:hint="اسم المربي"
-                android:inputType="textPersonName"
-                app:layout_constraintEnd_toStartOf="@+id/guideline29"
-                app:layout_constraintStart_toEndOf="@+id/guideline28"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_chainStyle="spread_inside" />
 
         </android.support.constraint.ConstraintLayout>
     </ScrollView>

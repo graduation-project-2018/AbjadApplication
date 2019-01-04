@@ -76,15 +76,15 @@ public class menu_variables {
     }
 
     public void setButton_text_Large(TextView s){
-        s.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+        s.setTextSize(TypedValue.COMPLEX_UNIT_SP,23);
     }
 
     public void setButton_text_Normal(TextView s){
-        s.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
+        s.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
     }
 
     public void setButton_text_Small(TextView s){
-        s.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
+        s.setTextSize(TypedValue.COMPLEX_UNIT_SP,10);
     }
 
     public void setButton_text_Default(TextView s){

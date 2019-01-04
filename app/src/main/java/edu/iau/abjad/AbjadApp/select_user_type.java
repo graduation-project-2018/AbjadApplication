@@ -17,6 +17,11 @@ import com.google.firebase.auth.FirebaseAuth;
 public class select_user_type extends AppCompatActivity {
     TextView eduLabel, childLabel;
     ImageView back_btn;
+    String[] edu_auth_numbers = {"1200", "973", "1855", "1234", "4321","123","987","458","1111","2222"};
+    String[] edu_auth_written_numbers= {"ألف ومئتان","تسعمائة وثلاثة وسبعون","ألف وثمانمئة وخمسة وخمسون ",
+            "ألف ومئتان وثلاثة وأربعون","أربعة آلاف وثلاثمائة وواحد وعشرون","مئة وثلاثة وعشرون","تسعمائة وثمانية وسبعون",
+            "أربعمائة وخمسة وثمانون ","ألف ومئة واحدى عشر","ألفان ومئتان واثنان وعشرون"};
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,12 +30,13 @@ public class select_user_type extends AppCompatActivity {
         setContentView(R.layout.activity_select_user_type);
         final Intent intentOfChild=new Intent(getApplicationContext(), child_after_signin.class );
         final Intent intentOfEdu=new Intent(getApplicationContext(), educator_home.class );
-
         ImageView ChildIcon = findViewById(R.id.child_btn);
         ImageView EduIcon = findViewById(R.id.educator_Btn);
         eduLabel = findViewById(R.id.educatortext);
         childLabel = findViewById(R.id.childtext);
         back_btn = findViewById(R.id.back_select_user_type);
+
+
 
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,9 +46,6 @@ public class select_user_type extends AppCompatActivity {
                 startActivity(new Intent(select_user_type.this,signin_new.class));
             }
         });
-
-
-
 
         int screenSize = getResources().getConfiguration().screenLayout &
                 Configuration.SCREENLAYOUT_SIZE_MASK;

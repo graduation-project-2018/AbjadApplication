@@ -220,7 +220,8 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                                     wordsArrayList.add(obj);
                                     word = wordsArrayList.get(words_counter).content;
                                     word_label.setText(word);
-                                    // stop the progress bar after showing the content
+                                    //word = "مسبح";
+                                    //sentence_label.setText(word);
 
                                     check_alef();
                                     check_ta();

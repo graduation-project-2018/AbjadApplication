@@ -39,13 +39,7 @@
         app:layout_constraintGuide_begin="20dp"
         app:layout_constraintGuide_percent="0.20" />
 
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline38"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent="0.29" />
+
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline29"
@@ -112,52 +106,16 @@
         android:id="@+id/emailTxt"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:drawableRight="@drawable/email_icon"
         android:drawablePadding="15dp"
         android:gravity="right"
         android:hint="البريد الإلكتروني"
         android:inputType="textPersonName"
-
-        app:layout_constraintBottom_toTopOf="@+id/guideline57"
         app:layout_constraintEnd_toStartOf="@+id/guideline40"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline37"
-        app:layout_constraintTop_toTopOf="@+id/guideline56" />
-
-
-    <EditText
-        android:id="@+id/lnTxt"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:drawableRight="@drawable/user_icon_4x"
-        android:drawablePadding="15dp"
-        android:gravity="right"
-        android:hint="اللقب"
-
-        android:inputType="textPersonName"
-
-        app:layout_constraintBottom_toTopOf="@+id/guideline55"
-        app:layout_constraintEnd_toStartOf="@+id/guideline40"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline37"
-        app:layout_constraintTop_toTopOf="@+id/guideline54" />
-
-
-    <EditText
-        android:id="@+id/fnTxt"
-        android:layout_width="0dp"
-        android:layout_height="66dp"
-        android:drawablePadding="15dp"
-        android:drawableRight="@drawable/user_icon_4x"
-        android:gravity="right"
-        android:hint="الإسم الأول"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/guideline53"
-        app:layout_constraintEnd_toStartOf="@+id/guideline40"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline37"
-        app:layout_constraintTop_toTopOf="@+id/guideline52"
-        app:layout_constraintVertical_chainStyle="spread_inside" />
+        app:layout_constraintTop_toTopOf="@+id/guideline53" />
 
 
     <android.support.constraint.Guideline
@@ -212,37 +170,6 @@
         app:layout_constraintGuide_begin="20dp"
         app:layout_constraintGuide_percent="0.79" />
 
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline_back_v"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent="0.25" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline41"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent="0.35" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline42"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent="0.74" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline52"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent="0.32" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline53"
@@ -252,36 +179,9 @@
         app:layout_constraintGuide_begin="20dp"
         app:layout_constraintGuide_percent="0.4" />
 
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline54"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent="0.46" />
 
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline55"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent="0.54" />
 
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline56"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent="0.6" />
 
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline57"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent="0.68" />
+
 
 </android.support.constraint.ConstraintLayout>

@@ -52,12 +52,14 @@ import java.util.ArrayList;
                     String childname = child.child("first_name").getValue().toString();
                     String photo_url = child.child("photo_URL").getValue().toString();
                     id_child = child.getKey();
+                    Log.i("childIID", id_child);
                     child_obj = new children(photo_url,childname,id_child);
                     children_list.add(child_obj);
                     Log.i("childname", children_list.get(0).first_name);
                     Log.i("child_ID", id_child);
                     child_name.setText(children_list.get(0).first_name);
                     Picasso.get().load(children_list.get(0).photo_URL).into(child_pic);
+                    id_child = children_list.get(0).child_ID ;
 
                     // child photo Image view listener to move to child home interface.
                     child_pic.setOnClickListener(new View.OnClickListener(){

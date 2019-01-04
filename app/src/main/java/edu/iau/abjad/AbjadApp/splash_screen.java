@@ -70,7 +70,6 @@ public class splash_screen extends AppCompatActivity {
         }
     }
 
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
