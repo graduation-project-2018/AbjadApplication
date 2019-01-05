@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -61,7 +62,7 @@ public class unit_interface extends child_menu {
     static firebase_connection r = new firebase_connection();
     static String actual_time;
     private String unitName;
-
+    private ImageButton playInstructione;
 
 
 
@@ -76,6 +77,7 @@ public class unit_interface extends child_menu {
         View contentView = inflater.inflate(R.layout.activity_unit_interface, null, false);
         myDrawerLayout.addView(contentView, 0);
         //initilization
+        playInstructione=findViewById(R.id.playInstruction);
         childID = child_after_signin.id_child;
         lessons=new ArrayList<String>();
         childTests=new ArrayList<String>();
@@ -265,6 +267,25 @@ public class unit_interface extends child_menu {
             });
 
         }
+        playInstructione.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                playAudio(audio.unit_Tip_One);
+                instructions.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mediaPlayer) {
+                        //this flag to prevent calling this method multiple times.
+                        if(flag == false){
+                            return;
+                        }
+                        flag = false;
+                        playAudio(audio.unit_Tip_Two);
+
+                    }
+                });
+
+            }
+        });
 
         if(unitID.equals("unit1")){
             m.title.setText("أسرتي");
@@ -278,6 +299,8 @@ public class unit_interface extends child_menu {
             m.title.setText("مدينتي");
 
         }
+
+
         final MediaPlayer aduio_CannotStartLesson=new MediaPlayer();
         try {
             aduio_CannotStartLesson.setDataSource(audio.unit_Tip_three);
