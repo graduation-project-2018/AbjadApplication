@@ -85,11 +85,7 @@
         <activity
             android:name=".splash_screen"
             android:screenOrientation="landscape">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".child_change_password" />
         <activity
@@ -112,7 +108,13 @@
         <activity
             android:name=".signin_new"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"></activity>
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".new_add_child" />
         <activity android:name=".child_after_signin" />
         <activity android:name=".new_child_photo" />

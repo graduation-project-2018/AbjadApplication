@@ -155,7 +155,6 @@ public class adding_child  extends menu_educator {
         mBuilder.setCancelable(false);
         LayoutInflater inflater = this.getLayoutInflater();
         View mView = getLayoutInflater().inflate(R.layout.activity_adding_child_pop_up,null);
-        Button close_btn = (Button) mView.findViewById(R.id.close_btn);
         Button ok_btn = (Button) mView.findViewById(R.id.ok_btn);
         mBuilder.setView(mView);
         final AlertDialog dialog = mBuilder.create();
@@ -172,14 +171,6 @@ public class adding_child  extends menu_educator {
             }
         });
 
-        close_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                dialog.dismiss();
-                startActivity(i);
-            }
-        });
 
 
     }

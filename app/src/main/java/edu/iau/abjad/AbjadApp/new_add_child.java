@@ -11,6 +11,7 @@ import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -133,7 +134,6 @@ public class new_add_child extends menu_educator {
         }//first time to press back , we should give a warning
     }
 
-
     private void checkInputs(){
         genderError.setVisibility(View.INVISIBLE);
         foundErrors =false;
@@ -164,8 +164,7 @@ public class new_add_child extends menu_educator {
         mBuilder.setCancelable(false);
         LayoutInflater inflater = this.getLayoutInflater();
         View mView = getLayoutInflater().inflate(R.layout.activity_adding_child_pop_up,null);
-        Button close_btn = (Button) mView.findViewById(R.id.close_btn);
-        Button ok_btn = (Button) mView.findViewById(R.id.ok_btn);
+        Button ok_btn =  mView.findViewById(R.id.ok_btn);
         i = new Intent(new_add_child.this, educator_home.class);
         mBuilder.setView(mView);
         final AlertDialog dialog = mBuilder.create();
@@ -173,6 +172,8 @@ public class new_add_child extends menu_educator {
         dialog.setCancelable(false);
 
         dialog.show();
+        Window window =dialog.getWindow();
+        window.setLayout(820,520);
         ok_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -181,13 +182,7 @@ public class new_add_child extends menu_educator {
             }
         });
 
-        close_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-                startActivity(i);
-            }
-        });
+
 
 
     }

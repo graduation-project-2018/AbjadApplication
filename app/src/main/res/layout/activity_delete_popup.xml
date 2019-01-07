@@ -2,36 +2,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="500dp"
-    android:layout_height="180dp"
+    android:layout_width="260dp"
+    android:layout_height="150dp"
     tools:context="edu.iau.abjad.AbjadApp.delete_popup"
-    android:background="#c6e5f3"
+    android:background="@drawable/popup_background"
     android:orientation="vertical"
     android:gravity="center">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="0dp"
-        android:gravity="right"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/close_btn_delete"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_margin="10dp"
-            android:background="@drawable/close_btn" />
-
-
-    </LinearLayout>
-
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="0dp"
-        android:gravity="right"
+        android:gravity="center"
+        android:layout_marginBottom="15dp"
         android:orientation="horizontal">
 
 
@@ -42,12 +25,8 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="هل أنت متأكد من حذف الطفل؟"
-            android:textSize="14pt" />
+            android:textSize="20sp" />
     </LinearLayout>
-
-
-
-
 
 
 
@@ -61,23 +40,20 @@
         <Button
             android:id="@+id/submit_btn_delete"
             style="@style/Widget.AppCompat.Button"
-            android:layout_width="100dp"
-            android:layout_height="40dp"
-            android:background="@drawable/button"
+            android:layout_width="76dp"
+            android:layout_height="25dp"
+            android:background="@drawable/popup_btn"
             android:text="تأكيد"
-            android:layout_margin="30dp"
-            android:textColor="#ffffff"
-            />
+            android:textColor="#ffffff" />
 
         <Button
             android:id="@+id/cancel_btn_delete"
-            android:layout_width="100dp"
-            android:layout_height="40dp"
-            android:background="@drawable/button"
+            android:layout_width="76dp"
+            android:layout_height="25dp"
+            android:layout_marginLeft="30dp"
+            android:background="@drawable/popup_btn"
             android:text="إلغاء"
-            android:layout_margin="30dp"
-            android:textColor="#ffffff"
-            />
+            android:textColor="#ffffff" />
 
 
     </LinearLayout>
