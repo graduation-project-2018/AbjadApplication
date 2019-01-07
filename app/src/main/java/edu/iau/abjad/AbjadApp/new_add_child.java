@@ -46,7 +46,7 @@ public class new_add_child extends menu_educator {
     int errorCounts;
     Pattern ArabicLetters = Pattern.compile("^[ءئ ؤ إآ ى لآ لأ  لإ أ-ي ]+$");
     Query q;
-
+    Pattern ps;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +66,7 @@ public class new_add_child extends menu_educator {
         r = new firebase_connection();
         firstName = findViewById(R.id.fnTxt);
         lastName = findViewById(R.id.lnTxt);
+        ps = Pattern.compile("^[a-zA-Z ]+$");
         radioGroup = (RadioGroup) findViewById(R.id.genderRadioGroup);
         addBtn = (Button)findViewById(R.id.addBtn);
         intent = new Intent(this, new_child_photo.class);
@@ -199,8 +200,8 @@ public class new_add_child extends menu_educator {
             firstName.requestFocus();
             foundErrors =true;
         }
-        else if (!ArabicLetters.matcher(firstName.getText().toString()).matches()) {
-            firstName.setError("قم بكتابة الإسم الأول باللغة العربية فقط");
+        else if (!ArabicLetters.matcher(firstName.getText().toString()).matches()&& !ps.matcher(firstName.getText().toString()).matches()) {
+            firstName.setError("اسم الطفل يجب أن لا يحتوي على رموز أخرى غير الحروف");
             firstName.requestFocus();
             foundErrors =true;
         }
@@ -213,8 +214,8 @@ public class new_add_child extends menu_educator {
             lastName.requestFocus();
             foundErrors =true;
         }
-        else if (!ArabicLetters.matcher(lastName.getText().toString()).matches()) {
-            lastName.setError("قم بكتابة اللقب باللغة العربية فقط ");
+        else if (!ArabicLetters.matcher(firstName.getText().toString()).matches()&& !ps.matcher(firstName.getText().toString()).matches()) {
+            lastName.setError("لقب الطفل يجب أن لا يحتوي على رموز أخرى غير الحروف ");
             lastName.requestFocus();
             foundErrors =true;
         }
