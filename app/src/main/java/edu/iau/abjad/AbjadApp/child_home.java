@@ -14,16 +14,18 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
 
 public class child_home extends child_menu {
-    menu_variables m = new menu_variables();
+     menu_variables m = new menu_variables();
      Intent intentOfUnit;
      Button family , homeLand, school;
-    TextView family_textView,school_textView,homeLand_textView;
+     TextView family_textView,school_textView,homeLand_textView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,16 @@ public class child_home extends child_menu {
         family_textView=findViewById(R.id.family);
         school_textView=findViewById(R.id.school);
         homeLand_textView=findViewById(R.id.city);
+
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                startActivity(new Intent(child_home.this,child_after_signin.class));
+            }
+        });
+
+
 
         int screenSize = getResources().getConfiguration().screenLayout &
                 Configuration.SCREENLAYOUT_SIZE_MASK;
@@ -117,6 +129,12 @@ public class child_home extends child_menu {
                 startActivity(intentOfUnit);
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        startActivity(new Intent(child_home.this,child_after_signin.class));
     }
 
 }

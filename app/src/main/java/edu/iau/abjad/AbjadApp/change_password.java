@@ -1,6 +1,7 @@
 package edu.iau.abjad.AbjadApp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.support.annotation.NonNull;
@@ -57,6 +58,8 @@ public class change_password extends menu_educator {
          node = "Educators";
 
 
+
+
         int screenSize = getResources().getConfiguration().screenLayout &
                 Configuration.SCREENLAYOUT_SIZE_MASK;
         switch(screenSize) {
@@ -102,6 +105,13 @@ public class change_password extends menu_educator {
 
         }//end switch
 
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               onBackPressed();
+            }
+        });
+
 
          save_changes.setOnClickListener(new View.OnClickListener() {
              @Override
@@ -131,12 +141,11 @@ public class change_password extends menu_educator {
                      counter++;
                  }
                  if(counter == 0){
-                     Query query = r.ref.child(node).orderByKey().equalTo(SigninEducator.id_edu);
+                     Query query = r.ref.child(node).orderByKey().equalTo(signin_new.id_edu);
                      query.addListenerForSingleValueEvent(new ValueEventListener() {
                          @Override
                          public void onDataChange(DataSnapshot dataSnapshot) {
                              if(dataSnapshot.exists()){
-                                 System.out.println("دخل هووون");
 
                                  for(DataSnapshot info : dataSnapshot.getChildren()){
                                      email = info.child("email").getValue().toString();

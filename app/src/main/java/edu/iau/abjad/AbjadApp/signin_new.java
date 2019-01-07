@@ -27,8 +27,10 @@ public class signin_new extends AppCompatActivity implements View.OnClickListene
     private Intent Itn;
     String email;
     static String id_edu;
-    TextView send_label, signIn_label, reset_pass_label,  new_account_label;
+    TextView send_label, signIn_label, reset_pass_label,  new_account_label, skip_label;
     firebase_connection r = new firebase_connection();
+    static boolean skip_flag;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +46,9 @@ public class signin_new extends AppCompatActivity implements View.OnClickListene
         send_label = findViewById(R.id.send_label_on_btn);
         reset_pass_label= findViewById(R.id.ResetPassword);
         new_account_label = findViewById(R.id.create_new_account);
+        skip_label = findViewById(R.id.skip_btn);
         Itn =new Intent(this,select_user_type.class);
+        skip_flag = false;
 
         //adding listeners to the buttons:
         findViewById(R.id.submit_btn_reset).setOnClickListener(this);
@@ -92,7 +96,16 @@ public class signin_new extends AppCompatActivity implements View.OnClickListene
                 new_account_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
         }//end switch
 
-    }
+        skip_label.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                skip_flag = true;
+                finish();
+                startActivity(new Intent(signin_new.this,child_home.class));
+            }
+        });
+
+    }// onCreate
 
     private void signIn(){
         email =  ChildEmail.getText().toString().trim();

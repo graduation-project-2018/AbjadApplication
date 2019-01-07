@@ -7,12 +7,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
-import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -28,7 +26,7 @@ import java.util.regex.Pattern;
 public class SignUp extends AppCompatActivity {
     menu_variables m = new menu_variables();
     Button SignUpBtn;
-    EditText FN ,LN,Email,Pass,Cpass;
+    EditText email,confirm_email,Pass,Cpass;
     boolean condition=true;
     private FirebaseAuth mAuth;
     firebase_connection r;
@@ -43,9 +41,8 @@ public class SignUp extends AppCompatActivity {
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_sign_up);
         SignUpBtn = (Button) findViewById(R.id.SignUpButton);
-        FN = (EditText) findViewById(R.id.FNFieldSU);
-        LN = (EditText) findViewById(R.id.LNFieldSU);
-        Email = (EditText) findViewById(R.id.EmailFieldSU);
+        email = (EditText) findViewById(R.id.email_field);
+        confirm_email = (EditText) findViewById(R.id.confirm_email);
         Pass = (EditText) findViewById(R.id.PassFieldSU);
         Cpass = (EditText) findViewById(R.id.CPassFieldSU);
         ArabicLetters = Pattern.compile("^[ءئ ؤ إآ ى لآ لأ  لإ أ-ي ]+$");
@@ -59,7 +56,7 @@ public class SignUp extends AppCompatActivity {
             public void onClick(View v) {
                 // take the user to the previous Activity
                 finish();
-                Intent intent = new Intent(SignUp.this, SigninEducator.class);
+                Intent intent = new Intent(SignUp.this, signin_new.class);
                 startActivity(intent);
             }
         });
@@ -70,41 +67,36 @@ public class SignUp extends AppCompatActivity {
             case Configuration.SCREENLAYOUT_SIZE_XLARGE:
                 m.setButton_text_XLarge(SignUpBtn);
                 // change the right icon of Edit text based on screen size
-                FN.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.user_icon_4x, 0);
-                LN.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.user_icon_4x, 0);
-                m.auth_setRight_icon_XLarge(Email,Pass);
+                confirm_email.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.email_icon, 0);
+                m.auth_setRight_icon_XLarge(email,Pass);
                 Cpass.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.password_gray, 0);
                 Log.i("scsize","X Large" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_LARGE:
                 m.setButton_text_Large(SignUpBtn);
-                FN.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.user_icon_2x, 0);
-                LN.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.user_icon_2x, 0);
-                m.auth_setRight_icon_Large(Email,Pass);
+                confirm_email.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.email_icon_2x, 0);
+                m.auth_setRight_icon_Large(email,Pass);
                 Cpass.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.password_2x, 0);
                 Log.i("scsize","Large" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_NORMAL:
                 m.setButton_text_Normal(SignUpBtn);
-                FN.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.user_icon_15x, 0);
-                LN.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.user_icon_15x, 0);
-                m.auth_setRight_icon_Normal(Email,Pass);
+                confirm_email.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.email_icon_15x, 0);
+                m.auth_setRight_icon_Normal(email,Pass);
                 Cpass.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.password_15x, 0);
                 Log.i("scsize","Normal" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_SMALL:
                 m.setButton_text_Small(SignUpBtn);
-                FN.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.user_icon_1x, 0);
-                LN.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.user_icon_1x, 0);
-                m.auth_setRight_icon_Small(Email,Pass);
+                confirm_email.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.email_icon_1x, 0);
+                m.auth_setRight_icon_Small(email,Pass);
                 Cpass.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.password_1x, 0);
                 Log.i("scsize","Small" );
                 break;
             default:
                 m.setButton_text_Default(SignUpBtn);
-                FN.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.user_icon_1x, 0);
-                LN.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.user_icon_1x, 0);
-                m.auth_setRight_icon_Default(Email,Pass);
+                confirm_email.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.email_icon_1x, 0);
+                m.auth_setRight_icon_Default(email,Pass);
                 Cpass.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.password_1x, 0);
                 Log.i("scsize","Default screen" );
         }//end switch
@@ -116,40 +108,22 @@ public class SignUp extends AppCompatActivity {
             public void onClick(View view) {
 
                 condition = true;
-                if (FN.getText().toString().isEmpty()) {
-                    FN.setError("قم بتعبئة الحقل باسم المربي");
-                    FN.requestFocus();
-                    condition = false;
-                } else if (!FN.getText().toString().contains(" ") || FN.getText().toString().contains(" ")) {
-                    if (!ArabicLetters.matcher(FN.getText().toString()).matches()&& !ps.matcher(FN.getText().toString()).matches()) {
-                        FN.setError("اسم المربي يجب أن لا يحتوي على رموز أخرى غير الحروف ");
-                        FN.requestFocus();
-                        condition=false;
-                    }
-                }
 
-                if (LN.getText().toString().isEmpty()) {
-                    LN.setError("قم بتعبئة الحقل بلقب المربي");
-                    LN.requestFocus();
-                    condition= false;
-                } else if (!LN.getText().toString().contains(" ") || LN.getText().toString().contains(" ")) {
-                    if (!ArabicLetters.matcher(LN.getText().toString()).matches()&& !ps.matcher(LN.getText().toString()).matches()) {
-                        LN.setError("لقب المربي يجب أن لا يحتوي على رموز أخرى غير الحروف ");
-                        LN.requestFocus();
-                        condition=false;
-                    }
-
-                }
-
-                if (Email.getText().toString().trim().isEmpty()) {
-                    Email.setError("قم بتعبئة الحقل بالبريد الإلكتروني");
-                    Email.requestFocus();
+                if (email.getText().toString().trim().isEmpty()) {
+                    email.setError("قم بتعبئة الحقل بالبريد الإلكتروني");
+                    email.requestFocus();
                     condition=false;
-                } else if (!Patterns.EMAIL_ADDRESS.matcher(Email.getText().toString().trim()).matches()) {
-                    Email.setError("البريد الإلكتروني ليس على النمط someone@somewhere.com ");
-                    Email.requestFocus();
+                } else if (!Patterns.EMAIL_ADDRESS.matcher(email.getText().toString().trim()).matches()) {
+                    email.setError("البريد الإلكتروني ليس على النمط someone@somewhere.com ");
+                    email.requestFocus();
                     condition = false;
                 }
+                else if (!confirm_email.getText().toString().matches(email.getText().toString().trim())){
+                    confirm_email.setError("البريد الإلكتروني غير متطابق");
+                    confirm_email.requestFocus();
+                    condition=false;
+                }
+
                 if (Pass.getText().toString().trim().isEmpty()) {
                     Pass.setError("قم بتعبئة الحقل بكلمة المرور");
                     Pass.requestFocus();
@@ -164,7 +138,7 @@ public class SignUp extends AppCompatActivity {
                     Cpass.requestFocus();
                     condition =false;
                 } else if (!Cpass.getText().toString().matches(Pass.getText().toString().trim())) {
-                    Cpass.setError("المدخل في الحقل لا يطابق كلمة المرور المدخلة ");
+                    Cpass.setError("كلمة المرور غير متطابقة");
                     Cpass.requestFocus();
                     condition =false;
                 }
@@ -180,22 +154,20 @@ public class SignUp extends AppCompatActivity {
 
     }
     public void addEducatorInfo(){
-        mAuth.createUserWithEmailAndPassword(Email.getText().toString().trim(),Pass.getText().toString().trim()).addOnCompleteListener(this,
+        mAuth.createUserWithEmailAndPassword(email.getText().toString().trim(),Pass.getText().toString().trim()).addOnCompleteListener(this,
                 new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()) {
                             Toast.makeText(SignUp.this, "تمت إضافة حساب المربي بنجاح", Toast.LENGTH_LONG).show();
-                            //educatorID= mAuth.getCurrentUser().getUid();
-                            SigninEducator.id_edu = mAuth.getCurrentUser().getUid();
-                            educator = new Educator(Email.getText().toString().trim(),FN.getText().toString(),LN.getText().toString());
+                            signin_new.id_edu = mAuth.getCurrentUser().getUid();
+                            educator = new Educator(email.getText().toString().trim());
                             r.ref.addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
-                                    r.ref.child("Educators").child(SigninEducator.id_edu).setValue(educator);
+                                    r.ref.child("Educators").child(signin_new.id_edu).setValue(educator);
                                 }@Override
                                 public void onCancelled(DatabaseError databaseError) {
-
                                 }
                             });
                             finish();
@@ -204,11 +176,9 @@ public class SignUp extends AppCompatActivity {
 
                         else{
                             FirebaseAuthException e  = (FirebaseAuthException) task.getException();
-                            //Toast.makeText(adding_child.this, "لم تتم إضافة الطفل، الرجاء المحاولة لاحقا", Toast.LENGTH_LONG).show();//
-                            //user added previously
                              if(e.getMessage().contains("email address")){
-                                 Email.setError("البريد الإلكتروني المدخل تم استخدامه من قبل مستخدم آخر");
-                                 Email.requestFocus();
+                                 email.setError("البريد الإلكتروني المدخل تم استخدامه من قبل مستخدم آخر");
+                                 email.requestFocus();
                              }
                              else Toast.makeText(SignUp.this,e.getMessage(), Toast.LENGTH_LONG).show();
 

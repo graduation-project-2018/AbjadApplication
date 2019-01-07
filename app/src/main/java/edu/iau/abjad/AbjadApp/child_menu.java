@@ -55,7 +55,7 @@ public class child_menu extends AppCompatActivity {
     EditText email;
     DatabaseReference read;
     String id;
-    ImageView menu_btn;
+    ImageView menu_btn, back_btn;
 
 
 
@@ -78,17 +78,19 @@ public class child_menu extends AppCompatActivity {
 
 
         menu_btn = findViewById(R.id.menu_icon);
+        back_btn = findViewById(R.id.back_button);
+
+
+
         menu_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             // If navigation drawer is not open yet open it,  else close it.
             public void onClick(View view) {
                 if(!myDrawerLayout.isDrawerOpen(GravityCompat.START))
-                    myDrawerLayout.openDrawer(Gravity.START);
+                     myDrawerLayout.openDrawer(Gravity.START);
                 else myDrawerLayout.closeDrawer(Gravity.END);
             }
         });
-
-
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
 
@@ -104,13 +106,7 @@ public class child_menu extends AppCompatActivity {
                         return true;
 
                     }
-                    case R.id.change_pass_child:{
-                        if(Lesson.words_counter==6){
-                            Lesson.computeChildScore();
-                        }
-                        popUp(1);
-                        return true;
-                    }
+
 
                     case R.id.edit_profile_child:{
                         if(Lesson.words_counter==6){
@@ -134,17 +130,17 @@ public class child_menu extends AppCompatActivity {
                         popUp(3);
                         return true;
                     }
+
                     case R.id.sign_out:{
                         if(Lesson.words_counter==6){
                             Lesson.computeChildScore();
                         }
-                        FirebaseAuth.getInstance().signOut();
-                        Intent intent = new Intent(child_menu.this, signin_new.class);
+                        finish();
+                        Intent intent = new Intent(child_menu.this, select_user_type.class);
                         startActivity(intent);
-
                         return true;
-
                     }
+
 
                 }
                 return true;
@@ -228,10 +224,7 @@ public class child_menu extends AppCompatActivity {
                                                         startActivity(intent);
 
                                                     }
-                                                    else {
-                                                        Intent intent = new Intent(child_menu.this, child_change_password.class);
-                                                        startActivity(intent);
-                                                    }
+
 
                                                 } else {
                                                     email.setError("الرجاء إدخال البريد الإلكتروني الذي قمت بالتسجيل به مسبقا");

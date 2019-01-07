@@ -101,6 +101,13 @@ public class new_child_photo extends menu_educator  {
 
         }//end switch
 
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
 
 
         FBchildPhotoUri.ref.child("ChildPhoto").addValueEventListener(new ValueEventListener() {

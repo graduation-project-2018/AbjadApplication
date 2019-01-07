@@ -23,7 +23,7 @@
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline6"
         app:layout_constraintEnd_toStartOf="@+id/guideline8"
-        app:layout_constraintStart_toStartOf="@+id/guideline7"
+        app:layout_constraintStart_toStartOf="@+id/guideline_back_h_2"
         app:layout_constraintTop_toTopOf="@+id/guideline5" />
 
     <ImageView
@@ -63,7 +63,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/circle_button"
+        android:background="@drawable/button"
         android:fontFamily="Arabic Typesetting"
         android:gravity="center"
         android:text="حفظ التغييرات"
@@ -123,7 +123,7 @@
         app:layout_constraintGuide_percent="0.73" />
 
     <android.support.constraint.Guideline
-        android:id="@+id/guideline7"
+        android:id="@+id/guideline_back_h_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"

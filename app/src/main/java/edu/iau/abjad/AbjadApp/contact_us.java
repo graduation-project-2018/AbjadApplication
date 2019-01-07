@@ -28,12 +28,11 @@ TextView email,phone,faccount,iaccount,taccount;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_contact_us);
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         m.title = (TextView) findViewById(R.id.interface_title);
         m.title.setText("اتصل بنا");
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        final View contentView = inflater.inflate(R.layout.activity_contact_us, null, false);
+        View contentView = inflater.inflate(R.layout.activity_contact_us, null, false);
         mDrawerLayout.addView(contentView, 0);
         email = findViewById(R.id.email_address);
         phone = findViewById(R.id.phone_number);
@@ -92,6 +91,13 @@ TextView email,phone,faccount,iaccount,taccount;
         taccount.setText("abjad_app_twi");
         iaccount.setText("abjad_app_ins");
         faccount.setText("abjad_app_fac");
+
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         //Opening the dial interface when pressing phone icon or phone textView
         phone.setOnClickListener(new View.OnClickListener() {
@@ -194,6 +200,8 @@ TextView email,phone,faccount,iaccount,taccount;
             }
         });
         */
+
     }//end of onCreate function
+
 
 }//end of class

@@ -88,7 +88,7 @@ public class ResetPassword extends AppCompatActivity {
             public void onClick(View v) {
                 // take the user to the previous Activity
                 finish();
-                Intent intent = new Intent(ResetPassword.this, userTypeSelection.class);
+                Intent intent = new Intent(ResetPassword.this, signin_new.class);
                 startActivity(intent);
             }
         });

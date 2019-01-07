@@ -40,7 +40,7 @@ public class splash_screen extends AppCompatActivity {
                 }
                 anim.stop();
                 flag = false;
-                Intent intent = new Intent(splash_screen.this, userTypeSelection.class);
+                Intent intent = new Intent(splash_screen.this, signin_new.class);
                 startActivity(intent);
             }
         });
@@ -69,7 +69,6 @@ public class splash_screen extends AppCompatActivity {
             Log.d("5","Inside exception");
         }
     }
-
 
     @Override
     protected void onDestroy() {

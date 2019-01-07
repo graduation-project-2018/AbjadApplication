@@ -148,11 +148,7 @@ public class adding_child  extends menu_educator {
             popUp();
             backFlag = true;
         }//first time to press back , we should give a warning
-
-
     }
-
-
 
     public void popUp(){
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(adding_child.this);

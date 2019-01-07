@@ -54,7 +54,7 @@ public class HeardWordTest extends child_menu  {
     static  int final_heard_child_score;
     AnimationDrawable anim;
     ImageView abjad;
-    boolean flag2, move_child;
+    boolean flag2, move_child, finish_child_score;
     static String test_id;
     String Test_letter;
     TextView loading_label;
@@ -85,6 +85,7 @@ public class HeardWordTest extends child_menu  {
         speaker= findViewById(R.id.speaker);
         flag = true;
         flag2 = true;
+        finish_child_score = false;
         selected_word ="";
         test_id="";
         nextButn=findViewById(R.id.next_lesson2);
@@ -130,6 +131,13 @@ public class HeardWordTest extends child_menu  {
 
         }//end switch
 
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
 
 
         abjad.setBackgroundResource(R.drawable.abjad_speak);
@@ -157,35 +165,12 @@ public class HeardWordTest extends child_menu  {
         nextButn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(unit_interface.Rand.size()!=0){
-                    Intent nextTest=unit_interface.Rand.get(0);
-                    unit_interface.Rand.remove(nextTest);
-                    Intent intent = new Intent(HeardWordTest.this, unit_interface.class);
-                    setResult(RESULT_OK, intent);
-                    startActivity(nextTest);
-                    finish();
+                next_test_or_go_home();
 
-                }
-                else{
-                    unit_interface.endtest=true;
-                    unit_interface.EndTime= Calendar.getInstance().getTimeInMillis();
-                    Intent intent = new Intent(HeardWordTest.this, unit_interface.class);
-                    intent.putExtra("unitID",unit_interface.unitID);
-                    intent.putExtra("preIntent","heardTest");
-                    setResult(RESULT_OK, intent);
-                    startActivity(intent);
-                    System.out.println("Testttt ID: "+ test_id);
-                    unit_interface.test_score(test_id);
-                    finish();
-                }
 
             }
         });
-        /*Intent test=getIntent();
-        Bundle b=test.getExtras();
-        if(b!=null){
-            Test_letter=b.getString("test_letter");
-        }*/
+
         Test_letter=unit_interface.test_letter;
         //Alaa
         r.ref.child("Tests").addValueEventListener(new ValueEventListener() {
@@ -307,28 +292,12 @@ public class HeardWordTest extends child_menu  {
                 String selected=w1.getText().toString();
                 if(selected_word.equalsIgnoreCase(selected))
                 {
-                    abjad.setBackgroundResource(R.drawable.abjad_happy);
-                    anim =(AnimationDrawable) abjad.getBackground();
-                    anim.start();
-                    playAudioFeedback(audio_urLs.perfect_top_feedback);
-                    setOnCompleteListener(audio_feedback);
-                    System.out.println("داااخل الزر");
-                    if(final_heard_child_score ==-1){
-                    final_heard_child_score = 10;
-                        System.out.println("الجواب صح");
-
-                    }
+                    correct_choice();
 
                 }
                 else
                 {
-                    anim.start();
-                   playAudioFeedback(audio_urLs.wrong_choice);
-                   setOnCompleteListener(audio_feedback);
-                    if(final_heard_child_score ==-1){
-                        final_heard_child_score = 0;
-
-                    }
+                  wrong_choice();
                 }
 
 
@@ -341,30 +310,11 @@ public class HeardWordTest extends child_menu  {
                 String selected=w2.getText().toString();
                 if(selected_word.equalsIgnoreCase(selected))
                 {
-
-                    abjad.setBackgroundResource(R.drawable.abjad_happy);
-                    anim =(AnimationDrawable) abjad.getBackground();
-                    anim.start();
-                    playAudioFeedback(audio_urLs.perfect_top_feedback);
-                    setOnCompleteListener(audio_feedback);
-                    System.out.println("داااخل الزر");
-                    if(final_heard_child_score ==-1){
-                        final_heard_child_score = 10;
-                        System.out.println("الجواب صح");
-
-                    }
-
-
+                    correct_choice();
                 }
                 else
                 {
-                    anim.start();
-                    playAudioFeedback(audio_urLs.wrong_choice);
-                    setOnCompleteListener(audio_feedback);
-                    if(final_heard_child_score ==-1){
-                        final_heard_child_score = 0;
-
-                    }
+                    wrong_choice();
                 }
 
 
@@ -380,29 +330,11 @@ public class HeardWordTest extends child_menu  {
                 String selected=w3.getText().toString();
                 if(selected_word.equalsIgnoreCase(selected))
                 {
-                    abjad.setBackgroundResource(R.drawable.abjad_happy);
-                    anim =(AnimationDrawable) abjad.getBackground();
-                    anim.start();
-                    playAudioFeedback(audio_urLs.perfect_top_feedback);
-                    setOnCompleteListener(audio_feedback);
-                    System.out.println("داااخل الزر");
-                    if(final_heard_child_score ==-1){
-                        final_heard_child_score = 10;
-                        System.out.println("الجواب صح");
-
-                    }
-
+                    correct_choice();
                 }
                 else
                 {
-                    anim.start();
-                    playAudioFeedback(audio_urLs.wrong_choice);
-                    setOnCompleteListener(audio_feedback);
-                    if(final_heard_child_score ==-1){
-                        final_heard_child_score = 0;
-
-                    }
-
+                    wrong_choice();
                 }
 
             }
@@ -495,6 +427,9 @@ public class HeardWordTest extends child_menu  {
                     Intent intent = new Intent(HeardWordTest.this, child_home.class);
                     startActivity(intent);
                 }
+                if(finish_child_score){
+                    next_test_or_go_home();
+                }
 
             }
 
@@ -514,6 +449,58 @@ public class HeardWordTest extends child_menu  {
         playAudio(audio_urLs.cant_continue_test);
         move_child = true;
         setOnCompleteListener(audio_feedback);
+    }
+
+    public void correct_choice(){
+        abjad.setBackgroundResource(R.drawable.abjad_happy);
+        anim =(AnimationDrawable) abjad.getBackground();
+        anim.start();
+        playAudioFeedback(audio_urLs.perfect_top_feedback);
+        setOnCompleteListener(audio_feedback);
+        if(final_heard_child_score ==-1){
+            final_heard_child_score = 10;
+            System.out.println("الجواب صح");
+            finish_child_score = true;
+        }
+        else{
+            // to make the automatic move of tests works correctly even if the child does not choose the correct answer in the first time.
+            finish_child_score = true;
+        }
+
+    }
+
+    public void wrong_choice(){
+        anim.start();
+        playAudioFeedback(audio_urLs.wrong_choice);
+        setOnCompleteListener(audio_feedback);
+        if(final_heard_child_score ==-1){
+            final_heard_child_score = 0;
+        }
+    }
+
+    public void next_test_or_go_home(){
+        if(unit_interface.Rand.size()!=0){
+            Intent nextTest=unit_interface.Rand.get(0);
+            unit_interface.Rand.remove(nextTest);
+            Intent intent = new Intent(HeardWordTest.this, unit_interface.class);
+            setResult(RESULT_OK, intent);
+            startActivity(nextTest);
+            finish();
+
+        }
+        else{
+            unit_interface.endtest=true;
+            unit_interface.EndTime= Calendar.getInstance().getTimeInMillis();
+            Intent intent = new Intent(HeardWordTest.this, unit_interface.class);
+            intent.putExtra("unitID",unit_interface.unitID);
+            intent.putExtra("preIntent","heardTest");
+            setResult(RESULT_OK, intent);
+            startActivity(intent);
+            System.out.println("Testttt ID: "+ test_id);
+            unit_interface.test_score(test_id);
+            finish();
+        }
+
     }
 
 }

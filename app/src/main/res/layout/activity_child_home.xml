@@ -7,10 +7,15 @@
     android:background="@drawable/home_child_background"
     tools:context=".child_home">
 
+
     <include
         android:id="@+id/include4"
         layout="@layout/navigation_action_bar"
  />
+
+
+
+
 
 
     <Button
@@ -28,6 +33,14 @@
         app:layout_constraintStart_toEndOf="@+id/guideline10"
         app:layout_constraintTop_toTopOf="@+id/guidelinefamilyB4"
         app:layout_constraintVertical_bias="0.237" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.36" />
 
     <Button
         android:id="@+id/homeButton"
@@ -76,7 +89,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
         android:text="مدرستي"
-        android:textSize="16sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/schoolButton"
         app:layout_constraintDimensionRatio="h,"
         app:layout_constraintEnd_toEndOf="@+id/schoolButton"
@@ -104,7 +117,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent="0.15" />
+        app:layout_constraintGuide_percent="0.20" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline2"
@@ -152,7 +165,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="737dp"
-        app:layout_constraintGuide_percent="0.72" />
+        app:layout_constraintGuide_percent="0.76" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guidelinefamilyB4"
@@ -169,14 +182,6 @@
         android:orientation="vertical"
         app:layout_constraintGuide_begin="20dp"
         app:layout_constraintGuide_percent="0.62" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent="0.36" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline11"

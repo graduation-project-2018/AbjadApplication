@@ -6,6 +6,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
@@ -14,7 +15,7 @@ import android.widget.TextView;
 
 public class menu_variables {
     TextView title;
-
+    ImageView back_btn;
     public void setTitle_XLarge(){
         title.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
     }
@@ -75,15 +76,15 @@ public class menu_variables {
     }
 
     public void setButton_text_Large(TextView s){
-        s.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+        s.setTextSize(TypedValue.COMPLEX_UNIT_SP,23);
     }
 
     public void setButton_text_Normal(TextView s){
-        s.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
+        s.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
     }
 
     public void setButton_text_Small(TextView s){
-        s.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
+        s.setTextSize(TypedValue.COMPLEX_UNIT_SP,10);
     }
 
     public void setButton_text_Default(TextView s){

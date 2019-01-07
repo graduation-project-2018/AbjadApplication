@@ -63,8 +63,9 @@ public class ReadingTest extends child_menu {
     boolean flag ;
     ImageView abjad;
     AnimationDrawable anim;
-    boolean flag2, move_child ;
+    boolean flag2, move_child, finish_child_score ;
     TextView nextLabel, loading_label;
+
 
     //Alaa
     firebase_connection Test_Id,testIdq2;
@@ -102,6 +103,7 @@ public class ReadingTest extends child_menu {
         flag = true;
         flag2 = true;
         move_child = false;
+        finish_child_score = false;
         //Alaa
         Test_Id=new firebase_connection();
         testIdq2=new firebase_connection();
@@ -151,28 +153,17 @@ public class ReadingTest extends child_menu {
                 m.setTitle_Default();
         }//end switch
 
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(unit_interface.Rand.size()!=0){
-                    Intent nextTest=unit_interface.Rand.get(0);
-                    unit_interface.Rand.remove(nextTest);
-                    startActivity(nextTest);
-                    finish();
-                }
-                else{
-                    unit_interface.endtest=true;
-                    unit_interface.EndTime= Calendar.getInstance().getTimeInMillis();
-                    Intent intent = new Intent(ReadingTest.this, unit_interface.class);
-                    intent.putExtra("unitID",unit_interface.unitID);
-                    intent.putExtra("preIntent","readingTest");
-                    setResult(RESULT_OK, intent);
-                    System.out.println("Testttt ID: "+ test_id);
-                    unit_interface.test_score(test_id);
-                    startActivity(intent);
-                    finish();
-                }
-
+            next_test_or_go_home();
             }
         });
         choose_phrase =  rand.nextInt(100) + 1;
@@ -374,7 +365,7 @@ public class ReadingTest extends child_menu {
 
                 }
                 anim.start();
-                playAudioInstructions(audio_URLs.not_hearing_you);
+                playAudio_feedback(audio_URLs.not_hearing_you);
                 setOnCompleteListener(feedback_audio);
             }
             @Override
@@ -399,7 +390,7 @@ public class ReadingTest extends child_menu {
                         abjad.setBackgroundResource(R.drawable.abjad_happy);
                         anim =(AnimationDrawable) abjad.getBackground();
                         anim.start();
-                        playAudioInstructions(audio_URLs.perfect_top_feedback);
+                        playAudio_feedback(audio_URLs.perfect_top_feedback);
                         setOnCompleteListener(feedback_audio);
                         found = true;
                         child_score = 10;
@@ -417,7 +408,7 @@ public class ReadingTest extends child_menu {
                                     abjad.setBackgroundResource(R.drawable.abjad_happy);
                                     anim =(AnimationDrawable) abjad.getBackground();
                                     anim.start();
-                                    playAudioInstructions(audio_URLs.perfect_top_feedback);
+                                    playAudio_feedback(audio_URLs.perfect_top_feedback);
                                     setOnCompleteListener(feedback_audio);
                                     found_with_repetion = true;
                                     child_score = 10;
@@ -461,10 +452,14 @@ public class ReadingTest extends child_menu {
 
                     if(reading_child_score ==0){
                      reading_child_score = child_score;
-                     System.out.println("علامة الطفل : "+ child_score);
                     }
+                    // to use in onError function.
                     isEndOfSpeech = true;
 
+                    // to move to the next text or go home
+                    if(child_score>5){
+                        finish_child_score = true;
+                    }
                     if(child_score<=2){
                         speaker_btn.setVisibility(View.VISIBLE);
                     }
@@ -545,7 +540,7 @@ public class ReadingTest extends child_menu {
             Log.d("5","Inside exception");
         }
     }
-    public void playAudioInstructions(String url){
+    public void playAudio_feedback(String url){
         try {
             feedback_audio.reset();
             feedback_audio.setAudioStreamType(AudioManager.STREAM_MUSIC);
@@ -605,14 +600,14 @@ public class ReadingTest extends child_menu {
     public void listen_word_feedback(int globalCost, int word_length, double max_match){
         if(globalCost == 1 && word_length ==3){
             anim.start();
-            playAudioInstructions(audio_URLs.perfect_only_one_mistake);
+            playAudio_feedback(audio_URLs.perfect_only_one_mistake);
             setOnCompleteListener(feedback_audio);
             child_score =8;
         }
         //very bad
         else if(globalCost >=2 && word_length == 3){
             anim.start();
-            playAudioInstructions(audio_URLs.listen_to_abjad);
+            playAudio_feedback(audio_URLs.listen_to_abjad);
             setOnCompleteListener(feedback_audio);
             child_score = 1;
 
@@ -620,25 +615,25 @@ public class ReadingTest extends child_menu {
         else if(globalCost == 1 && word_length>3){
             child_score =8;
             anim.start();
-            playAudioInstructions(audio_URLs.not_fully_good);
+            playAudio_feedback(audio_URLs.not_fully_good);
             setOnCompleteListener(feedback_audio);
         }
         else if(max_match>=0.49 && word_length > 3){
             anim.start();
-            playAudioInstructions(audio_URLs.not_fully_good);
+            playAudio_feedback(audio_URLs.not_fully_good);
             child_score = 5;
             setOnCompleteListener(feedback_audio);
 
         }
         else if(max_match<=0.49 && max_match >= 0.39 && word_length>3){
             anim.start();
-            playAudioInstructions(audio_URLs.good_with_revision);
+            playAudio_feedback(audio_URLs.good_with_revision);
             setOnCompleteListener(feedback_audio);
             child_score =3;
         }
         else if(max_match<0.39 && word_length>3){
             anim.start();
-            playAudioInstructions(audio_URLs.listen_to_abjad);
+            playAudio_feedback(audio_URLs.listen_to_abjad);
             setOnCompleteListener(feedback_audio);
             child_score=1;
         }
@@ -670,7 +665,7 @@ public class ReadingTest extends child_menu {
         }
         else if(max_match>=0.89){
             anim.start();
-            playAudioInstructions(audio_URLs.not_fully_good);
+            playAudio_feedback(audio_URLs.not_fully_good);
             setOnCompleteListener(feedback_audio);
             child_score =8;
             return;
@@ -679,14 +674,14 @@ public class ReadingTest extends child_menu {
         else if(max_match>=0.75){
             child_score=7;
             anim.start();
-            playAudioInstructions(audio_URLs.not_fully_good);
+            playAudio_feedback(audio_URLs.not_fully_good);
             setOnCompleteListener(feedback_audio);
             return;
         }
         else if(max_match <= 0.75 && max_match>=0.5){
             child_score=6;
             anim.start();
-            playAudioInstructions(audio_URLs.not_fully_good);
+            playAudio_feedback(audio_URLs.not_fully_good);
             setOnCompleteListener(feedback_audio);
             return;
 
@@ -694,21 +689,21 @@ public class ReadingTest extends child_menu {
         else if(max_match<=0.5 && max_match>=0.4){
             child_score=4;
             anim.start();
-            playAudioInstructions(audio_URLs.good_with_revision);
+            playAudio_feedback(audio_URLs.good_with_revision);
             setOnCompleteListener(feedback_audio);
             return;
         }
         else if (max_match>=0.25){
             child_score=2;
             anim.start();
-            playAudioInstructions(audio_URLs.listen_to_abjad);
+            playAudio_feedback(audio_URLs.listen_to_abjad);
             setOnCompleteListener(feedback_audio);
             return;
         }
         else if(max_match<0.25){
             child_score=1;
             anim.start();
-            playAudioInstructions(audio_URLs.listen_to_abjad);
+            playAudio_feedback(audio_URLs.listen_to_abjad);
             setOnCompleteListener(feedback_audio);
         }
 
@@ -719,7 +714,7 @@ public class ReadingTest extends child_menu {
         abjad.setBackgroundResource(R.drawable.abjad_happy);
         anim =(AnimationDrawable) abjad.getBackground();
         anim.start();
-        playAudioInstructions(audio_URLs.perfect_top_feedback);
+        playAudio_feedback(audio_URLs.perfect_top_feedback);
         setOnCompleteListener(feedback_audio);
     }
 
@@ -755,6 +750,10 @@ public class ReadingTest extends child_menu {
                     startActivity(intent);
                 }
 
+                if(finish_child_score){
+                    next_test_or_go_home();
+                }
+
             }
 
         });
@@ -767,8 +766,29 @@ public class ReadingTest extends child_menu {
         System.out.println("onRestart function");
         feedback_audio = new MediaPlayer();
         anim.start();
-        playAudioInstructions(audio_URLs.cant_continue_test);
+        playAudio_feedback(audio_URLs.cant_continue_test);
         move_child = true;
         setOnCompleteListener(feedback_audio);
+    }
+
+    public void next_test_or_go_home(){
+        if(unit_interface.Rand.size()!=0){
+            Intent nextTest=unit_interface.Rand.get(0);
+            unit_interface.Rand.remove(nextTest);
+            startActivity(nextTest);
+            finish();
+        }
+        else{
+            unit_interface.endtest=true;
+            unit_interface.EndTime= Calendar.getInstance().getTimeInMillis();
+            Intent intent = new Intent(ReadingTest.this, unit_interface.class);
+            intent.putExtra("unitID",unit_interface.unitID);
+            intent.putExtra("preIntent","readingTest");
+            setResult(RESULT_OK, intent);
+            System.out.println("Testttt ID: "+ test_id);
+            unit_interface.test_score(test_id);
+            startActivity(intent);
+            finish();
+        }
     }
 }

@@ -142,6 +142,13 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
         lesson_audio = new MediaPlayer();
         audio_instruction = new MediaPlayer();
 
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
 
 
         int screenSize = getResources().getConfiguration().screenLayout &
@@ -213,7 +220,8 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                                     wordsArrayList.add(obj);
                                     word = wordsArrayList.get(words_counter).content;
                                     word_label.setText(word);
-                                    // stop the progress bar after showing the content
+                                    //word = "مسبح";
+                                    //sentence_label.setText(word);
 
                                     check_alef();
                                     check_ta();
