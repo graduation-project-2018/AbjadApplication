@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.TypedValue;
@@ -17,6 +18,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class signin_new extends AppCompatActivity implements View.OnClickListener{
 
@@ -30,6 +36,9 @@ public class signin_new extends AppCompatActivity implements View.OnClickListene
     TextView send_label, signIn_label, reset_pass_label,  new_account_label;
     firebase_connection r = new firebase_connection();
 
+    DatabaseReference db2;
+    String x;
+    static Integer current_child_number;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,6 +132,7 @@ public class signin_new extends AppCompatActivity implements View.OnClickListene
                     if(task.isSuccessful())
                     {
                         id_edu= Uath.getCurrentUser().getUid();
+                       checkNumOfChildren();
                         finish();
                         startActivity(Itn);
                     }
@@ -167,4 +177,24 @@ public class signin_new extends AppCompatActivity implements View.OnClickListene
 
         }
     }
+    public void checkNumOfChildren(){
+        db2 = FirebaseDatabase.getInstance().getReference().child("educator_home").child(signin_new.id_edu).child("childrenNumber");
+        db2.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    x = dataSnapshot.getValue().toString();
+                    current_child_number = Integer.parseInt(x);
+
+                } else {
+                    x = "0";
+                    current_child_number = Integer.parseInt(x);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
+    }//end of function
 }

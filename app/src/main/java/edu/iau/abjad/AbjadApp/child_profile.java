@@ -45,7 +45,7 @@ public class child_profile extends child_menu {
     String photo_URL;
     FirebaseUser user;
     Boolean z;
-
+    Pattern ps;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +63,7 @@ public class child_profile extends child_menu {
         FNChild = (EditText) findViewById(R.id.fnameTxt);
         LNChild = (EditText) findViewById(R.id.lnameTxt);
         ChildImage = (ImageView) findViewById(R.id.childImage);
-
+        ps = Pattern.compile("^[a-zA-Z ]+$");
         //UsernameMsg = (TextView) findViewById(R.id.UsernameErrorMsgCP);
         saveChanges = (Button) findViewById(R.id.saveChangesBtn);
         ArabicLetters = Pattern.compile("^[ءئ ؤ إآ ى لآ لأ  لإ أ-ي ]+$");
@@ -192,8 +192,8 @@ public class child_profile extends child_menu {
             FNChild.setError("قم بتعبئة الحقل بالاسم الأول للطفل");
             foundErrors=true;
         }
-        else if (!ArabicLetters.matcher(FNChild.getText().toString()).matches()) {
-            FNChild.setError("قم بكتابة الإسم الأول باللغة العربية فقط");
+        else if (!ArabicLetters.matcher(FNChild.getText().toString()).matches()&& !ps.matcher(FNChild.getText().toString()).matches()) {
+            FNChild.setError("اسم الطفل يجب أن لا يحتوي على رموز أخرى غير الحروف");
 
             foundErrors=true;
         }
@@ -209,8 +209,8 @@ public class child_profile extends child_menu {
 
             foundErrors=true;
         }
-        else if (!ArabicLetters.matcher(LNChild.getText().toString()).matches()) {
-            LNChild.setError("قم بكتابة اللقب باللغة العربية فقط ");
+        else if (!ArabicLetters.matcher(FNChild.getText().toString()).matches()&& !ps.matcher(FNChild.getText().toString()).matches()) {
+            LNChild.setError("لقب الطفل يجب أن لا يحتوي على رموز أخرى غير الحروف ");
 
             foundErrors=true;
         }

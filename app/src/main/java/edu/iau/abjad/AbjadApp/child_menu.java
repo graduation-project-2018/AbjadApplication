@@ -322,14 +322,16 @@ public class child_menu extends AppCompatActivity {
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                                     for (DataSnapshot s:dataSnapshot.getChildren()){
                                         final String eduKey=s.getKey();
-                                        DatabaseReference child_eduhome=r.ref.child("educator_home").child(eduKey);
+                                        DatabaseReference child_eduhome=r.ref.child("educator_home").child(eduKey).child("children");
                                         ValueEventListener eventListenerhome=new ValueEventListener() {
                                             @Override
                                             public void onDataChange(DataSnapshot dataSnapshot) {
                                                 for (DataSnapshot dataSnapshot2:dataSnapshot.getChildren()){
                                                     String child_id=dataSnapshot2.getKey();
                                                     if(child_id.equals(child_after_signin.id_child)){
-                                                        r.ref.child("educator_home").child(eduKey).child(child_after_signin.id_child).removeValue();
+                                                        r.ref.child("educator_home").child(eduKey).child("children").child(child_after_signin.id_child).removeValue();
+                                                        signin_new.current_child_number--;
+                                                        r.ref.child("educator_home").child(eduKey).child("childrenNumber").setValue(signin_new.current_child_number.toString());
                                                     }
                                                 }
                                             }
