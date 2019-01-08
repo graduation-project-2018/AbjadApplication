@@ -149,8 +149,6 @@ public class unit_interface extends child_menu {
         lesson5Stars=findViewById(R.id.lesson5Stars);
         lesson6Stars=findViewById(R.id.lesson6Stars);
         instructions=new MediaPlayer();
-        SharedPreferences settings = getSharedPreferences("prefs", 0);
-        boolean firstRun = settings.getBoolean("firstRun", true);
 
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -258,24 +256,7 @@ public class unit_interface extends child_menu {
        }else{
            Log.i("ifStm","noone");
        }
-       if(unitID.equals("unit1") && intent.getString("preIntent").equals("childHome") && firstRun ){
 
-           settings.edit().putBoolean("firstRun", false).commit();
-            playAudio(audio.unit_Tip_One);
-            instructions.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                @Override
-                public void onCompletion(MediaPlayer mediaPlayer) {
-                    //this flag to prevent calling this method multiple times.
-                    if(flag == false){
-                        return;
-                    }
-                    flag = false;
-                    playAudio(audio.unit_Tip_Two);
-
-                }
-            });
-
-        }
         playInstructione.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
