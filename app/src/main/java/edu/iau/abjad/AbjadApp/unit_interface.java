@@ -1,6 +1,7 @@
 package edu.iau.abjad.AbjadApp;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.media.AudioManager;
@@ -12,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -60,7 +62,7 @@ public class unit_interface extends child_menu {
     static firebase_connection r = new firebase_connection();
     static String actual_time;
     private String unitName;
-
+    private ImageButton playInstructione;
 
 
 
@@ -76,6 +78,7 @@ public class unit_interface extends child_menu {
         View contentView = inflater.inflate(R.layout.activity_unit_interface, null, false);
         myDrawerLayout.addView(contentView, 0);
         //initilization
+        playInstructione=findViewById(R.id.playInstruction);
         childID = child_after_signin.id_child;
         lessons=new ArrayList<String>();
         childTests=new ArrayList<String>();
@@ -108,7 +111,7 @@ public class unit_interface extends child_menu {
         bal3=findViewById(R.id.ballon3);
         Bundle child=getIntent().getExtras();
         m.title.setText(child.getString("Unitname"));
-
+        unitName=child.getString("Unitname");
         testInfo=new ArrayList<childUnitInfo>();
         matchingTest_Intent=  new Intent(this, MatchingTest.class );
         readingTest_Intent=   new Intent(this, ReadingTest.class );
@@ -221,19 +224,20 @@ public class unit_interface extends child_menu {
 
         }//end switch
 
-
-
-
        Bundle intent=getIntent().getExtras();
        if(intent.getString("preIntent").equals("Lesson")){
            this.unitID=intent.getString("unitID");
+
+
        }
        else if(intent.getString("preIntent").equals("heardTest")){
            this.unitID=intent.getString("unitID");
 
+
        }
        else if(intent.getString("preIntent").equals("trueFalse")){
            this.unitID=intent.getString("unitID");
+
 
        }
        else if(intent.getString("preIntent").equals("matchingTest")){
@@ -242,29 +246,51 @@ public class unit_interface extends child_menu {
        }
        else if(intent.getString("preIntent").equals("readingTest")){
            this.unitID=intent.getString("unitID");
+           m.title.setText(unitName);
+
        }else if(intent.getString("preIntent").equals("childHome")){
            Log.i("ifStm","Iam here");
            this.unitID=intent.getString("id");
+
            Log.i("Unitid",this.unitID);
        }else{
            Log.i("ifStm","noone");
        }
-       if(unitID.equals("unit1") && intent.getString("preIntent").equals("childHome")){
-            playAudio(audio.unit_Tip_One);
-            instructions.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                @Override
-                public void onCompletion(MediaPlayer mediaPlayer) {
-                    //this flag to prevent calling this method multiple times.
-                    if(flag == false){
-                        return;
-                    }
-                    flag = false;
-                    playAudio(audio.unit_Tip_Two);
 
-                }
-            });
+        playInstructione.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                playAudio(audio.unit_Tip_One);
+                instructions.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mediaPlayer) {
+                        //this flag to prevent calling this method multiple times.
+                        if(flag == false){
+                            return;
+                        }
+                        flag = false;
+                        playAudio(audio.unit_Tip_Two);
+
+                    }
+                });
+
+            }
+        });
+
+        if(unitID.equals("unit1")){
+            m.title.setText("أسرتي");
 
         }
+        else if (unitID.equals("unit2")){
+            m.title.setText("مدرستي");
+
+        }
+        else{
+            m.title.setText("مدينتي");
+
+        }
+
+
         final MediaPlayer aduio_CannotStartLesson=new MediaPlayer();
         try {
             aduio_CannotStartLesson.setDataSource(audio.unit_Tip_three);
@@ -603,8 +629,8 @@ public class unit_interface extends child_menu {
                                                         String testletter = test.child("test_letters").getValue(String.class);
                                                         for (childUnitInfo test : testInfo) {
                                                             String letter = test.getLetters();
-                                                            Log.i("let", letter);
-                                                            Log.i("try", letter.contains(testletter) + " " + letter + " " + testletter);
+                                                           // Log.i("let", letter+" ");
+//                                                            Log.i("try", letter.contains(testletter) + " " + letter + " " + testletter);
                                                             if (letter.equals(testletter)) {
                                                                 test.setLessonId(testkey);
                                                                 Log.i("TestID", test.getLessonId() + " ");

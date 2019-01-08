@@ -26,4 +26,5 @@ public class child_info_new implements Serializable {
         //include more logic
         this.photo_URL = photo;
     }
+
 }
