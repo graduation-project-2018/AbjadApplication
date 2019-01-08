@@ -1313,10 +1313,10 @@
         android:layout_marginTop="8dp"
         android:background="@android:color/transparent"
         app:layout_constraintBottom_toTopOf="@+id/guideline35"
-        app:layout_constraintEnd_toStartOf="@+id/guideline116"
+        app:layout_constraintEnd_toStartOf="@+id/guideline109"
         app:layout_constraintStart_toStartOf="@+id/guideline112"
-        app:layout_constraintTop_toTopOf="@+id/guideline72"
-        app:srcCompat="@drawable/speaker_medium_volume_215" />
+        app:layout_constraintTop_toTopOf="@+id/guideline108"
+        app:srcCompat="@drawable/speaker_medium_volume" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline48"
