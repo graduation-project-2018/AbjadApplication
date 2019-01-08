@@ -85,6 +85,7 @@ import java.util.ArrayList;
                 loading_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
         }//end of switch
 
+
         // to avoid craching
         if(signin_new.id_edu != null) {
 
@@ -128,8 +129,6 @@ import java.util.ArrayList;
                  if (dataSnapshot.exists()) {
                      x = dataSnapshot.getValue().toString();
                      if(x.equals("1")){
-
-
                          gv.setNumColumns(1);
                          ConstraintLayout.LayoutParams lp = (ConstraintLayout.LayoutParams) gr.getLayoutParams();
                          lp.guidePercent = (float) 0.665;
@@ -156,8 +155,6 @@ import java.util.ArrayList;
              public void onChildAdded(DataSnapshot dataSnapshot, String s) {
              checkNumOfChildren();
                  fetch_children(dataSnapshot);
-
-
                  adapter = new childrenAdapter(child_after_signin.this,children);
                  gv.setAdapter(adapter);
                  loading_label.setVisibility(View.INVISIBLE);

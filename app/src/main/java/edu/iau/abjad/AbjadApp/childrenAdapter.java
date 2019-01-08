@@ -52,7 +52,6 @@ ArrayList <children> children;
                 if(s.getDestination()=="childHome"){
                     child_after_signin.id_child = s.getChild_ID();
                     c.startActivity(intent2);
-
                 }
                 else{
                     intent.putExtra("child_ID",s.getChild_ID());

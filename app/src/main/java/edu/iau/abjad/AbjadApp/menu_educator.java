@@ -105,12 +105,15 @@ public class menu_educator extends AppCompatActivity {
                         return true;
 
                     }
+                    case R.id.report_problem:{
+                        Intent intent = new Intent(menu_educator.this, report_problem.class);
+                        startActivity(intent);
+                        return true;
+                    }
                     case R.id.sign_out:{
                         FirebaseAuth.getInstance().signOut();
                         Intent intent = new Intent(menu_educator.this, signin_new.class);
                         startActivity(intent);
-
-
                         return true;
 
                     }

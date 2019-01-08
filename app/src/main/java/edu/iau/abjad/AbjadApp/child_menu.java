@@ -116,14 +116,7 @@ public class child_menu extends AppCompatActivity {
                         popUp(4);
                         return true;
                     }
-                    case R.id.report_problem:{
 
-                        if(Lesson.words_counter==6){
-                            Lesson.computeChildScore();
-                        }
-                        popUp(2);
-                        return true;
-                    }
                   case R.id.delete_child:{
                         if(Lesson.words_counter==6){
                             Lesson.computeChildScore();
@@ -208,12 +201,7 @@ public class child_menu extends AppCompatActivity {
                                                 String em = e.child("email").getValue().toString();
 
                                                 if (em.equals(edu_email)) {
-                                                    if (i == 2) {
-                                                        Intent intent = new Intent(child_menu.this, report_problem.class);
-                                                        intent.putExtra("email", edu_email);
-                                                        startActivity(intent);
-
-                                                    } else if (i == 3) {
+                                                   if (i == 3) {
                                                         popUpDelete();
                                                         return;
 
@@ -224,8 +212,6 @@ public class child_menu extends AppCompatActivity {
                                                         startActivity(intent);
 
                                                     }
-
-
                                                 } else {
                                                     email.setError("الرجاء إدخال البريد الإلكتروني الذي قمت بالتسجيل به مسبقا");
                                                     email.requestFocus();

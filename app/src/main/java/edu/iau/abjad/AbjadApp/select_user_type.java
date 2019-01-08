@@ -25,10 +25,18 @@ public class select_user_type extends AppCompatActivity {
     TextView eduLabel, childLabel;
     ImageView back_btn;
     Random rand = new Random();
-    String[] edu_auth_numbers = {"1200", "973", "1855", "1234", "321","123","987","458","1111","2222"};
-    String[] edu_auth_written_numbers= {"ألف ومئتان","تسعمائة وثلاثة وسبعون","ألف وثمانمئة وخمسة وخمسون",
-            "ألف ومئتان وثلاثة وأربعون","ثلاثمائة وواحد وعشرون","مئة وثلاثة وعشرون","تسعمائة وثمانية وسبعون",
-            "أربعمائة وخمسة وثمانون ","ألف ومئة واحدى عشر","ألفان ومئتان واثنان وعشرون"};
+    String[] edu_auth_numbers = {"1200", "3000", "120", "55", "210","44","99","87","5100","1100"};
+    String[] edu_auth_written_numbers=
+            {"ألف ومئتان",
+            "ثلاثة آلاف",
+            "مئة وعشرون",
+            "خمسة وخمسون",
+            "مئتان وعشرة",
+                    "أربعة وأربعون",
+                    "تسعة وتسعون",
+            "ثمانية وسبعون",
+            "خمسة آلاف ومئة",
+            "ألف ومئة"};
 
     int chosen_element;
     Intent intentOfEdu;
@@ -131,7 +139,7 @@ public class select_user_type extends AppCompatActivity {
         enter_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String num = num_field.getText().toString();
+                String num = num_field.getText().toString().trim();
                 int returned_index = arrayList_num.indexOf(num);
                 if(returned_index == chosen_element){
                     finish();

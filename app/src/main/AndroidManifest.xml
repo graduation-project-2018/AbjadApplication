@@ -17,7 +17,6 @@
         android:hardwareAccelerated="false"
         android:icon="@drawable/abjad_logo"
         android:label="@string/app_name"
-        android:largeHeap="true"
         android:supportsRtl="false"
         android:theme="@style/AppTheme">
         <activity

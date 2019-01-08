@@ -31,6 +31,7 @@ public class children {
         return photo_URL;
     }
 
+
     public void setPhoto_URL(String photo_URL) {
         this.photo_URL = photo_URL;
     }

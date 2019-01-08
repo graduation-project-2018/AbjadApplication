@@ -62,6 +62,7 @@ public class signin_new extends AppCompatActivity implements View.OnClickListene
         findViewById(R.id.create_new_account).setOnClickListener(this);
         signIn_label= findViewById(R.id.signIn_label);
         PB.getIndeterminateDrawable().setColorFilter(	0xFF0B365C, android.graphics.PorterDuff.Mode.MULTIPLY);
+        current_child_number = 0;
 
         int screenSize = getResources().getConfiguration().screenLayout &
                 Configuration.SCREENLAYOUT_SIZE_MASK;
@@ -70,15 +71,15 @@ public class signin_new extends AppCompatActivity implements View.OnClickListene
                 signIn_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
                 m.auth_setRight_icon_XLarge(ChildEmail,ChildPassword);
                 m.setButton_text_XLarge(send_label);
-                reset_pass_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
-                new_account_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
+                reset_pass_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+                new_account_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
                 break;
             case Configuration.SCREENLAYOUT_SIZE_LARGE:
                 signIn_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,23);
                 m.auth_setRight_icon_Large(ChildEmail,ChildPassword);
                 m.setButton_text_Large(send_label);
-                reset_pass_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,16);
-                new_account_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,16);
+                reset_pass_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
+                new_account_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
                 break;
             case Configuration.SCREENLAYOUT_SIZE_NORMAL:
                 signIn_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);

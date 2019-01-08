@@ -15,6 +15,10 @@
     <item android:id="@+id/delete_edu"
         android:title="حذف الحساب"
         android:icon="@drawable/basket_delete"></item>
+    <item android:id="@+id/report_problem"
+        android:title="الإبلاغ عن مشكلة"
+        android:icon="@drawable/report_icon">
+    </item>
     <item android:id="@+id/contact_us"
         android:title="اتصل بنا"
         android:icon="@drawable/phone_15x"></item>
