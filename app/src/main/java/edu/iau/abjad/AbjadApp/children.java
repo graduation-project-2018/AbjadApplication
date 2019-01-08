@@ -7,15 +7,16 @@ public class children {
     String first_name;
     String child_ID;
     String photo_URL;
+    String destination;
     public children() {
 
     }
 
-    public children(String photo_URL, String first_name, String id) {
+    public children(String photo_URL, String first_name, String id, String des) {
         this.photo_URL = photo_URL;
         this.first_name = first_name;
         this.child_ID = id;
-
+        this.destination = des;
     }
 
     public String getChild_ID() {
@@ -41,6 +42,8 @@ public class children {
     public void setFirst_name(String first_name) {
         this.first_name = first_name;
     }
-
+    public String getDestination() {
+        return destination;
+    }
 
 }

@@ -14,13 +14,14 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 public class childrenAdapter extends BaseAdapter {
-Intent intent;
+Intent intent,intent2;
 Context c;
 ArrayList <children> children;
     public childrenAdapter(Context c, ArrayList<edu.iau.abjad.AbjadApp.children> children) {
         this.c = c;
         this.children = children;
         intent = new Intent(c,ChildProgress.class);
+        intent2 = new Intent(c,child_home.class);
     }
     @Override
     public int getCount() {
@@ -48,10 +49,16 @@ ArrayList <children> children;
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.putExtra("child_ID",s.getChild_ID());
-                System.out.println();
-                c.startActivity(intent);
-            }
+                if(s.getDestination()=="childHome"){
+                    child_after_signin.id_child = s.getChild_ID();
+                    c.startActivity(intent2);
+
+                }
+                else{
+                    intent.putExtra("child_ID",s.getChild_ID());
+                    System.out.println();
+                    c.startActivity(intent);}
+                }
         });
         return convertView;
     }
