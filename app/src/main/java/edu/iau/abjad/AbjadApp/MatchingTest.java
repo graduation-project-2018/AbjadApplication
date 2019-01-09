@@ -24,6 +24,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -255,19 +256,19 @@ public class MatchingTest extends child_menu {
             }
             Word3.setText(Content.get(WordsNumber[2]).Word);
             WordsNumber[0] = r.nextInt(3);
-            Picasso.get().load(Content.get(WordsNumber[0]).Pic).into(Pic1);
+            Picasso.get().load(Content.get(WordsNumber[0]).Pic).memoryPolicy(MemoryPolicy.NO_CACHE).into(Pic1);
 
             WordsNumber[1]=r.nextInt(3);
             while(WordsNumber[1]==WordsNumber[0]){
                 WordsNumber[1]=r.nextInt(3);
             }
-            Picasso.get().load(Content.get(WordsNumber[1]).Pic).into(Pic2);
+            Picasso.get().load(Content.get(WordsNumber[1]).Pic).memoryPolicy(MemoryPolicy.NO_CACHE).into(Pic2);
 
             WordsNumber[2]=r.nextInt(3);
             while(WordsNumber[2]==WordsNumber[0] || WordsNumber[2]==WordsNumber[1]){
                 WordsNumber[2]=r.nextInt(3);
             }
-            Picasso.get().load(Content.get(WordsNumber[2]).Pic).into(Pic3);
+            Picasso.get().load(Content.get(WordsNumber[2]).Pic).memoryPolicy(MemoryPolicy.NO_CACHE).into(Pic3);
             anim.start();
             playAudio(voice.MatchingTestInst);
             loading_label_large.setVisibility(View.INVISIBLE);

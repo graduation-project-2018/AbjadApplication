@@ -257,7 +257,7 @@ public class unit_interface extends child_menu {
            Log.i("ifStm","noone");
        }
 
-        playInstructione.setOnClickListener(new View.OnClickListener() {
+       playInstructione.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 playAudio(audio.unit_Tip_One);
@@ -274,7 +274,9 @@ public class unit_interface extends child_menu {
                     }
                 });
 
+                flag= true;
             }
+
         });
 
         if(unitID.equals("unit1")){
@@ -356,8 +358,22 @@ public class unit_interface extends child_menu {
         //check if it is first sign in or not
         if(child_home.first_signIn.equals("true") && child_home.first_signIn != null){
 
-            // **put this line inside OnComplete listener of unit instructions audio
-            //r.ref.child("Children").child(child_after_signin.id_child).child("first_signIn").setValue("false");
+            playAudio(audio.unit_Tip_One);
+            instructions.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mediaPlayer) {
+                    //this flag to prevent calling this method multiple times.
+                    if(flag == false){
+                        return;
+                    }
+                    flag = false;
+                    playAudio(audio.unit_Tip_Two);
+
+                    //change the vlaue in database
+                    r.ref.child("Children").child(child_after_signin.id_child).child("first_signIn").setValue("false");
+
+                }
+            });
 
             Log.i("checkVlaue", "true");
         }else{
@@ -744,6 +760,7 @@ public class unit_interface extends child_menu {
             instructions.setDataSource(url);
             instructions.prepare();
             instructions.start();
+
 
         }
         catch (IOException e){
