@@ -4,13 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/educator_backgrpund"
+    android:background="@drawable/child_bg"
     tools:context=".child_after_signin"
     tools:ignore="MissingDefaultResource">
 
-    <include
-        android:id="@+id/include"
-        layout="@layout/navigation_action_bar" />
 
     <TextView
         android:id="@+id/loading_label_child_after_signin"
@@ -63,7 +60,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="186dp"
-        app:layout_constraintGuide_percent="0.28" />
+        app:layout_constraintGuide_percent="0.30" />
 
     <android.support.constraint.Guideline
         android:id="@+id/gridView2GL"
@@ -71,7 +68,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent="0.83" />
+        app:layout_constraintGuide_percent="0.85" />
 
     <android.support.constraint.Guideline
         android:id="@+id/gridView3GL"
@@ -79,7 +76,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="129dp"
-        app:layout_constraintGuide_percent="0.27" />
+        app:layout_constraintGuide_percent="0.18" />
 
     <android.support.constraint.Guideline
         android:id="@+id/gridView4GL"
@@ -87,7 +84,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent="0.82" />
+        app:layout_constraintGuide_percent="0.80" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline20"

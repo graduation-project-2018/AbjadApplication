@@ -17,6 +17,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -104,12 +105,15 @@ public class menu_educator extends AppCompatActivity {
                         return true;
 
                     }
+                    case R.id.report_problem:{
+                        Intent intent = new Intent(menu_educator.this, report_problem.class);
+                        startActivity(intent);
+                        return true;
+                    }
                     case R.id.sign_out:{
                         FirebaseAuth.getInstance().signOut();
                         Intent intent = new Intent(menu_educator.this, signin_new.class);
                         startActivity(intent);
-
-
                         return true;
 
                     }
@@ -147,7 +151,6 @@ public class menu_educator extends AppCompatActivity {
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(menu_educator.this);
         LayoutInflater inflater = this.getLayoutInflater();
         View mView = getLayoutInflater().inflate(R.layout.activity_delete_popup,null);
-        Button close_btn = (Button) mView.findViewById(R.id.close_btn_delete);
         Button cancel_btn = (Button) mView.findViewById(R.id.cancel_btn_delete);
         Button  confirm= (Button) mView.findViewById(R.id.submit_btn_delete);
         TextView label = (TextView)mView.findViewById(R.id.delete_label);
@@ -157,14 +160,10 @@ public class menu_educator extends AppCompatActivity {
         mBuilder.setView(mView);
         final AlertDialog dialog = mBuilder.create();
 
-        dialog.show();
-        close_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                dialog.dismiss();
-            }
-        });
+        dialog.show();
+        Window window =dialog.getWindow();
+        window.setLayout(840,530);
         cancel_btn.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {

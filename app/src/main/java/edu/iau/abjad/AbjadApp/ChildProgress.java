@@ -240,7 +240,6 @@ public class ChildProgress extends menu_educator {
                 testName .setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
                 m.setTitle_Default();
         }
-
         final Intent c=new Intent(this,userTypeSelection.class);
         child.ref.child("Children").child(childID).addValueEventListener(new ValueEventListener() {
             @Override

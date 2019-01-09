@@ -36,6 +36,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -52,7 +53,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
-public class report_problem extends child_menu {
+public class report_problem extends menu_educator {
     public static final int PIC_GALLERY_REQUIST = 20;
     menu_variables m = new menu_variables();
     private Button reportBtn, help_btn;
@@ -71,9 +72,10 @@ public class report_problem extends child_menu {
     private int storagePermCode=1;
     private ProgressDialog mProgressDialog;
     private boolean onCliked=false;
-    private Bundle email;
     RadioButton problem_type1, problem_type2, problem_type3, problem_type4, problem_type5, problem_type6, problem_type7, problem_type_more;
     ArrayList <RadioButton> array_of_problems;
+    FirebaseAuth Uath;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,7 +88,7 @@ public class report_problem extends child_menu {
 
         //inflate your activity layout here!
         View contentView = inflater.inflate(R.layout.activity_report_problem, null, false);
-        myDrawerLayout.addView(contentView, 0);
+        mDrawerLayout.addView(contentView, 0);
         //initialization
         reportBtn= findViewById(R.id.reportButn );
         ImgNameTextView= findViewById(R.id.imgname);
@@ -102,6 +104,7 @@ public class report_problem extends child_menu {
         problem_type7 = findViewById(R.id.Problem_type_7);
         problem_type_more = findViewById(R.id.more);
         array_of_problems = new ArrayList<RadioButton>();
+        Uath= FirebaseAuth.getInstance();
 
         // add radio button to Array list
         array_of_problems.addAll(Arrays.asList(problem_type1, problem_type2, problem_type3,
@@ -203,8 +206,7 @@ public class report_problem extends child_menu {
                                     daownloadURL = downloadUri.toString();
                                     uploded = true;
                                     if (rg.getCheckedRadioButtonId() != -1 && uploded) {
-                                        email=getIntent().getExtras();
-                                        String semail=email.getString("email");
+                                        String semail= Uath.getCurrentUser().getEmail();
                                         mProgressDialog.dismiss();
                                         dataMap.put("screenShots", daownloadURL);
                                         dataMap.put("report_type", ProbType);

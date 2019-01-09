@@ -1,5 +1,6 @@
 package edu.iau.abjad.AbjadApp;
 
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -14,7 +15,6 @@ import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.ActivityCompat;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,19 +24,19 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.LruCache;
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Locale;
 
 
 public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener {
@@ -77,6 +77,10 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
     ImageView score_img;
     boolean move_child ;
     String choosenPhrase;
+
+
+
+
 
 
 
@@ -126,6 +130,10 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
         abjad = findViewById(R.id.abjad);
         abjad.setBackgroundResource(R.drawable.abjad_speak);
         anim =(AnimationDrawable) abjad.getBackground();
+
+
+
+
 
 
         score_img = findViewById(R.id.score_img);
@@ -196,6 +204,8 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
 
         }//end switch
 
+
+
         //getting the lesson ID of the selected letter in Unit interface.
         Query query = r.ref.child("Lessons").orderByChild("lesson_letter").equalTo(letter);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -225,7 +235,9 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
 
                                     check_alef();
                                     check_ta();
-                                    Picasso.get().load(wordsArrayList.get(words_counter).pic_file).into(lesson_pic);
+                                    Picasso.get().load(wordsArrayList.get(words_counter).pic_file).
+                                            memoryPolicy(MemoryPolicy.NO_CACHE).into(lesson_pic);
+
 
                                     // start the instruction audio before the lesson begin
                                     anim.start();
@@ -653,6 +665,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
             mSpeechRecognizer.cancel();
             mSpeechRecognizer.destroy();
             anim.stop();
+
             System.out.println("onStop function");
         }catch (Exception e){
             System.err.println("Unable to stop activity");
@@ -753,6 +766,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
             audio_instruction = null;
             mSpeechRecognizer.cancel();
             mSpeechRecognizer.destroy();
+
             System.out.println("onDestroy function");
 
         }catch (Exception e){
@@ -762,7 +776,6 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
 
     @Override
     protected void onRestart() {
-
         super.onRestart();
         System.out.println("onRestart function");
         audio_instruction = new MediaPlayer();
@@ -986,7 +999,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
             word_label.setVisibility(View.VISIBLE);
             sentence_label.setVisibility(View.INVISIBLE);
             word_label.setText(word);
-            Picasso.get().load(wordsArrayList.get(words_counter).pic_file).into(lesson_pic);
+            Picasso.get().load(wordsArrayList.get(words_counter).pic_file).memoryPolicy(MemoryPolicy.NO_CACHE).into(lesson_pic);
             anim.start();
             playAudio(wordsArrayList.get(words_counter).audio_file);
             setOnCompleteListener(lesson_audio);
@@ -996,7 +1009,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
             sentence_label.setVisibility(View.VISIBLE);
             word = wordsArrayList.get(words_counter).content;
             sentence_label.setText(word);
-            Picasso.get().load(wordsArrayList.get(words_counter).pic_file).into(lesson_pic);
+            Picasso.get().load(wordsArrayList.get(words_counter).pic_file).memoryPolicy(MemoryPolicy.NO_CACHE).into(lesson_pic);
             anim.start();
             playAudio(wordsArrayList.get(words_counter).audio_file);
             setOnCompleteListener(lesson_audio);
@@ -1014,7 +1027,6 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
         check_alef();
         check_ta();
     }
-
 
 
 

@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
 
@@ -25,6 +26,7 @@ public class child_home extends child_menu {
      Intent intentOfUnit;
      Button family , homeLand, school;
      TextView family_textView,school_textView,homeLand_textView;
+     static String first_signIn;
 
 
     @Override
@@ -58,8 +60,6 @@ public class child_home extends child_menu {
                 startActivity(new Intent(child_home.this,child_after_signin.class));
             }
         });
-
-
 
         int screenSize = getResources().getConfiguration().screenLayout &
                 Configuration.SCREENLAYOUT_SIZE_MASK;
@@ -95,6 +95,21 @@ public class child_home extends child_menu {
                 homeLand_textView.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
                 m.setTitle_Default();
         }
+
+        // get the value of first_signIn to know if we should play user manual or not.
+        DatabaseReference getChildFirstSignInInfo = r.ref.child("Children").child(child_after_signin.id_child).child("first_signIn");
+        getChildFirstSignInInfo.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                first_signIn = dataSnapshot.getValue().toString();
+                System.out.println("ttt "+ first_signIn);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         school.setOnClickListener(new View.OnClickListener() {
             @Override

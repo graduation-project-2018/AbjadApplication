@@ -24,6 +24,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -115,14 +116,7 @@ public class child_menu extends AppCompatActivity {
                         popUp(4);
                         return true;
                     }
-                    case R.id.report_problem:{
 
-                        if(Lesson.words_counter==6){
-                            Lesson.computeChildScore();
-                        }
-                        popUp(2);
-                        return true;
-                    }
                   case R.id.delete_child:{
                         if(Lesson.words_counter==6){
                             Lesson.computeChildScore();
@@ -176,7 +170,6 @@ public class child_menu extends AppCompatActivity {
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(child_menu.this);
         LayoutInflater inflater = this.getLayoutInflater();
         View mView = getLayoutInflater().inflate(R.layout.activity_pop_up_repert_problem,null);
-        Button close_btn = (Button) mView.findViewById(R.id.close_btn);
         Button cancel_btn = (Button) mView.findViewById(R.id.cancel_btn);
         email = (EditText) mView.findViewById(R.id.edu_email);
         final Button submit_btn = (Button) mView.findViewById(R.id.submit_btn);
@@ -208,12 +201,7 @@ public class child_menu extends AppCompatActivity {
                                                 String em = e.child("email").getValue().toString();
 
                                                 if (em.equals(edu_email)) {
-                                                    if (i == 2) {
-                                                        Intent intent = new Intent(child_menu.this, report_problem.class);
-                                                        intent.putExtra("email", edu_email);
-                                                        startActivity(intent);
-
-                                                    } else if (i == 3) {
+                                                   if (i == 3) {
                                                         popUpDelete();
                                                         return;
 
@@ -224,8 +212,6 @@ public class child_menu extends AppCompatActivity {
                                                         startActivity(intent);
 
                                                     }
-
-
                                                 } else {
                                                     email.setError("الرجاء إدخال البريد الإلكتروني الذي قمت بالتسجيل به مسبقا");
                                                     email.requestFocus();
@@ -263,13 +249,8 @@ public class child_menu extends AppCompatActivity {
         });
 
         dialog.show();
-           close_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                dialog.dismiss();
-            }
-        });
+        Window window =dialog.getWindow();
+        window.setLayout(820,520);
            cancel_btn.setOnClickListener( new View.OnClickListener() {
                @Override
                public void onClick(View view) {
@@ -277,13 +258,12 @@ public class child_menu extends AppCompatActivity {
                    dialog.dismiss();
                }
            });
-    }
+    }// end popup
 
     public void popUpDelete(){
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(child_menu.this);
         LayoutInflater inflater = this.getLayoutInflater();
         View mView = getLayoutInflater().inflate(R.layout.activity_delete_popup,null);
-        Button close_btn = (Button) mView.findViewById(R.id.close_btn_delete);
         Button cancel_btn = (Button) mView.findViewById(R.id.cancel_btn_delete);
         Button  confirm= (Button) mView.findViewById(R.id.submit_btn_delete);
 
@@ -291,13 +271,8 @@ public class child_menu extends AppCompatActivity {
         final AlertDialog dialog = mBuilder.create();
 
         dialog.show();
-        close_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                dialog.dismiss();
-            }
-        });
+        Window window =dialog.getWindow();
+        window.setLayout(830,520);
         cancel_btn.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {

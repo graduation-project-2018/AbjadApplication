@@ -33,9 +33,9 @@ public class signin_new extends AppCompatActivity implements View.OnClickListene
     private Intent Itn;
     String email;
     static String id_edu;
-    TextView send_label, signIn_label, reset_pass_label,  new_account_label, skip_label;
+    TextView send_label, signIn_label, reset_pass_label,  new_account_label;
     firebase_connection r = new firebase_connection();
-    static boolean skip_flag;
+
     DatabaseReference db2;
     String x;
     static Integer current_child_number;
@@ -54,16 +54,15 @@ public class signin_new extends AppCompatActivity implements View.OnClickListene
         send_label = findViewById(R.id.send_label_on_btn);
         reset_pass_label= findViewById(R.id.ResetPassword);
         new_account_label = findViewById(R.id.create_new_account);
-        skip_label = findViewById(R.id.skip_btn);
         Itn =new Intent(this,select_user_type.class);
-        skip_flag = false;
-        current_child_number =0;
+
         //adding listeners to the buttons:
         findViewById(R.id.submit_btn_reset).setOnClickListener(this);
         findViewById(R.id.ResetPassword).setOnClickListener(this);
         findViewById(R.id.create_new_account).setOnClickListener(this);
         signIn_label= findViewById(R.id.signIn_label);
         PB.getIndeterminateDrawable().setColorFilter(	0xFF0B365C, android.graphics.PorterDuff.Mode.MULTIPLY);
+        current_child_number = 0;
 
         int screenSize = getResources().getConfiguration().screenLayout &
                 Configuration.SCREENLAYOUT_SIZE_MASK;
@@ -72,15 +71,15 @@ public class signin_new extends AppCompatActivity implements View.OnClickListene
                 signIn_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
                 m.auth_setRight_icon_XLarge(ChildEmail,ChildPassword);
                 m.setButton_text_XLarge(send_label);
-                reset_pass_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
-                new_account_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
+                reset_pass_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+                new_account_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
                 break;
             case Configuration.SCREENLAYOUT_SIZE_LARGE:
                 signIn_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,23);
                 m.auth_setRight_icon_Large(ChildEmail,ChildPassword);
                 m.setButton_text_Large(send_label);
-                reset_pass_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,16);
-                new_account_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,16);
+                reset_pass_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
+                new_account_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
                 break;
             case Configuration.SCREENLAYOUT_SIZE_NORMAL:
                 signIn_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
@@ -104,14 +103,6 @@ public class signin_new extends AppCompatActivity implements View.OnClickListene
                 new_account_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
         }//end switch
 
-        skip_label.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                skip_flag = true;
-                finish();
-                startActivity(new Intent(signin_new.this,child_home.class));
-            }
-        });
 
     }// onCreate
 
