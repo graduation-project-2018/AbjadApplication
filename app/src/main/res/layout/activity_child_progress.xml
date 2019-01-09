@@ -106,31 +106,32 @@
             <TextView
                 android:id="@+id/hDoneLesson"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:fontFamily="Arabic Typesetting"
                 android:gravity="center"
                 android:paddingLeft="5dp"
+                android:singleLine="false"
                 android:text="الدروس التي أتمها الطفل:"
                 android:textDirection="rtl"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toTopOf="@+id/guideline26"
                 app:layout_constraintEnd_toStartOf="@+id/guideline20"
-                app:layout_constraintStart_toStartOf="@+id/guideline21"
+                app:layout_constraintStart_toStartOf="@+id/guideline24"
                 app:layout_constraintTop_toTopOf="@+id/guideline25" />
 
             <TextView
                 android:id="@+id/nDoneLesson"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:fontFamily="Arabic Typesetting"
+                android:gravity="right"
                 android:padding="0dp"
                 android:text="-"
-                android:gravity="right"
                 android:textDirection="rtl"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toTopOf="@+id/guideline26"
-                app:layout_constraintEnd_toStartOf="@+id/hDoneLesson"
+                app:layout_constraintEnd_toStartOf="@+id/guideline24"
                 app:layout_constraintStart_toStartOf="@+id/guideline19"
                 app:layout_constraintTop_toTopOf="@+id/guideline25" />
 
@@ -236,10 +237,11 @@
             <TextView
                 android:id="@+id/LessonNameScore"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:fontFamily="Arabic Typesetting"
                 android:gravity="center"
                 android:padding="0dp"
+                android:inputType="textMultiLine"
                 android:text="-"
                 android:textDirection="rtl"
                 android:textSize="24sp"
@@ -258,7 +260,7 @@
                 android:textSize="12sp"
                 app:layout_constraintBottom_toTopOf="@+id/guideline29"
                 app:layout_constraintEnd_toStartOf="@+id/guideline20"
-                app:layout_constraintStart_toStartOf="@+id/guideline24"
+                app:layout_constraintStart_toStartOf="@+id/guideline222"
                 app:layout_constraintTop_toTopOf="@+id/guideline28" />
 
             <TextView
@@ -271,7 +273,7 @@
                 android:textDirection="rtl"
                 android:textSize="24dp"
                 app:layout_constraintBottom_toTopOf="@+id/guideline29"
-                app:layout_constraintEnd_toStartOf="@+id/guideline24"
+                app:layout_constraintEnd_toStartOf="@+id/guideline222"
                 app:layout_constraintStart_toStartOf="@+id/guideline19"
                 app:layout_constraintTop_toTopOf="@+id/guideline28" />
 
@@ -321,7 +323,7 @@
                 android:id="@+id/testName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-
+                android:inputType="textMultiLine"
                 android:fontFamily="Arabic Typesetting"
                 android:gravity="center"
                 android:padding="0dp"
@@ -329,7 +331,7 @@
                 android:textDirection="rtl"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintDimensionRatio="w,1:1"
+                app:layout_constraintDimensionRatio="w,9:1 "
                 app:layout_constraintEnd_toStartOf="@+id/guideline23"
                 app:layout_constraintStart_toStartOf="@+id/guideline19"
                 app:layout_constraintTop_toBottomOf="@+id/guideline29" />
@@ -398,7 +400,13 @@
                 android:orientation="vertical"
                 app:layout_constraintGuide_begin="20dp"
                 app:layout_constraintGuide_percent="0.5" />
-
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline222"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="20dp"
+                app:layout_constraintGuide_percent="0.55" />
             <android.support.constraint.Guideline
                 android:id="@+id/guideline21"
                 android:layout_width="wrap_content"

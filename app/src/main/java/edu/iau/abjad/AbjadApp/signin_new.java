@@ -57,7 +57,7 @@ public class signin_new extends AppCompatActivity implements View.OnClickListene
         skip_label = findViewById(R.id.skip_btn);
         Itn =new Intent(this,select_user_type.class);
         skip_flag = false;
-
+        current_child_number =0;
         //adding listeners to the buttons:
         findViewById(R.id.submit_btn_reset).setOnClickListener(this);
         findViewById(R.id.ResetPassword).setOnClickListener(this);
