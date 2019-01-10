@@ -7,6 +7,7 @@ import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -32,6 +34,8 @@ public class change_profile_photo extends child_menu {
     private int imgIndex;
     String photo_url;
     Button SaveChanges;
+
+    TextView  loading_label;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,11 +55,14 @@ public class change_profile_photo extends child_menu {
         pre = (ImageView)findViewById(R.id.prevChangeImg);
         childImg=(ImageView)findViewById(R.id.ChangeChildImg);
         FBchildPhotoUrl = new firebase_connection();
+        loading_label = findViewById(R.id.loading_label_child_after_signin);
         imgIndex = 0;
         photo_url="";
 
         imgsUrl = new ArrayList<String>();
         SaveChanges=(Button)findViewById(R.id.SaveChangeImg);
+
+
 
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,30 +77,37 @@ public class change_profile_photo extends child_menu {
             case Configuration.SCREENLAYOUT_SIZE_XLARGE:
                 m.setButton_text_XLarge(SaveChanges);
                 m.setTitle_XLarge();
+                loading_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
                 Log.i("scsize","X Large" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_LARGE:
                 m.setButton_text_Large(SaveChanges);
                 m.setTitle_Large();
+                loading_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
                 Log.i("scsize","Large" );
 
                 break;
             case Configuration.SCREENLAYOUT_SIZE_NORMAL:
                 m.setButton_text_Normal(SaveChanges);
                 m.setTitle_Normal();
+                loading_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
                 Log.i("scsize","Normal" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_SMALL:
                 m.setButton_text_Small(SaveChanges);
                 m.setTitle_Small();
+                loading_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,10);
                 Log.i("scsize","Small" );
                 break;
             default:
                 m.setButton_text_Default(SaveChanges);
                 m.setTitle_Default();
-
+                loading_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
         }//end switch
-        FBchildPhotoUrl.ref.child("ChildPhoto").addValueEventListener(new ValueEventListener() {
+
+
+
+        FBchildPhotoUrl.ref.child("ChildPhoto").child(child_home.gender).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot childSnapShot : dataSnapshot.getChildren()) {
@@ -102,33 +116,27 @@ public class change_profile_photo extends child_menu {
                     imgsUrl.add( photo_url);
                 }
                 imgCont = (int)dataSnapshot.getChildrenCount();
-                Picasso.get().load(imgsUrl.get(0)).fit().centerInside().into(childImg);
+                loading_label.setVisibility(View.VISIBLE);
+                hide_loading_label();
+
                 photo_url = imgsUrl.get(0);
 
-               SaveChanges.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        FBchildPhotoUrl.ref.child("Children").child(child_after_signin.id_child).child("photo_URL").setValue(photo_url);
-                        Toast.makeText(change_profile_photo.this, "تم تغيير الصورة بنجاح", Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(getApplicationContext(),child_home.class);
-                        startActivity(intent);
-
-                    }
-                });
 
                 // load();
                 next.setOnClickListener(new View.OnClickListener() {
+
                     @Override
                     public void onClick(View v) {
                         // load();
+                       loading_label.setVisibility(View.VISIBLE);
                         imgIndex++;
                         if (imgIndex < imgCont) {
-                            Picasso.get().load(imgsUrl.get(imgIndex)).fit().centerInside().into(childImg);
+                            hide_loading_label();
                             photo_url=imgsUrl.get(imgIndex);
                         } else {
                             imgIndex = 0;
-                            Picasso.get().load(imgsUrl.get(imgIndex)).fit().centerInside().into(childImg);
-                            photo_url=imgsUrl.get(imgIndex);
+                           hide_loading_label();
+                           photo_url=imgsUrl.get(imgIndex);
 
                         }
 
@@ -139,19 +147,20 @@ public class change_profile_photo extends child_menu {
                     @Override
                     public void onClick(View v) {
                         // load();
+                        loading_label.setVisibility(View.VISIBLE);
                         imgIndex--;
                         if (imgIndex < imgCont & imgIndex > 0) {
-                            Picasso.get().load(imgsUrl.get(imgIndex)).fit().centerInside().into(childImg);
-                            photo_url=imgsUrl.get(imgIndex);
+                           hide_loading_label();
+                           photo_url=imgsUrl.get(imgIndex);
 
                         } else if (imgIndex == -1) {
                             imgIndex = 5;
-                            Picasso.get().load(imgsUrl.get(imgIndex)).fit().centerInside().into(childImg);
+                            hide_loading_label();
                             photo_url=imgsUrl.get(imgIndex);
 
                         } else {
                             imgIndex = 0;
-                            Picasso.get().load(imgsUrl.get(imgIndex)).fit().centerInside().into(childImg);
+                            hide_loading_label();
                             photo_url=imgsUrl.get(imgIndex);
 
                         }
@@ -162,7 +171,7 @@ public class change_profile_photo extends child_menu {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(change_profile_photo.this, "Error", Toast.LENGTH_LONG).show();
+                Toast.makeText(change_profile_photo.this, "حصل خطأ خلال تحميل الصور", Toast.LENGTH_LONG).show();
 
             }
 
@@ -170,8 +179,37 @@ public class change_profile_photo extends child_menu {
         //load();
 
 
+        SaveChanges.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FBchildPhotoUrl.ref.child("Children").child(child_after_signin.id_child).child("photo_URL").setValue(photo_url);
+                r.ref.child("educator_home").child(signin_new.id_edu).child("children").child(child_after_signin.id_child).child("photo_URL").setValue(photo_url);
+                Toast.makeText(change_profile_photo.this, "تم تغيير الصورة بنجاح", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getApplicationContext(),child_home.class);
+                startActivity(intent);
+
+            }
+        });
 
 
         //load();
     }
+
+    public void hide_loading_label(){
+
+        Picasso.get().load(imgsUrl.get(imgIndex))
+                .into(childImg, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        loading_label.setVisibility(View.INVISIBLE);
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+
+                    }
+
+                });
+    }//end of function hide_loading_label
+
 }

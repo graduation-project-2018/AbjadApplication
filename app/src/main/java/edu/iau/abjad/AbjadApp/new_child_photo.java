@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -23,6 +24,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -43,7 +45,7 @@ public class new_child_photo extends menu_educator  {
     private Intent backEducatorHome;
     String gender;
     String category;
-
+    TextView  loading_label;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +65,7 @@ public class new_child_photo extends menu_educator  {
         FBchildPhotoUri = new firebase_connection();
         imgIndex = 0;
         photo_url="";
+        loading_label = findViewById(R.id.loading_label_child_after_signin);
         addChild = findViewById(R.id.addChild);
         r=new firebase_connection();
         backEducatorHome = new Intent(this,educator_home.class);
@@ -79,27 +82,32 @@ public class new_child_photo extends menu_educator  {
             case Configuration.SCREENLAYOUT_SIZE_XLARGE:
                 m.setButton_text_XLarge(addChild);
                 m.setTitle_XLarge();
+                loading_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
                 Log.i("scsize","X Large" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_LARGE:
                 m.setButton_text_Large(addChild);
                 m.setTitle_Large();
+                loading_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
                 Log.i("scsize","Large" );
 
                 break;
             case Configuration.SCREENLAYOUT_SIZE_NORMAL:
                 m.setButton_text_Normal(addChild);
                 m.setTitle_Normal();
+                loading_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
                 Log.i("scsize","Normal" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_SMALL:
                 m.setButton_text_Small(addChild);
                 m.setTitle_Small();
+                loading_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,10);
                 Log.i("scsize","Small" );
                 break;
             default:
                 m.setButton_text_Default(addChild);
                 m.setTitle_Default();
+                loading_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
 
         }//end switch
         if(gender.equals("ذكر")){
@@ -129,7 +137,9 @@ public class new_child_photo extends menu_educator  {
                 }
                 // load();
                 imgCont = (int)dataSnapshot.getChildrenCount();
-                Picasso.get().load(imgsUri.get(0)).fit().centerInside().into(childImg);
+                loading_label.setVisibility(View.VISIBLE);
+                hide_loading_label();
+
                 photo_url = imgsUri.get(0);
 
                 //add button listener
@@ -188,14 +198,16 @@ public class new_child_photo extends menu_educator  {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // load();
+                loading_label.setVisibility(View.VISIBLE);
                 imgIndex++;
                 if (imgIndex < imgCont) {
-                    Picasso.get().load(imgsUri.get(imgIndex)).fit().centerInside().into(childImg);
+                    hide_loading_label();
+
                     photo_url=imgsUri.get(imgIndex);
                 } else {
                     imgIndex = 0;
-                    Picasso.get().load(imgsUri.get(imgIndex)).fit().centerInside().into(childImg);
+                    hide_loading_label();
+
                     photo_url=imgsUri.get(imgIndex);
 
                 }
@@ -207,19 +219,23 @@ public class new_child_photo extends menu_educator  {
             @Override
             public void onClick(View v) {
                 // load();
+                loading_label.setVisibility(View.VISIBLE);
                 imgIndex--;
                 if (imgIndex < imgCont & imgIndex > 0) {
-                    Picasso.get().load(imgsUri.get(imgIndex)).fit().centerInside().into(childImg);
+                    hide_loading_label();
+
                     photo_url=imgsUri.get(imgIndex);
 
                 } else if (imgIndex == -1) {
                     imgIndex = 5;
-                    Picasso.get().load(imgsUri.get(imgIndex)).fit().centerInside().into(childImg);
+                    hide_loading_label();
+
                     photo_url=imgsUri.get(imgIndex);
 
                 } else {
                     imgIndex = 0;
-                    Picasso.get().load(imgsUri.get(imgIndex)).fit().centerInside().into(childImg);
+                    hide_loading_label();
+
                     photo_url=imgsUri.get(imgIndex);
 
                 }
@@ -227,7 +243,22 @@ public class new_child_photo extends menu_educator  {
         });
         //load();
     }
+    public void hide_loading_label(){
 
+        Picasso.get().load(imgsUri.get(imgIndex))
+                .into(childImg, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        loading_label.setVisibility(View.INVISIBLE);
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+
+                    }
+
+                });
+    }//end of function hide_loading_label
 
 
 
