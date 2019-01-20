@@ -78,7 +78,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:drawablePadding="8dp"
-        android:drawableRight="@drawable/loading2"
+        android:drawableRight="@drawable/loading_small"
         android:gravity="center"
         android:text="جاري التحميل"
         android:textSize="24sp"

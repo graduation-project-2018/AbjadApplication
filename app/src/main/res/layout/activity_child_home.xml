@@ -14,10 +14,6 @@
  />
 
 
-
-
-
-
     <Button
         android:id="@+id/schoolButton"
         android:layout_width="0dp"
