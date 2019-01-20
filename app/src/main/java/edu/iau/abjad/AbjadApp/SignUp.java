@@ -47,7 +47,7 @@ public class SignUp extends AppCompatActivity {
         Cpass = (EditText) findViewById(R.id.CPassFieldSU);
         ArabicLetters = Pattern.compile("^[ءئ ؤ إآ ى لآ لأ  لإ أ-ي ]+$");
         r = new firebase_connection();
-        educatorHome= new Intent(this,educator_home.class);
+        educatorHome= new Intent(getApplicationContext(),educator_home.class);
         back_btn = findViewById(R.id.back_signUp);
         ps = Pattern.compile("^[a-zA-Z ]+$");
         // Listener of back button to return the user to Sign in page

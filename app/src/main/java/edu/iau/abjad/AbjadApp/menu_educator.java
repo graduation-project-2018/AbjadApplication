@@ -105,11 +105,7 @@ public class menu_educator extends AppCompatActivity {
                         return true;
 
                     }
-                    case R.id.report_problem:{
-                        Intent intent = new Intent(menu_educator.this, report_problem.class);
-                        startActivity(intent);
-                        return true;
-                    }
+
                     case R.id.sign_out:{
                         FirebaseAuth.getInstance().signOut();
                         Intent intent = new Intent(menu_educator.this, signin_new.class);
@@ -180,14 +176,14 @@ public class menu_educator extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            r.ref.child("Educators").child(SigninEducator.id_edu).removeValue().addOnFailureListener(new OnFailureListener() {
+                            r.ref.child("Educators").child(signin_new.id_edu).removeValue().addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
                                     Log.e("NotFound", e.getMessage());
                                 }
                             });
 
-                            r.ref.child("educator_home").child(SigninEducator.id_edu).removeValue().addOnFailureListener(new OnFailureListener() {
+                            r.ref.child("educator_home").child(signin_new.id_edu).removeValue().addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
                                     Log.e("NotFound", e.getMessage());
@@ -205,7 +201,7 @@ public class menu_educator extends AppCompatActivity {
                                                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
                                                     String educator = s.child("Children").child(childKey).child("educator_id").getValue(String.class);
-                                                    if (educator.equals(SigninEducator.id_edu)) {
+                                                    if (educator.equals(signin_new.id_edu)) {
                                                         r.ref.child("Children").child(childKey).removeValue().addOnFailureListener(new OnFailureListener() {
                                                             @Override
                                                             public void onFailure(@NonNull Exception e) {

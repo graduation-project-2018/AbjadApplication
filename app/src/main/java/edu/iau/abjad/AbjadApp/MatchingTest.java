@@ -53,10 +53,10 @@ public class MatchingTest extends child_menu {
     AnimationDrawable anim;
     ImageView abjad ;
     boolean flag2,move_child ;
-    static String Test_letter,test_id;
+    String Test_letter,test_id;
     boolean test_finish;
     TextView loading_label_large, loading_label_normal, loading_label_small;
-
+    boolean full_child_score;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +107,7 @@ public class MatchingTest extends child_menu {
         test_finish = false;
         correct=false;
         counter=0;
+        full_child_score = false;
 
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -204,13 +205,20 @@ public class MatchingTest extends child_menu {
         while(WordsNumber[2]==0||WordsNumber[2]==WordsNumber[0] || WordsNumber[2]==WordsNumber[1]){
             WordsNumber[2]=r.nextInt(7);
         }
-//Alaa
 
-       /* Intent test=getIntent();
-        Bundle b=test.getExtras();
-        if(b!=null){
-            Test_letter=b.getString("test_letter");
-        }*/
+       MatchingTest.setOnPreparedListener(new MediaPlayer.OnPreparedListener(){
+            @Override
+            public void onPrepared(MediaPlayer player) {
+                if(full_child_score){
+                    abjad.setBackgroundResource(R.drawable.abjad_happy);
+                    anim =(AnimationDrawable) abjad.getBackground();
+                }
+                // Called when the MediaPlayer is ready to play
+                anim.start();
+                MatchingTest.start();
+            }
+        });
+
 
         Test_letter=unit_interface.test_letter;
 
@@ -269,7 +277,6 @@ public class MatchingTest extends child_menu {
                 WordsNumber[2]=r.nextInt(3);
             }
             Picasso.get().load(Content.get(WordsNumber[2]).Pic).memoryPolicy(MemoryPolicy.NO_CACHE).into(Pic3);
-            anim.start();
             playAudio(voice.MatchingTestInst);
             loading_label_large.setVisibility(View.INVISIBLE);
             loading_label_normal.setVisibility(View.INVISIBLE);
@@ -382,31 +389,27 @@ View.OnClickListener RestartListener = new View.OnClickListener() {
                 }
 
                 if(counter==3){
-                    abjad.setBackgroundResource(R.drawable.abjad_happy);
-                    anim =(AnimationDrawable) abjad.getBackground();
-                    anim.start();
+
                     score=10;
                     test_finish = true;
+                    full_child_score = true;
                     playAudio(voice.perfect_top_feedback);
                     setOnCompleteListener(MatchingTest);
 
                 }
                 else if(counter==2){
-                    anim.start();
                     score=7;
                     test_finish = true;
                     playAudio(voice.good_feedback);
                     setOnCompleteListener(MatchingTest);
                 }
                 else if(counter==1){
-                    anim.start();
                     score=3;
                     test_finish = true;
                     playAudio(voice.good_feedback);
                     setOnCompleteListener(MatchingTest);
                 }
                 else if(counter==0){
-                    anim.start();
                     score=0;
                     test_finish = true;
                     playAudio(voice.revise_previous_lessons);
@@ -569,8 +572,7 @@ View.OnDragListener dragListener1 = new View.OnDragListener() {
             MatchingTest.reset();
             MatchingTest.setAudioStreamType(AudioManager.STREAM_MUSIC);
             MatchingTest.setDataSource(url);
-            MatchingTest.prepare();
-            MatchingTest.start();
+            MatchingTest.prepareAsync();
 
         }
         catch (IOException e){
@@ -590,7 +592,8 @@ View.OnDragListener dragListener1 = new View.OnDragListener() {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        MatchingTest.release();
+        anim.stop();
+        MatchingTest = null;
     }
 
     @Override
@@ -598,7 +601,9 @@ View.OnDragListener dragListener1 = new View.OnDragListener() {
        try {
            super.onStop();
            MatchingTest.release();
+           MatchingTest = null;
            anim.stop();
+
        }
     catch (Exception e){
 
@@ -618,8 +623,10 @@ View.OnDragListener dragListener1 = new View.OnDragListener() {
                 abjad.setBackgroundResource(R.drawable.abjad_speak);
                 anim =(AnimationDrawable) abjad.getBackground();
                 if(move_child){
-                    Intent intent = new Intent(MatchingTest.this, child_home.class);
-                    startActivity(intent);
+                    Intent intent = new Intent(getApplicationContext(), unit_interface.class);
+                    intent.putExtra("unitID",unit_interface.unitID);
+                    setResult(RESULT_OK, intent);
+                    finish();
                 }
                 if(test_finish){
                     if(unit_interface.Rand.size()!=0){
@@ -654,12 +661,21 @@ View.OnDragListener dragListener1 = new View.OnDragListener() {
     protected void onRestart() {
 
         super.onRestart();
-        System.out.println("onRestart function");
-       MatchingTest = new MediaPlayer();
-        anim.start();
-       playAudio(voice.cant_continue_test);
-        move_child = true;
-        setOnCompleteListener(MatchingTest);
+        try{
+            System.out.println("onRestart function");
+            MatchingTest = new MediaPlayer();
+            anim.start();
+            MatchingTest.reset();
+            MatchingTest.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            MatchingTest.setDataSource(voice.cant_continue_test);
+            MatchingTest.prepare();
+            MatchingTest.start();
+            move_child = true;
+            setOnCompleteListener(MatchingTest);
+        }catch (Exception e){
+
+        }
+
     }
 
 }

@@ -31,10 +31,7 @@ public class unit_interface extends child_menu {
     private Button test1,test2,test3,lesson1,lesson2,lesson3,lesson4,lesson5,lesson6;
     private ImageView lock2,lock3,lock4,lock5,lock6,test1Stars,test2Stars,test3Stars,
             lesson1Stars,lesson2Stars,lesson3Stars,lesson4Stars,lesson5Stars,lesson6Stars,bal1,bal2,bal3;
-    private static firebase_connection unitConnicetion,getscore,TestId,
-            childScoreConnection,childLockConnection,getChildScoreConnection,innerScore,testScoreq,testIDq,testIDq2,
-            testgetSq1,testgetSq2;
-    private Intent chilHomeIntent,lessonIntent;
+    private Intent lessonIntent;
     private Random randomTestNo;
     private ArrayList <Intent> testIntent;
     private Intent matchingTest_Intent,readingTest_Intent,trueFalseTest_Intent,heardWordTest_Intent;
@@ -43,12 +40,10 @@ public class unit_interface extends child_menu {
     private ArrayList<String> childLessons,childTests;
     private ArrayList<String> openLessons;
     private ArrayList<String> lessons;
-    private ArrayList<String> lessonsScore;
     private audio_URLs audio;
     public static ArrayList<Intent>  Rand;
     private ArrayList<childUnitInfo> lessonsInfo,testInfo;
     private MediaPlayer instructions;
-    String un;
     public  static String unitID;
     boolean flag = true;
     private  String childID;
@@ -60,12 +55,9 @@ public class unit_interface extends child_menu {
     static String  childTime;
     static int currentScore ;
     static firebase_connection r = new firebase_connection();
-    static String actual_time;
-    private String unitName;
+    static  String actual_time;
+    private String unitName, first_signIn;
     private ImageButton playInstructione;
-
-
-
 
 
     @Override
@@ -82,21 +74,8 @@ public class unit_interface extends child_menu {
         childID = child_after_signin.id_child;
         lessons=new ArrayList<String>();
         childTests=new ArrayList<String>();
-        innerScore=new firebase_connection();
-        testIDq=new firebase_connection();
         audio=new audio_URLs();
-        TestId=new firebase_connection();
         setLessons(lessons);
-        getChildScoreConnection=new firebase_connection();
-        testIDq2=new firebase_connection();
-        lessonsScore=new ArrayList<String>();
-        unitConnicetion= new firebase_connection();
-        getscore=new firebase_connection();
-        childScoreConnection=new firebase_connection();
-        childLockConnection=new firebase_connection();
-        testScoreq=new firebase_connection();
-        testgetSq1=new firebase_connection();
-        testgetSq2=new firebase_connection();
         openLessons=new ArrayList<String>();
         childLessons=new ArrayList<String>();
         Rand=new ArrayList<Intent>();
@@ -112,6 +91,8 @@ public class unit_interface extends child_menu {
         Bundle child=getIntent().getExtras();
         m.title.setText(child.getString("Unitname"));
         unitName=child.getString("Unitname");
+        first_signIn = child.getString("first_signIn");
+
         testInfo=new ArrayList<childUnitInfo>();
         matchingTest_Intent=  new Intent(this, MatchingTest.class );
         readingTest_Intent=   new Intent(this, ReadingTest.class );
@@ -257,7 +238,15 @@ public class unit_interface extends child_menu {
            Log.i("ifStm","noone");
        }
 
-       playInstructione.setOnClickListener(new View.OnClickListener() {
+        instructions.setOnPreparedListener(new MediaPlayer.OnPreparedListener(){
+            @Override
+            public void onPrepared(MediaPlayer player) {
+                // Called when the MediaPlayer is ready to play
+                instructions.start();
+            }
+        });
+
+        playInstructione.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 playAudio(audio.unit_Tip_One);
@@ -355,31 +344,34 @@ public class unit_interface extends child_menu {
         testInfo.add(test2obj);
         testInfo.add(test3obj);
 
-        //check if it is first sign in or not
-        if(child_home.first_signIn.equals("true") && child_home.first_signIn != null){
+        try{
+            //check if it is first sign in or not
+            if(first_signIn.equals("true") && first_signIn != null){
 
-            playAudio(audio.unit_Tip_One);
-            instructions.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                @Override
-                public void onCompletion(MediaPlayer mediaPlayer) {
-                    //this flag to prevent calling this method multiple times.
-                    if(flag == false){
-                        return;
+                playAudio(audio.unit_Tip_One);
+                instructions.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mediaPlayer) {
+                        //this flag to prevent calling this method multiple times.
+                        if(flag == false){
+                            return;
+                        }
+                        flag = false;
+                        playAudio(audio.unit_Tip_Two);
+
+                        //change the vlaue in database
+                        r.ref.child("Children").child(child_after_signin.id_child).child("first_signIn").setValue("false");
+
                     }
-                    flag = false;
-                    playAudio(audio.unit_Tip_Two);
+                });
 
-                    //change the vlaue in database
-                    r.ref.child("Children").child(child_after_signin.id_child).child("first_signIn").setValue("false");
+                Log.i("checkVlaue", "true");
+            }else{
+                Log.i("checkVlaue", "false");
+            }
+        }catch(Exception e){
 
-                }
-            });
-
-            Log.i("checkVlaue", "true");
-        }else{
-            Log.i("checkVlaue", "false");
         }
-
 
 
         //listener for lessons when clicked
@@ -454,12 +446,11 @@ public class unit_interface extends child_menu {
         test2.setOnClickListener(clickedTest);
         test3.setOnClickListener(clickedTest);
         lesson1.setOnClickListener(lessonCliked);
-        Log.i("Hi",lesson6.isInTouchMode()+" Jojo");
-        Log.i("Lesson1",lesson1.isClickable()+" ");
-        unedatble();
-        Log.i("Lesson1",lesson1.isClickable()+" ");
 
-        unitConnicetion.ref.child("Units").child(unitID).child("unit_letters").addValueEventListener(new ValueEventListener() {
+        //function call
+        unedatble();
+
+        r.ref.child("Units").child(unitID).child("unit_letters").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot s: dataSnapshot.getChildren()){
@@ -482,7 +473,7 @@ public class unit_interface extends child_menu {
                     }
                     try {
                         if (childID != null && unitID != null) {
-                            childScoreConnection.ref.child("child_takes_lesson").child(childID).child(unitID).addValueEventListener(new ValueEventListener() {
+                            r.ref.child("child_takes_lesson").child(childID).child(unitID).addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -492,12 +483,12 @@ public class unit_interface extends child_menu {
                                     setChildLessons(childLessons);
 
                                     if (childLessons.size() != 0) {
-                                        getscore.ref.child("Lessons").addValueEventListener(new ValueEventListener() {
+                                        r.ref.child("Lessons").addValueEventListener(new ValueEventListener() {
                                             @Override
                                             public void onDataChange(DataSnapshot dataSnapshot) {
                                                 for (final DataSnapshot KeySnapshot : dataSnapshot.getChildren()) {
                                                     final String lKey = KeySnapshot.getKey();
-                                                    DatabaseReference k = childLockConnection.ref.child(lKey).child("lesson_letter");
+                                                    DatabaseReference k = r.ref.child(lKey).child("lesson_letter");
                                                     ValueEventListener vla = new ValueEventListener() {
                                                         @Override
                                                         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -512,13 +503,13 @@ public class unit_interface extends child_menu {
                                                                 }
                                                             }
                                                             try {
-                                                                getChildScoreConnection.ref.child("child_takes_lesson").child(childID).child(unitID).addValueEventListener(new ValueEventListener() {
+                                                                r.ref.child("child_takes_lesson").child(childID).child(unitID).addValueEventListener(new ValueEventListener() {
 
                                                                     @Override
                                                                     public void onDataChange(DataSnapshot dataSnapshot) {
                                                                         for (final DataSnapshot score : dataSnapshot.getChildren()) {
                                                                             final String Lkey = score.getKey();
-                                                                            DatabaseReference scorRef = innerScore.ref.child(Lkey).child("score");
+                                                                            DatabaseReference scorRef = r.ref.child(Lkey).child("score");
                                                                             ValueEventListener scoreValEventLesiner = new ValueEventListener() {
                                                                                 @Override
                                                                                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -625,19 +616,19 @@ public class unit_interface extends child_menu {
                     }
                 }
                 try {
-                    testScoreq.ref.child("child_takes_test").child(childID).child(unitID).addValueEventListener(new ValueEventListener() {
+                    r.ref.child("child_takes_test").child(childID).child(unitID).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             Log.i("Lesson1", lesson1.isClickable() + " ");
 
                             for (final DataSnapshot data2 : dataSnapshot.getChildren()) {
                                 final String childTests = data2.getKey();
-                                testIDq.ref.child("Tests").addValueEventListener(new ValueEventListener() {
+                                r.ref.child("Tests").addValueEventListener(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {
                                         for (final DataSnapshot test : dataSnapshot.getChildren()) {
                                             final String testkey = test.getKey();
-                                            DatabaseReference getId = testIDq2.ref.child("Tests").child(testkey);
+                                            DatabaseReference getId = r.ref.child("Tests").child(testkey);
                                             ValueEventListener testLis = new ValueEventListener() {
                                                 @Override
                                                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -654,7 +645,7 @@ public class unit_interface extends child_menu {
 
                                                         }
                                                         try {
-                                                            DatabaseReference TestScore = testgetSq1.ref.child("child_takes_test").child(childID).child(unitID).child(testkey);
+                                                            DatabaseReference TestScore = r.ref.child("child_takes_test").child(childID).child(unitID).child(testkey);
                                                             ValueEventListener TestScoreEvent = new ValueEventListener() {
 
                                                                 @Override
@@ -758,8 +749,8 @@ public class unit_interface extends child_menu {
             instructions.reset();
             instructions.setAudioStreamType(AudioManager.STREAM_MUSIC);
             instructions.setDataSource(url);
-            instructions.prepare();
-            instructions.start();
+            instructions.prepareAsync();
+
 
 
         }
@@ -792,6 +783,8 @@ public class unit_interface extends child_menu {
         super.onStop();
         try{
             instructions.stop();
+            instructions.release();
+            instructions = null;
         }catch (Exception e){
             System.err.println("Unable to stop activity");
         }
@@ -931,6 +924,20 @@ public class unit_interface extends child_menu {
         super.onBackPressed();
         finish();
         startActivity(new Intent(unit_interface.this,child_home.class));
+
+    }
+
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        try{
+            instructions.stop();
+            instructions.release();
+            instructions = null;
+        }catch (Exception e){
+            System.err.println("Unable to stop activity");
+        }
+
 
     }
 }

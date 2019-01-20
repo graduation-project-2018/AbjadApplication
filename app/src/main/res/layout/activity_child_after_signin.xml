@@ -4,17 +4,48 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/child_bg"
+    android:background="@drawable/child_after_signin"
     tools:context=".child_after_signin"
     tools:ignore="MissingDefaultResource">
 
+
+    <ImageView
+        android:id="@+id/back_child_after_signin"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="4dp"
+        android:src="@drawable/back_btn"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_back_h"
+        app:layout_constraintDimensionRatio="H,16:11"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline_back_v"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline_back_h"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.12" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline_back_v"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.95" />
 
     <TextView
         android:id="@+id/loading_label_child_after_signin"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:drawablePadding="8dp"
-        android:drawableRight="@drawable/loading2"
+        android:drawableRight="@drawable/loading_small"
         android:gravity="center"
         android:text="جاري التحميل"
         android:textSize="24sp"
@@ -76,7 +107,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="129dp"
-        app:layout_constraintGuide_percent="0.18" />
+        app:layout_constraintGuide_percent="0.30" />
 
     <android.support.constraint.Guideline
         android:id="@+id/gridView4GL"
@@ -84,7 +115,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent="0.80" />
+        app:layout_constraintGuide_percent="0.88" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline20"
@@ -92,7 +123,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="601dp"
-        app:layout_constraintGuide_percent="0.57" />
+        app:layout_constraintGuide_percent="0.47" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline21"
@@ -116,7 +147,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="601dp"
-        app:layout_constraintGuide_percent="0.46" />
+        app:layout_constraintGuide_percent="0.35" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline48"

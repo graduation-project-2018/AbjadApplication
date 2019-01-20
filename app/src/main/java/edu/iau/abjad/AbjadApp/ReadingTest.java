@@ -41,12 +41,12 @@ import java.util.Random;
 public class ReadingTest extends child_menu {
     menu_variables m = new menu_variables();
     Button mic_btn, speaker_btn;
-    static firebase_connection r;
+    firebase_connection r;
     TextView word_test_label, sentence_test_label ;
     final int REQUEST_RECORD_AUDIO_PERMISSION = 200;
     private boolean permissionToRecordAccepted = false;
     private String [] permissions = {android.Manifest.permission.RECORD_AUDIO};
-    static String test_id ;
+    String test_id ;
     int choose_phrase ;
     Button next;
     int chosen_index;
@@ -59,12 +59,15 @@ public class ReadingTest extends child_menu {
     MediaPlayer test_audio = new MediaPlayer();
     MediaPlayer feedback_audio = new MediaPlayer();
     int child_score;
-    static  int reading_child_score;
+    static int reading_child_score;
     boolean flag ;
     ImageView abjad;
     AnimationDrawable anim;
     boolean flag2, move_child, finish_child_score ;
     TextView nextLabel, loading_label;
+    // flag to make Abjad raise his hands when child answer correctly
+    boolean word_audio_flag;
+
 
 
     //Alaa
@@ -104,6 +107,8 @@ public class ReadingTest extends child_menu {
         flag2 = true;
         move_child = false;
         finish_child_score = false;
+        // this flag to prevent playing word audio in all cases, it should be played only if child can't read correctly.
+        word_audio_flag = false;
         //Alaa
         Test_Id=new firebase_connection();
         testIdq2=new firebase_connection();
@@ -152,6 +157,31 @@ public class ReadingTest extends child_menu {
                 nextLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
                 m.setTitle_Default();
         }//end switch
+
+        test_audio.setOnPreparedListener(new MediaPlayer.OnPreparedListener(){
+            @Override
+            public void onPrepared(MediaPlayer player) {
+                if(!word_audio_flag)
+                    return;
+                // Called when the MediaPlayer is ready to play
+                anim.start();
+                test_audio.start();
+            }
+        });
+
+        feedback_audio.setOnPreparedListener(new MediaPlayer.OnPreparedListener(){
+            @Override
+            public void onPrepared(MediaPlayer player) {
+                // Called when the MediaPlayer is ready to play
+
+                if( child_score == 10){
+                    abjad.setBackgroundResource(R.drawable.abjad_happy);
+                    anim =(AnimationDrawable) abjad.getBackground();
+                }
+                anim.start();
+                feedback_audio.start();
+            }
+        });
 
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -216,11 +246,10 @@ public class ReadingTest extends child_menu {
                         check_ta();
                         check_alef();
 
-                        anim.start();
-                        playAudio(audio_URLs.reading_test);
+                        playAudio_feedback(audio_URLs.reading_test);
                         loading_label.setVisibility(View.INVISIBLE);
 
-                     test_audio.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                     feedback_audio.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                             @Override
                             public void onCompletion(MediaPlayer mediaPlayer) {
                                 //this flag to prevent calling this method multiple times.
@@ -230,10 +259,7 @@ public class ReadingTest extends child_menu {
                                 flag = false;
                                 try {
                                     anim.stop();
-                                    test_audio.reset();
-                                    test_audio.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                                    test_audio.setDataSource(word_audio);
-                                    test_audio.prepare();
+                                    playAudio(word_audio);
 
                                 }catch (Exception e){
 
@@ -255,7 +281,7 @@ public class ReadingTest extends child_menu {
 
             }
         }); }
-                        }
+                }
 
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
@@ -364,7 +390,7 @@ public class ReadingTest extends child_menu {
                         break;
 
                 }
-                anim.start();
+
                 playAudio_feedback(audio_URLs.not_hearing_you);
                 setOnCompleteListener(feedback_audio);
             }
@@ -386,14 +412,9 @@ public class ReadingTest extends child_menu {
                 for (int i = 0; i < matches.size(); i++) {
                     Log.d("2", "Results " + matches.get(i));
                     if (matches.get(i).compareTo(word) == 0) {
+                        fullScore();
                         Log.d("2",  "Matching true!! ");
-                        abjad.setBackgroundResource(R.drawable.abjad_happy);
-                        anim =(AnimationDrawable) abjad.getBackground();
-                        anim.start();
-                        playAudio_feedback(audio_URLs.perfect_top_feedback);
-                        setOnCompleteListener(feedback_audio);
                         found = true;
-                        child_score = 10;
                         break;
                     }
                 }
@@ -404,14 +425,9 @@ public class ReadingTest extends child_menu {
                         if (duplicates.length >= 2) {
                             for (int j = 0; j < duplicates.length; j++) {
                                 if (duplicates[j].compareTo(word) == 0) {
+                                    fullScore();
                                     System.out.println("النطق صحيح مع التكرار");
-                                    abjad.setBackgroundResource(R.drawable.abjad_happy);
-                                    anim =(AnimationDrawable) abjad.getBackground();
-                                    anim.start();
-                                    playAudio_feedback(audio_URLs.perfect_top_feedback);
-                                    setOnCompleteListener(feedback_audio);
                                     found_with_repetion = true;
-                                    child_score = 10;
                                     break;
                                 }
                             }
@@ -523,8 +539,8 @@ public class ReadingTest extends child_menu {
             test_audio.reset();
             test_audio.setAudioStreamType(AudioManager.STREAM_MUSIC);
             test_audio.setDataSource(url);
-            test_audio.prepare();
-            test_audio.start();
+            test_audio.prepareAsync();
+
 
         }
         catch (IOException e){
@@ -545,8 +561,7 @@ public class ReadingTest extends child_menu {
             feedback_audio.reset();
             feedback_audio.setAudioStreamType(AudioManager.STREAM_MUSIC);
             feedback_audio.setDataSource(url);
-            feedback_audio.prepare();
-            feedback_audio.start();
+            feedback_audio.prepareAsync();
 
         }
         catch (IOException e){
@@ -569,10 +584,9 @@ public class ReadingTest extends child_menu {
         try{
             mSpeechRecognizer.cancel();
             mSpeechRecognizer.destroy();
-            test_audio.release();
-            feedback_audio.release();
-            System.out.println("onDestroy function");
-
+            test_audio = null;
+            feedback_audio = null;
+            anim.stop();
         }catch (Exception e){
             System.err.println("Unable to destroy activity");
         }
@@ -588,9 +602,9 @@ public class ReadingTest extends child_menu {
             mSpeechRecognizer.destroy();
             test_audio.release();
             feedback_audio.release();
+            feedback_audio = null;
+            test_audio = null;
             anim.stop();
-
-            System.out.println("onStop function");
         }catch (Exception e){
             System.err.println("Unable to stop activity");
         }
@@ -599,14 +613,12 @@ public class ReadingTest extends child_menu {
 
     public void listen_word_feedback(int globalCost, int word_length, double max_match){
         if(globalCost == 1 && word_length ==3){
-            anim.start();
             playAudio_feedback(audio_URLs.perfect_only_one_mistake);
             setOnCompleteListener(feedback_audio);
             child_score =8;
         }
         //very bad
         else if(globalCost >=2 && word_length == 3){
-            anim.start();
             playAudio_feedback(audio_URLs.listen_to_abjad);
             setOnCompleteListener(feedback_audio);
             child_score = 1;
@@ -614,25 +626,21 @@ public class ReadingTest extends child_menu {
         }
         else if(globalCost == 1 && word_length>3){
             child_score =8;
-            anim.start();
             playAudio_feedback(audio_URLs.not_fully_good);
             setOnCompleteListener(feedback_audio);
         }
         else if(max_match>=0.49 && word_length > 3){
-            anim.start();
             playAudio_feedback(audio_URLs.not_fully_good);
             child_score = 5;
             setOnCompleteListener(feedback_audio);
 
         }
         else if(max_match<=0.49 && max_match >= 0.39 && word_length>3){
-            anim.start();
             playAudio_feedback(audio_URLs.good_with_revision);
             setOnCompleteListener(feedback_audio);
             child_score =3;
         }
         else if(max_match<0.39 && word_length>3){
-            anim.start();
             playAudio_feedback(audio_URLs.listen_to_abjad);
             setOnCompleteListener(feedback_audio);
             child_score=1;
@@ -664,7 +672,6 @@ public class ReadingTest extends child_menu {
             return;
         }
         else if(max_match>=0.89){
-            anim.start();
             playAudio_feedback(audio_URLs.not_fully_good);
             setOnCompleteListener(feedback_audio);
             child_score =8;
@@ -673,14 +680,12 @@ public class ReadingTest extends child_menu {
         }
         else if(max_match>=0.75){
             child_score=7;
-            anim.start();
             playAudio_feedback(audio_URLs.not_fully_good);
             setOnCompleteListener(feedback_audio);
             return;
         }
         else if(max_match <= 0.75 && max_match>=0.5){
             child_score=6;
-            anim.start();
             playAudio_feedback(audio_URLs.not_fully_good);
             setOnCompleteListener(feedback_audio);
             return;
@@ -688,21 +693,18 @@ public class ReadingTest extends child_menu {
         }
         else if(max_match<=0.5 && max_match>=0.4){
             child_score=4;
-            anim.start();
             playAudio_feedback(audio_URLs.good_with_revision);
             setOnCompleteListener(feedback_audio);
             return;
         }
         else if (max_match>=0.25){
             child_score=2;
-            anim.start();
             playAudio_feedback(audio_URLs.listen_to_abjad);
             setOnCompleteListener(feedback_audio);
             return;
         }
         else if(max_match<0.25){
             child_score=1;
-            anim.start();
             playAudio_feedback(audio_URLs.listen_to_abjad);
             setOnCompleteListener(feedback_audio);
         }
@@ -711,9 +713,6 @@ public class ReadingTest extends child_menu {
 
     private void fullScore() {
         child_score=10;
-        abjad.setBackgroundResource(R.drawable.abjad_happy);
-        anim =(AnimationDrawable) abjad.getBackground();
-        anim.start();
         playAudio_feedback(audio_URLs.perfect_top_feedback);
         setOnCompleteListener(feedback_audio);
     }
@@ -746,8 +745,10 @@ public class ReadingTest extends child_menu {
                 anim =(AnimationDrawable) abjad.getBackground();
                 if(move_child){
                     //move to unit interface
-                    Intent intent = new Intent(ReadingTest.this, child_home.class);
-                    startActivity(intent);
+                    Intent intent = new Intent(getApplicationContext(), unit_interface.class);
+                    intent.putExtra("unitID",unit_interface.unitID);
+                    setResult(RESULT_OK, intent);
+                    finish();
                 }
 
                 if(finish_child_score){
@@ -763,12 +764,21 @@ public class ReadingTest extends child_menu {
     @Override
     protected void onRestart() {
         super.onRestart();
-        System.out.println("onRestart function");
-        feedback_audio = new MediaPlayer();
-        anim.start();
-        playAudio_feedback(audio_URLs.cant_continue_test);
-        move_child = true;
-        setOnCompleteListener(feedback_audio);
+        try{
+            System.out.println("onRestart function");
+            feedback_audio = new MediaPlayer();
+            anim.start();
+            feedback_audio.reset();
+            feedback_audio.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            feedback_audio.setDataSource(audio_URLs.cant_continue_test);
+            feedback_audio.prepare();
+            feedback_audio.start();
+            move_child = true;
+            setOnCompleteListener(feedback_audio);
+        }catch (Exception e){
+
+        }
+
     }
 
     public void next_test_or_go_home(){
@@ -791,4 +801,6 @@ public class ReadingTest extends child_menu {
             finish();
         }
     }
+
+
 }

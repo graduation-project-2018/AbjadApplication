@@ -35,7 +35,7 @@ public class child_profile extends child_menu {
     EditText FNChild, LNChild;
     ImageView ChildImage;
     firebase_connection r;
-    childInformation child;
+    child_info_new child;
     DatabaseReference read;
     Button saveChanges;
     Pattern ArabicLetters;
@@ -180,7 +180,7 @@ public class child_profile extends child_menu {
                 r.ref.child("Children").child(child_after_signin.id_child).child("first_name").setValue(newFname);
                 r.ref.child("Children").child(child_after_signin.id_child).child("last_name").setValue(newLname);
                 Toast.makeText(child_profile.this, " تم حفظ التغييرات بنجاح", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(child_profile.this,child_home.class);
+                Intent intent = new Intent(getApplicationContext(),child_home.class);
                 startActivity(intent);
 
     }//end of editChild function

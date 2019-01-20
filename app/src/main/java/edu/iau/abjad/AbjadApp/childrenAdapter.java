@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -44,7 +45,7 @@ ArrayList <children> children;
         ImageView img = (ImageView) convertView.findViewById(R.id.child_img);
         TextView name = (TextView) convertView.findViewById(R.id.child_name);
         final children s= (children) this.getItem(position);
-        Picasso.get().load(s.photo_URL).into(img);
+        Picasso.get().load(s.photo_URL).memoryPolicy(MemoryPolicy.NO_CACHE).into(img);
         name.setText(s.getFirst_name());
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,6 +53,7 @@ ArrayList <children> children;
                 if(s.getDestination()=="childHome"){
                     child_after_signin.id_child = s.getChild_ID();
                     c.startActivity(intent2);
+
                 }
                 else{
                     intent.putExtra("child_ID",s.getChild_ID());
@@ -61,4 +63,6 @@ ArrayList <children> children;
         });
         return convertView;
     }
+
+
 }//end of childrenAdapter  function

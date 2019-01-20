@@ -35,7 +35,6 @@ public class signin_new extends AppCompatActivity implements View.OnClickListene
     static String id_edu;
     TextView send_label, signIn_label, reset_pass_label,  new_account_label;
     firebase_connection r = new firebase_connection();
-
     DatabaseReference db2;
     String x;
     static Integer current_child_number;

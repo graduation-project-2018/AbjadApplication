@@ -42,7 +42,6 @@ public class HeardWordTest extends child_menu  {
     menu_variables m = new menu_variables();
     // private DatabaseReference pointer;
     private Button w1,w2,w3,nextButn;
-    private FirebaseAuth auth;
     private firebase_connection r;
     private ArrayList<heard_word_content> wordsGroupList = new ArrayList<heard_word_content>();
     private MediaPlayer test_audio = new MediaPlayer();
@@ -55,7 +54,7 @@ public class HeardWordTest extends child_menu  {
     AnimationDrawable anim;
     ImageView abjad;
     boolean flag2, move_child, finish_child_score;
-    static String test_id;
+    String test_id;
     String Test_letter;
     TextView loading_label;
 
@@ -130,6 +129,28 @@ public class HeardWordTest extends child_menu  {
                 m.setTitle_Default();
 
         }//end switch
+
+        test_audio.setOnPreparedListener(new MediaPlayer.OnPreparedListener(){
+            @Override
+            public void onPrepared(MediaPlayer player) {
+                // Called when the MediaPlayer is ready to play
+                anim.start();
+                test_audio.start();
+            }
+        });
+
+        audio_feedback.setOnPreparedListener(new MediaPlayer.OnPreparedListener(){
+            @Override
+            public void onPrepared(MediaPlayer player) {
+                // Called when the MediaPlayer is ready to play
+                if(finish_child_score){
+                    abjad.setBackgroundResource(R.drawable.abjad_happy);
+                    anim =(AnimationDrawable) abjad.getBackground();
+                }
+                anim.start();
+                audio_feedback.start();
+            }
+        });
 
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -216,26 +237,29 @@ public class HeardWordTest extends child_menu  {
                         w3.setText(content3);
 
                         selected_word = wordsGroupList.get(y-1).content;
-                        anim.start();
                         playAudioFeedback(audio_urLs.choose_heard_audio);
                         loading_label.setVisibility(View.INVISIBLE);
+                        try{
+                            // On complete listener that fire when the instruction audio finish to start the lesson audio.
+                            audio_feedback.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                                @Override
+                                public void onCompletion(MediaPlayer mediaPlayer) {
+                                    //this flag to prevent calling this method multiple times.
+                                    if(flag == false){
+                                        return;
+                                    }
+                                    flag = false;
+                                    anim.stop();
+                                    playAudio(wordsGroupList.get(y-1).audio_file);
 
-                        // On complete listener that fire when the instruction audio finish to start the lesson audio.
-                       audio_feedback.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                            @Override
-                            public void onCompletion(MediaPlayer mediaPlayer) {
-                                //this flag to prevent calling this method multiple times.
-                                if(flag == false){
-                                    return;
                                 }
-                                flag = false;
-                                anim.stop();
-                                playAudio(wordsGroupList.get(y-1).audio_file);
-                                anim.start();
+                            });
 
-                            }
-                        });
-                            setOnCompleteListener(test_audio);
+                        }catch (Exception e){
+
+                        }
+
+                        setOnCompleteListener(test_audio);
                         check_ans();
 
 
@@ -348,8 +372,7 @@ public class HeardWordTest extends child_menu  {
             test_audio.reset();
             test_audio.setAudioStreamType(AudioManager.STREAM_MUSIC);
             test_audio.setDataSource(url);
-            test_audio.prepare();
-            test_audio.start();
+            test_audio.prepareAsync();
 
         }
         catch (IOException e){
@@ -372,8 +395,7 @@ public class HeardWordTest extends child_menu  {
             audio_feedback.reset();
             audio_feedback.setAudioStreamType(AudioManager.STREAM_MUSIC);
             audio_feedback.setDataSource(url);
-            audio_feedback.prepare();
-            audio_feedback.start();
+            audio_feedback.prepareAsync();
 
         }
         catch (IOException e){
@@ -395,17 +417,22 @@ public class HeardWordTest extends child_menu  {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        test_audio.release();
-        audio_feedback.release();
-
+        test_audio = null;
+        audio_feedback = null;
+        anim.stop();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         test_audio.release();
+        test_audio.release();
+        audio_feedback.reset();
         audio_feedback.release();
+        test_audio = null;
+        audio_feedback = null;
         anim.stop();
+        System.out.println("inside onStop inside test");
     }
 
 //this one for a button listener to signOut
@@ -424,8 +451,10 @@ public class HeardWordTest extends child_menu  {
                 abjad.setBackgroundResource(R.drawable.abjad_speak);
                 anim =(AnimationDrawable) abjad.getBackground();
                 if(move_child){
-                    Intent intent = new Intent(HeardWordTest.this, child_home.class);
-                    startActivity(intent);
+                    Intent intent = new Intent(getApplicationContext(), unit_interface.class);
+                    intent.putExtra("unitID",unit_interface.unitID);
+                    setResult(RESULT_OK, intent);
+                    finish();
                 }
                 if(finish_child_score){
                     next_test_or_go_home();
@@ -443,18 +472,24 @@ public class HeardWordTest extends child_menu  {
     protected void onRestart() {
 
         super.onRestart();
-        System.out.println("onRestart function");
-        audio_feedback = new MediaPlayer();
-        anim.start();
-        playAudio(audio_urLs.cant_continue_test);
-        move_child = true;
-        setOnCompleteListener(audio_feedback);
+        try{
+            System.out.println("onRestart function");
+            audio_feedback = new MediaPlayer();
+            anim.start();
+            audio_feedback.reset();
+            audio_feedback.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            audio_feedback.setDataSource(audio_urLs.cant_continue_test);
+            audio_feedback.prepare();
+            audio_feedback.start();
+            move_child = true;
+            setOnCompleteListener(audio_feedback);
+        }catch (Exception e){
+
+        }
+
     }
 
     public void correct_choice(){
-        abjad.setBackgroundResource(R.drawable.abjad_happy);
-        anim =(AnimationDrawable) abjad.getBackground();
-        anim.start();
         playAudioFeedback(audio_urLs.perfect_top_feedback);
         setOnCompleteListener(audio_feedback);
         if(final_heard_child_score ==-1){
@@ -470,7 +505,6 @@ public class HeardWordTest extends child_menu  {
     }
 
     public void wrong_choice(){
-        anim.start();
         playAudioFeedback(audio_urLs.wrong_choice);
         setOnCompleteListener(audio_feedback);
         if(final_heard_child_score ==-1){

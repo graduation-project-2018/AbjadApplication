@@ -7,6 +7,7 @@ import android.content.res.Configuration;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +27,7 @@ public class child_home extends child_menu {
      Intent intentOfUnit;
      Button family , homeLand, school;
      TextView family_textView,school_textView,homeLand_textView;
-     static String first_signIn;
+     String  first_signIn;
 
 
     @Override
@@ -45,19 +46,20 @@ public class child_home extends child_menu {
 
         myDrawerLayout.addView(contentView, 0);
 
-        intentOfUnit=new Intent(this, unit_interface.class );
+        intentOfUnit=new Intent(getApplicationContext(), unit_interface.class );
         school=findViewById(R.id.schoolButton);
         homeLand=findViewById(R.id.homeButton);
         family=findViewById(R.id.familyButton);
         family_textView=findViewById(R.id.family);
         school_textView=findViewById(R.id.school);
         homeLand_textView=findViewById(R.id.city);
+        first_signIn ="";
 
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
-                startActivity(new Intent(child_home.this,child_after_signin.class));
+                startActivity(new Intent(getApplicationContext(),child_after_signin.class));
             }
         });
 
@@ -96,15 +98,14 @@ public class child_home extends child_menu {
                 m.setTitle_Default();
         }
 
+
         // get the value of first_signIn to know if we should play user manual or not.
         DatabaseReference getChildFirstSignInInfo = r.ref.child("Children").child(child_after_signin.id_child).child("first_signIn");
         getChildFirstSignInInfo.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 first_signIn = dataSnapshot.getValue().toString();
-                System.out.println("ttt "+ first_signIn);
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
@@ -118,7 +119,9 @@ public class child_home extends child_menu {
                 intentOfUnit.putExtra("id",unitId);
                 intentOfUnit.putExtra("Unitname","مدرستي");
                 intentOfUnit.putExtra("preIntent","childHome");
+                intentOfUnit.putExtra("first_signIn", first_signIn);
                 setResult(RESULT_OK,intentOfUnit);
+                finish();
                 startActivity(intentOfUnit);
             }
         });
@@ -129,7 +132,9 @@ public class child_home extends child_menu {
                 intentOfUnit.putExtra("id",unitId);
                 intentOfUnit.putExtra("Unitname","أسرتي");
                 intentOfUnit.putExtra("preIntent","childHome");
+                intentOfUnit.putExtra("first_signIn", first_signIn);
                 setResult(RESULT_OK,intentOfUnit);
+                finish();
                 startActivity(intentOfUnit);
             }
         });
@@ -140,7 +145,9 @@ public class child_home extends child_menu {
                 intentOfUnit.putExtra("id",unitId);
                 intentOfUnit.putExtra("Unitname","مدينتي");
                 intentOfUnit.putExtra("preIntent","childHome");
+                intentOfUnit.putExtra("first_signIn", first_signIn);
                 setResult(RESULT_OK,intentOfUnit);
+                finish();
                 startActivity(intentOfUnit);
             }
         });

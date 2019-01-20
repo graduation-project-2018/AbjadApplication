@@ -201,10 +201,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:drawableRight="@drawable/loading2"
+        android:drawableRight="@drawable/loading_small"
         android:drawablePadding="8dp"
         android:text="جاري التحميل"
-        android:textSize="25sp"
+        android:textSize="24sp"
         android:visibility="invisible"
         app:layout_marginBottomPercent="80%" />
 
