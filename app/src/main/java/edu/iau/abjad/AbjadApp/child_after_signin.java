@@ -34,7 +34,7 @@ public class child_after_signin extends AppCompatActivity {
     childrenAdapter adapter;
     GridView gv;
     DatabaseReference db,db2;
-  
+
     Guideline gr,gl ;
     String x  ;
     ImageView back;
