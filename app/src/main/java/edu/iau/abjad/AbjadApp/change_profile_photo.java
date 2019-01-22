@@ -34,7 +34,7 @@ public class change_profile_photo extends child_menu {
     private int imgIndex;
     String photo_url;
     Button SaveChanges;
-
+    String gender="";
     TextView  loading_label;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,21 +107,42 @@ public class change_profile_photo extends child_menu {
 
 
 
-        FBchildPhotoUrl.ref.child("ChildPhoto").child(child_home.gender).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot childSnapShot : dataSnapshot.getChildren()) {
-
-                    photo_url = childSnapShot.getValue().toString();
-                    imgsUrl.add( photo_url);
-                }
-                imgCont = (int)dataSnapshot.getChildrenCount();
-                loading_label.setVisibility(View.VISIBLE);
-                hide_loading_label();
-
-                photo_url = imgsUrl.get(0);
 
 
+                r.ref.child("Children").child(child_after_signin.id_child).child("gender").addValueEventListener(new ValueEventListener()
+                {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists()){
+                            gender = dataSnapshot.getValue().toString();
+                            if(gender.equals("ذكر")){
+
+                                gender = "boys";
+                            }
+                            else {
+                                gender = "girls";
+                            }
+                        }//end of if block
+                        FBchildPhotoUrl.ref.child("ChildPhoto").child(gender).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                for (DataSnapshot childSnapShot : dataSnapshot.getChildren()) {
+
+                                    photo_url = childSnapShot.getValue().toString();
+                                    imgsUrl.add( photo_url);
+                                }
+                                imgCont = (int)dataSnapshot.getChildrenCount();
+                                loading_label.setVisibility(View.VISIBLE);
+                                hide_loading_label();
+
+                                photo_url = imgsUrl.get(0);
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
                 // load();
                 next.setOnClickListener(new View.OnClickListener() {
 
