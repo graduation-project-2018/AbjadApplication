@@ -5,7 +5,6 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.INTERNET" />
 
-
     <supports-screens
         android:largeScreens="true"
         android:normalScreens="true"
@@ -74,7 +73,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".educator_profile"
@@ -93,15 +91,14 @@
         <activity
             android:name=".signin_new"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan">
-
-        </activity>
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"></activity>
         <activity android:name=".new_add_child" />
         <activity android:name=".child_after_signin" />
         <activity android:name=".new_child_photo" />
         <activity android:name=".select_user_type" />
         <activity android:name=".contact_us" />
-        <activity android:name=".edu_auth_popup"></activity>
+        <activity android:name=".edu_auth_popup" />
+        <activity android:name=".um"></activity>
     </application>
 
 </manifest>
