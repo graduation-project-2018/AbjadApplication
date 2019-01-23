@@ -25,6 +25,7 @@ public class select_user_type extends AppCompatActivity {
     TextView eduLabel, childLabel;
     ImageView back_btn;
     Random rand = new Random();
+    String[]  edu_auth_arabic_numbers = {"١٢٠٠","٣٠٠٠","١٢٠","٥٥","٢١٠","٤٤","٩٩","٨٧","٥١٠٠","١١٠٠"};
     String[] edu_auth_numbers = {"1200", "3000", "120", "55", "210","44","99","87","5100","1100"};
     String[] edu_auth_written_numbers=
             {"ألف ومئتان",
@@ -135,7 +136,7 @@ public class select_user_type extends AppCompatActivity {
 
         num_label.setText(edu_auth_written_numbers[chosen_element]);
         final ArrayList<String> arrayList_num = new ArrayList<String>(Arrays.asList(edu_auth_numbers));
-
+        final ArrayList<String> arrayList_num_arabic = new ArrayList<String>(Arrays.asList(edu_auth_arabic_numbers));
         enter_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -145,9 +146,15 @@ public class select_user_type extends AppCompatActivity {
                     finish();
                     startActivity(intentOfEdu);
                 }
-                else{
-                    num_field.setError("الرقم غير صحيح");
-                    num_field.requestFocus();
+                else {
+                    int returned_index2 = arrayList_num_arabic.indexOf(num);
+                    if (returned_index2 == chosen_element) {
+                        finish();
+                        startActivity(intentOfEdu);
+                    } else {
+                        num_field.setError("الرقم غير صحيح");
+                        num_field.requestFocus();
+                    }
                 }
 
             }

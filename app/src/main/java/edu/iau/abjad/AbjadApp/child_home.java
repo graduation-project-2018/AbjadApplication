@@ -27,7 +27,6 @@ public class child_home extends child_menu {
      Intent intentOfUnit;
      Button family , homeLand, school;
      TextView family_textView,school_textView,homeLand_textView;
-     static String gender;
      String  first_signIn;
 
 
@@ -112,27 +111,7 @@ public class child_home extends child_menu {
 
             }
         });
-        r.ref.child("Children").child(child_after_signin.id_child).child("gender").addValueEventListener(new ValueEventListener()
-        {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-                    gender = dataSnapshot.getValue().toString();
-                    if(gender.equals("ذكر")){
 
-                       gender = "boys";
-                    }
-                    else {
-                        gender = "girls";
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
         school.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -28,13 +29,13 @@ public class child_after_signin extends AppCompatActivity {
 
     menu_variables m = new menu_variables();
     ArrayList <children> children = new ArrayList<children>();
-    TextView  loading_label,noChildlabel;
+    TextView  noChildlabel;
     firebase_connection r = new firebase_connection();
     static String id_child ;
     childrenAdapter adapter;
     GridView gv;
     DatabaseReference db,db2;
-    static children only_child;
+    ProgressBar loading;
     Guideline gr,gl ;
     String x  ;
     ImageView back;
@@ -52,7 +53,7 @@ public class child_after_signin extends AppCompatActivity {
         back = findViewById(R.id.back_child_after_signin);
         gv = (GridView)findViewById(R.id.gv);
         gv.setNumColumns(2);
-        loading_label = findViewById(R.id.loading_label_child_after_signin);
+        loading = findViewById(R.id.loading);
         gl = findViewById(R.id.gridViewGL);
         gr = findViewById(R.id.gridView2GL);
         noChildlabel = findViewById(R.id.NoChildren);
@@ -62,24 +63,24 @@ public class child_after_signin extends AppCompatActivity {
         switch(screenSize) {
             case Configuration.SCREENLAYOUT_SIZE_XLARGE:
                 noChildlabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
-                loading_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
+
                 break;
             case Configuration.SCREENLAYOUT_SIZE_LARGE:
                 noChildlabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
-                loading_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+
                 break;
             case Configuration.SCREENLAYOUT_SIZE_NORMAL:
                 noChildlabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
-                loading_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
+
 
                 break;
             case Configuration.SCREENLAYOUT_SIZE_SMALL:
                 noChildlabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,10);
-                loading_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,10);
+
                 break;
             default:
                 noChildlabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
-                loading_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
+
         }//end of switch
 
 
@@ -102,7 +103,7 @@ public class child_after_signin extends AppCompatActivity {
 
                         noChildlabel.setVisibility(View.VISIBLE);
                     } else {
-                        loading_label.setVisibility(View.VISIBLE);
+                        loading.setVisibility(View.VISIBLE);
 
                         children_Events();
                     }
@@ -162,19 +163,19 @@ public class child_after_signin extends AppCompatActivity {
                 fetch_children(dataSnapshot);
                 adapter = new childrenAdapter(child_after_signin.this,children);
                 gv.setAdapter(adapter);
-                loading_label.setVisibility(View.INVISIBLE);
+                loading.setVisibility(View.INVISIBLE);
 
             }
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                loading_label.setVisibility(View.VISIBLE);
+                loading.setVisibility(View.VISIBLE);
                 children_changed(dataSnapshot,"change");
 
 
             }
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-                loading_label.setVisibility(View.VISIBLE);
+                loading.setVisibility(View.VISIBLE);
                 children_changed(dataSnapshot,"remove");
 
 
@@ -217,6 +218,6 @@ public class child_after_signin extends AppCompatActivity {
         checkNumOfChildren();
         adapter = new childrenAdapter(child_after_signin.this,children);
         gv.setAdapter(adapter);
-        loading_label.setVisibility(View.INVISIBLE);
+        loading.setVisibility(View.INVISIBLE);
     }//end of children_changed
 }//end of class

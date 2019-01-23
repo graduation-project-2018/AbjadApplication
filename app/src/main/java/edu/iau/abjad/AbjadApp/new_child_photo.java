@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,7 +46,7 @@ public class new_child_photo extends menu_educator  {
     private Intent backEducatorHome;
     String gender;
     String category;
-    TextView  loading_label;
+    ProgressBar loading;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,7 +66,7 @@ public class new_child_photo extends menu_educator  {
         FBchildPhotoUri = new firebase_connection();
         imgIndex = 0;
         photo_url="";
-        loading_label = findViewById(R.id.loading_label_child_after_signin);
+        loading = findViewById(R.id.loading);
         addChild = findViewById(R.id.addChild);
         r=new firebase_connection();
         backEducatorHome = new Intent(this,educator_home.class);
@@ -82,32 +83,31 @@ public class new_child_photo extends menu_educator  {
             case Configuration.SCREENLAYOUT_SIZE_XLARGE:
                 m.setButton_text_XLarge(addChild);
                 m.setTitle_XLarge();
-                loading_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
+
                 Log.i("scsize","X Large" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_LARGE:
                 m.setButton_text_Large(addChild);
                 m.setTitle_Large();
-                loading_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+
                 Log.i("scsize","Large" );
 
                 break;
             case Configuration.SCREENLAYOUT_SIZE_NORMAL:
                 m.setButton_text_Normal(addChild);
                 m.setTitle_Normal();
-                loading_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
+
                 Log.i("scsize","Normal" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_SMALL:
                 m.setButton_text_Small(addChild);
                 m.setTitle_Small();
-                loading_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,10);
+
                 Log.i("scsize","Small" );
                 break;
             default:
                 m.setButton_text_Default(addChild);
                 m.setTitle_Default();
-                loading_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
 
         }//end switch
         if(gender.equals("ذكر")){
@@ -137,7 +137,7 @@ public class new_child_photo extends menu_educator  {
                 }
                 // load();
                 imgCont = (int)dataSnapshot.getChildrenCount();
-                loading_label.setVisibility(View.VISIBLE);
+                loading.setVisibility(View.VISIBLE);
                 hide_loading_label();
 
                 photo_url = imgsUri.get(0);
@@ -198,7 +198,7 @@ public class new_child_photo extends menu_educator  {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loading_label.setVisibility(View.VISIBLE);
+                loading.setVisibility(View.VISIBLE);
                 imgIndex++;
                 if (imgIndex < imgCont) {
                     hide_loading_label();
@@ -219,7 +219,7 @@ public class new_child_photo extends menu_educator  {
             @Override
             public void onClick(View v) {
                 // load();
-                loading_label.setVisibility(View.VISIBLE);
+                loading.setVisibility(View.VISIBLE);
                 imgIndex--;
                 if (imgIndex < imgCont & imgIndex > 0) {
                     hide_loading_label();
@@ -249,7 +249,7 @@ public class new_child_photo extends menu_educator  {
                 .into(childImg, new Callback() {
                     @Override
                     public void onSuccess() {
-                        loading_label.setVisibility(View.INVISIBLE);
+                        loading.setVisibility(View.INVISIBLE);
                     }
 
                     @Override

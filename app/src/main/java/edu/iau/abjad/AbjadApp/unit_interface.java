@@ -32,6 +32,10 @@ public class unit_interface extends child_menu {
     private ImageView lock2, lock3, lock4, lock5, lock6, test1Stars, test2Stars, test3Stars,
             lesson1Stars, lesson2Stars, lesson3Stars, lesson4Stars, lesson5Stars, lesson6Stars, bal1, bal2, bal3;
     private Intent lessonIntent;
+    private Button test1,test2,test3,lesson1,lesson2,lesson3,lesson4,lesson5,lesson6;
+    private ImageView lock2,lock3,lock4,lock5,lock6,test1Stars,test2Stars,test3Stars,
+            lesson1Stars,lesson2Stars,lesson3Stars,lesson4Stars,lesson5Stars,lesson6Stars,bal1,bal2,bal3;
+    private Intent lessonIntent,lessonUMIntent;
     private Random randomTestNo;
     private ArrayList<Intent> testIntent;
     private Intent matchingTest_Intent, readingTest_Intent, trueFalseTest_Intent, heardWordTest_Intent;
@@ -51,7 +55,7 @@ public class unit_interface extends child_menu {
     firebase_connection r;
     private String unitName, first_signIn;
     private ImageButton playInstructione;
-
+    String first="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +84,20 @@ public class unit_interface extends child_menu {
         bal2 = findViewById(R.id.ballon2);
         bal3 = findViewById(R.id.ballon3);
         Bundle child = getIntent().getExtras();
+        openLessons=new ArrayList<String>();
+        childLessons=new ArrayList<String>();
+        Rand=new ArrayList<Intent>();
+        TestStringForTesting=new ArrayList<String>();
+        TestStringForTesting2=new ArrayList<String>();
+        randomTestNo=new Random();
+        lessonUMIntent= new Intent(this,um.class);
+        lessonIntent=new Intent(this,Lesson.class);
+        testIntent=new ArrayList<Intent>();
+        lessonsInfo=new ArrayList<childUnitInfo>();
+        bal1=findViewById(R.id.ballon1);
+        bal2=findViewById(R.id.ballon2);
+        bal3=findViewById(R.id.ballon3);
+        Bundle child=getIntent().getExtras();
         m.title.setText(child.getString("Unitname"));
         unitName = child.getString("Unitname");
         first_signIn = child.getString("first_signIn");
@@ -195,7 +213,24 @@ public class unit_interface extends child_menu {
                 lesson6.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
 
         }//end switch
+        r.ref.child("Children").child(child_after_signin.id_child).child("um").addValueEventListener(new ValueEventListener()
+        {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    first= dataSnapshot.getValue().toString();
 
+                }//end of if block
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+       Bundle intent=getIntent().getExtras();
+       if(intent.getString("preIntent").equals("Lesson")){
+           this.unitID=intent.getString("unitID");
         Bundle intent = getIntent().getExtras();
         if (intent.getString("preIntent").equals("Lesson")) {
             this.unitID = intent.getString("unitID");
@@ -390,7 +425,7 @@ public class unit_interface extends child_menu {
                     lessonIntent.putExtra("Lessonltr", lessonsInfo.get(5).getLesson().getText().toString());
                     lessonIntent.putExtra("unitID", unitID);
                 }
-                startActivity(lessonIntent);
+
             }
         };
 
@@ -868,4 +903,23 @@ public class unit_interface extends child_menu {
         startActivity(intent);
 
     }
+    public void lesson_user_manual_interface_redirection(int x){
+        if(first.equals("2")) {
+            //The value of first string means that the child did not enters the lesson yet,
+            // so lesson user manual video must appear
+
+            lessonUMIntent.putExtra("Lessonltr",lessonsInfo.get(x).getLesson().getText().toString());
+            startActivity(lessonUMIntent);
+
+        }
+        else if(first.equals("3")){
+
+            //The value of first string means that the child has entered the lesson ,
+            // so child will be redirected to the lesson interface directly (no user manual video is played)
+            lessonIntent.putExtra("Lessonltr",lessonsInfo.get(x).getLesson().getText().toString());
+            startActivity(lessonIntent);
+
+        }
+
+    }//end of function
 }
