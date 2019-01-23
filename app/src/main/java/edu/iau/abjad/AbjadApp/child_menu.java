@@ -134,6 +134,16 @@ public class child_menu extends AppCompatActivity {
                         startActivity(intent);
                         return true;
                     }
+                    case R.id.lesson_um:{
+                   /*     if(Lesson.words_counter==6){
+                            Lesson.computeChildScore();
+                        }*/
+
+                        Intent intent = new Intent(child_menu.this, um.class);
+                        intent.putExtra("Lessonltr","");
+                        startActivity(intent);
+                        return true;
+                    }
 
 
                 }

@@ -50,10 +50,17 @@ public class um extends AppCompatActivity {
         video.setOnCompletionListener(new MediaPlayer.OnCompletionListener()
         {
             public void onCompletion(MediaPlayer mp)
-            {  r.ref.child("Children").child(child_after_signin.id_child).child("um").setValue("3");
+            {
+                if(letter.equals("")){
+                    finish();
+
+                }
+                else{
+                r.ref.child("Children").child(child_after_signin.id_child).child("um").setValue("3");
                 intent.putExtra("Lessonltr",letter);
                 finish();
                 startActivity(intent);
+                }
 
             }
         });

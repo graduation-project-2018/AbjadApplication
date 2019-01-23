@@ -18,6 +18,9 @@
         <item android:id="@+id/sign_out"
             android:title="خروج"
             android:icon="@drawable/signout_icon"></item>
+    <item android:id="@+id/lesson_um"
+        android:title="الإرشادات التعليمية للدرس"
+        android:icon="@drawable/instructions"></item>
 
 
 </menu>

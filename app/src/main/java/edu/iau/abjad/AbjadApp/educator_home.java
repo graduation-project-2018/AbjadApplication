@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,7 +43,7 @@ public class educator_home extends menu_educator {
    GridView gv;
    TextView child_name;
    ImageView child_img;
-    TextView  loading_label;
+    ProgressBar loading;
     DatabaseReference db,db2;
     Guideline gr,gl ;
     String x  ;
@@ -73,31 +74,30 @@ public class educator_home extends menu_educator {
         label.setText("لا يوجد لديك أطفال مسجلين حاليا, لإضافة طفل جديد لطفا اضغط زر الإضافة");
         gl = findViewById(R.id.gridViewGL);
         gr = findViewById(R.id.gridView2GL);
-        loading_label = findViewById(R.id.loading_label_child_after_signin);
+        loading = findViewById(R.id.loading);
         int screenSize = getResources().getConfiguration().screenLayout &
                 Configuration.SCREENLAYOUT_SIZE_MASK;
 
         switch(screenSize) {
             case Configuration.SCREENLAYOUT_SIZE_XLARGE:
                 label.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
-                loading_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
+
                 break;
             case Configuration.SCREENLAYOUT_SIZE_LARGE:
                 label.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
-                loading_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+
                 break;
             case Configuration.SCREENLAYOUT_SIZE_NORMAL:
                 label.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
-                loading_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
 
                 break;
             case Configuration.SCREENLAYOUT_SIZE_SMALL:
                 label.setTextSize(TypedValue.COMPLEX_UNIT_SP,10);
-                loading_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,10);
+
                 break;
             default:
                 label.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
-                loading_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
+
         }
 
         back_btn.setOnClickListener(new View.OnClickListener() {
@@ -119,7 +119,7 @@ public class educator_home extends menu_educator {
 
                         label.setVisibility(View.VISIBLE);
                     } else {
-                        loading_label.setVisibility(View.VISIBLE);
+                        loading.setVisibility(View.VISIBLE);
                         children_Events();
                     }
                 }
@@ -165,17 +165,17 @@ public void children_Events(){
             checkNumOfChildren();
             adapter = new childrenAdapter(educator_home.this,children);
             gv.setAdapter(adapter);
-            loading_label.setVisibility(View.INVISIBLE);
+            loading.setVisibility(View.INVISIBLE);
             }
         @Override
         public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-            loading_label.setVisibility(View.VISIBLE);
+            loading.setVisibility(View.VISIBLE);
             children_changed(dataSnapshot,"change");
 
         }
         @Override
         public void onChildRemoved(DataSnapshot dataSnapshot) {
-            loading_label.setVisibility(View.VISIBLE);
+            loading.setVisibility(View.VISIBLE);
             children_changed(dataSnapshot,"remove");
 
         }
@@ -217,7 +217,7 @@ public void children_changed(DataSnapshot dataSnapshot, String status){
     checkNumOfChildren();
     adapter = new childrenAdapter(educator_home.this,children);
     gv.setAdapter(adapter);
-    loading_label.setVisibility(View.INVISIBLE);
+    loading.setVisibility(View.INVISIBLE);
     }//end of children_changed
 
     @Override

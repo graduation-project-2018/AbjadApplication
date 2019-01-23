@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,7 +36,7 @@ public class change_profile_photo extends child_menu {
     String photo_url;
     Button SaveChanges;
     String gender="";
-    TextView  loading_label;
+    ProgressBar loading;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +56,7 @@ public class change_profile_photo extends child_menu {
         pre = (ImageView)findViewById(R.id.prevChangeImg);
         childImg=(ImageView)findViewById(R.id.ChangeChildImg);
         FBchildPhotoUrl = new firebase_connection();
-        loading_label = findViewById(R.id.loading_label_child_after_signin);
+        loading = findViewById(R.id.loading);
         imgIndex = 0;
         photo_url="";
 
@@ -77,32 +78,32 @@ public class change_profile_photo extends child_menu {
             case Configuration.SCREENLAYOUT_SIZE_XLARGE:
                 m.setButton_text_XLarge(SaveChanges);
                 m.setTitle_XLarge();
-                loading_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
+
                 Log.i("scsize","X Large" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_LARGE:
                 m.setButton_text_Large(SaveChanges);
                 m.setTitle_Large();
-                loading_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+
                 Log.i("scsize","Large" );
 
                 break;
             case Configuration.SCREENLAYOUT_SIZE_NORMAL:
                 m.setButton_text_Normal(SaveChanges);
                 m.setTitle_Normal();
-                loading_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
+
                 Log.i("scsize","Normal" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_SMALL:
                 m.setButton_text_Small(SaveChanges);
                 m.setTitle_Small();
-                loading_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,10);
+
                 Log.i("scsize","Small" );
                 break;
             default:
                 m.setButton_text_Default(SaveChanges);
                 m.setTitle_Default();
-                loading_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
+
         }//end switch
 
 
@@ -132,7 +133,7 @@ public class change_profile_photo extends child_menu {
                                     imgsUrl.add( photo_url);
                                 }
                                 imgCont = (int)dataSnapshot.getChildrenCount();
-                                loading_label.setVisibility(View.VISIBLE);
+                                loading.setVisibility(View.VISIBLE);
                                 hide_loading_label();
 
                                 photo_url = imgsUrl.get(0);
@@ -149,7 +150,7 @@ public class change_profile_photo extends child_menu {
                     @Override
                     public void onClick(View v) {
                         // load();
-                       loading_label.setVisibility(View.VISIBLE);
+                       loading.setVisibility(View.VISIBLE);
                         imgIndex++;
                         if (imgIndex < imgCont) {
                             hide_loading_label();
@@ -168,7 +169,7 @@ public class change_profile_photo extends child_menu {
                     @Override
                     public void onClick(View v) {
                         // load();
-                        loading_label.setVisibility(View.VISIBLE);
+                        loading.setVisibility(View.VISIBLE);
                         imgIndex--;
                         if (imgIndex < imgCont & imgIndex > 0) {
                            hide_loading_label();
@@ -222,7 +223,7 @@ public class change_profile_photo extends child_menu {
                 .into(childImg, new Callback() {
                     @Override
                     public void onSuccess() {
-                        loading_label.setVisibility(View.INVISIBLE);
+                        loading.setVisibility(View.INVISIBLE);
                     }
 
                     @Override
