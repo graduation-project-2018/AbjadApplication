@@ -285,7 +285,8 @@ public class ChildProgress extends menu_educator {
                                                     final String status=s.child("status").getValue(String.class);
                                                     final int ilessonScore=s.child("score").getValue(Integer.class);
                                                     sTime=s.child("time").getValue().toString();
-                                                    dTime=Double.parseDouble(sTime);
+                                                    String modifiedsTime = arabicToDecimal(sTime);
+                                                    dTime=Double.parseDouble(modifiedsTime);
 
                                                     lett=dataSnapshot.child(lessonKey)
                                                             .child("lesson_letter").getValue().toString();
@@ -516,5 +517,18 @@ public class ChildProgress extends menu_educator {
         });*/
     }
 
-
+    private String arabicToDecimal(String number) {
+        char[] chars = new char[number.length()];
+        for(int i=0;i<number.length();i++) {
+            char ch = number.charAt(i);
+            if (ch >= 0x0660 && ch <= 0x0669)
+                ch -= 0x0660 - '0';
+            else if (ch >= 0x06f0 && ch <= 0x06F9)
+                ch -= 0x06f0 - '0';
+            else if(ch=='٫')
+                ch='.';
+            chars[i] = ch;
+        }
+        return new String(chars);
+    }
 }
