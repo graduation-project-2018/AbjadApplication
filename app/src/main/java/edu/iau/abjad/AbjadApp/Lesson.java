@@ -47,12 +47,12 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
     SpeechRecognizer mSpeechRecognizer ;
     Intent mSpeechRecognizerIntent ;
     Button next_lesson_btn, prev_lesson_btn;
-    static int words_counter;
+    int words_counter;
     String word;
-    static firebase_connection r;
+    firebase_connection r;
     ImageView lesson_pic;
-    static String lessonID;
-    static ArrayList <lesson_words> wordsArrayList;
+    String lessonID;
+    ArrayList <lesson_words> wordsArrayList;
     MediaPlayer lesson_audio;
     MediaPlayer audio_instruction;
     Button speaker_btn;
@@ -61,14 +61,12 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
     final int REQUEST_RECORD_AUDIO_PERMISSION = 200;
     private boolean permissionToRecordAccepted = false;
     private String [] permissions = {Manifest.permission.RECORD_AUDIO};
-    /* I make all of these variables below as Static because they will be used in Static function, so it requires that all used variables
-     inside it should be static. */
-    static int child_score ,currentScore ;
-    static String status,childTime;
-    static long startTime, endTime;
-    static int sum;
-    static boolean incomplete;
-    static String acTime;
+    int child_score ,currentScore ;
+    String status,childTime;
+    long startTime, endTime;
+    int sum;
+    boolean incomplete;
+    String acTime;
     boolean isEndOfSpeech ;
     ImageView abjad;
     AnimationDrawable anim;
@@ -77,12 +75,9 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
     ImageView score_img;
     boolean move_child ;
     String choosenPhrase;
-
-
-
-
-
-
+    LevenshteinDistance algorithmObj = new LevenshteinDistance();
+    String unitID;
+    boolean child_skip_exercise;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -94,12 +89,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
 
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        //to get the lesson letter from Unit interface.
-        Intent h=getIntent();
-        Bundle extras = h.getExtras();
-        if(extras != null){
-        Log.i("getExtra",h.getStringExtra("Lessonltr"));
-        }
+
 
         //inflate your activity layout here!
         View contentView = inflater.inflate(R.layout.activity_lesson, null, false);
@@ -110,7 +100,16 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
 
 
         r = new firebase_connection();
-        letter = h.getStringExtra("Lessonltr");
+
+        //to get the lesson letter and unit ID from Unit interface.
+        Intent  unitIntent =getIntent();
+        Bundle letter_and_unitID = unitIntent.getExtras();
+        if(letter_and_unitID !=null){
+            letter = letter_and_unitID.getString("Lessonltr");
+            unitID = letter_and_unitID.getString("unitID");
+        }
+
+
         //set Lesson title
         m.title.setText(  "حرف "+"( " +letter+ " ) " );
 
@@ -130,12 +129,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
         abjad = findViewById(R.id.abjad);
         abjad.setBackgroundResource(R.drawable.abjad_speak);
         anim =(AnimationDrawable) abjad.getBackground();
-
-
-
-
-
-
+        
         score_img = findViewById(R.id.score_img);
         incomplete = false;
         sum=0;
@@ -144,6 +138,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
         flag = true;
         flag2 = true;
         move_child = false;
+        child_skip_exercise = true;
         status="";
         childTime="";
         a1= new MediaPlayer();
@@ -156,7 +151,6 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                 onBackPressed();
             }
         });
-
 
 
         int screenSize = getResources().getConfiguration().screenLayout &
@@ -557,11 +551,11 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
 
 
                             for(int i =0 ; i<matches.size(); i++){
-                                returnValue=LevenshteinDistance.computeEditDistance(word,matches.get(i));
+                                returnValue=algorithmObj.computeEditDistance(word,matches.get(i));
                                 if(max_match<=returnValue){
                                     max_match = returnValue;
                                     choosenPhrase= matches.get(i);
-                                    globalCost=LevenshteinDistance.globalCost;
+                                    globalCost=algorithmObj.globalCost;
                                 }
                             }
                             System.out.println("choosen Phrase: "+choosenPhrase);
@@ -583,6 +577,11 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                             wordsArrayList.get(words_counter).child_score= child_score;
                         }
                         isEndOfSpeech = true;
+
+                        if(words_counter == 6){
+                            computeChildScore();
+                            child_skip_exercise = false;
+                        }
                     }catch(Exception e){
                         System.out.println("inside catch in if flag == false");
                         System.err.println(e.getMessage());
@@ -629,12 +628,17 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode){
-            case REQUEST_RECORD_AUDIO_PERMISSION:
-                permissionToRecordAccepted  = grantResults[0] == PackageManager.PERMISSION_GRANTED;
-                break;
+        try{
+            switch (requestCode){
+                case REQUEST_RECORD_AUDIO_PERMISSION:
+                    permissionToRecordAccepted  = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                    break;
+            }
+            if (!permissionToRecordAccepted ) finish();
+        }catch (Exception e){
+
         }
-        if (!permissionToRecordAccepted ) finish();
+
 
     }
     @Override
@@ -713,7 +717,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
             word = word.replace('ة','ه');
         }
     }
-    public static void computeChildScore(){
+    public void computeChildScore(){
 
         endTime = Calendar.getInstance().getTimeInMillis();
         double actualTime = endTime - startTime;
@@ -726,16 +730,20 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
             if(wordsArrayList.get(i).child_score==0){
                 incomplete= true;
             }
+
         }
         sum=sum/7; //get avg
-        Query query =  r.ref.child("child_takes_lesson").child(child_after_signin.id_child).child(unit_interface.unitID).orderByKey().equalTo(lessonID);
+        System.out.println("Sum is: "+ sum);
+        System.out.println("Unit id is "+ unitID);
+        System.out.println("lesson id is "+ lessonID);
+        Query query =  r.ref.child("child_takes_lesson").child(child_after_signin.id_child).child(unitID).orderByKey().equalTo(lessonID);
        query.addListenerForSingleValueEvent(new ValueEventListener() {
            @Override
            public void onDataChange(DataSnapshot dataSnapshot) {
                if(dataSnapshot.exists()){
-                   System.out.println("Eixist!!!!!!!!");
+
                    try{
-                       DatabaseReference read_score =  r.ref.child("child_takes_lesson").child(child_after_signin.id_child).child(unit_interface.unitID).child(lessonID);
+                       DatabaseReference read_score =  r.ref.child("child_takes_lesson").child(child_after_signin.id_child).child(unitID).child(lessonID);
                        read_score.addValueEventListener(new ValueEventListener() {
                            @Override
                            public void onDataChange(DataSnapshot dataSnapshot) {
@@ -747,12 +755,12 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                                        childTime = dataSnapshot.child("time").getValue().toString();
                                    }
                                    if(currentScore<sum){
-                                       r.ref.child("child_takes_lesson").child(child_after_signin.id_child).child(unit_interface.unitID).child(lessonID).child("score").setValue(sum);
-                                       r.ref.child("child_takes_lesson").child(child_after_signin.id_child).child(unit_interface.unitID).child(lessonID).child("time").setValue(acTime);
+                                       r.ref.child("child_takes_lesson").child(child_after_signin.id_child).child(unitID).child(lessonID).child("score").setValue(sum);
+                                       r.ref.child("child_takes_lesson").child(child_after_signin.id_child).child(unitID).child(lessonID).child("time").setValue(acTime);
 
                                    }
                                    if(incomplete==false && status != "مكتمل"){
-                                       r.ref.child("child_takes_lesson").child(child_after_signin.id_child).child(unit_interface.unitID).child(lessonID).child("status").setValue("مكتمل");
+                                       r.ref.child("child_takes_lesson").child(child_after_signin.id_child).child(unitID).child(lessonID).child("status").setValue("مكتمل");
                                    }
                            }
                            @Override
@@ -767,14 +775,15 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                }
                else{
                    if(incomplete){
-                       r.ref.child("child_takes_lesson").child(child_after_signin.id_child).child(unit_interface.unitID).child(lessonID).child("status").setValue("غير مكتمل");
+                       r.ref.child("child_takes_lesson").child(child_after_signin.id_child).child(unitID).child(lessonID).child("status").setValue("غير مكتمل");
                    }
                    else{
-                       r.ref.child("child_takes_lesson").child(child_after_signin.id_child).child(unit_interface.unitID).child(lessonID).child("status").setValue("مكتمل");
+                       r.ref.child("child_takes_lesson").child(child_after_signin.id_child).child(unitID).child(lessonID).child("status").setValue("مكتمل");
 
                    }
-                   r.ref.child("child_takes_lesson").child(child_after_signin.id_child).child(unit_interface.unitID).child(lessonID).child("score").setValue(sum);
-                   r.ref.child("child_takes_lesson").child(child_after_signin.id_child).child(unit_interface.unitID).child(lessonID).child("time").setValue(acTime);
+                   System.out.println("Sum total: "+ sum);
+                   r.ref.child("child_takes_lesson").child(child_after_signin.id_child).child(unitID).child(lessonID).child("score").setValue(sum);
+                   r.ref.child("child_takes_lesson").child(child_after_signin.id_child).child(unitID).child(lessonID).child("time").setValue(acTime);
                }
            }
            @Override
@@ -804,20 +813,12 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
     protected void onRestart() {
         super.onRestart();
         System.out.println("onRestart function");
-        try{
-            a1 = new MediaPlayer();
-            a1.reset();
-            a1.setAudioStreamType(AudioManager.STREAM_MUSIC);
-            a1.setDataSource(audio_URLs.cannot_complete);
-            Log.i("cantt", "Restart function");
-            a1.prepare();
-            a1.start();
-            anim.start();
-            setOnCompleteListener(a1);
-            move_child = true;
-        }catch(Exception e){
+        //Move to unit interface when child close the app while test or lesson
+        Intent intent = new Intent(getApplicationContext(), unit_interface.class);
+        intent.putExtra("unitID",unitID);
+        setResult(RESULT_OK, intent);
+        finish();
 
-        }
 
     }
 
@@ -975,7 +976,8 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                 anim =(AnimationDrawable) abjad.getBackground();
                 if(move_child){
                     Intent intent = new Intent(Lesson.this, unit_interface.class);
-                    intent.putExtra("unitID",unit_interface.unitID);
+                    intent.putExtra("unitID",unitID);
+                    Log.i("unitID with move", unitID);
                     setResult(RESULT_OK, intent);
                     finish();
 
@@ -1022,9 +1024,11 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
         }
         else if (words_counter == 7){
             // move to unit interface
-            computeChildScore();
+            if(child_skip_exercise){
+                computeChildScore();
+            }
             Intent intent = new Intent(Lesson.this, unit_interface.class);
-            intent.putExtra("unitID",unit_interface.unitID);
+            intent.putExtra("unitID",unitID);
             intent.putExtra("preIntent","Lesson");
             setResult(RESULT_OK, intent);
             startActivity(intent);

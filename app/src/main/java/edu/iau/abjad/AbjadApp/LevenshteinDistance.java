@@ -1,7 +1,7 @@
 package edu.iau.abjad.AbjadApp;
 public class LevenshteinDistance {
-    static int globalCost;
-    public static double computeEditDistance(String s1, String s2) {
+     int globalCost;
+    public  double computeEditDistance(String s1, String s2) {
         double similarityOfStrings = 0.0;
         int editDistance = 0;
         if (s1.length() < s2.length()) { // s1 should always be bigger

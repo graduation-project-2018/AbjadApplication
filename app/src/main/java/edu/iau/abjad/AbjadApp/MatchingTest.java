@@ -41,7 +41,7 @@ public class MatchingTest extends child_menu {
     MatchingTestContent obj;
     firebase_connection rfb;
     int TestNum,counter ;
-    static  int score;
+    int score;
     DatabaseReference read;
     int[]  WordsNumber ;
     String PicDB , WordDB;
@@ -57,6 +57,11 @@ public class MatchingTest extends child_menu {
     boolean test_finish;
     TextView loading_label_large, loading_label_normal, loading_label_small;
     boolean full_child_score;
+    String unitID;
+    long startTime;
+    int total_score_of_prev_tests;
+    ArrayList<Intent> Rand;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +113,7 @@ public class MatchingTest extends child_menu {
         correct=false;
         counter=0;
         full_child_score = false;
+        Rand = new ArrayList<Intent>();
 
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,6 +122,18 @@ public class MatchingTest extends child_menu {
             }
         });
 
+        //to get the test letter and unit ID from Unit interface.
+        Intent  unitIntent =getIntent();
+        Bundle letter_and_unitID = unitIntent.getExtras();
+        if(letter_and_unitID !=null){
+            Test_letter = letter_and_unitID.getString("test_letter");
+            unitID = letter_and_unitID.getString("unitID");
+            startTime = letter_and_unitID.getLong("startTime");
+            Rand = (ArrayList)letter_and_unitID.get("Rand");
+            if(letter_and_unitID.getInt("score") != 0){
+                total_score_of_prev_tests = letter_and_unitID.getInt("score");
+            }
+        }
 
 
         int screenSize = getResources().getConfiguration().screenLayout &
@@ -220,7 +238,6 @@ public class MatchingTest extends child_menu {
         });
 
 
-        Test_letter=unit_interface.test_letter;
 
         //Alaa
         rfb.ref.child("Tests").addValueEventListener(new ValueEventListener() {
@@ -235,10 +252,8 @@ public class MatchingTest extends child_menu {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             if(key!=null){
                                 String lettr=snapshot.child("test_letters").getValue().toString();
-                                Log.i("w2w2",lettr);
                                 if(lettr.equals(Test_letter)) {
                                     test_id = key;
-                                    Log.i("1234567", Test_letter + " " + test_id);
 
                                     //Alaa
    read = rfb.ref.child("Tests").child(test_id).child("words");
@@ -264,19 +279,19 @@ public class MatchingTest extends child_menu {
             }
             Word3.setText(Content.get(WordsNumber[2]).Word);
             WordsNumber[0] = r.nextInt(3);
-            Picasso.get().load(Content.get(WordsNumber[0]).Pic).memoryPolicy(MemoryPolicy.NO_CACHE).into(Pic1);
+            Picasso.get().load(Content.get(WordsNumber[0]).Pic).fit().memoryPolicy(MemoryPolicy.NO_CACHE).into(Pic1);
 
             WordsNumber[1]=r.nextInt(3);
             while(WordsNumber[1]==WordsNumber[0]){
                 WordsNumber[1]=r.nextInt(3);
             }
-            Picasso.get().load(Content.get(WordsNumber[1]).Pic).memoryPolicy(MemoryPolicy.NO_CACHE).into(Pic2);
+            Picasso.get().load(Content.get(WordsNumber[1]).Pic).fit().memoryPolicy(MemoryPolicy.NO_CACHE).into(Pic2);
 
             WordsNumber[2]=r.nextInt(3);
             while(WordsNumber[2]==WordsNumber[0] || WordsNumber[2]==WordsNumber[1]){
                 WordsNumber[2]=r.nextInt(3);
             }
-            Picasso.get().load(Content.get(WordsNumber[2]).Pic).memoryPolicy(MemoryPolicy.NO_CACHE).into(Pic3);
+            Picasso.get().load(Content.get(WordsNumber[2]).Pic).fit().memoryPolicy(MemoryPolicy.NO_CACHE).into(Pic3);
             playAudio(voice.MatchingTestInst);
             loading_label_large.setVisibility(View.INVISIBLE);
             loading_label_normal.setVisibility(View.INVISIBLE);
@@ -624,27 +639,34 @@ View.OnDragListener dragListener1 = new View.OnDragListener() {
                 anim =(AnimationDrawable) abjad.getBackground();
                 if(move_child){
                     Intent intent = new Intent(getApplicationContext(), unit_interface.class);
-                    intent.putExtra("unitID",unit_interface.unitID);
+                    intent.putExtra("unitID",unitID);
                     setResult(RESULT_OK, intent);
                     finish();
                 }
                 if(test_finish){
-                    if(unit_interface.Rand.size()!=0){
-                        Intent nextTest=unit_interface.Rand.get(0);
-                        unit_interface.Rand.remove(nextTest);
+                    if(Rand.size()!=0){
+                        Intent nextTest=Rand.get(0);
+                        nextTest.putExtra("unitID", unitID);
+                        nextTest.putExtra("test_letter", Test_letter);
+                        nextTest.putExtra("startTime", startTime);
+                        // this to pass the score of this test and previous test/s "if exist" to the next test
+                        total_score_of_prev_tests = total_score_of_prev_tests + score;
+                        nextTest.putExtra("score", total_score_of_prev_tests);
+                        Rand.remove(nextTest);
+                        nextTest.putExtra("Rand",Rand);
                         startActivity(nextTest);
                         finish();
-
                     }
                     else{
-                        unit_interface.endtest=true;
-                        unit_interface.EndTime= Calendar.getInstance().getTimeInMillis();
-                        Intent intent = new Intent(MatchingTest.this, unit_interface.class);
-                        intent.putExtra("unitID",unit_interface.unitID);
-                        intent.putExtra("preIntent","matchingTest");
+                        m.endtest=true;
+                        m.total_tests_score = total_score_of_prev_tests + score;
+                        m.EndTime= Calendar.getInstance().getTimeInMillis();
+                        Intent intent = new Intent(getApplicationContext(), unit_interface.class);
+                        intent.putExtra("unitID",unitID);
+                        intent.putExtra("preIntent","readingTest");
                         setResult(RESULT_OK, intent);
                         System.out.println("Testttt ID: "+ test_id);
-                        unit_interface.test_score(test_id);
+                        m.test_score(test_id, unitID, startTime);
                         startActivity(intent);
                         finish();
                     }
@@ -661,20 +683,11 @@ View.OnDragListener dragListener1 = new View.OnDragListener() {
     protected void onRestart() {
 
         super.onRestart();
-        try{
-            System.out.println("onRestart function");
-            MatchingTest = new MediaPlayer();
-            anim.start();
-            MatchingTest.reset();
-            MatchingTest.setAudioStreamType(AudioManager.STREAM_MUSIC);
-            MatchingTest.setDataSource(voice.cant_continue_test);
-            MatchingTest.prepare();
-            MatchingTest.start();
-            move_child = true;
-            setOnCompleteListener(MatchingTest);
-        }catch (Exception e){
-
-        }
+        //Move to unit interface when child close the app while test or lesson
+        Intent intent = new Intent(getApplicationContext(), unit_interface.class);
+        intent.putExtra("unitID",unitID);
+        setResult(RESULT_OK, intent);
+        finish();
 
     }
 

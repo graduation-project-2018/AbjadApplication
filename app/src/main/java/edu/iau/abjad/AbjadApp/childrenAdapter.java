@@ -45,7 +45,7 @@ ArrayList <children> children;
         ImageView img = (ImageView) convertView.findViewById(R.id.child_img);
         TextView name = (TextView) convertView.findViewById(R.id.child_name);
         final children s= (children) this.getItem(position);
-        Picasso.get().load(s.photo_URL).memoryPolicy(MemoryPolicy.NO_CACHE).into(img);
+        Picasso.get().load(s.photo_URL).into(img);
         name.setText(s.getFirst_name());
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override

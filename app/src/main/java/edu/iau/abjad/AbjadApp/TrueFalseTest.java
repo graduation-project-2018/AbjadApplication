@@ -37,7 +37,7 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
     firebase_connection r;
     TextView sentenceLabel, loading_label;
     String selectedSentence;
-    static int true_false_test_score;
+    int true_false_test_score;
     boolean flag ;
     int true_or_false;
     int sentence_number;
@@ -46,7 +46,10 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
     boolean flag2, move_child, finish_child_score;
     String audio;
     String test_id;
-    String Test_letter;
+    String Test_letter, unitID;
+    long startTime;
+    int total_score_of_prev_tests;
+    ArrayList<Intent> Rand;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,12 +76,14 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
         anim =(AnimationDrawable) abjad.getBackground();
         flag = true;
         flag2 = true;
-
         finish_child_score= false;
+        Rand = new ArrayList<Intent>();
+
         Random rand = new Random();
         true_or_false = rand.nextInt(2);
         sentence_number = rand.nextInt(4);
         final int retreive_sentence = sentence_number+1;
+
 
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,6 +91,19 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
                 onBackPressed();
             }
         });
+
+        //to get the test letter and unit ID from Unit interface.
+        Intent  unitIntent =getIntent();
+        Bundle letter_and_unitID = unitIntent.getExtras();
+        if(letter_and_unitID !=null){
+            Test_letter = letter_and_unitID.getString("test_letter");
+            unitID = letter_and_unitID.getString("unitID");
+            startTime = letter_and_unitID.getLong("startTime");
+            Rand = (ArrayList)letter_and_unitID.get("Rand");
+            if(letter_and_unitID.getInt("score") != 0){
+                total_score_of_prev_tests = letter_and_unitID.getInt("score");
+            }
+        }
 
 
         int screenSize = getResources().getConfiguration().screenLayout &
@@ -150,7 +168,7 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
             }
         });
 
-        Test_letter=unit_interface.test_letter;
+
 
   System.out.println("Test letter: "+ Test_letter);
         //Alaa
@@ -378,7 +396,7 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
                 anim =(AnimationDrawable) abjad.getBackground();
                 if(move_child){
                     Intent intent = new Intent(getApplicationContext(), unit_interface.class);
-                    intent.putExtra("unitID",unit_interface.unitID);
+                    intent.putExtra("unitID",unitID);
                     setResult(RESULT_OK, intent);
                     finish();
                 }
@@ -398,40 +416,38 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
     protected void onRestart() {
 
         super.onRestart();
-        try{
-            System.out.println("onRestart function");
-            test_sentence_audio= new MediaPlayer();
-            anim.start();
-            test_sentence_audio.reset();
-            test_sentence_audio.setAudioStreamType(AudioManager.STREAM_MUSIC);
-            test_sentence_audio.setDataSource(audio_obj.cant_continue_test);
-            test_sentence_audio.prepare();
-            test_sentence_audio.start();
-
-            move_child = true;
-            setOnCompleteListener(test_sentence_audio);
-        }catch (Exception e){
-
-        }
+        //Move to unit interface when child close the app while test or lesson
+        Intent intent = new Intent(getApplicationContext(), unit_interface.class);
+        intent.putExtra("unitID",unitID);
+        setResult(RESULT_OK, intent);
+        finish();
 
     }
 
     public void next_test_or_go_home() {
-        if(unit_interface.Rand.size()!=0){
-            Intent nextTest=unit_interface.Rand.get(0);
-            unit_interface.Rand.remove(nextTest);
+        if(Rand.size()!=0){
+            Intent nextTest=Rand.get(0);
+            nextTest.putExtra("unitID", unitID);
+            nextTest.putExtra("test_letter", Test_letter);
+            nextTest.putExtra("startTime", startTime);
+            // this to pass the score of this test and previous test/s "if exist" to the next test
+            total_score_of_prev_tests = total_score_of_prev_tests + true_false_test_score;
+            nextTest.putExtra("score", total_score_of_prev_tests);
+            Rand.remove(nextTest);
+            nextTest.putExtra("Rand",Rand);
             startActivity(nextTest);
             finish();
         }
         else{
-            unit_interface.endtest=true;
-            unit_interface.EndTime= Calendar.getInstance().getTimeInMillis();
+            m.endtest=true;
+            m.EndTime= Calendar.getInstance().getTimeInMillis();
+            m.total_tests_score = total_score_of_prev_tests + true_false_test_score;
             Intent intent = new Intent(getApplicationContext(), unit_interface.class);
-            intent.putExtra("unitID",unit_interface.unitID);
-            intent.putExtra("preIntent","trueFalse");
+            intent.putExtra("unitID",unitID);
+            intent.putExtra("preIntent","readingTest");
             setResult(RESULT_OK, intent);
             System.out.println("Testttt ID: "+ test_id);
-            unit_interface.test_score(test_id);
+            m.test_score(test_id, unitID,startTime);
             startActivity(intent);
             finish();
         }

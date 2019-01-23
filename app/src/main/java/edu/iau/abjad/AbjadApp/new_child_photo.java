@@ -156,7 +156,7 @@ public class new_child_photo extends menu_educator  {
                         r.ref.child("educator_home").child(signin_new.id_edu).child("childrenNumber").setValue( signin_new.current_child_number.toString());
                         r.ref.child("educator_home").child(signin_new.id_edu).child("children").child(push_id).child("photo_URL").setValue(photo_url);
                         r.ref.child("educator_home").child(signin_new.id_edu).child("children").child(push_id).child("first_name").setValue(completeObj.first_name);
-                        Toast.makeText(new_child_photo.this, "تمت إضافة الطفل بنجاح", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "تمت إضافة الطفل بنجاح", Toast.LENGTH_LONG).show();
                         finish();
                         startActivity(backEducatorHome);
                         /*Query query = r.ref.child("Children").orderByKey();
@@ -188,7 +188,7 @@ public class new_child_photo extends menu_educator  {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(new_child_photo.this, "Error", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "حدث خطأ، الرجاء المحاولة لاحقاً", Toast.LENGTH_LONG).show();
 
             }
 

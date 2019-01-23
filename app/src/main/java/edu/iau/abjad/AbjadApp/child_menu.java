@@ -99,10 +99,7 @@ public class child_menu extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.edit_profile:{
-                        if(Lesson.words_counter==6){
-                            Lesson.computeChildScore();
-                        }
-                        Intent intent = new Intent(child_menu.this, change_profile_photo.class);
+                        Intent intent = new Intent(getApplicationContext(), change_profile_photo.class);
                         startActivity(intent);
                         return true;
 
@@ -110,27 +107,18 @@ public class child_menu extends AppCompatActivity {
 
 
                     case R.id.edit_profile_child:{
-                        if(Lesson.words_counter==6){
-                            Lesson.computeChildScore();
-                        }
                         popUp(4);
                         return true;
                     }
 
                   case R.id.delete_child:{
-                        if(Lesson.words_counter==6){
-                            Lesson.computeChildScore();
-                        }
                         popUp(3);
                         return true;
                     }
 
                     case R.id.sign_out:{
-                        if(Lesson.words_counter==6){
-                            Lesson.computeChildScore();
-                        }
                         finish();
-                        Intent intent = new Intent(child_menu.this, select_user_type.class);
+                        Intent intent = new Intent(getApplicationContext(), select_user_type.class);
                         startActivity(intent);
                         return true;
                     }
@@ -146,10 +134,7 @@ public class child_menu extends AppCompatActivity {
         home_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(Lesson.words_counter==6){
-                    Lesson.computeChildScore();
-                }
-                Intent intent = new Intent(child_menu.this, child_home.class);
+                Intent intent = new Intent(getApplicationContext(), child_home.class);
                 startActivity(intent);
             }
         });
@@ -207,7 +192,7 @@ public class child_menu extends AppCompatActivity {
 
                                                     }
                                                     else if(i==4){
-                                                        Intent intent = new Intent(child_menu.this, child_profile.class);
+                                                        Intent intent = new Intent(getApplicationContext(), child_profile.class);
                                                         intent.putExtra("email", edu_email);
                                                         startActivity(intent);
 
@@ -227,7 +212,7 @@ public class child_menu extends AppCompatActivity {
                                 });
 
                             } else {
-                                Intent usr = new Intent(child_menu.this, signin_new.class);
+                                Intent usr = new Intent(getApplicationContext(), signin_new.class);
                                 startActivity(usr);
                                 finish();
                                 Toast.makeText(child_menu.this, "تم حذف الطفل بنجاح", Toast.LENGTH_LONG).show();
@@ -329,7 +314,7 @@ public class child_menu extends AppCompatActivity {
                                         };child_eduhome.addValueEventListener(eventListenerhome);
 
                                     }
-                                    Intent usr=new Intent(child_menu.this,signin_new.class);
+                                    Intent usr=new Intent(getApplicationContext(),signin_new.class);
                                     startActivity(usr);
                                     finish();
                                     Toast.makeText(child_menu.this,"تم حذف الطفل بنجاح",Toast.LENGTH_LONG).show();

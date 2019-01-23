@@ -59,7 +59,7 @@ public class ReadingTest extends child_menu {
     MediaPlayer test_audio = new MediaPlayer();
     MediaPlayer feedback_audio = new MediaPlayer();
     int child_score;
-    static int reading_child_score;
+    int reading_child_score;
     boolean flag ;
     ImageView abjad;
     AnimationDrawable anim;
@@ -67,13 +67,14 @@ public class ReadingTest extends child_menu {
     TextView nextLabel, loading_label;
     // flag to make Abjad raise his hands when child answer correctly
     boolean word_audio_flag;
-
-
+    LevenshteinDistance algorithmObj = new LevenshteinDistance();
+    long startTime;
+    int total_score_of_prev_tests;
+    ArrayList<Intent> Rand;
 
     //Alaa
     firebase_connection Test_Id,testIdq2;
-    String Test_letter;
-    ArrayList<Intent> testIntent;
+    String Test_letter, unitID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,6 +95,7 @@ public class ReadingTest extends child_menu {
         abjad.setBackgroundResource(R.drawable.abjad_speak);
         anim =(AnimationDrawable) abjad.getBackground();
 
+
         mic_btn=  findViewById(R.id.test_mic_btn);
         speaker_btn =  findViewById(R.id.test_speaker_btn);
         r = new firebase_connection();
@@ -109,14 +111,29 @@ public class ReadingTest extends child_menu {
         finish_child_score = false;
         // this flag to prevent playing word audio in all cases, it should be played only if child can't read correctly.
         word_audio_flag = false;
+        Rand = new ArrayList<Intent>();
+
         //Alaa
         Test_Id=new firebase_connection();
         testIdq2=new firebase_connection();
-        testIntent=new ArrayList<Intent>();
-        Test_letter=unit_interface.test_letter;
+
         speaker_btn.setVisibility(View.INVISIBLE);
         next=findViewById(R.id.next);
         nextLabel = findViewById(R.id.nextLabel_test);
+
+        //to get the test letter and unit ID from Unit interface.
+        Intent  unitIntent =getIntent();
+        Bundle letter_and_unitID = unitIntent.getExtras();
+        if(letter_and_unitID !=null){
+            Test_letter = letter_and_unitID.getString("test_letter");
+            unitID = letter_and_unitID.getString("unitID");
+            startTime = letter_and_unitID.getLong("startTime");
+            Rand = (ArrayList)letter_and_unitID.get("Rand");
+            if(letter_and_unitID.getInt("score") != 0){
+                total_score_of_prev_tests = letter_and_unitID.getInt("score");
+            }
+        }
+
 
         int screenSize = getResources().getConfiguration().screenLayout &
                 Configuration.SCREENLAYOUT_SIZE_MASK;
@@ -445,11 +462,11 @@ public class ReadingTest extends child_menu {
 
 
                         for (int i = 0; i < matches.size(); i++) {
-                            returnValue = LevenshteinDistance.computeEditDistance(word, matches.get(i));
+                            returnValue = algorithmObj.computeEditDistance(word, matches.get(i));
                             if (max_match <= returnValue) {
                                 max_match = returnValue;
                                 choosenPhrase = matches.get(i);
-                                globalCost = LevenshteinDistance.globalCost;
+                                globalCost = algorithmObj.globalCost;
                             }
                         }
                         System.out.println("choosen Phrase: " + choosenPhrase);
@@ -746,7 +763,7 @@ public class ReadingTest extends child_menu {
                 if(move_child){
                     //move to unit interface
                     Intent intent = new Intent(getApplicationContext(), unit_interface.class);
-                    intent.putExtra("unitID",unit_interface.unitID);
+                    intent.putExtra("unitID",unitID);
                     setResult(RESULT_OK, intent);
                     finish();
                 }
@@ -764,39 +781,38 @@ public class ReadingTest extends child_menu {
     @Override
     protected void onRestart() {
         super.onRestart();
-        try{
-            System.out.println("onRestart function");
-            feedback_audio = new MediaPlayer();
-            anim.start();
-            feedback_audio.reset();
-            feedback_audio.setAudioStreamType(AudioManager.STREAM_MUSIC);
-            feedback_audio.setDataSource(audio_URLs.cant_continue_test);
-            feedback_audio.prepare();
-            feedback_audio.start();
-            move_child = true;
-            setOnCompleteListener(feedback_audio);
-        }catch (Exception e){
-
-        }
+        //Move to unit interface when child close the app while test or lesson
+        Intent intent = new Intent(getApplicationContext(), unit_interface.class);
+        intent.putExtra("unitID",unitID);
+        setResult(RESULT_OK, intent);
+        finish();
 
     }
 
     public void next_test_or_go_home(){
-        if(unit_interface.Rand.size()!=0){
-            Intent nextTest=unit_interface.Rand.get(0);
-            unit_interface.Rand.remove(nextTest);
+        if(Rand.size()!=0){
+            Intent nextTest=Rand.get(0);
+            nextTest.putExtra("unitID", unitID);
+            nextTest.putExtra("test_letter", Test_letter);
+            nextTest.putExtra("startTime", startTime);
+            // this to pass the score of this test and previous test/s "if exist" to the next test
+            total_score_of_prev_tests = total_score_of_prev_tests + reading_child_score;
+            nextTest.putExtra("score", total_score_of_prev_tests);
+            Rand.remove(nextTest);
+            nextTest.putExtra("Rand",Rand);
             startActivity(nextTest);
             finish();
         }
         else{
-            unit_interface.endtest=true;
-            unit_interface.EndTime= Calendar.getInstance().getTimeInMillis();
-            Intent intent = new Intent(ReadingTest.this, unit_interface.class);
-            intent.putExtra("unitID",unit_interface.unitID);
+            m.endtest=true;
+            m.EndTime= Calendar.getInstance().getTimeInMillis();
+            m.total_tests_score = total_score_of_prev_tests + reading_child_score;
+            Intent intent = new Intent(getApplicationContext(), unit_interface.class);
+            intent.putExtra("unitID",unitID);
             intent.putExtra("preIntent","readingTest");
             setResult(RESULT_OK, intent);
             System.out.println("Testttt ID: "+ test_id);
-            unit_interface.test_score(test_id);
+            m.test_score(test_id, unitID,startTime);
             startActivity(intent);
             finish();
         }

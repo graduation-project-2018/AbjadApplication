@@ -28,34 +28,27 @@ import java.util.Calendar;
 import java.util.Random;
 public class unit_interface extends child_menu {
     menu_variables m = new menu_variables();
-    private Button test1,test2,test3,lesson1,lesson2,lesson3,lesson4,lesson5,lesson6;
-    private ImageView lock2,lock3,lock4,lock5,lock6,test1Stars,test2Stars,test3Stars,
-            lesson1Stars,lesson2Stars,lesson3Stars,lesson4Stars,lesson5Stars,lesson6Stars,bal1,bal2,bal3;
+    private Button test1, test2, test3, lesson1, lesson2, lesson3, lesson4, lesson5, lesson6;
+    private ImageView lock2, lock3, lock4, lock5, lock6, test1Stars, test2Stars, test3Stars,
+            lesson1Stars, lesson2Stars, lesson3Stars, lesson4Stars, lesson5Stars, lesson6Stars, bal1, bal2, bal3;
     private Intent lessonIntent;
     private Random randomTestNo;
-    private ArrayList <Intent> testIntent;
-    private Intent matchingTest_Intent,readingTest_Intent,trueFalseTest_Intent,heardWordTest_Intent;
+    private ArrayList<Intent> testIntent;
+    private Intent matchingTest_Intent, readingTest_Intent, trueFalseTest_Intent, heardWordTest_Intent;
     private ArrayList<String> TestStringForTesting;
-    private ArrayList<String> TestStringForTesting2;
-    private ArrayList<String> childLessons,childTests;
-    private ArrayList<String> openLessons;
+    private ArrayList<String> childLessons;
     private ArrayList<String> lessons;
     private audio_URLs audio;
-    public static ArrayList<Intent>  Rand;
-    private ArrayList<childUnitInfo> lessonsInfo,testInfo;
+    protected ArrayList<Intent> Rand;
+    private ArrayList<childUnitInfo> lessonsInfo, testInfo;
     private MediaPlayer instructions;
-    public  static String unitID;
+    protected String unitID;
     boolean flag = true;
-    private  String childID;
-    private int random,random2,rand;
-    static boolean endtest=false;
-    static int finalScore;
-    static long startTime,EndTime;
-    static String test_letter;
-    static String  childTime;
-    static int currentScore ;
-    static firebase_connection r = new firebase_connection();
-    static  String actual_time;
+    private String childID;
+    private int random, random2, rand;
+    String test_letter;
+    long startTime;
+    firebase_connection r;
     private String unitName, first_signIn;
     private ImageButton playInstructione;
 
@@ -70,34 +63,32 @@ public class unit_interface extends child_menu {
         View contentView = inflater.inflate(R.layout.activity_unit_interface, null, false);
         myDrawerLayout.addView(contentView, 0);
         //initilization
-        playInstructione=findViewById(R.id.playInstruction);
+        playInstructione = findViewById(R.id.playInstruction);
         childID = child_after_signin.id_child;
-        lessons=new ArrayList<String>();
-        childTests=new ArrayList<String>();
-        audio=new audio_URLs();
+        r = new firebase_connection();
+        lessons = new ArrayList<String>();
+        audio = new audio_URLs();
         setLessons(lessons);
-        openLessons=new ArrayList<String>();
-        childLessons=new ArrayList<String>();
-        Rand=new ArrayList<Intent>();
-        TestStringForTesting=new ArrayList<String>();
-        TestStringForTesting2=new ArrayList<String>();
-        randomTestNo=new Random();
-        lessonIntent=new Intent(this,Lesson.class);
-        testIntent=new ArrayList<Intent>();
-        lessonsInfo=new ArrayList<childUnitInfo>();
-        bal1=findViewById(R.id.ballon1);
-        bal2=findViewById(R.id.ballon2);
-        bal3=findViewById(R.id.ballon3);
-        Bundle child=getIntent().getExtras();
+        childLessons = new ArrayList<String>();
+        Rand = new ArrayList<Intent>();
+        TestStringForTesting = new ArrayList<String>();
+        randomTestNo = new Random();
+        lessonIntent = new Intent(getApplicationContext(), Lesson.class);
+        testIntent = new ArrayList<Intent>();
+        lessonsInfo = new ArrayList<childUnitInfo>();
+        bal1 = findViewById(R.id.ballon1);
+        bal2 = findViewById(R.id.ballon2);
+        bal3 = findViewById(R.id.ballon3);
+        Bundle child = getIntent().getExtras();
         m.title.setText(child.getString("Unitname"));
-        unitName=child.getString("Unitname");
+        unitName = child.getString("Unitname");
         first_signIn = child.getString("first_signIn");
 
-        testInfo=new ArrayList<childUnitInfo>();
-        matchingTest_Intent=  new Intent(this, MatchingTest.class );
-        readingTest_Intent=   new Intent(this, ReadingTest.class );
-        trueFalseTest_Intent= new  Intent(this, TrueFalseTest.class );
-        heardWordTest_Intent= new Intent(this, HeardWordTest.class );
+        testInfo = new ArrayList<childUnitInfo>();
+        matchingTest_Intent = new Intent(getApplicationContext(), MatchingTest.class);
+        readingTest_Intent = new Intent(getApplicationContext(), ReadingTest.class);
+        trueFalseTest_Intent = new Intent(getApplicationContext(), TrueFalseTest.class);
+        heardWordTest_Intent = new Intent(getApplicationContext(), HeardWordTest.class);
         testIntent.add(matchingTest_Intent);
         TestStringForTesting.add("MatchingTest");
         testIntent.add(readingTest_Intent);
@@ -106,139 +97,134 @@ public class unit_interface extends child_menu {
         TestStringForTesting.add("TrueFalseTest");
         testIntent.add(heardWordTest_Intent);
         TestStringForTesting.add("HeardWordTest");
-        test1= findViewById(R.id.test1);
-        test2= findViewById(R.id.test2);
-        test3= findViewById(R.id.test3);
-        lesson1= findViewById(R.id.lesson1);
-        lesson2= findViewById(R.id.lesson2);
-        lesson3= findViewById(R.id.lesson3);
-        lesson4= findViewById(R.id.lesson4);
-        lesson5= findViewById(R.id.lesson5);
-        lesson6= findViewById(R.id.lesson6);
-        lock2=findViewById(R.id.lock2);
-        lock3=findViewById(R.id.lock3);
-        lock4=findViewById(R.id.lock4);
-        lock5=findViewById(R.id.lock5);
-        lock6=findViewById(R.id.lock6);
-        test1Stars=findViewById(R.id.test1Stars);
-        test2Stars=findViewById(R.id.test2Stars);
-        test3Stars=findViewById(R.id.test3Stars);
-        lesson1Stars=findViewById(R.id.lesson1Stars);
-        lesson2Stars=findViewById(R.id.lesson2Stars);
-        lesson3Stars=findViewById(R.id.lesson3Stars);
-        lesson4Stars=findViewById(R.id.lesson4Stars);
-        lesson5Stars=findViewById(R.id.lesson5Stars);
-        lesson6Stars=findViewById(R.id.lesson6Stars);
-        instructions=new MediaPlayer();
+        test1 = findViewById(R.id.test1);
+        test2 = findViewById(R.id.test2);
+        test3 = findViewById(R.id.test3);
+        lesson1 = findViewById(R.id.lesson1);
+        lesson2 = findViewById(R.id.lesson2);
+        lesson3 = findViewById(R.id.lesson3);
+        lesson4 = findViewById(R.id.lesson4);
+        lesson5 = findViewById(R.id.lesson5);
+        lesson6 = findViewById(R.id.lesson6);
+        lock2 = findViewById(R.id.lock2);
+        lock3 = findViewById(R.id.lock3);
+        lock4 = findViewById(R.id.lock4);
+        lock5 = findViewById(R.id.lock5);
+        lock6 = findViewById(R.id.lock6);
+        test1Stars = findViewById(R.id.test1Stars);
+        test2Stars = findViewById(R.id.test2Stars);
+        test3Stars = findViewById(R.id.test3Stars);
+        lesson1Stars = findViewById(R.id.lesson1Stars);
+        lesson2Stars = findViewById(R.id.lesson2Stars);
+        lesson3Stars = findViewById(R.id.lesson3Stars);
+        lesson4Stars = findViewById(R.id.lesson4Stars);
+        lesson5Stars = findViewById(R.id.lesson5Stars);
+        lesson6Stars = findViewById(R.id.lesson6Stars);
+        instructions = new MediaPlayer();
 
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
-                startActivity(new Intent(unit_interface.this,child_home.class));
+                startActivity(new Intent(getApplicationContext(), child_home.class));
             }
         });
 
 
         int screenSize = getResources().getConfiguration().screenLayout &
                 Configuration.SCREENLAYOUT_SIZE_MASK;
-        switch(screenSize) {
+        switch (screenSize) {
             case Configuration.SCREENLAYOUT_SIZE_XLARGE:
                 m.setTitle_Large();
-                test3.setTextSize(TypedValue.COMPLEX_UNIT_SP,40);
-                test2.setTextSize(TypedValue.COMPLEX_UNIT_SP,40);
-                test1.setTextSize(TypedValue.COMPLEX_UNIT_SP,40);
-                lesson1.setTextSize(TypedValue.COMPLEX_UNIT_SP,70);
-                lesson2.setTextSize(TypedValue.COMPLEX_UNIT_SP,70);
-                lesson3.setTextSize(TypedValue.COMPLEX_UNIT_SP,70);
-                lesson4.setTextSize(TypedValue.COMPLEX_UNIT_SP,70);
-                lesson5.setTextSize(TypedValue.COMPLEX_UNIT_SP,70);
-                lesson6.setTextSize(TypedValue.COMPLEX_UNIT_SP,70);
+                test3.setTextSize(TypedValue.COMPLEX_UNIT_SP, 40);
+                test2.setTextSize(TypedValue.COMPLEX_UNIT_SP, 40);
+                test1.setTextSize(TypedValue.COMPLEX_UNIT_SP, 40);
+                lesson1.setTextSize(TypedValue.COMPLEX_UNIT_SP, 70);
+                lesson2.setTextSize(TypedValue.COMPLEX_UNIT_SP, 70);
+                lesson3.setTextSize(TypedValue.COMPLEX_UNIT_SP, 70);
+                lesson4.setTextSize(TypedValue.COMPLEX_UNIT_SP, 70);
+                lesson5.setTextSize(TypedValue.COMPLEX_UNIT_SP, 70);
+                lesson6.setTextSize(TypedValue.COMPLEX_UNIT_SP, 70);
                 break;
             case Configuration.SCREENLAYOUT_SIZE_LARGE:
                 m.setTitle_Large();
-                test3.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
-                test2.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
-                test1.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
-                lesson1.setTextSize(TypedValue.COMPLEX_UNIT_SP,60);
-                lesson2.setTextSize(TypedValue.COMPLEX_UNIT_SP,60);
-                lesson3.setTextSize(TypedValue.COMPLEX_UNIT_SP,60);
-                lesson4.setTextSize(TypedValue.COMPLEX_UNIT_SP,60);
-                lesson5.setTextSize(TypedValue.COMPLEX_UNIT_SP,60);
-                lesson6.setTextSize(TypedValue.COMPLEX_UNIT_SP,60);
+                test3.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30);
+                test2.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30);
+                test1.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30);
+                lesson1.setTextSize(TypedValue.COMPLEX_UNIT_SP, 60);
+                lesson2.setTextSize(TypedValue.COMPLEX_UNIT_SP, 60);
+                lesson3.setTextSize(TypedValue.COMPLEX_UNIT_SP, 60);
+                lesson4.setTextSize(TypedValue.COMPLEX_UNIT_SP, 60);
+                lesson5.setTextSize(TypedValue.COMPLEX_UNIT_SP, 60);
+                lesson6.setTextSize(TypedValue.COMPLEX_UNIT_SP, 60);
                 break;
             case Configuration.SCREENLAYOUT_SIZE_NORMAL:
                 m.setTitle_Normal();
-                test3.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
-                test2.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
-                test1.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
-                lesson1.setTextSize(TypedValue.COMPLEX_UNIT_SP,35);
-                lesson2.setTextSize(TypedValue.COMPLEX_UNIT_SP,35);
-                lesson3.setTextSize(TypedValue.COMPLEX_UNIT_SP,35);
-                lesson4.setTextSize(TypedValue.COMPLEX_UNIT_SP,35);
-                lesson5.setTextSize(TypedValue.COMPLEX_UNIT_SP,35);
-                lesson6.setTextSize(TypedValue.COMPLEX_UNIT_SP,35);
+                test3.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
+                test2.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
+                test1.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
+                lesson1.setTextSize(TypedValue.COMPLEX_UNIT_SP, 35);
+                lesson2.setTextSize(TypedValue.COMPLEX_UNIT_SP, 35);
+                lesson3.setTextSize(TypedValue.COMPLEX_UNIT_SP, 35);
+                lesson4.setTextSize(TypedValue.COMPLEX_UNIT_SP, 35);
+                lesson5.setTextSize(TypedValue.COMPLEX_UNIT_SP, 35);
+                lesson6.setTextSize(TypedValue.COMPLEX_UNIT_SP, 35);
                 break;
             case Configuration.SCREENLAYOUT_SIZE_SMALL:
                 m.setTitle_Small();
-                test3.setTextSize(TypedValue.COMPLEX_UNIT_SP,10);
-                test2.setTextSize(TypedValue.COMPLEX_UNIT_SP,10);
-                test1.setTextSize(TypedValue.COMPLEX_UNIT_SP,10);
-                lesson1.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
-                lesson2.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
-                lesson3.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
-                lesson4.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
-                lesson5.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
-                lesson6.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+                test3.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
+                test2.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
+                test1.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
+                lesson1.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25);
+                lesson2.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25);
+                lesson3.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25);
+                lesson4.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25);
+                lesson5.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25);
+                lesson6.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25);
                 break;
             default:
                 m.setTitle_Default();
-                test3.setTextSize(TypedValue.COMPLEX_UNIT_SP,10);
-                test2.setTextSize(TypedValue.COMPLEX_UNIT_SP,10);
-                test1.setTextSize(TypedValue.COMPLEX_UNIT_SP,10);
-                lesson1.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
-                lesson2.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
-                lesson3.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
-                lesson4.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
-                lesson5.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
-                lesson6.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+                test3.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
+                test2.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
+                test1.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
+                lesson1.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+                lesson2.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+                lesson3.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+                lesson4.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+                lesson5.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+                lesson6.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
 
         }//end switch
 
-       Bundle intent=getIntent().getExtras();
-       if(intent.getString("preIntent").equals("Lesson")){
-           this.unitID=intent.getString("unitID");
+        Bundle intent = getIntent().getExtras();
+        if (intent.getString("preIntent").equals("Lesson")) {
+            this.unitID = intent.getString("unitID");
 
 
-       }
-       else if(intent.getString("preIntent").equals("heardTest")){
-           this.unitID=intent.getString("unitID");
+        } else if (intent.getString("preIntent").equals("heardTest")) {
+            this.unitID = intent.getString("unitID");
 
 
-       }
-       else if(intent.getString("preIntent").equals("trueFalse")){
-           this.unitID=intent.getString("unitID");
+        } else if (intent.getString("preIntent").equals("trueFalse")) {
+            this.unitID = intent.getString("unitID");
 
 
-       }
-       else if(intent.getString("preIntent").equals("matchingTest")){
-           this.unitID=intent.getString("unitID");
+        } else if (intent.getString("preIntent").equals("matchingTest")) {
+            this.unitID = intent.getString("unitID");
 
-       }
-       else if(intent.getString("preIntent").equals("readingTest")){
-           this.unitID=intent.getString("unitID");
-           m.title.setText(unitName);
+        } else if (intent.getString("preIntent").equals("readingTest")) {
+            this.unitID = intent.getString("unitID");
+            m.title.setText(unitName);
 
-       }else if(intent.getString("preIntent").equals("childHome")){
-           Log.i("ifStm","Iam here");
-           this.unitID=intent.getString("id");
+        } else if (intent.getString("preIntent").equals("childHome")) {
+            Log.i("ifStm", "Iam here");
+            this.unitID = intent.getString("id");
+            Log.i("Unitid", this.unitID);
+        } else {
+            Log.i("ifStm", "noone");
+        }
 
-           Log.i("Unitid",this.unitID);
-       }else{
-           Log.i("ifStm","noone");
-       }
-
-        instructions.setOnPreparedListener(new MediaPlayer.OnPreparedListener(){
+        instructions.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer player) {
                 // Called when the MediaPlayer is ready to play
@@ -246,93 +232,97 @@ public class unit_interface extends child_menu {
             }
         });
 
-        playInstructione.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                playAudio(audio.unit_Tip_One);
-                instructions.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                    @Override
-                    public void onCompletion(MediaPlayer mediaPlayer) {
-                        //this flag to prevent calling this method multiple times.
-                        if(flag == false){
-                            return;
+        try {
+            playInstructione.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    playAudio(audio.unit_Tip_One);
+                    instructions.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                        @Override
+                        public void onCompletion(MediaPlayer mediaPlayer) {
+                            //this flag to prevent calling this method multiple times.
+                            if (flag == false) {
+                                return;
+                            }
+                            flag = false;
+                            playAudio(audio.unit_Tip_Two);
+
                         }
-                        flag = false;
-                        playAudio(audio.unit_Tip_Two);
+                    });
 
-                    }
-                });
+                    flag = true;
+                }
 
-                flag= true;
-            }
+            });
 
-        });
+        } catch (Exception e) {
 
-        if(unitID.equals("unit1")){
+        }
+
+
+        if (unitID.equals("unit1")) {
             m.title.setText("أسرتي");
 
-        }
-        else if (unitID.equals("unit2")){
+        } else if (unitID.equals("unit2")) {
             m.title.setText("مدرستي");
 
-        }
-        else{
+        } else {
             m.title.setText("مدينتي");
-
         }
 
-
-        final MediaPlayer aduio_CannotStartLesson=new MediaPlayer();
+        final MediaPlayer aduio_CannotStartLesson = new MediaPlayer();
         try {
             aduio_CannotStartLesson.setDataSource(audio.unit_Tip_three);
             aduio_CannotStartLesson.prepare();
-            Log.i("iComeHere","lol");
+            Log.i("iComeHere", "lol");
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-        View.OnTouchListener clike=new View.OnTouchListener() {
+
+        //this listener to play audio when child click on locked lessons
+        View.OnTouchListener lockedLessonListener = new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                if(motionEvent.getAction()==MotionEvent.ACTION_DOWN){
-                    if (view.isClickable()){}
-                    else{
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    if (view.isClickable()) {
+                    } else {
                         aduio_CannotStartLesson.start();
                     }
                 }
                 return false;
             }
         };
-        lesson1.setOnTouchListener(clike);
-        lesson2.setOnTouchListener(clike);
-        lesson3.setOnTouchListener(clike);
-        lesson4.setOnTouchListener(clike);
-        lesson5.setOnTouchListener(clike);
-        lesson6.setOnTouchListener(clike);
-        Log.i("Lesson1",lesson1.isClickable()+" ");
+        lesson1.setOnTouchListener(lockedLessonListener);
+        lesson2.setOnTouchListener(lockedLessonListener);
+        lesson3.setOnTouchListener(lockedLessonListener);
+        lesson4.setOnTouchListener(lockedLessonListener);
+        lesson5.setOnTouchListener(lockedLessonListener);
+        lesson6.setOnTouchListener(lockedLessonListener);
 
-        childUnitInfo lesson1obj=new childUnitInfo(0,null,lesson1Stars,lesson1,null);
+
+        childUnitInfo lesson1obj = new childUnitInfo(0, null, lesson1Stars, lesson1, null);
         lesson1obj.setNextLesson(lesson2);
-        childUnitInfo lesson2obj=new childUnitInfo(0,lock2,lesson2Stars, lesson2 ,null);
+        childUnitInfo lesson2obj = new childUnitInfo(0, lock2, lesson2Stars, lesson2, null);
         lesson2obj.setNextLesson(lesson3);
-        childUnitInfo lesson3obj=new childUnitInfo(0,lock3,lesson3Stars,lesson3,null);
+        childUnitInfo lesson3obj = new childUnitInfo(0, lock3, lesson3Stars, lesson3, null);
         lesson3obj.setNextLesson(lesson4);
-        childUnitInfo lesson4obj=new childUnitInfo(0,lock4,lesson4Stars,lesson4,null);
+        childUnitInfo lesson4obj = new childUnitInfo(0, lock4, lesson4Stars, lesson4, null);
         lesson4obj.setNextLesson(lesson5);
-        childUnitInfo lesson5obj=new childUnitInfo(0,lock5,lesson5Stars,lesson5,null);
+        childUnitInfo lesson5obj = new childUnitInfo(0, lock5, lesson5Stars, lesson5, null);
         lesson5obj.setNextLesson(lesson6);
-        childUnitInfo lesson6obj=new childUnitInfo(0,lock6,lesson6Stars,lesson6,null);
+        childUnitInfo lesson6obj = new childUnitInfo(0, lock6, lesson6Stars, lesson6, null);
         lesson6obj.setNextLesson(lesson1);
-        childUnitInfo test1obj=new childUnitInfo(0,null,test1Stars,test1,null);
+        childUnitInfo test1obj = new childUnitInfo(0, null, test1Stars, test1, null);
         test1obj.setNextLesson(lesson1);
         test1obj.setNext2lesson(lesson2);
-        childUnitInfo test2obj=new childUnitInfo(0,null,test2Stars,test2,null);
+        childUnitInfo test2obj = new childUnitInfo(0, null, test2Stars, test2, null);
         test2obj.setNextLesson(lesson3);
         test2obj.setNext2lesson(lesson4);
-        childUnitInfo test3obj=new childUnitInfo(0,null,test3Stars,test3,null);
+        childUnitInfo test3obj = new childUnitInfo(0, null, test3Stars, test3, null);
         test3obj.setNextLesson(lesson5);
         test3obj.setNext2lesson(lesson6);
-        Log.i("Lesson1",lesson1.isClickable()+" ");
+        Log.i("Lesson1", lesson1.isClickable() + " ");
         lesson1.setClickable(true);
         lessonsInfo.add(lesson1obj);
         lessonsInfo.add(lesson2obj);
@@ -344,16 +334,16 @@ public class unit_interface extends child_menu {
         testInfo.add(test2obj);
         testInfo.add(test3obj);
 
-        try{
+        try {
             //check if it is first sign in or not
-            if(first_signIn.equals("true") && first_signIn != null){
+            if (first_signIn.equals("true") && first_signIn != null) {
 
                 playAudio(audio.unit_Tip_One);
                 instructions.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     @Override
                     public void onCompletion(MediaPlayer mediaPlayer) {
                         //this flag to prevent calling this method multiple times.
-                        if(flag == false){
+                        if (flag == false) {
                             return;
                         }
                         flag = false;
@@ -364,78 +354,56 @@ public class unit_interface extends child_menu {
 
                     }
                 });
-
-                Log.i("checkVlaue", "true");
-            }else{
-                Log.i("checkVlaue", "false");
             }
-        }catch(Exception e){
+        } catch (Exception e) {
 
         }
 
 
         //listener for lessons when clicked
-         final View.OnClickListener lessonCliked=new View.OnClickListener() {
+        final View.OnClickListener LessonListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (view.getId() == R.id.lesson1) {
-                    Log.i("putExtra",lesson1.getText().toString());
-                    lessonIntent.putExtra("Lessonltr",lessonsInfo.get(0).getLesson().getText().toString());
-                    Log.i("Lesson1",lesson1.isClickable()+" ");
-                }
-                else if (view.getId() == R.id.lesson2) {
-                    lessonIntent.putExtra("Lessonltr",lessonsInfo.get(1).getLesson().getText().toString());
-                    Log.i("Lesson2",lesson2.isClickable()+" ");
+                    Log.i("putExtra", lesson1.getText().toString());
+                    lessonIntent.putExtra("Lessonltr", lessonsInfo.get(0).getLesson().getText().toString());
+                    lessonIntent.putExtra("unitID", unitID);
+                    Log.i("Lesson1", lesson1.isClickable() + " ");
+                } else if (view.getId() == R.id.lesson2) {
+                    lessonIntent.putExtra("Lessonltr", lessonsInfo.get(1).getLesson().getText().toString());
+                    lessonIntent.putExtra("unitID", unitID);
+                    Log.i("Lesson2", lesson2.isClickable() + " ");
 
-                } else if (view.getId() == R.id.lesson3){
-                    lessonIntent.putExtra("Lessonltr",lessonsInfo.get(2).getLesson().getText().toString());
-                }else if (view.getId() == R.id.lesson4) {
-                    lessonIntent.putExtra("Lessonltr",lessonsInfo.get(3).getLesson().getText().toString());
+                } else if (view.getId() == R.id.lesson3) {
+                    lessonIntent.putExtra("Lessonltr", lessonsInfo.get(2).getLesson().getText().toString());
+                    lessonIntent.putExtra("unitID", unitID);
+                } else if (view.getId() == R.id.lesson4) {
+                    lessonIntent.putExtra("Lessonltr", lessonsInfo.get(3).getLesson().getText().toString());
+                    lessonIntent.putExtra("unitID", unitID);
 
                 } else if (view.getId() == R.id.lesson5) {
-                    lessonIntent.putExtra("Lessonltr",lessonsInfo.get(4).getLesson().getText().toString());
+                    lessonIntent.putExtra("Lessonltr", lessonsInfo.get(4).getLesson().getText().toString());
+                    lessonIntent.putExtra("unitID", unitID);
 
                 } else if (view.getId() == R.id.lesson6) {
-                    Log.i("putExtra",lessonsInfo.get(5).getLesson().getText().toString());
-                    lessonIntent.putExtra("Lessonltr",lessonsInfo.get(5).getLesson().getText().toString());
+                    Log.i("putExtra", lessonsInfo.get(5).getLesson().getText().toString());
+                    lessonIntent.putExtra("Lessonltr", lessonsInfo.get(5).getLesson().getText().toString());
+                    lessonIntent.putExtra("unitID", unitID);
                 }
                 startActivity(lessonIntent);
             }
         };
-        View.OnClickListener clickedTest =new View.OnClickListener() {
+
+        //listener for tests when clicked
+        View.OnClickListener clickedTest = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (view.getId() == R.id.test1|| view.getId()==R.id.ballon1) {
-                     random=randomTestNo.nextInt(4);
-                     random2=randomTestNo.nextInt(4);
-                     rand=randomTestNo.nextInt(2);
-                     setRand(fillTest(random,random2,rand));
-                     Intent fIntent=Rand.get(0);
-                     Rand.remove(0);
-                     test_letter=testInfo.get(0).getLetters();
-                     startTime= Calendar.getInstance().getTimeInMillis();
-                     startActivity(fIntent);
-
-                } else if (view.getId() == R.id.test2|| view.getId()==R.id.ballon2) {
-                     random=randomTestNo.nextInt(4);
-                     random2=randomTestNo.nextInt(4);
-                     rand=randomTestNo.nextInt(2);
-                    setRand(fillTest(random,random2,rand));
-                    Intent fIntent=Rand.get(0);
-                    Rand.remove(0);
-                    test_letter=testInfo.get(1).getLetters();
-                    startTime= Calendar.getInstance().getTimeInMillis();
-                    startActivity(fIntent);
-                } else if (view.getId() == R.id.test3 || view.getId()==R.id.ballon3){
-                     random=randomTestNo.nextInt(4);
-                     random2=randomTestNo.nextInt(4);
-                     rand=randomTestNo.nextInt(2);
-                    setRand(fillTest(random,random2,rand));
-                    Intent fIntent=Rand.get(0);
-                    Rand.remove(0);
-                    test_letter=testInfo.get(2).getLetters();
-                    startTime= Calendar.getInstance().getTimeInMillis();
-                    startActivity(fIntent);
+                if (view.getId() == R.id.test1 || view.getId() == R.id.ballon1) {
+                    random_setting_when_test_clicked();
+                } else if (view.getId() == R.id.test2 || view.getId() == R.id.ballon2) {
+                    random_setting_when_test_clicked();
+                } else if (view.getId() == R.id.test3 || view.getId() == R.id.ballon3) {
+                    random_setting_when_test_clicked();
                 }
             }
         };
@@ -445,7 +413,7 @@ public class unit_interface extends child_menu {
         test1.setOnClickListener(clickedTest);
         test2.setOnClickListener(clickedTest);
         test3.setOnClickListener(clickedTest);
-        lesson1.setOnClickListener(lessonCliked);
+        lesson1.setOnClickListener(LessonListener);
 
         //function call
         unedatble();
@@ -453,10 +421,10 @@ public class unit_interface extends child_menu {
         r.ref.child("Units").child(unitID).child("unit_letters").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot s: dataSnapshot.getChildren()){
+                for (DataSnapshot s : dataSnapshot.getChildren()) {
                     lessons.add(s.getValue().toString());
                 }
-                if(lessons.size()!=0) {
+                if (lessons.size() != 0) {
                     setLessons(lessons);
                     //set lessons button
                     for (final childUnitInfo childUnitInfo : lessonsInfo) {
@@ -528,22 +496,22 @@ public class unit_interface extends child_menu {
                                                                                             if (childUnitInfo_lessonID.getScore() < 4 && childUnitInfo_lessonID.getScore() > 0) {
                                                                                                 childUnitInfo_lessonID.getStars().setImageResource(R.drawable.one_gold_stars_group);
                                                                                                 childUnitInfo_lessonID.getNextLesson().setClickable(true);
-                                                                                                childUnitInfo_lessonID.getNextLesson().setOnClickListener(lessonCliked);
+                                                                                                childUnitInfo_lessonID.getNextLesson().setOnClickListener(LessonListener);
                                                                                                 childUnitInfo_lessonID.getNextLesson().bringToFront();
                                                                                             } else if (childUnitInfo_lessonID.getScore() > 3 && childUnitInfo_lessonID.getScore() < 6) {
                                                                                                 childUnitInfo_lessonID.getStars().setImageResource(R.drawable.two_gold_stars_group);
                                                                                                 childUnitInfo_lessonID.getNextLesson().setClickable(true);
-                                                                                                childUnitInfo_lessonID.getNextLesson().setOnClickListener(lessonCliked);
+                                                                                                childUnitInfo_lessonID.getNextLesson().setOnClickListener(LessonListener);
                                                                                                 childUnitInfo_lessonID.getNextLesson().bringToFront();
                                                                                             } else if (childUnitInfo_lessonID.getScore() > 5 && childUnitInfo_lessonID.getScore() < 8) {
                                                                                                 childUnitInfo_lessonID.getStars().setImageResource(R.drawable.gold_three_stars);
                                                                                                 childUnitInfo_lessonID.getNextLesson().setClickable(true);
-                                                                                                childUnitInfo_lessonID.getNextLesson().setOnClickListener(lessonCliked);
+                                                                                                childUnitInfo_lessonID.getNextLesson().setOnClickListener(LessonListener);
                                                                                                 childUnitInfo_lessonID.getNextLesson().bringToFront();
                                                                                             } else if (childUnitInfo_lessonID.getScore() == 0) {
                                                                                                 childUnitInfo_lessonID.getStars().setImageResource(R.drawable.gray_three_stars);
                                                                                                 childUnitInfo_lessonID.getNextLesson().setClickable(true);
-                                                                                                childUnitInfo_lessonID.getNextLesson().setOnClickListener(lessonCliked);
+                                                                                                childUnitInfo_lessonID.getNextLesson().setOnClickListener(LessonListener);
                                                                                                 childUnitInfo_lessonID.getNextLesson().bringToFront();
                                                                                             }
                                                                                         }
@@ -611,7 +579,7 @@ public class unit_interface extends child_menu {
                         }
 
 
-                    }catch (Exception e ){
+                    } catch (Exception e) {
 
                     }
                 }
@@ -636,7 +604,7 @@ public class unit_interface extends child_menu {
                                                         String testletter = test.child("test_letters").getValue(String.class);
                                                         for (childUnitInfo test : testInfo) {
                                                             String letter = test.getLetters();
-                                                           // Log.i("let", letter+" ");
+                                                            // Log.i("let", letter+" ");
 //                                                            Log.i("try", letter.contains(testletter) + " " + letter + " " + testletter);
                                                             if (letter.equals(testletter)) {
                                                                 test.setLessonId(testkey);
@@ -679,7 +647,7 @@ public class unit_interface extends child_menu {
                                                                     }
                                                                     for (childUnitInfo l : lessonsInfo) {
                                                                         if (l.getLesson().isClickable() && l.getLock() != null) {
-                                                                            l.getLesson().setOnClickListener(lessonCliked);
+                                                                            l.getLesson().setOnClickListener(LessonListener);
                                                                             l.getLock().setVisibility(View.GONE);
                                                                             l.getLock().getVisibility();
                                                                         }
@@ -726,7 +694,7 @@ public class unit_interface extends child_menu {
 
                         }
                     }); // end
-                }catch (Exception e){
+                } catch (Exception e) {
 
                 }
 
@@ -743,7 +711,8 @@ public class unit_interface extends child_menu {
 
 
     }
-    public void playAudio(String url){
+
+    public void playAudio(String url) {
         try {
 
             instructions.reset();
@@ -752,72 +721,68 @@ public class unit_interface extends child_menu {
             instructions.prepareAsync();
 
 
-
-        }
-        catch (IOException e){
-            Log.d("5","inside IOException ");
-        }
-
-        catch (IllegalArgumentException e){
-            Log.d("5"," inside IllegalArgumentException");
-        }
-
-        catch (Exception e) {
+        } catch (IOException e) {
+            Log.d("5", "inside IOException ");
+        } catch (IllegalArgumentException e) {
+            Log.d("5", " inside IllegalArgumentException");
+        } catch (Exception e) {
             e.printStackTrace();
-            Log.d("5","Inside exception");
+            Log.d("5", "Inside exception");
         }
     }
-    private void unedatble(){
-        for (childUnitInfo j:lessonsInfo){
-            if(j.getLessonId()==null){
-            j.getLesson().setClickable(false);
-            j.getLesson().bringToFront();
+
+    private void unedatble() {
+        for (childUnitInfo j : lessonsInfo) {
+            if (j.getLessonId() == null) {
+                j.getLesson().setClickable(false);
+                j.getLesson().bringToFront();
             }
         }
         lessonsInfo.get(0).getLesson().setClickable(true);
         lessonsInfo.get(0).getLesson().bringToFront();
 
     }
+
     @Override
     protected void onStop() {
         super.onStop();
-        try{
+        try {
             instructions.stop();
             instructions.release();
             instructions = null;
-        }catch (Exception e){
+        } catch (Exception e) {
             System.err.println("Unable to stop activity");
         }
 
     }
 
-    private ArrayList<Intent> fillTest(int random,int random2,int rand){
-        ArrayList<Intent> rTest=new ArrayList<Intent>();
-        Intent [] arr=new Intent[4];
+    private ArrayList<Intent> fillTest(int random, int random2, int rand) {
+        ArrayList<Intent> rTest = new ArrayList<Intent>();
+        Intent[] arr = new Intent[4];
         Intent swap;
-        for(int j=0;j<testIntent.size();j++){
-            arr[j]=testIntent.get(j);
+        for (int j = 0; j < testIntent.size(); j++) {
+            arr[j] = testIntent.get(j);
         }
-        swap=arr[random];
-        arr[random]=arr[random2];
-        arr[random2]=swap;
-        switch (rand){
+        swap = arr[random];
+        arr[random] = arr[random2];
+        arr[random2] = swap;
+        switch (rand) {
             case 0:
-          for(int j=0;j<arr.length;j++){
-            rTest.add(arr[j]);
-         }
-         break;
+                for (int j = 0; j < arr.length; j++) {
+                    rTest.add(arr[j]);
+                }
+                break;
             case 1:
-                int i=0;
-                for(int j=arr.length-1;j>=0;j--) {
+                int i = 0;
+                for (int j = arr.length - 1; j >= 0; j--) {
                     rTest.add(arr[j]);
                     i++;
                 }
-         break;
+                break;
 
         }
-        if(rTest.size()!=0){
-        return rTest;
+        if (rTest.size() != 0) {
+            return rTest;
         }
         return null;
     }
@@ -826,22 +791,17 @@ public class unit_interface extends child_menu {
         this.lessons = lessons;
     }
 
-    public void setTestIntent(ArrayList<Intent> testIntent) {
-        this.testIntent = testIntent;
-    }
 
-    public void setTestStringForTesting(ArrayList<String> testStringForTesting) {
-        TestStringForTesting = testStringForTesting;
-    }
-    public void setTestStringForTesting2(ArrayList<String> testStringForTesting2) {
-        TestStringForTesting2 = testStringForTesting2;
-    }
+
+
+
+
+
     public void setChildLessons(ArrayList<String> childLessons) {
         this.childLessons = childLessons;
     }
-    public void setOpenLessons(ArrayList<String> openLessons) {
-        this.openLessons = openLessons;
-    }
+
+
 
     public ArrayList<Intent> getRand() {
         return Rand;
@@ -850,94 +810,62 @@ public class unit_interface extends child_menu {
     public void setRand(ArrayList<Intent> rand) {
         Rand = rand;
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Intent intent=getIntent();
-        Bundle b=intent.getExtras();
+        Intent intent = getIntent();
+        Bundle b = intent.getExtras();
         if (resultCode == RESULT_OK) {
 
-            this.unitID=b.getString("unitID");
+            this.unitID = b.getString("unitID");
         }
     }
-    public static void  test_score(final String test_id){
 
-        if(endtest==true){
-            System.out.println("End time: "+ EndTime);
-            double time = EndTime - startTime;
-            time = (time/1000)/60;
-            actual_time = new DecimalFormat("##.##").format(time);
-            finalScore= ReadingTest.reading_child_score+
-                    HeardWordTest.final_heard_child_score+
-                    TrueFalseTest.true_false_test_score + MatchingTest.score;
-            finalScore=finalScore/4;
-
-            Query query =  r.ref.child("child_takes_test").child(child_after_signin.id_child).child(unit_interface.unitID).orderByKey().equalTo(test_id);
-            query.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    if(dataSnapshot.exists()){
-                        try{
-                            DatabaseReference read_score =  r.ref.child("child_takes_test").child(child_after_signin.id_child).child(unit_interface.unitID).child(test_id);
-                            read_score.addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
-
-                                    for (final DataSnapshot info: dataSnapshot.getChildren()){
-                                        currentScore = Integer.valueOf(dataSnapshot.child("score").getValue().toString());
-                                        childTime = dataSnapshot.child("time").getValue().toString();
-                                    }
-                                    if(currentScore<finalScore){
-                                        r.ref.child("child_takes_test").child(child_after_signin.id_child)
-                                                .child(unit_interface.unitID).child(test_id).child("score").setValue(finalScore);
-                                        r.ref.child("child_takes_test").child(child_after_signin.id_child)
-                                                .child(unit_interface.unitID).child(test_id).child("time").setValue(actual_time);
-                                    }
-                                }
-                                @Override
-                                public void onCancelled(DatabaseError databaseError) {
-                                    System.out.println("Path score not exists!!! inside on cancel function");
-                                }
-                            });
-                        }
-                        catch (Exception e){
-                            System.out.println("Can't convert string to double");
-                        }
-                    }
-                    else{
-
-                        r.ref.child("child_takes_test").child(child_after_signin.id_child).child(unit_interface.unitID).child(test_id).child("score").setValue(finalScore);
-                        r.ref.child("child_takes_test").child(child_after_signin.id_child).child(unit_interface.unitID).child(test_id).child("time").setValue(actual_time);
-                    }
-                }
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                }
-            });
-
-
-        }
-
+    private void random_setting_when_test_clicked(){
+        random = randomTestNo.nextInt(4);
+        random2 = randomTestNo.nextInt(4);
+        rand = randomTestNo.nextInt(2);
+        setRand(fillTest(random, random2, rand));
+        Intent fIntent = Rand.get(0);
+        Rand.remove(0);
+        test_letter = testInfo.get(0).getLetters();
+        startTime = Calendar.getInstance().getTimeInMillis();
+        fIntent.putExtra("unitID", unitID);
+        fIntent.putExtra("test_letter", test_letter);
+        fIntent.putExtra("startTime", startTime);
+        fIntent.putExtra("Rand", Rand);
+        startActivity(fIntent);
     }
+
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         finish();
-        startActivity(new Intent(unit_interface.this,child_home.class));
+        startActivity(new Intent(getApplicationContext(), child_home.class));
 
     }
 
     @Override
-    protected void onDestroy(){
+    protected void onDestroy() {
         super.onDestroy();
-        try{
+        try {
             instructions.stop();
             instructions.release();
             instructions = null;
-        }catch (Exception e){
+        } catch (Exception e) {
             System.err.println("Unable to stop activity");
         }
 
+
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
 
     }
 }
