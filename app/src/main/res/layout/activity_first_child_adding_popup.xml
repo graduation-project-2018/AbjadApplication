@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="400dp"
+    android:layout_height="200dp"
+    android:background="@drawable/popup_background"
+    tools:context=".first_child_adding_popup"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginBottom="15dp"
+        android:orientation="horizontal">
+
+
+        <Button
+            android:id="@+id/move_to_child_section_btn"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="170dp"
+            android:layout_height="40dp"
+            android:textSize="16sp"
+            android:background="@drawable/popup_btn"
+            android:text="الإنتقال إلى قسم الطفل"
+            android:textColor="#ffffff" />
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="15dp"
+        android:gravity="center">
+        <Button
+            android:id="@+id/add_another_child_btn"
+            android:layout_width="170dp"
+            android:layout_height="40dp"
+            android:textSize="16sp"
+            android:background="@drawable/popup_btn"
+            android:text="إضافة طفل آخر"
+            android:textColor="#ffffff" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <Button
+            android:id="@+id/move_to_edu_btn"
+            android:layout_width="170dp"
+            android:layout_height="40dp"
+            android:textSize="16sp"
+            android:background="@drawable/popup_btn"
+            android:text="العودة لقسم المربي"
+            android:textColor="#ffffff" />
+    </LinearLayout>
+
+
+
+</LinearLayout>

@@ -55,7 +55,7 @@ public class MatchingTest extends child_menu {
     boolean flag2,move_child ;
     String Test_letter,test_id;
     boolean test_finish;
-    TextView loading_label_large, loading_label_normal, loading_label_small;
+    ProgressBar loading_label_large, loading_label_normal, loading_label_small;
     boolean full_child_score;
     String unitID;
     long startTime;

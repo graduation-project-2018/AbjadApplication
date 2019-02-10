@@ -45,8 +45,6 @@ public class child_after_signin extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        //  m.title = (TextView) findViewById(R.id.interface_title);
-        // m.title.setText("الأطفال");
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         // Initialization
         setContentView(R.layout.activity_child_after_signin);
@@ -82,6 +80,9 @@ public class child_after_signin extends AppCompatActivity {
                 noChildlabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
 
         }//end of switch
+
+
+
 
 
         back.setOnClickListener(new View.OnClickListener() {

@@ -13,47 +13,23 @@
         layout="@layout/navigation_action_bar" />
 
 
-    <ImageView
-        android:id="@+id/imageView21"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline4"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline1"
-        app:layout_constraintTop_toTopOf="@+id/guideline3"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/cloud" />
-
     <TextView
         android:id="@+id/imgname"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/imageView21"
-        android:layout_alignLeft="@id/imageView21"
-        android:layout_alignRight="@id/imageView21"
-        android:layout_alignTop="@id/imageView21"
+        android:layout_marginStart="8dp"
         android:fontFamily="Arabic Typesetting"
-        android:text="مـعلومـات أداء الطـفل"
         android:gravity="center"
+        android:text="مـعلومـات أداء الطـفل"
         android:textColor="@android:color/black"
         android:textSize="12sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline9"
-        app:layout_constraintEnd_toStartOf="@+id/guideline12"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_back_h_2"
         app:layout_constraintStart_toStartOf="@+id/guideline11"
-        app:layout_constraintTop_toTopOf="@+id/guideline10" />
+        app:layout_constraintTop_toTopOf="@+id/guideline10"
+        app:layout_constraintVertical_bias="0.235" />
 
-    <ImageView
-        android:id="@+id/imageView22"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline6"
-        app:layout_constraintEnd_toStartOf="@+id/guideline8"
-        app:layout_constraintStart_toStartOf="@+id/guideline12"
-        app:layout_constraintTop_toTopOf="@+id/guideline5"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/bird" />
+
 
     <ScrollView
         android:id="@+id/scrollView3"
@@ -91,16 +67,17 @@
                 android:id="@+id/nUnlokedLesson"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:layout_marginStart="8dp"
                 android:background="#C0D9FA"
                 android:fontFamily="Arabic Typesetting"
-                android:gravity="right"
+                android:gravity="center"
                 android:padding="0dp"
                 android:text="-"
                 android:textDirection="rtl"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toTopOf="@+id/guideline25"
                 app:layout_constraintEnd_toStartOf="@+id/guideline21"
-                app:layout_constraintStart_toStartOf="@+id/guideline19"
+                app:layout_constraintStart_toStartOf="@+id/guideline23"
                 app:layout_constraintTop_toTopOf="@+id/guideline18" />
 
             <TextView
@@ -124,70 +101,17 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
+                android:layout_marginStart="8dp"
                 android:fontFamily="Arabic Typesetting"
-                android:gravity="right"
+                android:gravity="center"
                 android:padding="0dp"
                 android:text="-"
                 android:textDirection="rtl"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toTopOf="@+id/guideline26"
-                app:layout_constraintEnd_toStartOf="@+id/guideline24"
-                app:layout_constraintStart_toStartOf="@+id/guideline19"
-                app:layout_constraintTop_toTopOf="@+id/guideline25" />
-
-            <TextView
-                android:id="@+id/hTimer"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:background="#C0D9FA"
-                android:gravity="center"
-                android:text="أقل وقت باجتياز الدرس:"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toTopOf="@+id/guideline27"
-                app:layout_constraintEnd_toStartOf="@+id/guideline20"
-                app:layout_constraintStart_toStartOf="@+id/guideline21"
-                app:layout_constraintTop_toTopOf="@+id/guideline26" />
-
-            <TextView
-                android:id="@+id/nTimer"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:background="#C0D9FA"
-                android:gravity="center"
-                android:text="-"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toTopOf="@+id/guideline27"
-                app:layout_constraintEnd_toStartOf="@+id/hTimer"
-                app:layout_constraintStart_toStartOf="@+id/guideline22"
-                app:layout_constraintTop_toTopOf="@+id/guideline26" />
-
-            <TextView
-                android:id="@+id/hLessonNameTimer"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-
-                android:background="#C0D9FA"
-                android:gravity="center"
-                android:text="في درس حرف: "
-                android:textSize="12sp"
-                app:layout_constraintBottom_toTopOf="@+id/guideline27"
-                app:layout_constraintEnd_toStartOf="@+id/nTimer"
+                app:layout_constraintEnd_toStartOf="@+id/guideline21"
                 app:layout_constraintStart_toStartOf="@+id/guideline23"
-                app:layout_constraintTop_toTopOf="@+id/guideline26" />
-
-            <TextView
-                android:id="@+id/LessonNameTimer"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:background="#C0D9FA"
-                android:gravity="center"
-                android:text="-"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toTopOf="@+id/guideline27"
-                app:layout_constraintEnd_toStartOf="@+id/guideline23"
-                app:layout_constraintStart_toStartOf="@+id/guideline19"
-                app:layout_constraintTop_toTopOf="@+id/guideline26" />
-
+                app:layout_constraintTop_toTopOf="@+id/guideline25" />
 
             <TextView
                 android:id="@+id/hHighestScoreLesson"
@@ -201,13 +125,44 @@
                 android:textSize="12sp"
                 app:layout_constraintBottom_toTopOf="@+id/guideline28"
                 app:layout_constraintEnd_toStartOf="@+id/guideline20"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@+id/guideline21"
-                app:layout_constraintTop_toTopOf="@+id/guideline27" />
+                app:layout_constraintTop_toTopOf="@+id/guideline27"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <TextView
+                android:id="@+id/hTimer"
+                android:layout_width="0dp"
+                android:layout_height="26dp"
+                android:background="#C0D9FA"
+                android:gravity="center"
+                android:text="أقل وقت باجتياز الدرس:"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toTopOf="@+id/guideline27"
+                app:layout_constraintEnd_toStartOf="@+id/guideline20"
+                app:layout_constraintStart_toStartOf="@+id/guideline21"
+                app:layout_constraintTop_toTopOf="@+id/guideline26" />
+
+            <TextView
+                android:id="@+id/nTimer"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:background="#C0D9FA"
+                android:gravity="center"
+                android:text="-"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toTopOf="@+id/guideline27"
+                app:layout_constraintEnd_toStartOf="@+id/hTimer"
+                app:layout_constraintStart_toStartOf="@+id/guideline23"
+                app:layout_constraintTop_toTopOf="@+id/guideline26" />
+
 
             <TextView
                 android:id="@+id/highestScoreLesson"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="8dp"
                 android:fontFamily="Arabic Typesetting"
                 android:gravity="center"
                 android:padding="0dp"
@@ -216,65 +171,36 @@
                 android:textSize="20sp"
                 app:layout_constraintBottom_toTopOf="@+id/guideline28"
                 app:layout_constraintEnd_toStartOf="@+id/hHighestScoreLesson"
-                app:layout_constraintStart_toStartOf="@+id/guideline22"
-                app:layout_constraintTop_toTopOf="@+id/guideline27" />
-
-
-            <TextView
-                android:id="@+id/lesson_99"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:fontFamily="Arabic Typesetting"
-                android:gravity="center"
-                android:text="في درس حرف:"
-                android:textDirection="rtl"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toTopOf="@+id/guideline28"
-                app:layout_constraintEnd_toStartOf="@+id/highestScoreLesson"
                 app:layout_constraintStart_toStartOf="@+id/guideline23"
                 app:layout_constraintTop_toTopOf="@+id/guideline27" />
 
-            <TextView
-                android:id="@+id/LessonNameScore"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:fontFamily="Arabic Typesetting"
-                android:gravity="center"
-                android:padding="0dp"
-                android:inputType="textMultiLine"
-                android:text="-"
-                android:textDirection="rtl"
-                android:textSize="24sp"
-                app:layout_constraintBottom_toTopOf="@+id/guideline28"
-                app:layout_constraintEnd_toStartOf="@+id/lesson_99"
-                app:layout_constraintStart_toStartOf="@+id/guideline19"
-                app:layout_constraintTop_toBottomOf="@+id/LessonNameTimer" />
 
             <TextView
                 android:id="@+id/hDoneTest"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:layout_marginStart="8dp"
                 android:background="#C0D9FA"
                 android:gravity="center"
-                android:text="الإختبارات التي اجتازها الطـفل:"
+                android:text="الإختبارات المُجتازة:"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toTopOf="@+id/guideline29"
                 app:layout_constraintEnd_toStartOf="@+id/guideline20"
-                app:layout_constraintStart_toStartOf="@+id/guideline222"
+                app:layout_constraintStart_toStartOf="@+id/guideline21"
                 app:layout_constraintTop_toTopOf="@+id/guideline28" />
 
             <TextView
                 android:id="@+id/nDoneTest"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:layout_marginStart="8dp"
                 android:background="#C0D9FA"
-                android:gravity="right"
-                android:text="-"
+                android:gravity="center"
                 android:textDirection="rtl"
                 android:textSize="24dp"
                 app:layout_constraintBottom_toTopOf="@+id/guideline29"
-                app:layout_constraintEnd_toStartOf="@+id/guideline222"
-                app:layout_constraintStart_toStartOf="@+id/guideline19"
+                app:layout_constraintEnd_toStartOf="@+id/hDoneTest"
+                app:layout_constraintStart_toStartOf="@+id/guideline23"
                 app:layout_constraintTop_toTopOf="@+id/guideline28" />
 
             <TextView
@@ -294,27 +220,12 @@
                 android:id="@+id/highestScoreTest"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:layout_marginStart="8dp"
                 android:gravity="center"
                 android:text="-"
                 android:textSize="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/hHighestScoreTest"
-                app:layout_constraintStart_toStartOf="@+id/guideline22"
-                app:layout_constraintTop_toTopOf="@+id/guideline29" />
-
-            <TextView
-                android:id="@+id/hTestName"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="8dp"
-                android:fontFamily="Arabic Typesetting"
-                android:gravity="center"
-                android:padding="0dp"
-                android:text="في اختبار:"
-                android:textDirection="rtl"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/highestScoreTest"
                 app:layout_constraintStart_toStartOf="@+id/guideline23"
                 app:layout_constraintTop_toTopOf="@+id/guideline29" />
 
@@ -323,16 +234,14 @@
                 android:id="@+id/testName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:inputType="textMultiLine"
                 android:fontFamily="Arabic Typesetting"
                 android:gravity="center"
+                android:inputType="textMultiLine"
                 android:padding="0dp"
-                android:text="-,-"
                 android:textDirection="rtl"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="w,9:1 "
-                app:layout_constraintEnd_toStartOf="@+id/guideline23"
                 app:layout_constraintStart_toStartOf="@+id/guideline19"
                 app:layout_constraintTop_toBottomOf="@+id/guideline29" />
 
@@ -374,7 +283,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_begin="20dp"
+                app:layout_constraintGuide_begin="-18dp"
                 app:layout_constraintGuide_percent="0.177" />
 
             <android.support.constraint.Guideline
@@ -391,7 +300,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 app:layout_constraintGuide_begin="20dp"
-                app:layout_constraintGuide_percent="0.25" />
+                app:layout_constraintGuide_percent="0.15" />
 
             <android.support.constraint.Guideline
                 android:id="@+id/guideline22"
@@ -455,20 +364,12 @@
         app:layout_constraintGuide_percent="0.32" />
 
     <android.support.constraint.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent="0.63" />
-
-    <android.support.constraint.Guideline
         android:id="@+id/guideline3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent="0.18" />
+        app:layout_constraintGuide_percent="0.20" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline4"
@@ -476,7 +377,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent="0.38" />
+        app:layout_constraintGuide_percent="0.40" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline5"
@@ -495,12 +396,20 @@
         app:layout_constraintGuide_percent="0.36" />
 
     <android.support.constraint.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.63" />
+
+    <android.support.constraint.Guideline
         android:id="@+id/guideline_back_h_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent="0.556" />
+        app:layout_constraintGuide_percent="0.57" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline8"
@@ -508,7 +417,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent="0.687" />
+        app:layout_constraintGuide_percent="0.69" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline9"
@@ -516,7 +425,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent="0.31" />
+        app:layout_constraintGuide_percent="0.33" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline10"
@@ -540,7 +449,14 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent="0.543" />
+        app:layout_constraintGuide_percent="0.54" />
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline122"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.51" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline13"
@@ -548,7 +464,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent="0.4" />
+        app:layout_constraintGuide_percent="0.35" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline14"
@@ -572,7 +488,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent="0.795" />
+        app:layout_constraintGuide_percent="0.80" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline17"
@@ -580,5 +496,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent="0.205" />
+        app:layout_constraintGuide_percent="0.10" />
+
 </android.support.constraint.ConstraintLayout>

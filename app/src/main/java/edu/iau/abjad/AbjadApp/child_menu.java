@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -57,7 +58,7 @@ public class child_menu extends AppCompatActivity {
     DatabaseReference read;
     String id;
     ImageView menu_btn, back_btn;
-
+    int width, height;
 
 
 
@@ -80,6 +81,35 @@ public class child_menu extends AppCompatActivity {
 
         menu_btn = findViewById(R.id.menu_icon);
         back_btn = findViewById(R.id.back_button);
+
+        int screenSize = getResources().getConfiguration().screenLayout &
+                Configuration.SCREENLAYOUT_SIZE_MASK;
+        switch(screenSize) {
+            case Configuration.SCREENLAYOUT_SIZE_XLARGE:
+                width = 820;
+                height = 520;
+                Log.i("scsize","X Large" );
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_LARGE:
+                width = 820;
+                height = 520;
+                Log.i("scsize","Large" );
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_NORMAL:
+                width = 1300;
+                height = 700;
+                Log.i("scsize","Normal" );
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_SMALL:
+                Log.i("scsize","Small" );
+                width = 1300;
+                height = 700;
+                break;
+            default:
+                width = 1000;
+                height = 600;
+                Log.i("scsize","Default screen" );
+        }//end switch
 
 
 
@@ -245,7 +275,7 @@ public class child_menu extends AppCompatActivity {
 
         dialog.show();
         Window window =dialog.getWindow();
-        window.setLayout(820,520);
+        window.setLayout(width,height);
            cancel_btn.setOnClickListener( new View.OnClickListener() {
                @Override
                public void onClick(View view) {
@@ -267,7 +297,7 @@ public class child_menu extends AppCompatActivity {
 
         dialog.show();
         Window window =dialog.getWindow();
-        window.setLayout(830,520);
+        window.setLayout(width,height);
         cancel_btn.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {

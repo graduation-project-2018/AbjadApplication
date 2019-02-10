@@ -316,36 +316,24 @@
         app:layout_constraintGuide_begin="20dp"
         app:layout_constraintGuide_percent="0.55" />
 
-    <TextView
+    <ProgressBar
         android:id="@+id/loading_label"
         android:layout_width="wrap_content"
-        android:layout_height="37dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="جاري التحميل"
+        android:drawablePadding="8dp"
         android:textSize="20sp"
         android:visibility="visible"
-        android:drawableRight="@drawable/loading_small"
-        android:drawablePadding="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline20"
         app:layout_constraintTop_toTopOf="@+id/tolbar"
         app:layout_constraintVertical_bias="0.334" />
 
-    <ImageView
-        android:id="@+id/loading_icon_lesson"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="19dp"
-        android:layout_marginBottom="1dp"
-        app:layout_constraintBottom_toTopOf="@+id/loading_label"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/guidelineN2"
-        />
+
 
 </android.support.constraint.ConstraintLayout>
 

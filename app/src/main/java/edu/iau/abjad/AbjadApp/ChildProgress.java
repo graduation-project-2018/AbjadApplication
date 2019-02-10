@@ -23,12 +23,9 @@ public class ChildProgress extends menu_educator {
     private TextView nUnlokedLesson;
     private TextView nDoneLesson;
     private TextView nTimer;
-    private TextView LessonNameTimer;
     private TextView highestScoreLesson;
-    private TextView lessonNameScore;
     private TextView nDoneTest;
     private TextView highestScoreTest;
-    private TextView testName, hTestName;
     private firebase_connection lesson_unloked,lesson,lesson_comp,letterLesson;
     private firebase_connection test,nTest;
     private firebase_connection child,deleteChild_Children,deleteChild_edu,deleteChild_lesson,deleteChild_test;
@@ -69,13 +66,9 @@ public class ChildProgress extends menu_educator {
         nUnlokedLesson=findViewById(R.id.nUnlokedLesson);
         nDoneLesson=findViewById(R.id.nDoneLesson);
         nTimer=findViewById(R.id.nTimer);
-        LessonNameTimer=findViewById(R.id.LessonNameTimer);
         highestScoreLesson=findViewById(R.id.highestScoreLesson);
-        lessonNameScore=findViewById(R.id.LessonNameScore);
         nDoneTest=findViewById(R.id.nDoneTest);
         highestScoreTest=findViewById(R.id.highestScoreTest);
-        testName=findViewById(R.id.testName);
-        hTestName = findViewById(R.id.hTestName);
         lesson_unloked=new firebase_connection();
         lesson=new firebase_connection();
         lesson_comp=new firebase_connection();
@@ -123,121 +116,89 @@ public class ChildProgress extends menu_educator {
         TextView hUnlokedLesson=findViewById(R.id.hUnlokedLesson);
         TextView hDoneLesson=findViewById(R.id.hDoneLesson);
         TextView hTimer=findViewById(R.id.hTimer);
-        TextView hLessonNameTimer=findViewById(R.id.hLessonNameTimer);
         TextView hHighestScoreLesson=findViewById(R.id.hHighestScoreLesson);
         TextView hDoneTest=findViewById(R.id.hDoneTest);
         TextView hHighestScoreTest=findViewById(R.id.hHighestScoreTest);
-        TextView lesson_99=findViewById(R.id.lesson_99);
         switch(screenSize) {
             case Configuration.SCREENLAYOUT_SIZE_XLARGE:
                 imgname.setTextSize(TypedValue.COMPLEX_UNIT_SP,xLarge);
                 hUnlokedLesson.setTextSize(TypedValue.COMPLEX_UNIT_SP,xLarge);
-                LessonNameTimer.setTextSize(TypedValue.COMPLEX_UNIT_SP,xLarge);
                 nUnlokedLesson.setTextSize(TypedValue.COMPLEX_UNIT_SP,xLarge);
                 nDoneLesson.setTextSize(TypedValue.COMPLEX_UNIT_SP,xLarge);
                 hDoneLesson.setTextSize(TypedValue.COMPLEX_UNIT_SP,xLarge);
                 nTimer.setTextSize(TypedValue.COMPLEX_UNIT_SP,xLarge);
                 hTimer.setTextSize(TypedValue.COMPLEX_UNIT_SP,xLarge);
-                hTestName.setTextSize(TypedValue.COMPLEX_UNIT_SP,xLarge);
-                hLessonNameTimer.setTextSize(TypedValue.COMPLEX_UNIT_SP,xLarge);
                 hHighestScoreLesson.setTextSize(TypedValue.COMPLEX_UNIT_SP,xLarge);
                 hDoneTest.setTextSize(TypedValue.COMPLEX_UNIT_SP,xLarge);
                 hHighestScoreTest.setTextSize(TypedValue.COMPLEX_UNIT_SP,xLarge);
                 highestScoreLesson.setTextSize(TypedValue.COMPLEX_UNIT_SP,xLarge);
-                lesson_99.setTextSize(TypedValue.COMPLEX_UNIT_SP,xLarge);
-                lessonNameScore .setTextSize(TypedValue.COMPLEX_UNIT_SP,xLarge);
                 nDoneTest.setTextSize(TypedValue.COMPLEX_UNIT_SP,xLarge);
                 highestScoreTest.setTextSize(TypedValue.COMPLEX_UNIT_SP,xLarge);
-                testName .setTextSize(TypedValue.COMPLEX_UNIT_SP,xLarge);
                 m.setTitle_XLarge();
                 break;
             case Configuration.SCREENLAYOUT_SIZE_LARGE:
                 imgname.setTextSize(TypedValue.COMPLEX_UNIT_SP,large);
                 hUnlokedLesson.setTextSize(TypedValue.COMPLEX_UNIT_SP,large);
-                LessonNameTimer.setTextSize(TypedValue.COMPLEX_UNIT_SP,large);
                 nUnlokedLesson.setTextSize(TypedValue.COMPLEX_UNIT_SP,large);
                 nDoneLesson.setTextSize(TypedValue.COMPLEX_UNIT_SP,large);
                 hDoneLesson.setTextSize(TypedValue.COMPLEX_UNIT_SP,large);
                 nTimer.setTextSize(TypedValue.COMPLEX_UNIT_SP,large);
                 hTimer.setTextSize(TypedValue.COMPLEX_UNIT_SP,large);
-                hTestName.setTextSize(TypedValue.COMPLEX_UNIT_SP,large);
-                hLessonNameTimer.setTextSize(TypedValue.COMPLEX_UNIT_SP,large);
                 hHighestScoreLesson.setTextSize(TypedValue.COMPLEX_UNIT_SP,large);
                 hDoneTest.setTextSize(TypedValue.COMPLEX_UNIT_SP,large);
                 hHighestScoreTest.setTextSize(TypedValue.COMPLEX_UNIT_SP,large);
                 highestScoreLesson.setTextSize(TypedValue.COMPLEX_UNIT_SP,large);
-                lesson_99.setTextSize(TypedValue.COMPLEX_UNIT_SP,large);
-                lessonNameScore .setTextSize(TypedValue.COMPLEX_UNIT_SP,large);
                 nDoneTest.setTextSize(TypedValue.COMPLEX_UNIT_SP,large);
                 highestScoreTest.setTextSize(TypedValue.COMPLEX_UNIT_SP,large);
-                testName .setTextSize(TypedValue.COMPLEX_UNIT_SP,large);
                 m.setTitle_Large();
                 break;
             case Configuration.SCREENLAYOUT_SIZE_NORMAL:
                 imgname.setTextSize(TypedValue.COMPLEX_UNIT_SP,normal);
                 hUnlokedLesson.setTextSize(TypedValue.COMPLEX_UNIT_SP,normal);
-                LessonNameTimer.setTextSize(TypedValue.COMPLEX_UNIT_SP,normal);
                 nUnlokedLesson.setTextSize(TypedValue.COMPLEX_UNIT_SP,normal);
                 nDoneLesson.setTextSize(TypedValue.COMPLEX_UNIT_SP,normal);
                 hDoneLesson.setTextSize(TypedValue.COMPLEX_UNIT_SP,normal);
                 nTimer.setTextSize(TypedValue.COMPLEX_UNIT_SP,normal);
                 hTimer.setTextSize(TypedValue.COMPLEX_UNIT_SP,normal);
-                hTestName.setTextSize(TypedValue.COMPLEX_UNIT_SP,normal);
-                hLessonNameTimer.setTextSize(TypedValue.COMPLEX_UNIT_SP,normal);
                 hHighestScoreLesson.setTextSize(TypedValue.COMPLEX_UNIT_SP,normal);
                 hDoneTest.setTextSize(TypedValue.COMPLEX_UNIT_SP,normal);
                 hHighestScoreTest.setTextSize(TypedValue.COMPLEX_UNIT_SP,normal);
                 highestScoreLesson.setTextSize(TypedValue.COMPLEX_UNIT_SP, normal);
                 highestScoreLesson.setTextSize(TypedValue.COMPLEX_UNIT_SP,normal);
-                lesson_99.setTextSize(TypedValue.COMPLEX_UNIT_SP,normal);
-                lessonNameScore .setTextSize(TypedValue.COMPLEX_UNIT_SP,normal);
                 nDoneTest.setTextSize(TypedValue.COMPLEX_UNIT_SP,normal);
                 highestScoreTest.setTextSize(TypedValue.COMPLEX_UNIT_SP,normal);
-                testName .setTextSize(TypedValue.COMPLEX_UNIT_SP,normal);
                 m.setTitle_Normal();
                 break;
             case Configuration.SCREENLAYOUT_SIZE_SMALL:
                 imgname.setTextSize(TypedValue.COMPLEX_UNIT_SP,small);
                 hUnlokedLesson.setTextSize(TypedValue.COMPLEX_UNIT_SP,small);
-                LessonNameTimer.setTextSize(TypedValue.COMPLEX_UNIT_SP,small);
                 nUnlokedLesson.setTextSize(TypedValue.COMPLEX_UNIT_SP,small);
                 nDoneLesson.setTextSize(TypedValue.COMPLEX_UNIT_SP,small);
                 hDoneLesson.setTextSize(TypedValue.COMPLEX_UNIT_SP,small);
                 nTimer.setTextSize(TypedValue.COMPLEX_UNIT_SP,small);
                 hTimer.setTextSize(TypedValue.COMPLEX_UNIT_SP,small);
-                hTestName.setTextSize(TypedValue.COMPLEX_UNIT_SP,small);
-                hLessonNameTimer.setTextSize(TypedValue.COMPLEX_UNIT_SP,small);
                 hHighestScoreLesson.setTextSize(TypedValue.COMPLEX_UNIT_SP,small);
                 hDoneTest.setTextSize(TypedValue.COMPLEX_UNIT_SP,small);
                 hHighestScoreTest.setTextSize(TypedValue.COMPLEX_UNIT_SP,small);
                 highestScoreLesson.setTextSize(TypedValue.COMPLEX_UNIT_SP,small);
-                lesson_99.setTextSize(TypedValue.COMPLEX_UNIT_SP,small);
-                lessonNameScore .setTextSize(TypedValue.COMPLEX_UNIT_SP,small);
                 nDoneTest.setTextSize(TypedValue.COMPLEX_UNIT_SP,small);
                 highestScoreTest.setTextSize(TypedValue.COMPLEX_UNIT_SP,small);
-                testName .setTextSize(TypedValue.COMPLEX_UNIT_SP,small);
                 m.setTitle_Small();
                 break;
             default:
                 imgname.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
                 hUnlokedLesson.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
-                LessonNameTimer.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
                 nUnlokedLesson.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
                 nDoneLesson.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
                 hDoneLesson.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
                 nTimer.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
                 hTimer.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
-                hTestName.setTextSize(TypedValue.COMPLEX_UNIT_SP,default_size);
-                hLessonNameTimer.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
                 hHighestScoreLesson.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
                 hDoneTest.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
                 hHighestScoreTest.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
                 highestScoreLesson.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
-                lesson_99.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
-                lessonNameScore.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
                 nDoneTest.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
                 highestScoreTest.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
-                testName .setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
                 m.setTitle_Default();
         }
         final Intent c=new Intent(this,select_user_type.class);
@@ -325,8 +286,6 @@ public class ChildProgress extends menu_educator {
                                                     nTimer.setText(dleastTime+" "+(dleastTime<1?"ثانية":" دقيقة"));
                                                     highestScoreLesson.setText(ihighestLessonScore+" /7");
                                                     nDoneLesson.setText(icomplete+" ");
-                                                    lessonNameScore.setText(sHighstScoreLesson+"");
-                                                    LessonNameTimer.setText(sLeastTime+" ");
                                                     Log.i("status",status);
                                                 }
 
@@ -422,7 +381,6 @@ public class ChildProgress extends menu_educator {
                                                     }
                                                     Log.i("fffff",sHighstScoreTest+" ");
                                                     highestScoreTest.setText(ihighestScore+" /10");
-                                                    testName.setText(sHighstScoreTest.substring(0,sHighstScoreTest.length()-2).replace("_","،"));
                                                 }
                                                 @Override
                                                 public void onCancelled(DatabaseError databaseError) {

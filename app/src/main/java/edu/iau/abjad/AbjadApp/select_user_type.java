@@ -35,13 +35,13 @@ public class select_user_type extends AppCompatActivity {
                     "مئتان وعشرة",
                     "أربعة وأربعون",
                     "تسعة وتسعون",
-                    "ثمانية وسبعون",
+                    "سبعة وثمانون",
                     "خمسة آلاف ومئة",
                     "ألف ومئة"};
 
     int chosen_element;
     Intent intentOfEdu;
-
+   int width, height;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,15 +58,12 @@ public class select_user_type extends AppCompatActivity {
 
 
 
-
-
-
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
                 FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(select_user_type.this,signin_new.class));
+                startActivity(new Intent(getApplicationContext(),signin_new.class));
             }
         });
 
@@ -76,28 +73,37 @@ public class select_user_type extends AppCompatActivity {
             case Configuration.SCREENLAYOUT_SIZE_XLARGE:
                 eduLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,50);
                 childLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,50);
+                width = 820;
+                height = 520;
                 Log.i("scsize","X Large" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_LARGE:
                 eduLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,40);
                 childLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,40);
                 Log.i("scsize","Large" );
+                width = 820;
+                height = 520;
 
                 break;
             case Configuration.SCREENLAYOUT_SIZE_NORMAL:
                 eduLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
                 childLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
-
+                width = 1300;
+                height = 700;
                 Log.i("scsize","Normal" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_SMALL:
                 eduLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
                 childLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+                width = 1300;
+                height = 700;
                 Log.i("scsize","Small" );
                 break;
             default:
                 eduLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
                 childLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+                width = 1000;
+                height = 600;
                 Log.i("scsize","Default screen" );
         }//end switch
 
@@ -122,7 +128,7 @@ public class select_user_type extends AppCompatActivity {
     public void onBackPressed() {
         finish();
         FirebaseAuth.getInstance().signOut();
-        startActivity(new Intent(select_user_type.this,signin_new.class));
+        startActivity(new Intent(getApplicationContext(),signin_new.class));
     }
 
     public void popUp_edu(){
@@ -134,18 +140,23 @@ public class select_user_type extends AppCompatActivity {
         final EditText num_field = mView.findViewById(R.id.enter_num);
         Button enter_btn = mView.findViewById(R.id.submit_btn);
 
+        // Display the choosen element in the Popup
         num_label.setText(edu_auth_written_numbers[chosen_element]);
         final ArrayList<String> arrayList_num = new ArrayList<String>(Arrays.asList(edu_auth_numbers));
         final ArrayList<String> arrayList_num_arabic = new ArrayList<String>(Arrays.asList(edu_auth_arabic_numbers));
+
+        //check if the user enter the right number
         enter_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String num = num_field.getText().toString().trim();
+                //get the index of chosen number that displayed to the user
                 int returned_index = arrayList_num.indexOf(num);
                 if(returned_index == chosen_element){
                     finish();
                     startActivity(intentOfEdu);
                 }
+                // user enter the number wrong or in Arabic
                 else {
                     int returned_index2 = arrayList_num_arabic.indexOf(num);
                     if (returned_index2 == chosen_element) {
@@ -164,7 +175,7 @@ public class select_user_type extends AppCompatActivity {
         final AlertDialog dialog = mBuilder.create();
         dialog.show();
         Window window =dialog.getWindow();
-        window.setLayout(820,520);
+        window.setLayout(width,height);
         close_btn.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -174,5 +185,5 @@ public class select_user_type extends AppCompatActivity {
 
 
 
-    }// end Popup Delete
+    }// end Popup edu
 }

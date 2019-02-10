@@ -14,14 +14,13 @@
  />
 
 
-    <Button
+    <ImageView
         android:id="@+id/schoolButton"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:background="@drawable/school_unit_icon"
         app:layout_constraintBottom_toTopOf="@+id/guidelinefamilyB3"
         app:layout_constraintDimensionRatio="h,1:1"
         app:layout_constraintEnd_toStartOf="@+id/guideline9"
@@ -38,24 +37,22 @@
         app:layout_constraintGuide_begin="20dp"
         app:layout_constraintGuide_percent="0.36" />
 
-    <Button
+    <ImageView
         android:id="@+id/homeButton"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="45dp"
-        android:background="@drawable/watani_unit_icon"
         app:layout_constraintDimensionRatio="h,1:1"
         app:layout_constraintEnd_toStartOf="@+id/guideline11"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/guideline12"
         app:layout_constraintTop_toTopOf="@+id/guidelinefamilyB4" />
 
-    <Button
+    <ImageView
         android:id="@+id/familyButton"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="45dp"
-        android:background="@drawable/family_unit_icon"
         app:layout_constraintDimensionRatio="h,1:1"
         app:layout_constraintEnd_toEndOf="@+id/guidelinefamilyB"
         app:layout_constraintHorizontal_bias="1.0"
@@ -226,6 +223,46 @@
         android:orientation="vertical"
         app:layout_constraintGuide_begin="67dp"
         app:layout_constraintGuide_percent="0.155" />
+
+    <ProgressBar
+        android:id="@+id/family_progress_bar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/familyButton"
+        app:layout_constraintEnd_toStartOf="@+id/guidelinefamilyB"
+        app:layout_constraintStart_toStartOf="@+id/guidelinefamilyB2"
+        app:layout_constraintTop_toBottomOf="@+id/family" />
+
+    <ProgressBar
+        android:id="@+id/school_progress_bar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/schoolButton"
+        app:layout_constraintEnd_toEndOf="@+id/schoolButton"
+        app:layout_constraintStart_toStartOf="@+id/schoolButton"
+        app:layout_constraintTop_toBottomOf="@+id/school" />
+
+    <ProgressBar
+        android:id="@+id/watani_progress_bar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/homeButton"
+        app:layout_constraintEnd_toStartOf="@+id/guideline11"
+        app:layout_constraintStart_toStartOf="@+id/guideline12"
+        app:layout_constraintTop_toBottomOf="@+id/city" />
 
 
 </android.support.constraint.ConstraintLayout>

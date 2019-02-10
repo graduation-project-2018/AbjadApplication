@@ -5,13 +5,16 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -29,6 +32,7 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class new_child_photo extends menu_educator  {
     menu_variables m = new menu_variables();
@@ -47,6 +51,7 @@ public class new_child_photo extends menu_educator  {
     String gender;
     String category;
     ProgressBar loading;
+    int width, height;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,12 +88,16 @@ public class new_child_photo extends menu_educator  {
             case Configuration.SCREENLAYOUT_SIZE_XLARGE:
                 m.setButton_text_XLarge(addChild);
                 m.setTitle_XLarge();
+                width = 820;
+                height = 520;
 
                 Log.i("scsize","X Large" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_LARGE:
                 m.setButton_text_Large(addChild);
                 m.setTitle_Large();
+                width = 820;
+                height = 520;
 
                 Log.i("scsize","Large" );
 
@@ -96,18 +105,24 @@ public class new_child_photo extends menu_educator  {
             case Configuration.SCREENLAYOUT_SIZE_NORMAL:
                 m.setButton_text_Normal(addChild);
                 m.setTitle_Normal();
+                width = 1300;
+                height = 700;
 
                 Log.i("scsize","Normal" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_SMALL:
                 m.setButton_text_Small(addChild);
                 m.setTitle_Small();
+                width = 1300;
+                height = 700;
 
                 Log.i("scsize","Small" );
                 break;
             default:
                 m.setButton_text_Default(addChild);
                 m.setTitle_Default();
+                width = 1000;
+                height = 600;
 
         }//end switch
         if(gender.equals("ذكر")){
@@ -157,31 +172,8 @@ public class new_child_photo extends menu_educator  {
                         r.ref.child("educator_home").child(signin_new.id_edu).child("children").child(push_id).child("photo_URL").setValue(photo_url);
                         r.ref.child("educator_home").child(signin_new.id_edu).child("children").child(push_id).child("first_name").setValue(completeObj.first_name);
                         Toast.makeText(getApplicationContext(), "تمت إضافة الطفل بنجاح", Toast.LENGTH_LONG).show();
-                        finish();
-                        startActivity(backEducatorHome);
-                        /*Query query = r.ref.child("Children").orderByKey();
-                        query.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                if(dataSnapshot.exists()){
-                                    for(DataSnapshot child_id : dataSnapshot.getChildren()){
-                                        Log.i("lolo", child_id.child("first_name").getValue().toString());
-                                        Log.i("name id7",child_id.child("first_name").getKey());
+                        popUp_move_or_add();
 
-                                        if(child_id.child("first_name").getValue().toString().equals(completeObj.first_name)
-                                                && child_id.child("last_name").getValue().toString().equals(completeObj.last_name)){
-                                            child_ID = child_id.getKey();
-                                            Log.i("123456", child_ID);
-                                        }
-                                    }
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-                        });*/
                     }
                 });
             }
@@ -259,6 +251,48 @@ public class new_child_photo extends menu_educator  {
 
                 });
     }//end of function hide_loading_label
+
+    public void popUp_move_or_add(){
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(new_child_photo.this);
+        View mView = getLayoutInflater().inflate(R.layout.activity_first_child_adding_popup,null);
+        Button move_to_child_section_btn = mView.findViewById(R.id.move_to_child_section_btn);
+        Button add_another_child_btn = mView.findViewById(R.id.add_another_child_btn);
+        Button move_to_edu_scetion_btn = mView.findViewById(R.id.move_to_edu_btn);
+
+
+        move_to_child_section_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                startActivity(new Intent(getApplicationContext(),child_after_signin.class));
+
+            }
+        });
+
+        mBuilder.setView(mView);
+        final AlertDialog dialog = mBuilder.create();
+        dialog.show();
+        Window window =dialog.getWindow();
+        window.setLayout(width,height);
+        add_another_child_btn.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                startActivity(new Intent(getApplicationContext(),new_add_child.class));
+            }
+        });
+
+        move_to_edu_scetion_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                startActivity(new Intent(getApplicationContext(),educator_home.class));
+            }
+        });
+
+    }// end Popup popUp_move_or_add
+
+
 
 
 

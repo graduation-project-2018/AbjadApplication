@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -56,7 +57,7 @@ public class HeardWordTest extends child_menu  {
     boolean flag2, move_child, finish_child_score;
     String test_id;
     String Test_letter, unitID;
-    TextView loading_label;
+    ProgressBar loading_label;
     long startTime;
     int total_score_of_prev_tests;
     ArrayList<Intent> Rand;
@@ -204,8 +205,6 @@ public class HeardWordTest extends child_menu  {
             @Override
             public void onClick(View view) {
                 next_test_or_go_home();
-
-
             }
         });
 
@@ -224,6 +223,7 @@ public class HeardWordTest extends child_menu  {
                                 String lettr=snapshot.child("test_letters").getValue().toString();
                                 if(lettr.equals(Test_letter)){
                                     test_id=key;
+                                    System.out.println("testIDNew" + test_id);
                                 }//Alaa
 
           Query WG = r.ref.child("Tests").child(test_id).child("heard_word_test").orderByKey().equalTo(sltG);   //to retive the word audio

@@ -48,6 +48,7 @@ public class new_add_child extends menu_educator {
     Pattern ArabicLetters = Pattern.compile("^[ءئ ؤ إآ ى لآ لأ  لإ أ-ي ]+$");
     Query q;
     Pattern ps;
+    int width, height;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +88,8 @@ public class new_add_child extends menu_educator {
                 // change the right icon of Edit text based on screen size
                 firstName.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray, 0);
                 lastName.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray, 0);
+                width = 820;
+                height = 520;
                 Log.i("scsize","X Large" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_LARGE:
@@ -94,6 +97,8 @@ public class new_add_child extends menu_educator {
                 m.setTitle_Large();
                 firstName.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray_2x, 0);
                 lastName.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray_2x, 0);
+                width = 820;
+                height = 520;
                 Log.i("scsize","Large" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_NORMAL:
@@ -101,6 +106,8 @@ public class new_add_child extends menu_educator {
                 m.setTitle_Normal();
                 firstName.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray_15x, 0);
                 lastName.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray_15x, 0);
+                width = 1300;
+                height = 700;
                 Log.i("scsize","Normal" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_SMALL:
@@ -108,6 +115,8 @@ public class new_add_child extends menu_educator {
                 m.setTitle_Small();
                 firstName.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray_1x, 0);
                 lastName.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray_1x, 0);
+                width = 1300;
+                height = 700;
                 Log.i("scsize","Small" );
                 break;
             default:
@@ -115,6 +124,8 @@ public class new_add_child extends menu_educator {
                 m.setTitle_Default();
                 firstName.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray_1x, 0);
                 lastName.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray_1x, 0);
+                width = 1000;
+                height = 600;
                 Log.i("scsize","Default screen" );
         }//end switch
 
@@ -174,7 +185,7 @@ public class new_add_child extends menu_educator {
 
         dialog.show();
         Window window =dialog.getWindow();
-        window.setLayout(820,520);
+        window.setLayout(width,height);
         ok_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -182,6 +193,7 @@ public class new_add_child extends menu_educator {
                 startActivity(i);
             }
         });
+
 
 
 

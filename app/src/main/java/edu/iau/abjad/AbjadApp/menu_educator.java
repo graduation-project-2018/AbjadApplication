@@ -2,6 +2,7 @@ package edu.iau.abjad.AbjadApp;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -41,6 +42,7 @@ public class menu_educator extends AppCompatActivity {
     NavigationView navigationView ;
     ImageView menu_btn, back_btn;
     firebase_connection r = new firebase_connection();
+    int height, width;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +58,35 @@ public class menu_educator extends AppCompatActivity {
         mDrawerLayout.addDrawerListener(mToggle);
 
         mToggle.syncState();
+
+        int screenSize = getResources().getConfiguration().screenLayout &
+                Configuration.SCREENLAYOUT_SIZE_MASK;
+        switch(screenSize) {
+            case Configuration.SCREENLAYOUT_SIZE_XLARGE:
+                width = 820;
+                height = 520;
+                Log.i("scsize","X Large" );
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_LARGE:
+                width = 820;
+                height = 520;
+                Log.i("scsize","Large" );
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_NORMAL:
+                width = 1300;
+                height = 700;
+                Log.i("scsize","Normal" );
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_SMALL:
+                Log.i("scsize","Small" );
+                width = 1300;
+                height = 700;
+                break;
+            default:
+                width = 1000;
+                height = 600;
+                Log.i("scsize","Default screen" );
+        }//end switch
 
         menu_btn = findViewById(R.id.menu_icon);
         back_btn = findViewById(R.id.back_button);
@@ -85,18 +116,23 @@ public class menu_educator extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
+                    case R.id.move_to_child_section:{
+                        Intent intent = new Intent(getApplicationContext(), child_after_signin.class);
+                        startActivity(intent);
+                        return true;
+                    }
                     case R.id.edit_profile:{
-                        Intent intent = new Intent(menu_educator.this, educator_profile.class);
+                        Intent intent = new Intent(getApplicationContext(), educator_profile.class);
                         startActivity(intent);
                         return true;
                     }
                     case R.id.change_pass:{
-                        Intent intent = new Intent(menu_educator.this, change_password.class);
+                        Intent intent = new Intent(getApplicationContext(), change_password.class);
                         startActivity(intent);
                         return true;
                     }
                     case R.id.add_child:{
-                        Intent intent = new Intent(menu_educator.this, new_add_child.class);
+                        Intent intent = new Intent(getApplicationContext(), new_add_child.class);
                         startActivity(intent);
                         return true;
                     }
@@ -108,13 +144,13 @@ public class menu_educator extends AppCompatActivity {
 
                     case R.id.sign_out:{
                         FirebaseAuth.getInstance().signOut();
-                        Intent intent = new Intent(menu_educator.this, signin_new.class);
+                        Intent intent = new Intent(getApplicationContext(), signin_new.class);
                         startActivity(intent);
                         return true;
 
                     }
                     case R.id.contact_us:{
-                        Intent intent = new Intent(menu_educator.this, contact_us.class);
+                        Intent intent = new Intent(getApplicationContext(), contact_us.class);
                         startActivity(intent);
 
 
@@ -159,7 +195,7 @@ public class menu_educator extends AppCompatActivity {
 
         dialog.show();
         Window window =dialog.getWindow();
-        window.setLayout(840,530);
+        window.setLayout(width,height);
         cancel_btn.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {

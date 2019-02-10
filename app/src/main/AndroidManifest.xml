@@ -18,6 +18,7 @@
         android:label="@string/app_name"
         android:supportsRtl="false"
         android:theme="@style/AppTheme">
+        <activity android:name=".first_child_adding_popup"></activity>
         <activity
             android:name=".Lesson"
             android:screenOrientation="landscape" />
@@ -91,14 +92,14 @@
         <activity
             android:name=".signin_new"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"></activity>
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan" />
         <activity android:name=".new_add_child" />
         <activity android:name=".child_after_signin" />
         <activity android:name=".new_child_photo" />
         <activity android:name=".select_user_type" />
         <activity android:name=".contact_us" />
         <activity android:name=".edu_auth_popup" />
-        <activity android:name=".um"></activity>
+        <activity android:name=".um" />
     </application>
 
 </manifest>

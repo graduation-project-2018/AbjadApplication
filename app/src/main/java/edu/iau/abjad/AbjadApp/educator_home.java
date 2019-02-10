@@ -6,6 +6,7 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.provider.Settings;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +15,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -235,8 +237,6 @@ public void children_changed(DataSnapshot dataSnapshot, String status){
                 if (dataSnapshot.exists()) {
                     x = dataSnapshot.getValue().toString();
                     if(x.equals("1")){
-
-
                         gv.setNumColumns(1);
                         ConstraintLayout.LayoutParams lp = (ConstraintLayout.LayoutParams) gr.getLayoutParams();
                         lp.guidePercent = (float) 0.665;
@@ -244,6 +244,7 @@ public void children_changed(DataSnapshot dataSnapshot, String status){
                         ConstraintLayout.LayoutParams llp = (ConstraintLayout.LayoutParams) gl.getLayoutParams();
                         llp.guidePercent = (float) 0.435;
                         gl.setLayoutParams(llp);
+
                     }
 
                 } else {
@@ -258,5 +259,7 @@ public void children_changed(DataSnapshot dataSnapshot, String status){
         });
 
     }//end of function
+
+
 
 }//end of the class

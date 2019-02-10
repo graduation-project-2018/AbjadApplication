@@ -78,7 +78,6 @@
             app:srcCompat="@drawable/back_btn_2x" />
 
 
-
     </android.support.constraint.ConstraintLayout>
 
 

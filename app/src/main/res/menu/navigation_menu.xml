@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/move_to_child_section"
+        android:title="الانتقال لقسم الطفل"
+        android:icon="@drawable/child_gray_2x">
+    </item>
     <item android:id="@+id/edit_profile"
         android:title="تغيير البريد الإلكتروني"
         android:icon="@drawable/email_icon">

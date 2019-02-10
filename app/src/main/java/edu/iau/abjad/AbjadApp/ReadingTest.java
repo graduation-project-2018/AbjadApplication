@@ -25,6 +25,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -64,13 +65,14 @@ public class ReadingTest extends child_menu {
     ImageView abjad;
     AnimationDrawable anim;
     boolean flag2, move_child, finish_child_score ;
-    TextView nextLabel, loading_label;
+    TextView nextLabel;
     // flag to make Abjad raise his hands when child answer correctly
     boolean word_audio_flag;
     LevenshteinDistance algorithmObj = new LevenshteinDistance();
     long startTime;
     int total_score_of_prev_tests;
     ArrayList<Intent> Rand;
+    ProgressBar loading_label;
 
     //Alaa
     firebase_connection Test_Id,testIdq2;

@@ -1,7 +1,6 @@
 package edu.iau.abjad.AbjadApp;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.media.AudioManager;
@@ -18,11 +17,8 @@ import android.widget.ImageView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import java.io.IOException;
-import java.security.spec.ECField;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Random;
@@ -31,11 +27,7 @@ public class unit_interface extends child_menu {
     private Button test1, test2, test3, lesson1, lesson2, lesson3, lesson4, lesson5, lesson6;
     private ImageView lock2, lock3, lock4, lock5, lock6, test1Stars, test2Stars, test3Stars,
             lesson1Stars, lesson2Stars, lesson3Stars, lesson4Stars, lesson5Stars, lesson6Stars, bal1, bal2, bal3;
-    private Intent lessonIntent;
-    private Button test1,test2,test3,lesson1,lesson2,lesson3,lesson4,lesson5,lesson6;
-    private ImageView lock2,lock3,lock4,lock5,lock6,test1Stars,test2Stars,test3Stars,
-            lesson1Stars,lesson2Stars,lesson3Stars,lesson4Stars,lesson5Stars,lesson6Stars,bal1,bal2,bal3;
-    private Intent lessonIntent,lessonUMIntent;
+    private Intent lessonIntent, lessonUMIntent;
     private Random randomTestNo;
     private ArrayList<Intent> testIntent;
     private Intent matchingTest_Intent, readingTest_Intent, trueFalseTest_Intent, heardWordTest_Intent;
@@ -55,7 +47,8 @@ public class unit_interface extends child_menu {
     firebase_connection r;
     private String unitName, first_signIn;
     private ImageButton playInstructione;
-    String first="";
+    String first = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,24 +77,10 @@ public class unit_interface extends child_menu {
         bal2 = findViewById(R.id.ballon2);
         bal3 = findViewById(R.id.ballon3);
         Bundle child = getIntent().getExtras();
-        openLessons=new ArrayList<String>();
-        childLessons=new ArrayList<String>();
-        Rand=new ArrayList<Intent>();
-        TestStringForTesting=new ArrayList<String>();
-        TestStringForTesting2=new ArrayList<String>();
-        randomTestNo=new Random();
-        lessonUMIntent= new Intent(this,um.class);
-        lessonIntent=new Intent(this,Lesson.class);
-        testIntent=new ArrayList<Intent>();
-        lessonsInfo=new ArrayList<childUnitInfo>();
-        bal1=findViewById(R.id.ballon1);
-        bal2=findViewById(R.id.ballon2);
-        bal3=findViewById(R.id.ballon3);
-        Bundle child=getIntent().getExtras();
         m.title.setText(child.getString("Unitname"));
         unitName = child.getString("Unitname");
         first_signIn = child.getString("first_signIn");
-
+        lessonUMIntent = new Intent(getApplicationContext(), um.class);
         testInfo = new ArrayList<childUnitInfo>();
         matchingTest_Intent = new Intent(getApplicationContext(), MatchingTest.class);
         readingTest_Intent = new Intent(getApplicationContext(), ReadingTest.class);
@@ -213,6 +192,7 @@ public class unit_interface extends child_menu {
                 lesson6.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
 
         }//end switch
+
         r.ref.child("Children").child(child_after_signin.id_child).child("um").addValueEventListener(new ValueEventListener()
         {
             @Override
@@ -228,9 +208,7 @@ public class unit_interface extends child_menu {
 
             }
         });
-       Bundle intent=getIntent().getExtras();
-       if(intent.getString("preIntent").equals("Lesson")){
-           this.unitID=intent.getString("unitID");
+
         Bundle intent = getIntent().getExtras();
         if (intent.getString("preIntent").equals("Lesson")) {
             this.unitID = intent.getString("unitID");
@@ -400,30 +378,22 @@ public class unit_interface extends child_menu {
             @Override
             public void onClick(View view) {
                 if (view.getId() == R.id.lesson1) {
-                    Log.i("putExtra", lesson1.getText().toString());
-                    lessonIntent.putExtra("Lessonltr", lessonsInfo.get(0).getLesson().getText().toString());
-                    lessonIntent.putExtra("unitID", unitID);
-                    Log.i("Lesson1", lesson1.isClickable() + " ");
-                } else if (view.getId() == R.id.lesson2) {
-                    lessonIntent.putExtra("Lessonltr", lessonsInfo.get(1).getLesson().getText().toString());
-                    lessonIntent.putExtra("unitID", unitID);
-                    Log.i("Lesson2", lesson2.isClickable() + " ");
+                    lesson_user_manual_interface_redirection(0);
+                }
+                else if (view.getId() == R.id.lesson2) {
+                    lesson_user_manual_interface_redirection(1);
+                } else if (view.getId() == R.id.lesson3){
+                    lesson_user_manual_interface_redirection(2);
 
-                } else if (view.getId() == R.id.lesson3) {
-                    lessonIntent.putExtra("Lessonltr", lessonsInfo.get(2).getLesson().getText().toString());
-                    lessonIntent.putExtra("unitID", unitID);
-                } else if (view.getId() == R.id.lesson4) {
-                    lessonIntent.putExtra("Lessonltr", lessonsInfo.get(3).getLesson().getText().toString());
-                    lessonIntent.putExtra("unitID", unitID);
+                }else if (view.getId() == R.id.lesson4) {
+                    lesson_user_manual_interface_redirection(3);
 
                 } else if (view.getId() == R.id.lesson5) {
-                    lessonIntent.putExtra("Lessonltr", lessonsInfo.get(4).getLesson().getText().toString());
-                    lessonIntent.putExtra("unitID", unitID);
+                    lesson_user_manual_interface_redirection(4);
 
                 } else if (view.getId() == R.id.lesson6) {
-                    Log.i("putExtra", lessonsInfo.get(5).getLesson().getText().toString());
-                    lessonIntent.putExtra("Lessonltr", lessonsInfo.get(5).getLesson().getText().toString());
-                    lessonIntent.putExtra("unitID", unitID);
+                    lesson_user_manual_interface_redirection(5);
+
                 }
 
             }
@@ -434,11 +404,11 @@ public class unit_interface extends child_menu {
             @Override
             public void onClick(View view) {
                 if (view.getId() == R.id.test1 || view.getId() == R.id.ballon1) {
-                    random_setting_when_test_clicked();
+                    random_setting_when_test_clicked(0);
                 } else if (view.getId() == R.id.test2 || view.getId() == R.id.ballon2) {
-                    random_setting_when_test_clicked();
+                    random_setting_when_test_clicked(1);
                 } else if (view.getId() == R.id.test3 || view.getId() == R.id.ballon3) {
-                    random_setting_when_test_clicked();
+                    random_setting_when_test_clicked(2);
                 }
             }
         };
@@ -827,15 +797,9 @@ public class unit_interface extends child_menu {
     }
 
 
-
-
-
-
-
     public void setChildLessons(ArrayList<String> childLessons) {
         this.childLessons = childLessons;
     }
-
 
 
     public ArrayList<Intent> getRand() {
@@ -856,14 +820,14 @@ public class unit_interface extends child_menu {
         }
     }
 
-    private void random_setting_when_test_clicked(){
+    private void random_setting_when_test_clicked(int testNumber) {
         random = randomTestNo.nextInt(4);
         random2 = randomTestNo.nextInt(4);
         rand = randomTestNo.nextInt(2);
         setRand(fillTest(random, random2, rand));
         Intent fIntent = Rand.get(0);
         Rand.remove(0);
-        test_letter = testInfo.get(0).getLetters();
+        test_letter = testInfo.get(testNumber).getLetters();
         startTime = Calendar.getInstance().getTimeInMillis();
         fIntent.putExtra("unitID", unitID);
         fIntent.putExtra("test_letter", test_letter);
@@ -903,21 +867,25 @@ public class unit_interface extends child_menu {
         startActivity(intent);
 
     }
+
     public void lesson_user_manual_interface_redirection(int x){
         if(first.equals("2")) {
             //The value of first string means that the child did not enters the lesson yet,
             // so lesson user manual video must appear
-
             lessonUMIntent.putExtra("Lessonltr",lessonsInfo.get(x).getLesson().getText().toString());
+            lessonUMIntent.putExtra("unitID", unitID);
             startActivity(lessonUMIntent);
 
         }
-        else if(first.equals("3")){
-
+        else{
             //The value of first string means that the child has entered the lesson ,
             // so child will be redirected to the lesson interface directly (no user manual video is played)
+            Log.i("first", first);
+            System.out.println("firstt" +first);
             lessonIntent.putExtra("Lessonltr",lessonsInfo.get(x).getLesson().getText().toString());
+            lessonIntent.putExtra("unitID", unitID);
             startActivity(lessonIntent);
+
 
         }
 

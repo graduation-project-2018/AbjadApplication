@@ -12,7 +12,7 @@ import android.widget.VideoView;
 public class um extends AppCompatActivity {
     VideoView video;
     String video_url;
-    String letter;
+    String letter, unitID;
     ProgressBar loading_label;
     Uri uri;
     Intent intent,h;
@@ -25,9 +25,10 @@ public class um extends AppCompatActivity {
         video=findViewById(R.id.vid);
         video_url="https://firebasestorage.googleapis.com/v0/b/abjad-a0f5e.appspot.com/o/Mix_Final_Version.mp4?alt=media&token=1abfe892-1179-47e5-9a78-5fe6f701df79";
         uri = Uri.parse(video_url);
-        intent= new Intent(this,Lesson.class);
+        intent= new Intent(getApplicationContext(),Lesson.class);
         h=getIntent();
         letter = h.getStringExtra("Lessonltr");
+        unitID= h.getStringExtra("unitID");
         loading_label =findViewById(R.id.loading);
         video.setVideoURI(uri);
         video.requestFocus();
@@ -58,6 +59,7 @@ public class um extends AppCompatActivity {
                 else{
                 r.ref.child("Children").child(child_after_signin.id_child).child("um").setValue("3");
                 intent.putExtra("Lessonltr",letter);
+                intent.putExtra("unitID", unitID);
                 finish();
                 startActivity(intent);
                 }

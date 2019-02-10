@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -35,7 +36,7 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
     Button true_btn;
     Button false_btn,nextTest;
     firebase_connection r;
-    TextView sentenceLabel, loading_label;
+    TextView sentenceLabel;
     String selectedSentence;
     int true_false_test_score;
     boolean flag ;
@@ -50,6 +51,7 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
     long startTime;
     int total_score_of_prev_tests;
     ArrayList<Intent> Rand;
+    ProgressBar  loading_label;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

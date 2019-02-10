@@ -18,6 +18,7 @@ public class childrenAdapter extends BaseAdapter {
 Intent intent,intent2;
 Context c;
 ArrayList <children> children;
+
     public childrenAdapter(Context c, ArrayList<edu.iau.abjad.AbjadApp.children> children) {
         this.c = c;
         this.children = children;
@@ -46,6 +47,7 @@ ArrayList <children> children;
         TextView name = (TextView) convertView.findViewById(R.id.child_name);
         final children s= (children) this.getItem(position);
         Picasso.get().load(s.photo_URL).into(img);
+
         name.setText(s.getFirst_name());
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override

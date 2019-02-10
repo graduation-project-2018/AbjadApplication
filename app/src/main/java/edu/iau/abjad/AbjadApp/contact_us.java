@@ -21,10 +21,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 public class contact_us extends menu_educator{
     menu_variables m = new menu_variables();
-    ImageView phone_icon,email_icon,ficon,ticon,iicon;
-TextView email,phone,faccount,iaccount,taccount;
+    ImageView phone_icon,email_icon,ficon,ticon,iicon, mail, bird, msg, gray_bird;
+    TextView email,phone,faccount,iaccount,taccount;
+    String mail_url, bird_url, msg_url, gray_bird_url;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +47,22 @@ TextView email,phone,faccount,iaccount,taccount;
         ficon=findViewById(R.id.facebbok_icon);
         iicon=findViewById(R.id.instagram_icon);
         ticon=findViewById(R.id.twitter_icon);
+        mail = findViewById(R.id.mail);
+        bird = findViewById(R.id.bird);
+        msg= findViewById(R.id.message);
+        gray_bird=findViewById(R.id.gray_bird);
+
+        mail_url= "https://firebasestorage.googleapis.com/v0/b/abjad-a0f5e.appspot.com/o/contact_us_images%2Fnew_mail_box.png?alt=media&token=f138d3c8-2f59-485f-94c2-1371afee7aac";
+        bird_url = "https://firebasestorage.googleapis.com/v0/b/abjad-a0f5e.appspot.com/o/contact_us_images%2Fbirdd.png?alt=media&token=ac9ac47e-3283-4acb-9551-77ea7c8d12ab";
+        msg_url="https://firebasestorage.googleapis.com/v0/b/abjad-a0f5e.appspot.com/o/contact_us_images%2Fmail.png?alt=media&token=7666c9bf-5820-4eba-b802-eee14a42a045";
+        gray_bird_url="https://firebasestorage.googleapis.com/v0/b/abjad-a0f5e.appspot.com/o/contact_us_images%2Fnew_gray_bird.png?alt=media&token=73cae540-4c92-4759-91fb-454d0c5d2a74";
+
+        // Display images
+        Picasso.get().load(mail_url).fit().into(mail);
+        Picasso.get().load(bird_url).fit().into(bird);
+        Picasso.get().load(msg_url).fit().into(msg);
+        Picasso.get().load(gray_bird_url).fit().into(gray_bird);
+
         int screenSize = getResources().getConfiguration().screenLayout &
                 Configuration.SCREENLAYOUT_SIZE_MASK;
         switch(screenSize) {

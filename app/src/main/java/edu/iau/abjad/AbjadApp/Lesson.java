@@ -24,6 +24,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -41,7 +42,7 @@ import java.util.Calendar;
 
 public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener {
     menu_variables m = new menu_variables();
-    TextView word_label, loading_label;
+    TextView word_label;
     TextView sentence_label, nextLabel, prevLabel;
     Button mic_btn;
     SpeechRecognizer mSpeechRecognizer ;
@@ -78,13 +79,14 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
     LevenshteinDistance algorithmObj = new LevenshteinDistance();
     String unitID;
     boolean child_skip_exercise;
+    ProgressBar loading_label;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        m.title = (TextView) findViewById(R.id.interface_title);
+        m.title = findViewById(R.id.interface_title);
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
