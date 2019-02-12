@@ -61,6 +61,7 @@ public class MatchingTest extends child_menu {
     long startTime;
     int total_score_of_prev_tests;
     ArrayList<Intent> Rand;
+    String first_signIn;
 
 
     @Override
@@ -118,7 +119,9 @@ public class MatchingTest extends child_menu {
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                Intent intent = new Intent(getApplicationContext(), unit_interface.class);
+                finish();
+                startActivity(intent);
             }
         });
 
@@ -130,6 +133,7 @@ public class MatchingTest extends child_menu {
             unitID = letter_and_unitID.getString("unitID");
             startTime = letter_and_unitID.getLong("startTime");
             Rand = (ArrayList)letter_and_unitID.get("Rand");
+            first_signIn = letter_and_unitID.getString("first_signIn");
             if(letter_and_unitID.getInt("score") != 0){
                 total_score_of_prev_tests = letter_and_unitID.getInt("score");
             }
@@ -292,7 +296,14 @@ public class MatchingTest extends child_menu {
                 WordsNumber[2]=r.nextInt(3);
             }
             Picasso.get().load(Content.get(WordsNumber[2]).Pic).fit().memoryPolicy(MemoryPolicy.NO_CACHE).into(Pic3);
-            playAudio(voice.MatchingTestInst);
+
+            if(first_signIn.equals("110") || first_signIn.equals("100")){
+               playAudio(voice.MatchingTest_first_Inst);
+            }
+            else{
+                playAudio(voice.MatchingTestInst);
+            }
+
             loading_label_large.setVisibility(View.INVISIBLE);
             loading_label_normal.setVisibility(View.INVISIBLE);
             loading_label_small.setVisibility(View.INVISIBLE);
@@ -642,6 +653,15 @@ View.OnDragListener dragListener1 = new View.OnDragListener() {
                     intent.putExtra("unitID",unitID);
                     setResult(RESULT_OK, intent);
                     finish();
+                }
+                // (111) means child finish all user manual(unit, lesson, and matching test) (
+                if(first_signIn.equals("110")){
+                    rfb.ref.child("Children").child(child_after_signin.id_child).child("first_signIn").setValue("111");
+                }
+                /* (101) means child finish unit and matching test user manual only, and Lesson is remaining,
+                 that happen if child does not enter lesson first, but enter test first. */
+                else if(first_signIn.equals("100")){
+                    rfb.ref.child("Children").child(child_after_signin.id_child).child("first_signIn").setValue("101");
                 }
                 if(test_finish){
                     if(Rand.size()!=0){

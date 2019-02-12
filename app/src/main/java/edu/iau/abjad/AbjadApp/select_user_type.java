@@ -88,14 +88,14 @@ public class select_user_type extends AppCompatActivity {
             case Configuration.SCREENLAYOUT_SIZE_NORMAL:
                 eduLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
                 childLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
-                width = 1300;
+                width = 1200;
                 height = 700;
                 Log.i("scsize","Normal" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_SMALL:
                 eduLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
                 childLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
-                width = 1300;
+                width = 1200;
                 height = 700;
                 Log.i("scsize","Small" );
                 break;

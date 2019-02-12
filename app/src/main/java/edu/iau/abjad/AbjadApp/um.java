@@ -12,7 +12,7 @@ import android.widget.VideoView;
 public class um extends AppCompatActivity {
     VideoView video;
     String video_url;
-    String letter, unitID;
+    String letter, unitID, first_signIn;
     ProgressBar loading_label;
     Uri uri;
     Intent intent,h;
@@ -29,6 +29,7 @@ public class um extends AppCompatActivity {
         h=getIntent();
         letter = h.getStringExtra("Lessonltr");
         unitID= h.getStringExtra("unitID");
+        first_signIn = h.getStringExtra("first_signIn");
         loading_label =findViewById(R.id.loading);
         video.setVideoURI(uri);
         video.requestFocus();
@@ -57,7 +58,15 @@ public class um extends AppCompatActivity {
 
                 }
                 else{
-                r.ref.child("Children").child(child_after_signin.id_child).child("um").setValue("3");
+                    if(first_signIn.equals("100")){
+                        // change the value in database, (110) means the child finish unit interface & Lesson user manual only.
+                        r.ref.child("Children").child(child_after_signin.id_child).child("first_signIn").setValue("110");
+                    }
+                    // change the value in database, (101) means the child finish unit interface & matching test user manual only.
+                    // and now he finish all , so we change it to "111".
+                    else if(first_signIn.equals("101")){
+                        r.ref.child("Children").child(child_after_signin.id_child).child("first_signIn").setValue("111");
+                    }
                 intent.putExtra("Lessonltr",letter);
                 intent.putExtra("unitID", unitID);
                 finish();

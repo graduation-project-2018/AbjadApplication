@@ -163,7 +163,7 @@ public class new_add_child extends menu_educator {
             int selectedId = radioGroup.getCheckedRadioButtonId();
             radioButton = (RadioButton) findViewById(selectedId);
             String selectedGender = radioButton.getText().toString();
-            child = new child_info_new(fname, lname, selectedGender, "_", "true");
+            child = new child_info_new(fname, lname, selectedGender, "_", "000");
             Bundle extras = new Bundle();
             extras.putSerializable("object", child);
             intent.putExtras(extras);

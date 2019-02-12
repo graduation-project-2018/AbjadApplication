@@ -31,6 +31,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.LruCache;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
@@ -79,7 +80,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
     LevenshteinDistance algorithmObj = new LevenshteinDistance();
     String unitID;
     boolean child_skip_exercise;
-    ProgressBar loading_label;
+    ProgressBar loading_label, lesson_pic_progress_bar;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -124,6 +125,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
         sentence_label = findViewById(R.id.sentence_label);
         lesson_pic =  findViewById(R.id.lesson_pic);
         loading_label = findViewById(R.id.loading_label);
+        lesson_pic_progress_bar = findViewById(R.id.lesson_pic_progress_bar);
         words_counter =0;
         speaker_btn = findViewById (R.id.speaker_btn);
         child_score = 0;
@@ -150,9 +152,11 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+             onBackPressed();
             }
         });
+
+        lesson_pic_progress_bar.setVisibility(View.VISIBLE);
 
 
         int screenSize = getResources().getConfiguration().screenLayout &
@@ -252,7 +256,15 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                                     check_alef();
                                     check_ta();
                                     Picasso.get().load(wordsArrayList.get(words_counter).pic_file).
-                                            memoryPolicy(MemoryPolicy.NO_CACHE).into(lesson_pic);
+                                            memoryPolicy(MemoryPolicy.NO_CACHE).into(lesson_pic,new Callback() {
+                                        @Override
+                                        public void onSuccess(){
+                                           lesson_pic_progress_bar.setVisibility(View.INVISIBLE);
+                                        }
+                                        @Override
+                                        public void onError(Exception e) {
+                                        }
+                                    });
 
 
                                     // start the instruction audio before the lesson begin
@@ -319,6 +331,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                                        move_to_word_listener();
                                             prev_lesson_btn.setVisibility(View.VISIBLE);
                                             prevLabel.setVisibility(View.VISIBLE);
+                                            lesson_pic_progress_bar.setVisibility(View.VISIBLE);
                                         }
                                     });
 
@@ -329,6 +342,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                                             move_to_word_listener();
                                             prev_lesson_btn.setVisibility(View.VISIBLE);
                                             prevLabel.setVisibility(View.VISIBLE);
+                                            lesson_pic_progress_bar.setVisibility(View.VISIBLE);
                                         }
                                     });
 
@@ -338,6 +352,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                                         public void onClick(View view) {
                                             words_counter--;
                                             move_to_word_listener();
+                                            lesson_pic_progress_bar.setVisibility(View.VISIBLE);
                                             if(words_counter ==0 ){
                                                 prev_lesson_btn.setVisibility(View.INVISIBLE);
                                                 prevLabel.setVisibility(View.INVISIBLE);
@@ -354,6 +369,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                                         public void onClick(View view) {
                                             words_counter--;
                                             move_to_word_listener();
+                                            lesson_pic_progress_bar.setVisibility(View.VISIBLE);
                                             if(words_counter ==0 ){
                                                 prev_lesson_btn.setVisibility(View.INVISIBLE);
                                                 prevLabel.setVisibility(View.INVISIBLE);
@@ -908,10 +924,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                 return;
             }
         }
-        if(word.equals("في مدينتي جسور وابراج عاليه") && globalCost == 2){
-            fullScore();
-            return;
-        }
+
 
         if(word.equals("فرح الفريق بالفوز") && globalCost == 2){
             fullScore();
@@ -1011,7 +1024,16 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
             word_label.setVisibility(View.VISIBLE);
             sentence_label.setVisibility(View.INVISIBLE);
             word_label.setText(word);
-            Picasso.get().load(wordsArrayList.get(words_counter).pic_file).memoryPolicy(MemoryPolicy.NO_CACHE).into(lesson_pic);
+            Picasso.get().load(wordsArrayList.get(words_counter).pic_file).memoryPolicy(MemoryPolicy.NO_CACHE).into(lesson_pic,new Callback() {
+                @Override
+                public void onSuccess(){
+                    lesson_pic_progress_bar.setVisibility(View.INVISIBLE);
+                }
+                @Override
+                public void onError(Exception e) {
+                }
+            });
+
             playAudio(wordsArrayList.get(words_counter).audio_file);
             setOnCompleteListener(lesson_audio);
         }
@@ -1020,7 +1042,16 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
             sentence_label.setVisibility(View.VISIBLE);
             word = wordsArrayList.get(words_counter).content;
             sentence_label.setText(word);
-            Picasso.get().load(wordsArrayList.get(words_counter).pic_file).memoryPolicy(MemoryPolicy.NO_CACHE).into(lesson_pic);
+            Picasso.get().load(wordsArrayList.get(words_counter).pic_file).memoryPolicy(MemoryPolicy.NO_CACHE).into(lesson_pic,new Callback() {
+                @Override
+                public void onSuccess(){
+                    lesson_pic_progress_bar.setVisibility(View.INVISIBLE);
+                }
+                @Override
+                public void onError(Exception e) {
+                }
+            });
+
             playAudio(wordsArrayList.get(words_counter).audio_file);
             setOnCompleteListener(lesson_audio);
         }
@@ -1060,4 +1091,8 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
 
 
 
-}
+
+
+
+
+}// end class

@@ -47,7 +47,7 @@ public class unit_interface extends child_menu {
     firebase_connection r;
     private String unitName, first_signIn;
     private ImageButton playInstructione;
-    String first = "";
+
 
 
     @Override
@@ -80,6 +80,7 @@ public class unit_interface extends child_menu {
         m.title.setText(child.getString("Unitname"));
         unitName = child.getString("Unitname");
         first_signIn = child.getString("first_signIn");
+        System.out.println("first_sign_in_value: "+ first_signIn);
         lessonUMIntent = new Intent(getApplicationContext(), um.class);
         testInfo = new ArrayList<childUnitInfo>();
         matchingTest_Intent = new Intent(getApplicationContext(), MatchingTest.class);
@@ -193,21 +194,39 @@ public class unit_interface extends child_menu {
 
         }//end switch
 
-        r.ref.child("Children").child(child_after_signin.id_child).child("um").addValueEventListener(new ValueEventListener()
-        {
+
+
+           try {
+               //check if it is first sign in or not
+               if (first_signIn.equals("000") && first_signIn != null) {
+                   //change the vlaue in database, (100) means the child finishes user manual for unit interface only.
+                   r.ref.child("Children").child(child_after_signin.id_child).child("first_signIn").setValue("100");
+                   playAudio(audio.unit_Tip_One);
+                   first_signIn = "100";
+
+               }
+           } catch (Exception e) {
+
+           }
+
+
+
+
+   /* get the value of first_signIn to know if we should play user manual or not.
+        (first time this code is in child_home interface) but I repeat it here
+        to know the updated value of "first_signIn" when child finish lesson or test */
+        DatabaseReference getChildFirstSignInInfo = r.ref.child("Children").child(child_after_signin.id_child).child("first_signIn");
+        getChildFirstSignInInfo.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-                    first= dataSnapshot.getValue().toString();
-
-                }//end of if block
+                first_signIn = dataSnapshot.getValue().toString();
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
         });
+
 
         Bundle intent = getIntent().getExtras();
         if (intent.getString("preIntent").equals("Lesson")) {
@@ -245,25 +264,12 @@ public class unit_interface extends child_menu {
             }
         });
 
+        // play instructions again when child press "speaker" icon
         try {
             playInstructione.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     playAudio(audio.unit_Tip_One);
-                    instructions.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                        @Override
-                        public void onCompletion(MediaPlayer mediaPlayer) {
-                            //this flag to prevent calling this method multiple times.
-                            if (flag == false) {
-                                return;
-                            }
-                            flag = false;
-                            playAudio(audio.unit_Tip_Two);
-
-                        }
-                    });
-
-                    flag = true;
                 }
 
             });
@@ -347,30 +353,7 @@ public class unit_interface extends child_menu {
         testInfo.add(test2obj);
         testInfo.add(test3obj);
 
-        try {
-            //check if it is first sign in or not
-            if (first_signIn.equals("true") && first_signIn != null) {
 
-                playAudio(audio.unit_Tip_One);
-                instructions.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                    @Override
-                    public void onCompletion(MediaPlayer mediaPlayer) {
-                        //this flag to prevent calling this method multiple times.
-                        if (flag == false) {
-                            return;
-                        }
-                        flag = false;
-                        playAudio(audio.unit_Tip_Two);
-
-                        //change the vlaue in database
-                        r.ref.child("Children").child(child_after_signin.id_child).child("first_signIn").setValue("false");
-
-                    }
-                });
-            }
-        } catch (Exception e) {
-
-        }
 
 
         //listener for lessons when clicked
@@ -833,6 +816,7 @@ public class unit_interface extends child_menu {
         fIntent.putExtra("test_letter", test_letter);
         fIntent.putExtra("startTime", startTime);
         fIntent.putExtra("Rand", Rand);
+        fIntent.putExtra("first_signIn", first_signIn);
         startActivity(fIntent);
     }
 
@@ -869,19 +853,17 @@ public class unit_interface extends child_menu {
     }
 
     public void lesson_user_manual_interface_redirection(int x){
-        if(first.equals("2")) {
-            //The value of first string means that the child did not enters the lesson yet,
+        if(first_signIn.equals("000") || first_signIn.equals("100") || first_signIn.equals("101") ) {
+            //The value of first_signIn string means that the child did not enters the lesson yet,
             // so lesson user manual video must appear
             lessonUMIntent.putExtra("Lessonltr",lessonsInfo.get(x).getLesson().getText().toString());
             lessonUMIntent.putExtra("unitID", unitID);
+            lessonUMIntent.putExtra("first_signIn", first_signIn);
             startActivity(lessonUMIntent);
-
         }
-        else{
-            //The value of first string means that the child has entered the lesson ,
+        else {
+            //The value of first_signIn string means that the child has entered the lesson ,
             // so child will be redirected to the lesson interface directly (no user manual video is played)
-            Log.i("first", first);
-            System.out.println("firstt" +first);
             lessonIntent.putExtra("Lessonltr",lessonsInfo.get(x).getLesson().getText().toString());
             lessonIntent.putExtra("unitID", unitID);
             startActivity(lessonIntent);

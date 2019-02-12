@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.squareup.picasso.MemoryPolicy;
@@ -18,6 +19,7 @@ public class childrenAdapter extends BaseAdapter {
 Intent intent,intent2;
 Context c;
 ArrayList <children> children;
+
 
     public childrenAdapter(Context c, ArrayList<edu.iau.abjad.AbjadApp.children> children) {
         this.c = c;

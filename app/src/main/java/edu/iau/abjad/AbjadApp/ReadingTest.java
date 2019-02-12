@@ -73,10 +73,8 @@ public class ReadingTest extends child_menu {
     int total_score_of_prev_tests;
     ArrayList<Intent> Rand;
     ProgressBar loading_label;
-
-    //Alaa
     firebase_connection Test_Id,testIdq2;
-    String Test_letter, unitID;
+    String Test_letter, unitID, first_signIn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -131,6 +129,7 @@ public class ReadingTest extends child_menu {
             unitID = letter_and_unitID.getString("unitID");
             startTime = letter_and_unitID.getLong("startTime");
             Rand = (ArrayList)letter_and_unitID.get("Rand");
+            first_signIn = letter_and_unitID.getString("first_signIn");
             if(letter_and_unitID.getInt("score") != 0){
                 total_score_of_prev_tests = letter_and_unitID.getInt("score");
             }
@@ -802,6 +801,7 @@ public class ReadingTest extends child_menu {
             nextTest.putExtra("score", total_score_of_prev_tests);
             Rand.remove(nextTest);
             nextTest.putExtra("Rand",Rand);
+            nextTest.putExtra("first_signIn", first_signIn);
             startActivity(nextTest);
             finish();
         }
@@ -819,6 +819,7 @@ public class ReadingTest extends child_menu {
             finish();
         }
     }
+
 
 
 }

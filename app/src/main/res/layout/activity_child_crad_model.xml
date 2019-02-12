@@ -91,6 +91,7 @@
                 card_view:layout_constraintEnd_toStartOf="@+id/guideline24"
                 card_view:layout_constraintStart_toStartOf="@+id/guideline25"
                 card_view:layout_constraintTop_toBottomOf="@+id/child_img" />
+
         </android.support.constraint.ConstraintLayout>
 
 
