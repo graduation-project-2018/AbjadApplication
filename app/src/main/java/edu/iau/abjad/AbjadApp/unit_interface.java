@@ -211,21 +211,25 @@ public class unit_interface extends child_menu {
 
 
 
+        try{
+        /* get the value of first_signIn to know if we should play user manual or not.
+                (first time this code is in child_home interface) but I repeat it here
+                to know the updated value of "first_signIn" when child finish lesson or test */
+            DatabaseReference getChildFirstSignInInfo = r.ref.child("Children").child(child_after_signin.id_child).child("first_signIn");
+            getChildFirstSignInInfo.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    first_signIn = dataSnapshot.getValue().toString();
+                }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-   /* get the value of first_signIn to know if we should play user manual or not.
-        (first time this code is in child_home interface) but I repeat it here
-        to know the updated value of "first_signIn" when child finish lesson or test */
-        DatabaseReference getChildFirstSignInInfo = r.ref.child("Children").child(child_after_signin.id_child).child("first_signIn");
-        getChildFirstSignInInfo.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                first_signIn = dataSnapshot.getValue().toString();
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                }
+            });
+        }catch(Exception e){
 
-            }
-        });
+        }
+
 
 
         Bundle intent = getIntent().getExtras();

@@ -153,12 +153,10 @@ public class child_home extends child_menu {
 
         });
 
-
-
-
-        // get the value of first_signIn to know if we should play user manual or not.
+        try{
+    // get the value of first_signIn to know if we should play user manual or not.
         DatabaseReference getChildFirstSignInInfo = r.ref.child("Children").child(child_after_signin.id_child).child("first_signIn");
-        getChildFirstSignInInfo.addValueEventListener(new ValueEventListener() {
+        getChildFirstSignInInfo.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 first_signIn = dataSnapshot.getValue().toString();
@@ -168,6 +166,10 @@ public class child_home extends child_menu {
 
             }
         });
+            }catch (Exception e){
+
+            }
+
 
         school.setOnClickListener(new View.OnClickListener() {
             @Override

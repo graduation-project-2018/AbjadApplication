@@ -207,80 +207,82 @@ public class menu_educator extends AppCompatActivity {
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                 final String edu_ID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                r.ref.child("Educators").child(edu_ID).removeValue().addOnFailureListener(new OnFailureListener() {
                     @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            r.ref.child("Educators").child(signin_new.id_edu).removeValue().addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.e("NotFound", e.getMessage());
-                                }
-                            });
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e("NotFound edu", e.getMessage());
+                    }
+                });
 
-                            r.ref.child("educator_home").child(signin_new.id_edu).removeValue().addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.e("NotFound", e.getMessage());
-                                }
-                            });
-                            r.ref.child("Children").addValueEventListener(new ValueEventListener() {
+                r.ref.child("educator_home").child(edu_ID).removeValue().addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e("NotFound", e.getMessage());
+                    }
+                });
+                r.ref.child("Children").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (final DataSnapshot s : dataSnapshot.getChildren()) {
+                            final String childKey = s.getKey();
+                            final DatabaseReference child_eduhome = r.ref.child("Children").child(childKey).child("educator_id");
+                            final ValueEventListener eventListenerhome = new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
-                                    for (final DataSnapshot s : dataSnapshot.getChildren()) {
-                                        final String childKey = s.getKey();
-                                        final DatabaseReference child_eduhome = r.ref.child("Children").child(childKey).child("educator_id");
-                                        final ValueEventListener eventListenerhome = new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
-                                                    String educator = s.child("Children").child(childKey).child("educator_id").getValue(String.class);
-                                                    if (educator.equals(signin_new.id_edu)) {
-                                                        r.ref.child("Children").child(childKey).removeValue().addOnFailureListener(new OnFailureListener() {
-                                                            @Override
-                                                            public void onFailure(@NonNull Exception e) {
-                                                                Log.e("NotFound",e.getMessage());
-                                                            }
-                                                        });
-
-                                                        r.ref.child("child_takes_lesson").child(childKey).removeValue().addOnFailureListener(new OnFailureListener() {
-                                                            @Override
-                                                            public void onFailure(@NonNull Exception e) {
-                                                                Log.e("NotFound",e.getMessage());
-                                                            }
-                                                        });
-                                                        r.ref.child("child_takes_test").child(childKey).removeValue().addOnFailureListener(new OnFailureListener() {
-                                                            @Override
-                                                            public void onFailure(@NonNull Exception e) {
-                                                                Log.e("NotFound",e.getMessage());
-                                                            }
-                                                        });
-                                                    }
+                                        String educator = s.child("Children").child(childKey).child("educator_id").getValue(String.class);
+                                        if (educator.equals(edu_ID)) {
+                                            r.ref.child("Children").child(childKey).removeValue().addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Log.e("NotFound",e.getMessage());
                                                 }
+                                            });
 
-                                                Intent usr = new Intent(menu_educator.this, signin_new.class);
-                                                startActivity(usr);
-                                                finish();
-                                                Toast.makeText(menu_educator.this, "تم حذف المستخدم بنجاح", Toast.LENGTH_LONG).show();
-                                            }
-
-                                            @Override
-                                            public void onCancelled(DatabaseError databaseError) {
-
-                                            }
-                                        };
-                                        child_eduhome.addValueEventListener(eventListenerhome);
-
+                                            r.ref.child("child_takes_lesson").child(childKey).removeValue().addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Log.e("NotFound",e.getMessage());
+                                                }
+                                            });
+                                            r.ref.child("child_takes_test").child(childKey).removeValue().addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Log.e("NotFound",e.getMessage());
+                                                }
+                                            });
+                                        }
                                     }
+
+
                                 }
 
                                 @Override
                                 public void onCancelled(DatabaseError databaseError) {
 
                                 }
-                            });
+                            };
+                            child_eduhome.addValueEventListener(eventListenerhome);
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+                final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Intent usr = new Intent(getApplicationContext(), signin_new.class);
+                            startActivity(usr);
+                            finish();
+                            Toast.makeText(menu_educator.this, "تم حذف المستخدم بنجاح", Toast.LENGTH_LONG).show();
 
                         } else {
                             Log.e("Error", "deletion");

@@ -354,10 +354,11 @@ public class child_menu extends AppCompatActivity {
                                         };child_eduhome.addValueEventListener(eventListenerhome);
 
                                     }
-                                    Intent usr=new Intent(getApplicationContext(),signin_new.class);
-                                    startActivity(usr);
                                     finish();
                                     Toast.makeText(child_menu.this,"تم حذف الطفل بنجاح",Toast.LENGTH_LONG).show();
+                                    Intent usr=new Intent(getApplicationContext(),child_after_signin.class);
+                                    startActivity(usr);
+
                                 }
 
                                 @Override

@@ -195,7 +195,7 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
                                     read.addValueEventListener(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(DataSnapshot dataSnapshot) {
-                                            if (dataSnapshot.exists()) {
+                                             if (dataSnapshot.exists()) {
                                                 if (true_or_false == 1)
                                                     selectedSentence = dataSnapshot.child("content").getValue().toString();
                                                 else {
@@ -377,11 +377,15 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
     @Override
     protected void onStop() {
         super.onStop();
-        test_sentence_audio.release();
-        feedback_audio.release();
-        test_sentence_audio = null;
-        feedback_audio = null;
-        anim.stop();
+        try{
+            test_sentence_audio.release();
+            feedback_audio.release();
+            test_sentence_audio = null;
+            feedback_audio = null;
+            anim.stop();
+        }catch(Exception e){
+
+        }
 
     }
 

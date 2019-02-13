@@ -189,7 +189,11 @@ public class HeardWordTest extends child_menu  {
                try{
                    anim.start();
                    test_audio.start();
-                   setOnCompleteListener(test_audio);
+                   try{
+                       setOnCompleteListener(test_audio);
+                   }catch(Exception e ){
+
+                   }
                }catch (Exception e){
 
                }
@@ -275,8 +279,12 @@ public class HeardWordTest extends child_menu  {
                         }catch (Exception e){
 
                         }
+                        try{
+                            setOnCompleteListener(test_audio);
+                        }catch(Exception e ){
 
-                        setOnCompleteListener(test_audio);
+                        }
+
                         check_ans();
 
 
@@ -451,9 +459,6 @@ public class HeardWordTest extends child_menu  {
         anim.stop();
         System.out.println("inside onStop inside test");
     }
-
-//this one for a button listener to signOut
-    //auth.getInstance().signOut();
 
     public void setOnCompleteListener(MediaPlayer obj){
         obj.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {

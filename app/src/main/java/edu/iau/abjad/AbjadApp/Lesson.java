@@ -250,7 +250,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                                     wordsArrayList.add(obj);
                                     word = wordsArrayList.get(words_counter).content;
                                     word_label.setText(word);
-                                    //word = "مسبح";
+                                    //word = "هذه طائرة ورقية";
                                     //sentence_label.setText(word);
 
                                     check_alef();
@@ -912,12 +912,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
              return;
             }
         }
-        if(word.equals("هي تزرع الفواكه والخضراوات")){
-            if(choosenPhrase.startsWith("هي تزرع") && choosenPhrase.endsWith("الفواكه والخضراوات")){
-                fullScore();
-                return;
-            }
-        }
+
         if(word.equals("انا نجود مدينتي الرياض")){
             if(choosenPhrase.startsWith("انا نجود مدين") && choosenPhrase.endsWith("الرياض")){
                 fullScore();

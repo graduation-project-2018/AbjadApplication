@@ -25,8 +25,8 @@ import com.squareup.picasso.Picasso;
 
 public class contact_us extends menu_educator{
     menu_variables m = new menu_variables();
-    ImageView phone_icon,email_icon,ficon,ticon,iicon, mail, bird, msg, gray_bird;
-    TextView email,phone,faccount,iaccount,taccount;
+    ImageView email_icon,ficon,ticon,iicon, mail, bird, msg, gray_bird;
+    TextView email,faccount,iaccount,taccount;
     String mail_url, bird_url, msg_url, gray_bird_url;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,11 +38,9 @@ public class contact_us extends menu_educator{
         View contentView = inflater.inflate(R.layout.activity_contact_us, null, false);
         mDrawerLayout.addView(contentView, 0);
         email = findViewById(R.id.email_address);
-        phone = findViewById(R.id.phone_number);
         faccount= findViewById(R.id.facebook_account);
         iaccount = findViewById(R.id.instagram_account);
         taccount = findViewById(R.id.twitter_account);
-        phone_icon= findViewById(R.id.phone_icon);
         email_icon=findViewById(R.id.email_icon);
         ficon=findViewById(R.id.facebbok_icon);
         iicon=findViewById(R.id.instagram_icon);
@@ -68,14 +66,12 @@ public class contact_us extends menu_educator{
         switch(screenSize) {
             case Configuration.SCREENLAYOUT_SIZE_XLARGE:
                email.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
-                phone.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
                 faccount.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
                 iaccount.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
                 taccount.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
                 break;
             case Configuration.SCREENLAYOUT_SIZE_LARGE:
               email.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
-                phone.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
                 faccount.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
                 iaccount.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
                 taccount.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
@@ -83,14 +79,12 @@ public class contact_us extends menu_educator{
                 break;
             case Configuration.SCREENLAYOUT_SIZE_NORMAL:
               email.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
-                phone.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
                 faccount.setTextSize(TypedValue.COMPLEX_UNIT_SP,10);
                 iaccount.setTextSize(TypedValue.COMPLEX_UNIT_SP,10);
                 taccount.setTextSize(TypedValue.COMPLEX_UNIT_SP,10);
                 break;
             case Configuration.SCREENLAYOUT_SIZE_SMALL:
              email.setTextSize(TypedValue.COMPLEX_UNIT_SP,8);
-                phone.setTextSize(TypedValue.COMPLEX_UNIT_SP,8);
                 faccount.setTextSize(TypedValue.COMPLEX_UNIT_SP,4);
                 iaccount.setTextSize(TypedValue.COMPLEX_UNIT_SP,4);
                 taccount.setTextSize(TypedValue.COMPLEX_UNIT_SP,4);
@@ -98,7 +92,6 @@ public class contact_us extends menu_educator{
                 break;
             default:
                 email.setTextSize(TypedValue.COMPLEX_UNIT_SP,10);
-                phone.setTextSize(TypedValue.COMPLEX_UNIT_SP,10);
                 faccount.setTextSize(TypedValue.COMPLEX_UNIT_SP,5);
                 iaccount.setTextSize(TypedValue.COMPLEX_UNIT_SP,5);
                 taccount.setTextSize(TypedValue.COMPLEX_UNIT_SP,5);
@@ -106,8 +99,7 @@ public class contact_us extends menu_educator{
         }//end switch
 
         email.setText("abjad.application@gmail.com");
-        phone.setText("013-8280398");
-        taccount.setText("abjad_app_twi");
+        taccount.setText("abjad_app");
         iaccount.setText("abjad_app_ins");
         faccount.setText("abjad_app_fac");
 
@@ -118,7 +110,7 @@ public class contact_us extends menu_educator{
             }
         });
 
-        //Opening the dial interface when pressing phone icon or phone textView
+        /*//Opening the dial interface when pressing phone icon or phone textView
         phone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -132,7 +124,7 @@ public class contact_us extends menu_educator{
                 Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("tel: 0138280398"));
                 startActivity(i);
             }
-        });
+        });*/
         //Opening the email application when pressing email icon or email textView
         email_icon.setOnClickListener(new View.OnClickListener() {
             @Override

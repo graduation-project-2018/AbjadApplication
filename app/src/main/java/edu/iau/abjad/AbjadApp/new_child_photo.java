@@ -106,7 +106,7 @@ public class new_child_photo extends menu_educator  {
                 m.setButton_text_Normal(addChild);
                 m.setTitle_Normal();
                 width = 1300;
-                height = 700;
+                height = 850;
 
                 Log.i("scsize","Normal" );
                 break;
@@ -114,15 +114,15 @@ public class new_child_photo extends menu_educator  {
                 m.setButton_text_Small(addChild);
                 m.setTitle_Small();
                 width = 1300;
-                height = 700;
+                height = 850;
 
                 Log.i("scsize","Small" );
                 break;
             default:
                 m.setButton_text_Default(addChild);
                 m.setTitle_Default();
-                width = 1000;
-                height = 600;
+                width = 1300;
+                height = 850;
 
         }//end switch
         if(gender.equals("ذكر")){
