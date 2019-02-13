@@ -81,6 +81,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
     String unitID;
     boolean child_skip_exercise;
     ProgressBar loading_label, lesson_pic_progress_bar;
+    String img_score_one, img_score_two, img_score_three, img_score_four, img_score_five, img_score_six, img_score_seven;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -149,6 +150,16 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
         lesson_audio = new MediaPlayer();
         audio_instruction = new MediaPlayer();
 
+        // images scores URLs in the database
+        img_score_one="https://firebasestorage.googleapis.com/v0/b/abjad-a0f5e.appspot.com/o/%D8%B5%D9%88%D8%B1%20%D8%AF%D8%B1%D8%AC%D8%A7%D8%AA%20%D8%A7%D9%84%D8%AF%D8%B1%D8%B3%2Fone.png?alt=media&token=73f3f3f0-0e27-49af-a120-fdb2ca0dfce6";
+        img_score_two="https://firebasestorage.googleapis.com/v0/b/abjad-a0f5e.appspot.com/o/%D8%B5%D9%88%D8%B1%20%D8%AF%D8%B1%D8%AC%D8%A7%D8%AA%20%D8%A7%D9%84%D8%AF%D8%B1%D8%B3%2Ftwo.png?alt=media&token=78af2e83-b27b-43b0-bb9c-b74a8c9c46bb";
+        img_score_three="https://firebasestorage.googleapis.com/v0/b/abjad-a0f5e.appspot.com/o/%D8%B5%D9%88%D8%B1%20%D8%AF%D8%B1%D8%AC%D8%A7%D8%AA%20%D8%A7%D9%84%D8%AF%D8%B1%D8%B3%2Fthree.png?alt=media&token=8e8e7152-b15a-4110-bd0b-e339fca7c7ae";
+        img_score_four="https://firebasestorage.googleapis.com/v0/b/abjad-a0f5e.appspot.com/o/%D8%B5%D9%88%D8%B1%20%D8%AF%D8%B1%D8%AC%D8%A7%D8%AA%20%D8%A7%D9%84%D8%AF%D8%B1%D8%B3%2Ffour.png?alt=media&token=79db3afc-0709-48a5-8c82-2714aeee7079";
+        img_score_five="https://firebasestorage.googleapis.com/v0/b/abjad-a0f5e.appspot.com/o/%D8%B5%D9%88%D8%B1%20%D8%AF%D8%B1%D8%AC%D8%A7%D8%AA%20%D8%A7%D9%84%D8%AF%D8%B1%D8%B3%2Ffive.png?alt=media&token=779beaaf-2100-4eec-b19f-2413636b83d8";
+        img_score_six="https://firebasestorage.googleapis.com/v0/b/abjad-a0f5e.appspot.com/o/%D8%B5%D9%88%D8%B1%20%D8%AF%D8%B1%D8%AC%D8%A7%D8%AA%20%D8%A7%D9%84%D8%AF%D8%B1%D8%B3%2Fsix.png?alt=media&token=52085ac5-3ac4-4269-8f93-2a62a1c39b62";
+        img_score_seven="https://firebasestorage.googleapis.com/v0/b/abjad-a0f5e.appspot.com/o/%D8%B5%D9%88%D8%B1%20%D8%AF%D8%B1%D8%AC%D8%A7%D8%AA%20%D8%A7%D9%84%D8%AF%D8%B1%D8%B3%2Fseven.png?alt=media&token=80fc60ff-4743-479f-847a-2f689d31f01a";
+
+        // back btn
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -862,21 +873,21 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
         if(globalCost == 1){
             playAudioInstructions(audio_URLs.perfect_only_one_mistake);
             setOnCompleteListener(audio_instruction);
-            onPreparedListener(R.drawable.six);
+            onPreparedListener(img_score_six);
             child_score =6;
         }
         //very bad
         else if(globalCost >=2 && word_length == 3){
             playAudioInstructions(audio_URLs.listen_to_abjad);
             setOnCompleteListener(audio_instruction);
-            onPreparedListener(R.drawable.one);
+            onPreparedListener(img_score_one);
             child_score = 1;
         }
 
         else if(max_match>=0.49 && word_length > 3){
             playAudioInstructions(audio_URLs.not_fully_good);
             setOnCompleteListener(audio_instruction);
-            onPreparedListener(R.drawable.four);
+            onPreparedListener(img_score_four);
             child_score = 4;
 
         }
@@ -884,13 +895,13 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
         else if(max_match<=0.49 && max_match >= 0.39 && word_length>3){
             playAudioInstructions(audio_URLs.good_with_revision);
             setOnCompleteListener(audio_instruction);
-            onPreparedListener(R.drawable.three);
+            onPreparedListener(img_score_three);
             child_score =3;
         }
         else if(max_match<0.39 && word_length>3){
             playAudioInstructions(audio_URLs.listen_to_abjad);
             setOnCompleteListener(audio_instruction);
-            onPreparedListener(R.drawable.one);
+            onPreparedListener(img_score_one);
             child_score=1;
         }
 
@@ -930,7 +941,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
             playAudioInstructions(audio_URLs.not_fully_good);
             setOnCompleteListener(audio_instruction);
             child_score =6;
-            onPreparedListener(R.drawable.six);
+            onPreparedListener(img_score_six);
             return;
 
         }
@@ -938,14 +949,14 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
             child_score=5;
             playAudioInstructions(audio_URLs.not_fully_good);
             setOnCompleteListener(audio_instruction);
-            onPreparedListener(R.drawable.five);
+            onPreparedListener(img_score_five);
             return;
         }
         else if(max_match <= 0.75 && max_match>=0.5){
             child_score=4;
             playAudioInstructions(audio_URLs.not_fully_good);
             setOnCompleteListener(audio_instruction);
-            onPreparedListener(R.drawable.four);
+            onPreparedListener(img_score_four);
             return;
 
         }
@@ -953,22 +964,21 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
             child_score=3;
             playAudioInstructions(audio_URLs.good_with_revision);
             setOnCompleteListener(audio_instruction);
-            onPreparedListener(R.drawable.three);
+            onPreparedListener(img_score_three);
             return;
         }
         else if (max_match>=0.25){
             child_score=2;
             playAudioInstructions(audio_URLs.listen_to_abjad);
             setOnCompleteListener(audio_instruction);
-            score_img.setVisibility(View.VISIBLE);
-            score_img.setImageResource(R.drawable.two);
+            onPreparedListener(img_score_two);
             return;
         }
         else if(max_match<0.25){
             child_score=1;
             playAudioInstructions(audio_URLs.listen_to_abjad);
             setOnCompleteListener(audio_instruction);
-            onPreparedListener(R.drawable.one);
+            onPreparedListener(img_score_one);
         }
     }
 
@@ -1002,7 +1012,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
         child_score=7;
         playAudioInstructions(audio_URLs.perfect_top_feedback);
         setOnCompleteListener(audio_instruction);
-        onPreparedListener(R.drawable.seven);
+        onPreparedListener(img_score_seven);
     }
 
     // this function to move to next or previous word based on the button clicked
@@ -1066,7 +1076,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
         check_ta();
     }
 
-    public void onPreparedListener(final int image){
+    public void onPreparedListener(final String image){
         audio_instruction.setOnPreparedListener(new MediaPlayer.OnPreparedListener(){
             @Override
             public void onPrepared(MediaPlayer player) {
@@ -1078,7 +1088,8 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                 anim.start();
                 audio_instruction.start();
                     score_img.setVisibility(View.VISIBLE);
-                    score_img.setImageResource(image);
+                 Picasso.get().load(image).into(score_img);
+
 
             }
         });
