@@ -223,6 +223,13 @@ public class child_profile extends child_menu {
 
     }//end of checkLastName function
 
+    @Override
+    public void onBackPressed() {
+        finish();
+        startActivity(new Intent(getApplicationContext(),child_home.class));
+
+    }
+
 
 }//end of the class
 

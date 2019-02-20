@@ -137,6 +137,8 @@ public class ResetPassword extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        finish();
+        startActivity(new Intent(getApplicationContext(),signin_new.class));
+
     }
 }

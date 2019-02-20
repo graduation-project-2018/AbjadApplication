@@ -88,4 +88,10 @@ public class um extends AppCompatActivity {
         finish();
         startActivity(new Intent(getApplicationContext(),child_home.class));
     }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        startActivity(new Intent(getApplicationContext(),child_home.class));
+    }
 }//end of class

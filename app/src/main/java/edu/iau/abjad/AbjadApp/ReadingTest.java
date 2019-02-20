@@ -846,6 +846,15 @@ try{
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(), unit_interface.class);
+        intent.putExtra("unitID",unitID);
+        intent.putExtra("preIntent","readingTest");
+        setResult(RESULT_OK, intent);
+        finish();
+        startActivity(intent);
 
+    }
 
 }

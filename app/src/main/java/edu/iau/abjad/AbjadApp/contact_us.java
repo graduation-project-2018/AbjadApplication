@@ -190,5 +190,10 @@ public class contact_us extends menu_educator{
 
     }//end of onCreate function
 
+    @Override
+    public void onBackPressed() {
+        finish();
+        startActivity(new Intent(getApplicationContext(),educator_home.class));
 
+    }
 }//end of class

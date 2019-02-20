@@ -573,6 +573,17 @@ public class HeardWordTest extends child_menu  {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(), unit_interface.class);
+        intent.putExtra("unitID",unitID);
+        intent.putExtra("preIntent","heardTest");
+        setResult(RESULT_OK, intent);
+        finish();
+        startActivity(intent);
+
+    }
+
 
 
 }

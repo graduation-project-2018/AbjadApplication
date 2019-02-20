@@ -323,7 +323,12 @@ public class new_child_photo extends menu_educator  {
     }// end Popup popUp_move_or_add
 
 
+    @Override
+    public void onBackPressed() {
+        finish();
+        startActivity(new Intent(getApplicationContext(),educator_home.class));
 
+    }
 
 
 }

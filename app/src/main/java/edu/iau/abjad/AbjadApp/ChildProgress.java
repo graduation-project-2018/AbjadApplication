@@ -420,4 +420,11 @@ public class ChildProgress extends menu_educator {
         }
         return new String(chars);
     }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        startActivity(new Intent(getApplicationContext(),educator_home.class));
+
+    }
 }

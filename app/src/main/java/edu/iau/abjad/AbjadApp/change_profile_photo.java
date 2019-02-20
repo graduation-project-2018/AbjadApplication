@@ -248,6 +248,12 @@ public class change_profile_photo extends child_menu {
 
 
     }
+    @Override
+    public void onBackPressed() {
+        finish();
+        startActivity(new Intent(getApplicationContext(),child_home.class));
+
+    }
 
 
 }

@@ -236,4 +236,11 @@ try{
         gv.setAdapter(adapter);
         loading.setVisibility(View.INVISIBLE);
     }//end of children_changed
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        startActivity(new Intent(getApplicationContext(),select_user_type.class));
+
+    }
 }//end of class

@@ -484,6 +484,16 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
         }
 
     }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(), unit_interface.class);
+        intent.putExtra("unitID",unitID);
+        intent.putExtra("preIntent","trueFalse");
+        setResult(RESULT_OK, intent);
+        finish();
+        startActivity(intent);
+
+    }
 
 
 
