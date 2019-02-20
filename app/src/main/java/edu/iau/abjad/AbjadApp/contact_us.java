@@ -97,7 +97,8 @@ public class contact_us extends menu_educator{
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                finish();
+                startActivity(new Intent(getApplicationContext(),educator_home.class));
             }
         });
 
@@ -109,7 +110,6 @@ public class contact_us extends menu_educator{
                 Uri uri = Uri.parse("mailto:abjad.application@gmail.com");
                 // missing 'http://' will cause crashed, when redirecting the user to a web link
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                finish();
                 startActivity(intent);
             }
         });
@@ -120,7 +120,6 @@ public class contact_us extends menu_educator{
 
                Uri uri = Uri.parse("mailto:abjad.application@gmail.com");
               Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-              finish();
                startActivity(intent);
               }
         });
@@ -131,9 +130,7 @@ public class contact_us extends menu_educator{
             public void onClick(View v) {
 
                 Uri uri = Uri.parse("https://m.facebook.com/abjad.application");
-
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                finish();
                 startActivity(intent);
             }
         });
@@ -144,7 +141,6 @@ public class contact_us extends menu_educator{
 
                 Uri uri = Uri.parse("https://m.facebook.com/abjad.application");
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                finish();
                 startActivity(intent);
             }
         });
@@ -156,7 +152,6 @@ public class contact_us extends menu_educator{
                 Uri uri = Uri.parse("https://twitter.com/abjad_app");
 
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                finish();
                 startActivity(intent);
             }
         });
@@ -167,7 +162,6 @@ public class contact_us extends menu_educator{
 
                 Uri uri = Uri.parse("https://twitter.com/abjad_app");
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                finish();
                 startActivity(intent);
             }
         });
@@ -179,7 +173,6 @@ public class contact_us extends menu_educator{
                 Uri uri = Uri.parse("https://instagram.com/abjad.app?utm_source=ig_profile_share&igshid=1rsae2xhwvsz9");
 
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                finish();
                 startActivity(intent);
             }
         });
@@ -190,7 +183,6 @@ public class contact_us extends menu_educator{
 
                 Uri uri = Uri.parse("https://instagram.com/abjad.app?utm_source=ig_profile_share&igshid=1rsae2xhwvsz9");
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                finish();
                 startActivity(intent);
             }
         });

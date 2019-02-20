@@ -231,48 +231,53 @@ public class ChildProgress extends menu_educator {
                                             ValueEventListener evntLetr=new ValueEventListener() {
                                                 @Override
                                                 public void onDataChange(DataSnapshot dataSnapshot) {
-                                                    final String status=s.child("status").getValue(String.class);
-                                                    final int ilessonScore=s.child("score").getValue(Integer.class);
-                                                    sTime=s.child("time").getValue().toString();
-                                                    String modifiedsTime = arabicToDecimal(sTime);
-                                                    dTime=Double.parseDouble(modifiedsTime);
+                                                    try{
+                                                        final String status=s.child("status").getValue(String.class);
+                                                        final int ilessonScore=s.child("score").getValue(Integer.class);
+                                                        sTime=s.child("time").getValue().toString();
+                                                        String modifiedsTime = arabicToDecimal(sTime);
+                                                        dTime=Double.parseDouble(modifiedsTime);
 
-                                                    lett=dataSnapshot.child(lessonKey)
-                                                            .child("lesson_letter").getValue().toString();
-                                                    if(status.equals("مكتمل")){
-                                                        icomplete++;
-                                                    }
-                                                    if(ilessonScore>=ihighestLessonScore){
-                                                        ihighestLessonScore=ilessonScore;
-                                                        lessonScores.add(new childUnitInfo(ilessonScore,lett,dTime));
-                                                        //sHighstScoreLesson=lett;
-                                                    }
-                                                    if (dTime<=dleastTime){
-                                                        dleastTime=dTime;
-                                                        timeCom.add( new childUnitInfo(0,lett,dleastTime) );
-                                                        // sLeastTime=lett;
-
-                                                    }
-                                                    for(childUnitInfo child: timeCom){
-                                                        if(dleastTime==child.time &&(!sLeastTime.contains(child.letters))){
-                                                            sLeastTime=child.letters+" /";
+                                                        lett=dataSnapshot.child(lessonKey)
+                                                                .child("lesson_letter").getValue().toString();
+                                                        if(status.equals("مكتمل")){
+                                                            icomplete++;
                                                         }
-                                                    }
-                                                    if(sLeastTime.length()!=0){
-                                                        sLeastTime= sLeastTime.substring(0,sLeastTime.length()-1);
-                                                    }
-                                                    for(childUnitInfo child: lessonScores){
-                                                        if(ihighestLessonScore==child.score &&(!sHighstScoreLesson.contains(child.letters))){
-                                                            sHighstScoreLesson+=child.letters+" /";
+                                                        if(ilessonScore>=ihighestLessonScore){
+                                                            ihighestLessonScore=ilessonScore;
+                                                            lessonScores.add(new childUnitInfo(ilessonScore,lett,dTime));
+                                                            //sHighstScoreLesson=lett;
                                                         }
+                                                        if (dTime<=dleastTime){
+                                                            dleastTime=dTime;
+                                                            timeCom.add( new childUnitInfo(0,lett,dleastTime) );
+                                                            // sLeastTime=lett;
+
+                                                        }
+                                                        for(childUnitInfo child: timeCom){
+                                                            if(dleastTime==child.time &&(!sLeastTime.contains(child.letters))){
+                                                                sLeastTime=child.letters+" /";
+                                                            }
+                                                        }
+                                                        if(sLeastTime.length()!=0){
+                                                            sLeastTime= sLeastTime.substring(0,sLeastTime.length()-1);
+                                                        }
+                                                        for(childUnitInfo child: lessonScores){
+                                                            if(ihighestLessonScore==child.score &&(!sHighstScoreLesson.contains(child.letters))){
+                                                                sHighstScoreLesson+=child.letters+" /";
+                                                            }
+                                                        }
+
+                                                        if(sHighstScoreLesson.length()!=0){
+                                                            sHighstScoreLesson=sHighstScoreLesson.substring(0,sHighstScoreLesson.length()-1);
+                                                        }
+                                                        nTimer.setText(dleastTime+" "+(dleastTime<1?"ثانية":" دقيقة"));
+                                                        highestScoreLesson.setText(ihighestLessonScore+" /7");
+                                                        nDoneLesson.setText(icomplete+" ");
+                                                    }catch (Exception e){
+
                                                     }
 
-                                                    if(sHighstScoreLesson.length()!=0){
-                                                        sHighstScoreLesson=sHighstScoreLesson.substring(0,sHighstScoreLesson.length()-1);
-                                                    }
-                                                    nTimer.setText(dleastTime+" "+(dleastTime<1?"ثانية":" دقيقة"));
-                                                    highestScoreLesson.setText(ihighestLessonScore+" /7");
-                                                    nDoneLesson.setText(icomplete+" ");
                                                 }
 
                                                 @Override

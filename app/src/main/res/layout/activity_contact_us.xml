@@ -363,7 +363,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent="0.4585" />
+        app:layout_constraintGuide_percent="0.43" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline_back_v"
@@ -371,7 +371,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent="0.561" />
+        app:layout_constraintGuide_percent="0.59" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline40"
@@ -494,14 +494,13 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:textColor="#626262"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/guideline37"
         app:layout_constraintEnd_toStartOf="@+id/guideline_back_v"
         app:layout_constraintStart_toStartOf="@+id/guideline38"
-        app:layout_constraintTop_toBottomOf="@+id/facebbok_icon"
-        android:textColor="#626262"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/facebbok_icon" />
 
 
 </android.support.constraint.ConstraintLayout>

@@ -306,12 +306,16 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
 
                                             }
                                         });
-                                    }catch(Exception e){
+                                     }catch(Exception e){
 
                                     }
 
+                                    try{
+                                        setOnCompleteListener(a1);
+                                    }catch (Exception e){
 
-                                  setOnCompleteListener(a1);
+                                    }
+
 
                                     speaker_btn.setOnClickListener(new View.OnClickListener() {
                                         @Override

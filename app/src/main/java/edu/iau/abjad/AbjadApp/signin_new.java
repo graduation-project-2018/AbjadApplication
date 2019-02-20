@@ -38,8 +38,7 @@ public class signin_new extends AppCompatActivity implements View.OnClickListene
     firebase_connection r = new firebase_connection();
     DatabaseReference db2;
     String x;
-    ImageView signIn_background;
-    ProgressBar signIn_pg;
+
 
 
     @Override
@@ -56,8 +55,7 @@ public class signin_new extends AppCompatActivity implements View.OnClickListene
         send_label = findViewById(R.id.send_label_on_btn);
         reset_pass_label= findViewById(R.id.ResetPassword);
         new_account_label = findViewById(R.id.create_new_account);
-        signIn_background = findViewById(R.id.signIn_bg);
-        signIn_pg = findViewById(R.id.signIn_pg);
+
         Itn =new Intent(getApplicationContext(),select_user_type.class);
 
 
@@ -69,23 +67,8 @@ public class signin_new extends AppCompatActivity implements View.OnClickListene
         signIn_label= findViewById(R.id.signIn_label);
         PB.getIndeterminateDrawable().setColorFilter(	0xFF0B365C, android.graphics.PorterDuff.Mode.MULTIPLY);
 
-        signIn_pg.setVisibility(View.VISIBLE);
 
-        String signIn_bg_URL="https://firebasestorage.googleapis.com/v0/b/abjad-a0f5e.appspot.com/o/backgrounds%2Fbgg.jpg?alt=media&token=f3eaa0cd-2a2e-4b5d-b865-2e8ec71decc1";
 
-        // Display signIn background
-        Picasso.get().load(signIn_bg_URL).fit().memoryPolicy(MemoryPolicy.NO_CACHE).into(signIn_background,new Callback() {
-            @Override
-            public void onSuccess(){
-                signIn_pg.setVisibility(View.INVISIBLE);
-            }
-
-            @Override
-            public void onError(Exception e) {
-
-            }
-
-        });
 
 
         int screenSize = getResources().getConfiguration().screenLayout &

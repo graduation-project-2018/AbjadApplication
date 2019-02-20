@@ -73,7 +73,8 @@ public class change_profile_photo extends child_menu {
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                finish();
+                startActivity(new Intent(getApplicationContext(),child_home.class));
             }
         });
 

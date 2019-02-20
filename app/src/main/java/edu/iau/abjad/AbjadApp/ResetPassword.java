@@ -34,8 +34,7 @@ public class ResetPassword extends AppCompatActivity {
     firebase_connection r = new firebase_connection();
     String emailAddress;
     TextView ResetPassword;
-    ImageView back_btn, reset_pass_bg;
-    ProgressBar reset_pass_progress_bar;
+    ImageView back_btn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,25 +47,8 @@ public class ResetPassword extends AppCompatActivity {
         email = (EditText) findViewById(R.id.email_reset);
         ResetPassword = findViewById(R.id.ResetPassword);
         back_btn = findViewById(R.id.back_btn_in_reset);
-        reset_pass_bg = findViewById(R.id.reset_pass_bg);
-        reset_pass_progress_bar = findViewById(R.id.resrt_pass_pg);
-        reset_pass_progress_bar.setVisibility(View.VISIBLE);
 
-        String reset_pass_bg_URL="https://firebasestorage.googleapis.com/v0/b/abjad-a0f5e.appspot.com/o/backgrounds%2Fbgg.jpg?alt=media&token=f3eaa0cd-2a2e-4b5d-b865-2e8ec71decc1";
 
-        // Display signIn background
-        Picasso.get().load(reset_pass_bg_URL).fit().memoryPolicy(MemoryPolicy.NO_CACHE).into(reset_pass_bg,new Callback() {
-            @Override
-            public void onSuccess(){
-                reset_pass_progress_bar.setVisibility(View.INVISIBLE);
-            }
-
-            @Override
-            public void onError(Exception e) {
-
-            }
-
-        });
 
         err.setVisibility(View.INVISIBLE);
 

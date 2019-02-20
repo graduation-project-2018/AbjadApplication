@@ -28,8 +28,7 @@ import java.util.Arrays;
 
 public class select_user_type extends AppCompatActivity {
     TextView eduLabel, childLabel;
-    ImageView back_btn, select_user_bg;
-    ProgressBar select_user_progress_bar;
+    ImageView back_btn;
     Random rand = new Random();
     String[]  edu_auth_arabic_numbers = {"١٢٠٠","٣٠٠٠","١٢٠","٥٥","٢١٠","٤٤","٩٩","٨٧","٥١٠٠","١١٠٠"};
     String[] edu_auth_numbers = {"1200", "3000", "120", "55", "210","44","99","87","5100","1100"};
@@ -61,25 +60,7 @@ public class select_user_type extends AppCompatActivity {
         eduLabel = findViewById(R.id.educatortext);
         childLabel = findViewById(R.id.childtext);
         back_btn = findViewById(R.id.back_select_user_type);
-        select_user_bg = findViewById(R.id.select_type_bg);
-        select_user_progress_bar = findViewById(R.id.select_type_progress_bar);
-        select_user_progress_bar.setVisibility(View.VISIBLE);
 
-        String select_user_bg_URL = "https://firebasestorage.googleapis.com/v0/b/abjad-a0f5e.appspot.com/o/backgrounds%2Fbg.png?alt=media&token=09ef4269-f272-4528-a21c-856a8451990a";
-
-        // Display select user background
-        Picasso.get().load(select_user_bg_URL).fit().into(select_user_bg,new Callback() {
-            @Override
-            public void onSuccess(){
-                select_user_progress_bar.setVisibility(View.INVISIBLE);
-            }
-
-            @Override
-            public void onError(Exception e) {
-
-            }
-
-        });
 
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -36,17 +36,16 @@ public class child_after_signin extends AppCompatActivity {
     menu_variables m = new menu_variables();
     ArrayList <children> children = new ArrayList<children>();
     TextView  noChildlabel;
-    FirebaseAuth Uath;
     String id_edu;
     firebase_connection r = new firebase_connection();
     static String id_child ;
     childrenAdapter adapter;
     GridView gv;
     DatabaseReference db,db2;
-    ProgressBar loading, background_pg;
+    ProgressBar loading;
     Guideline gr,gl ;
     String x  ;
-    ImageView back, background;
+    ImageView back;
 
 
     @Override
@@ -63,27 +62,11 @@ public class child_after_signin extends AppCompatActivity {
         gl = findViewById(R.id.gridViewGL);
         gr = findViewById(R.id.gridView2GL);
         noChildlabel = findViewById(R.id.NoChildren);
-        background = findViewById(R.id.child_afterSignIn_bg);
-        background_pg = findViewById(R.id.child_afterSignIn_pg);
-        background_pg.setVisibility(View.VISIBLE);
 
-        String bg_URL = "https://firebasestorage.googleapis.com/v0/b/abjad-a0f5e.appspot.com/o/backgrounds%2Fbg.png?alt=media&token=09ef4269-f272-4528-a21c-856a8451990a";
 
-        // Display select user background
-        Picasso.get().load(bg_URL).fit().into(background,new Callback() {
-            @Override
-            public void onSuccess(){
-                background_pg.setVisibility(View.INVISIBLE);
-            }
 
-            @Override
-            public void onError(Exception e) {
 
-            }
-
-        });
-
-        noChildlabel.setText("لا يوجد أطفال مسجلين حالياً، لإضافة طفل جديد الرجاء الرجوع لقسم المربي");
+        noChildlabel.setText("لا يوجد أطفال مسجلين حالياً، لإضافة طفل جديد الرجاء الرجوع لقسم المربي.");
         int screenSize = getResources().getConfiguration().screenLayout &
                 Configuration.SCREENLAYOUT_SIZE_MASK;
         switch(screenSize) {
