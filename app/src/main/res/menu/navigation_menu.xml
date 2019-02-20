@@ -17,9 +17,6 @@
     <item android:id="@+id/add_child"
         android:title="إضافة طفل"
         android:icon="@drawable/add_new_child"></item>
-    <item android:id="@+id/delete_edu"
-        android:title="حذف الحساب"
-        android:icon="@drawable/basket_delete"></item>
     <item android:id="@+id/contact_us"
         android:title="اتصل بنا"
         android:icon="@drawable/phone_15x"></item>

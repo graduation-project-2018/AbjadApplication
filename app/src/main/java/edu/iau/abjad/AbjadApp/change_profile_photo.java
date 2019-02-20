@@ -16,10 +16,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Callback;
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -29,6 +31,7 @@ public class change_profile_photo extends child_menu {
     private ImageView childImg;
     private ImageView next;
     private ImageView pre;
+    String id_edu;
     private ArrayList<String> imgsUrl;
     private firebase_connection FBchildPhotoUrl;
     private int imgCont;
@@ -62,6 +65,8 @@ public class change_profile_photo extends child_menu {
 
         imgsUrl = new ArrayList<String>();
         SaveChanges=(Button)findViewById(R.id.SaveChangeImg);
+
+        id_edu =FirebaseAuth.getInstance().getCurrentUser().getUid();
 
 
 
@@ -193,7 +198,7 @@ public class change_profile_photo extends child_menu {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(change_profile_photo.this, "حصل خطأ خلال تحميل الصور", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "حصل خطأ خلال تحميل الصور", Toast.LENGTH_LONG).show();
 
             }
 
@@ -205,9 +210,10 @@ public class change_profile_photo extends child_menu {
             @Override
             public void onClick(View v) {
                 FBchildPhotoUrl.ref.child("Children").child(child_after_signin.id_child).child("photo_URL").setValue(photo_url);
-                r.ref.child("educator_home").child(signin_new.id_edu).child("children").child(child_after_signin.id_child).child("photo_URL").setValue(photo_url);
-                Toast.makeText(change_profile_photo.this, "تم تغيير الصورة بنجاح", Toast.LENGTH_LONG).show();
+                r.ref.child("educator_home").child(id_edu).child("children").child(child_after_signin.id_child).child("photo_URL").setValue(photo_url);
+                Toast.makeText(getApplicationContext(), "تم تغيير الصورة بنجاح", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getApplicationContext(),child_home.class);
+                finish();
                 startActivity(intent);
 
             }
@@ -219,7 +225,7 @@ public class change_profile_photo extends child_menu {
 
     public void hide_loading_label(){
 
-        Picasso.get().load(imgsUrl.get(imgIndex))
+        Picasso.get().load(imgsUrl.get(imgIndex)).fit().memoryPolicy(MemoryPolicy.NO_CACHE)
                 .into(childImg, new Callback() {
                     @Override
                     public void onSuccess() {
@@ -233,5 +239,14 @@ public class change_profile_photo extends child_menu {
 
                 });
     }//end of function hide_loading_label
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        childImg = null;
+
+
+    }
+
 
 }

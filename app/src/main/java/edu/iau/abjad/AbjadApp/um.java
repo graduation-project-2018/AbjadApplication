@@ -8,12 +8,14 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.VideoView;
 public class um extends AppCompatActivity {
     VideoView video;
     String video_url;
     String letter, unitID, first_signIn;
     ProgressBar loading_label;
+    TextView loading_text;
     Uri uri;
     Intent intent,h;
     firebase_connection r = new firebase_connection();
@@ -23,6 +25,7 @@ public class um extends AppCompatActivity {
         setContentView(R.layout.activity_um);
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         video=findViewById(R.id.vid);
+        loading_text= findViewById(R.id.loading_label);
         video_url="https://firebasestorage.googleapis.com/v0/b/abjad-a0f5e.appspot.com/o/Mix_Final_Version.mp4?alt=media&token=1abfe892-1179-47e5-9a78-5fe6f701df79";
         uri = Uri.parse(video_url);
         intent= new Intent(getApplicationContext(),Lesson.class);
@@ -41,9 +44,11 @@ public class um extends AppCompatActivity {
             public boolean onInfo(MediaPlayer mp, int what, int extra) {
                 if(what == mp.MEDIA_INFO_BUFFERING_START){
                     loading_label.setVisibility(View.VISIBLE);
+                    loading_text.setVisibility(View.VISIBLE);
                 }
                 else if(what == mp.MEDIA_INFO_BUFFERING_END){
                     loading_label.setVisibility(View.INVISIBLE);
+                    loading_text.setVisibility(View.INVISIBLE);
                 }
                 return false;
             }
@@ -76,4 +81,11 @@ public class um extends AppCompatActivity {
             }
         });
     }//end of onCreate function
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        finish();
+        startActivity(new Intent(getApplicationContext(),child_home.class));
+    }
 }//end of class

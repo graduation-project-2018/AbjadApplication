@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.EditText;
@@ -14,15 +15,15 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.Picasso;
 
 public class signin_new extends AppCompatActivity implements View.OnClickListener{
 
@@ -32,12 +33,14 @@ public class signin_new extends AppCompatActivity implements View.OnClickListene
     private ProgressBar PB;
     private Intent Itn;
     String email;
-    static String id_edu;
+    String id_edu;
     TextView send_label, signIn_label, reset_pass_label,  new_account_label;
     firebase_connection r = new firebase_connection();
     DatabaseReference db2;
     String x;
-    static Integer current_child_number;
+    ImageView signIn_background;
+    ProgressBar signIn_pg;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +56,11 @@ public class signin_new extends AppCompatActivity implements View.OnClickListene
         send_label = findViewById(R.id.send_label_on_btn);
         reset_pass_label= findViewById(R.id.ResetPassword);
         new_account_label = findViewById(R.id.create_new_account);
-        Itn =new Intent(this,select_user_type.class);
+        signIn_background = findViewById(R.id.signIn_bg);
+        signIn_pg = findViewById(R.id.signIn_pg);
+        Itn =new Intent(getApplicationContext(),select_user_type.class);
+
+
 
         //adding listeners to the buttons:
         findViewById(R.id.submit_btn_reset).setOnClickListener(this);
@@ -61,7 +68,25 @@ public class signin_new extends AppCompatActivity implements View.OnClickListene
         findViewById(R.id.create_new_account).setOnClickListener(this);
         signIn_label= findViewById(R.id.signIn_label);
         PB.getIndeterminateDrawable().setColorFilter(	0xFF0B365C, android.graphics.PorterDuff.Mode.MULTIPLY);
-        current_child_number = 0;
+
+        signIn_pg.setVisibility(View.VISIBLE);
+
+        String signIn_bg_URL="https://firebasestorage.googleapis.com/v0/b/abjad-a0f5e.appspot.com/o/backgrounds%2Fbgg.jpg?alt=media&token=f3eaa0cd-2a2e-4b5d-b865-2e8ec71decc1";
+
+        // Display signIn background
+        Picasso.get().load(signIn_bg_URL).fit().memoryPolicy(MemoryPolicy.NO_CACHE).into(signIn_background,new Callback() {
+            @Override
+            public void onSuccess(){
+                signIn_pg.setVisibility(View.INVISIBLE);
+            }
+
+            @Override
+            public void onError(Exception e) {
+
+            }
+
+        });
+
 
         int screenSize = getResources().getConfiguration().screenLayout &
                 Configuration.SCREENLAYOUT_SIZE_MASK;
@@ -132,7 +157,6 @@ public class signin_new extends AppCompatActivity implements View.OnClickListene
                     if(task.isSuccessful())
                     {
                         id_edu= Uath.getCurrentUser().getUid();
-                       checkNumOfChildren();
                         finish();
                         startActivity(Itn);
                     }
@@ -150,7 +174,7 @@ public class signin_new extends AppCompatActivity implements View.OnClickListene
                             ChildPassword.setError("كلمة المرور خاطئة ، الرجاء التحقق منها");
                             ChildPassword.requestFocus();
                         }
-                        //Toast.makeText(getApplicationContext(),task.getException().getMessage(),Toast.LENGTH_SHORT).show();
+
                     }
                 }
             });
@@ -162,12 +186,12 @@ public class signin_new extends AppCompatActivity implements View.OnClickListene
 
             case R.id.ResetPassword:
                 finish();
-                Intent intent = new Intent(signin_new.this, ResetPassword.class);
+                Intent intent = new Intent(getApplicationContext(), ResetPassword.class);
                 startActivity(intent);
                 break;
             case R.id.create_new_account:
                 finish();
-                startActivity(new Intent(signin_new.this,SignUp.class));
+                startActivity(new Intent(getApplicationContext(),SignUp.class));
                 break;
 
             case R.id.submit_btn_reset:
@@ -177,24 +201,13 @@ public class signin_new extends AppCompatActivity implements View.OnClickListene
 
         }
     }
-    public void checkNumOfChildren(){
-        db2 = FirebaseDatabase.getInstance().getReference().child("educator_home").child(signin_new.id_edu).child("childrenNumber");
-        db2.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    x = dataSnapshot.getValue().toString();
-                    current_child_number = Integer.parseInt(x);
 
-                } else {
-                    x = "0";
-                    current_child_number = Integer.parseInt(x);
-                }
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
+    @Override
+    public void onBackPressed() {
+        finish();
+        startActivity(new Intent(getApplicationContext(), signin_new.class));
 
-    }//end of function
+    }
+
+
 }

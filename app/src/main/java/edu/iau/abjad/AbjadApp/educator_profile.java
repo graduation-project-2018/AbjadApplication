@@ -36,6 +36,7 @@ public class educator_profile extends menu_educator {
     menu_variables m = new menu_variables();
     FirebaseDatabase db;
     firebase_connection r;
+    String id_edu;
     EditText email;
     Button saveBtn;
     Intent intent;
@@ -43,7 +44,6 @@ public class educator_profile extends menu_educator {
     String oldEmail;
     String newEmail;
     FirebaseAuth Uath;
-    FirebaseUser user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +63,8 @@ public class educator_profile extends menu_educator {
         r = new firebase_connection();
         email = findViewById(R.id.emailTxt);
         saveBtn = (Button)findViewById(R.id.saveChangesBtn);
+
+        id_edu= FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         int screenSize = getResources().getConfiguration().screenLayout &
                 Configuration.SCREENLAYOUT_SIZE_MASK;
@@ -103,7 +105,7 @@ public class educator_profile extends menu_educator {
             @Override
             public void onClick(View v) {
                 finish();
-                startActivity(new Intent(educator_profile.this,educator_home.class));
+                startActivity(new Intent(getApplicationContext(),educator_home.class));
             }
         });
 
@@ -126,8 +128,6 @@ public class educator_profile extends menu_educator {
     }//end of onCreate function
 
     private void checkInputs(){
-
-
         foundErrors =false;
         checkEmail();
 
@@ -154,7 +154,7 @@ public class educator_profile extends menu_educator {
 
     public void getCurrentEducatorInfo(){
         //educator ID need to be changed
-        Query query = r.ref.child("Educators").child(signin_new.id_edu);
+        Query query = r.ref.child("Educators").child(id_edu);
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -189,21 +189,21 @@ public class educator_profile extends menu_educator {
     }//end of editEducator function
     public void updateEmail(){
 
-                    user = FirebaseAuth.getInstance().getCurrentUser();
-
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        newEmail = email.getText().toString().trim();
+        System.out.println("new Email: "+ newEmail);
                     user.updateEmail(newEmail)
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
-                                    if (!task.isSuccessful()) {
-                                        Toast.makeText(educator_profile.this,"حدث خطأ خلال تغيير البريد الإلكتروني الرجاء المحاولة لاحقا", Toast.LENGTH_LONG).show();
+                                    if (task.isSuccessful()) {
+                                        r.ref.child("Educators").child(id_edu).child("email").setValue(newEmail);
+                                        Toast.makeText(educator_profile.this, " تم حفظ التغييرات بنجاح", Toast.LENGTH_LONG).show();
+                                        Intent intent = new Intent(getApplicationContext(), educator_home.class);
+                                        startActivity(intent);
                                     }
                                     else{
-                                        Log.i("update","Done");
-                                        r.ref.child("Educators").child(signin_new.id_edu).child("email").setValue(newEmail);
-                                        Toast.makeText(educator_profile.this, " تم حفظ التغييرات بنجاح", Toast.LENGTH_LONG).show();
-                                        Intent intent = new Intent(educator_profile.this, educator_home.class);
-                                        startActivity(intent);
+                                        Toast.makeText(educator_profile.this,"حدث خطأ خلال تغيير البريد الإلكتروني الرجاء المحاولة لاحقا", Toast.LENGTH_LONG).show();
                                     }
 
                                 }

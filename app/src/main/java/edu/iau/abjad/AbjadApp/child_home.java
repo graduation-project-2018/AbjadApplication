@@ -29,13 +29,11 @@ import com.squareup.picasso.Picasso;
 public class child_home extends child_menu {
      menu_variables m = new menu_variables();
      Intent intentOfUnit;
-     ImageView family , homeLand, school;
+     ImageView family , homeLand, school, background;
      TextView family_textView,school_textView,homeLand_textView;
      String  first_signIn;
      String unit1_photo_url,unit2_photo_url, unit3_photo_url;
-     ProgressBar family_progress_bar, school_progress_bar,watani_progress_bar;
-
-
+     ProgressBar family_progress_bar, school_progress_bar,watani_progress_bar, background_pg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,10 +58,12 @@ public class child_home extends child_menu {
         family_textView=findViewById(R.id.family);
         school_textView=findViewById(R.id.school);
         homeLand_textView=findViewById(R.id.city);
+        background = findViewById(R.id.child_home_bg);
+        background_pg = findViewById(R.id.child_home_pg);
+        background_pg.setVisibility(View.VISIBLE);
         family_progress_bar=findViewById(R.id.family_progress_bar);
         school_progress_bar=findViewById(R.id.school_progress_bar);
         watani_progress_bar=findViewById(R.id.watani_progress_bar);
-
         family_progress_bar.setVisibility(View.VISIBLE);
         school_progress_bar.setVisibility(View.VISIBLE);
         watani_progress_bar.setVisibility(View.VISIBLE);
@@ -80,6 +80,21 @@ public class child_home extends child_menu {
             }
         });
 
+        String background_URL = "https://firebasestorage.googleapis.com/v0/b/abjad-a0f5e.appspot.com/o/backgrounds%2Fhome_child_background.jpg?alt=media&token=22abd132-2534-4894-9b28-c12aa747be87";
+
+        //Display background
+        Picasso.get().load(background_URL).fit().into(background,new Callback() {
+            @Override
+            public void onSuccess(){
+                background_pg.setVisibility(View.INVISIBLE);
+            }
+
+            @Override
+            public void onError(Exception e) {
+
+            }
+
+        });
         int screenSize = getResources().getConfiguration().screenLayout &
                 Configuration.SCREENLAYOUT_SIZE_MASK;
 
@@ -116,7 +131,7 @@ public class child_home extends child_menu {
         }
 
         // Display units images
-        Picasso.get().load(unit1_photo_url).fit().into(family,new Callback() {
+        Picasso.get().load(unit1_photo_url).fit().memoryPolicy(MemoryPolicy.NO_CACHE).into(family,new Callback() {
             @Override
             public void onSuccess(){
                 family_progress_bar.setVisibility(View.INVISIBLE);
@@ -128,7 +143,7 @@ public class child_home extends child_menu {
             }
 
         });
-        Picasso.get().load(unit2_photo_url).fit().into(school,new Callback() {
+        Picasso.get().load(unit2_photo_url).fit().memoryPolicy(MemoryPolicy.NO_CACHE).into(school,new Callback() {
             @Override
             public void onSuccess(){
                 school_progress_bar.setVisibility(View.INVISIBLE);
@@ -140,7 +155,7 @@ public class child_home extends child_menu {
             }
 
         });
-        Picasso.get().load(unit3_photo_url).fit().into(homeLand,new Callback() {
+        Picasso.get().load(unit3_photo_url).fit().memoryPolicy(MemoryPolicy.NO_CACHE).into(homeLand,new Callback() {
             @Override
             public void onSuccess(){
                 watani_progress_bar.setVisibility(View.INVISIBLE);
@@ -152,25 +167,6 @@ public class child_home extends child_menu {
             }
 
         });
-
-        try{
-    // get the value of first_signIn to know if we should play user manual or not.
-        DatabaseReference getChildFirstSignInInfo = r.ref.child("Children").child(child_after_signin.id_child).child("first_signIn");
-        getChildFirstSignInInfo.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                first_signIn = dataSnapshot.getValue().toString();
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-            }catch (Exception e){
-
-            }
-
-
         school.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -215,9 +211,8 @@ public class child_home extends child_menu {
     @Override
     public void onBackPressed() {
         finish();
-        startActivity(new Intent(child_home.this,child_after_signin.class));
+        startActivity(new Intent(getApplicationContext(),child_after_signin.class));
     }
-
 }
 
 

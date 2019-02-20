@@ -41,6 +41,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
@@ -50,15 +51,17 @@ public class child_menu extends AppCompatActivity {
     protected DrawerLayout myDrawerLayout;
     protected ActionBarDrawerToggle myToggle;
     protected Toolbar myToolBar;
+    DatabaseReference db2;
     ImageView home_icon;
     NavigationView navigationView ;
+    String id_edu;
     firebase_connection r = new firebase_connection();
-    String edu_email;
+    String edu_email, x;
     EditText email;
     DatabaseReference read;
     String id;
     ImageView menu_btn, back_btn;
-    int width, height;
+    int width, height,current_child_number;
 
 
 
@@ -81,6 +84,28 @@ public class child_menu extends AppCompatActivity {
 
         menu_btn = findViewById(R.id.menu_icon);
         back_btn = findViewById(R.id.back_button);
+        current_child_number =0;
+        x="";
+
+        id_edu = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        db2 = FirebaseDatabase.getInstance().getReference().child("educator_home").child(id_edu).child("childrenNumber");
+        db2.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    x = dataSnapshot.getValue().toString();
+                    current_child_number = Integer.parseInt(x);
+
+                } else {
+                    x = "0";
+                    current_child_number = Integer.parseInt(x);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
 
         int screenSize = getResources().getConfiguration().screenLayout &
                 Configuration.SCREENLAYOUT_SIZE_MASK;
@@ -130,11 +155,10 @@ public class child_menu extends AppCompatActivity {
                 switch (item.getItemId()){
                     case R.id.edit_profile:{
                         Intent intent = new Intent(getApplicationContext(), change_profile_photo.class);
+                        finish();
                         startActivity(intent);
                         return true;
-
                     }
-
 
                     case R.id.edit_profile_child:{
                         popUp(4);
@@ -149,16 +173,14 @@ public class child_menu extends AppCompatActivity {
                     case R.id.sign_out:{
                         finish();
                         Intent intent = new Intent(getApplicationContext(), select_user_type.class);
+                        finish();
                         startActivity(intent);
                         return true;
                     }
                     case R.id.lesson_um:{
-                   /*     if(Lesson.words_counter==6){
-                            Lesson.computeChildScore();
-                        }*/
-
-                        Intent intent = new Intent(child_menu.this, um.class);
+                        Intent intent = new Intent(getApplicationContext(), um.class);
                         intent.putExtra("Lessonltr","");
+                        finish();
                         startActivity(intent);
                         return true;
                     }
@@ -175,6 +197,7 @@ public class child_menu extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), child_home.class);
+                finish();
                 startActivity(intent);
             }
         });
@@ -234,6 +257,7 @@ public class child_menu extends AppCompatActivity {
                                                     else if(i==4){
                                                         Intent intent = new Intent(getApplicationContext(), child_profile.class);
                                                         intent.putExtra("email", edu_email);
+                                                        finish();
                                                         startActivity(intent);
 
                                                     }
@@ -253,12 +277,11 @@ public class child_menu extends AppCompatActivity {
 
                             } else {
                                 Intent usr = new Intent(getApplicationContext(), signin_new.class);
-                                startActivity(usr);
                                 finish();
-                                Toast.makeText(child_menu.this, "تم حذف الطفل بنجاح", Toast.LENGTH_LONG).show();
+                                startActivity(usr);
+                                Toast.makeText(getApplicationContext(), "تم حذف الطفل بنجاح", Toast.LENGTH_LONG).show();
 
                             }
-                            
                         }
 
                         @Override
@@ -268,7 +291,6 @@ public class child_menu extends AppCompatActivity {
                         }
                     });
                 }catch (Exception e){
-                    System.out.println("كاتش");
                 }
             }
         });
@@ -341,8 +363,8 @@ public class child_menu extends AppCompatActivity {
                                                     String child_id=dataSnapshot2.getKey();
                                                     if(child_id.equals(child_after_signin.id_child)){
                                                         r.ref.child("educator_home").child(eduKey).child("children").child(child_after_signin.id_child).removeValue();
-                                                        signin_new.current_child_number--;
-                                                        r.ref.child("educator_home").child(eduKey).child("childrenNumber").setValue(signin_new.current_child_number.toString());
+                                                        current_child_number--;
+                                                        r.ref.child("educator_home").child(eduKey).child("childrenNumber").setValue(current_child_number);
                                                     }
                                                 }
                                             }
@@ -355,7 +377,7 @@ public class child_menu extends AppCompatActivity {
 
                                     }
                                     finish();
-                                    Toast.makeText(child_menu.this,"تم حذف الطفل بنجاح",Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getApplicationContext(),"تم حذف الطفل بنجاح",Toast.LENGTH_LONG).show();
                                     Intent usr=new Intent(getApplicationContext(),child_after_signin.class);
                                     startActivity(usr);
 

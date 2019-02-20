@@ -120,6 +120,9 @@ public class MatchingTest extends child_menu {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), unit_interface.class);
+                intent.putExtra("unitID",unitID);
+                intent.putExtra("preIntent","matchingTest");
+                setResult(RESULT_OK, intent);
                 finish();
                 startActivity(intent);
             }
@@ -636,6 +639,18 @@ View.OnDragListener dragListener1 = new View.OnDragListener() {
     }
     }
 
+    @Override
+    protected void onPause() {
+        try {
+            super.onPause();
+            MatchingTest.release();
+            anim.stop();
+        }
+        catch (Exception e){
+
+        }
+    }
+
     public void setOnCompleteListener(MediaPlayer obj){
         obj.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
@@ -706,8 +721,10 @@ View.OnDragListener dragListener1 = new View.OnDragListener() {
         //Move to unit interface when child close the app while test or lesson
         Intent intent = new Intent(getApplicationContext(), unit_interface.class);
         intent.putExtra("unitID",unitID);
+        intent.putExtra("preIntent","matchingTest");
         setResult(RESULT_OK, intent);
         finish();
+        startActivity(intent);
 
     }
 

@@ -4,22 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Html;
-import android.text.Spannable;
-import android.text.method.LinkMovementMethod;
-import android.text.style.URLSpan;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -56,10 +47,10 @@ public class contact_us extends menu_educator{
         gray_bird_url="https://firebasestorage.googleapis.com/v0/b/abjad-a0f5e.appspot.com/o/contact_us_images%2Fnew_gray_bird.png?alt=media&token=73cae540-4c92-4759-91fb-454d0c5d2a74";
 
         // Display images
-        Picasso.get().load(mail_url).fit().into(mail);
-        Picasso.get().load(bird_url).fit().into(bird);
-        Picasso.get().load(msg_url).fit().into(msg);
-        Picasso.get().load(gray_bird_url).fit().into(gray_bird);
+        Picasso.get().load(mail_url).into(mail);
+        Picasso.get().load(bird_url).into(bird);
+        Picasso.get().load(msg_url).into(msg);
+        Picasso.get().load(gray_bird_url).into(gray_bird);
 
         int screenSize = getResources().getConfiguration().screenLayout &
                 Configuration.SCREENLAYOUT_SIZE_MASK;
@@ -100,8 +91,8 @@ public class contact_us extends menu_educator{
 
         email.setText("abjad.application@gmail.com");
         taccount.setText("abjad_app");
-        iaccount.setText("abjad_app_ins");
-        faccount.setText("abjad_app_fac");
+        iaccount.setText("abjad.app");
+        faccount.setText("abjad.application");
 
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,21 +101,6 @@ public class contact_us extends menu_educator{
             }
         });
 
-        /*//Opening the dial interface when pressing phone icon or phone textView
-        phone.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("tel: 0138280398"));
-               startActivity(i);
-            }
-        });
-        phone_icon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("tel: 0138280398"));
-                startActivity(i);
-            }
-        });*/
         //Opening the email application when pressing email icon or email textView
         email_icon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,6 +109,7 @@ public class contact_us extends menu_educator{
                 Uri uri = Uri.parse("mailto:abjad.application@gmail.com");
                 // missing 'http://' will cause crashed, when redirecting the user to a web link
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                finish();
                 startActivity(intent);
             }
         });
@@ -143,18 +120,20 @@ public class contact_us extends menu_educator{
 
                Uri uri = Uri.parse("mailto:abjad.application@gmail.com");
               Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+              finish();
                startActivity(intent);
               }
         });
-        /*
+
         //Opening the facebook account page when pressing facebook icon or facebook textView
         ficon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Uri uri = Uri.parse("http://......");
-                // missing 'http://' will cause crashed, when redirecting the user to a web link
+                Uri uri = Uri.parse("https://m.facebook.com/abjad.application");
+
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                finish();
                 startActivity(intent);
             }
         });
@@ -163,8 +142,9 @@ public class contact_us extends menu_educator{
             @Override
             public void onClick(View v) {
 
-                Uri uri = Uri.parse("http://......");
+                Uri uri = Uri.parse("https://m.facebook.com/abjad.application");
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                finish();
                 startActivity(intent);
             }
         });
@@ -173,9 +153,10 @@ public class contact_us extends menu_educator{
             @Override
             public void onClick(View v) {
 
-                Uri uri = Uri.parse("http://......");
-                // missing 'http://' will cause crashed, when redirecting the user to a web link
+                Uri uri = Uri.parse("https://twitter.com/abjad_app");
+
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                finish();
                 startActivity(intent);
             }
         });
@@ -184,8 +165,9 @@ public class contact_us extends menu_educator{
             @Override
             public void onClick(View v) {
 
-                Uri uri = Uri.parse("http://......");
+                Uri uri = Uri.parse("https://twitter.com/abjad_app");
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                finish();
                 startActivity(intent);
             }
         });
@@ -194,9 +176,10 @@ public class contact_us extends menu_educator{
             @Override
             public void onClick(View v) {
 
-                Uri uri = Uri.parse("http://......");
-                // missing 'http://' will cause crashed, when redirecting the user to a web link
+                Uri uri = Uri.parse("https://instagram.com/abjad.app?utm_source=ig_profile_share&igshid=1rsae2xhwvsz9");
+
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                finish();
                 startActivity(intent);
             }
         });
@@ -205,12 +188,13 @@ public class contact_us extends menu_educator{
             @Override
             public void onClick(View v) {
 
-                Uri uri = Uri.parse("http://......");
+                Uri uri = Uri.parse("https://instagram.com/abjad.app?utm_source=ig_profile_share&igshid=1rsae2xhwvsz9");
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                finish();
                 startActivity(intent);
             }
         });
-        */
+
 
     }//end of onCreate function
 

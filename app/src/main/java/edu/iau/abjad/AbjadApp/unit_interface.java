@@ -6,7 +6,6 @@ import android.content.res.Configuration;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -18,6 +17,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -50,6 +51,7 @@ public class unit_interface extends child_menu {
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,7 +81,7 @@ public class unit_interface extends child_menu {
         Bundle child = getIntent().getExtras();
         m.title.setText(child.getString("Unitname"));
         unitName = child.getString("Unitname");
-        first_signIn = child.getString("first_signIn");
+        //first_signIn = child.getString("first_signIn");
         System.out.println("first_sign_in_value: "+ first_signIn);
         lessonUMIntent = new Intent(getApplicationContext(), um.class);
         testInfo = new ArrayList<childUnitInfo>();
@@ -127,6 +129,7 @@ public class unit_interface extends child_menu {
                 startActivity(new Intent(getApplicationContext(), child_home.class));
             }
         });
+
 
 
         int screenSize = getResources().getConfiguration().screenLayout &
@@ -195,31 +198,19 @@ public class unit_interface extends child_menu {
         }//end switch
 
 
-
-           try {
-               //check if it is first sign in or not
-               if (first_signIn.equals("000") && first_signIn != null) {
-                   //change the vlaue in database, (100) means the child finishes user manual for unit interface only.
-                   r.ref.child("Children").child(child_after_signin.id_child).child("first_signIn").setValue("100");
-                   playAudio(audio.unit_Tip_One);
-                   first_signIn = "100";
-
-               }
-           } catch (Exception e) {
-
-           }
-
-
-
         try{
-        /* get the value of first_signIn to know if we should play user manual or not.
-                (first time this code is in child_home interface) but I repeat it here
-                to know the updated value of "first_signIn" when child finish lesson or test */
+        //get the value of first_signIn to know if we should play user manual or not.
             DatabaseReference getChildFirstSignInInfo = r.ref.child("Children").child(child_after_signin.id_child).child("first_signIn");
             getChildFirstSignInInfo.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     first_signIn = dataSnapshot.getValue().toString();
+                    if (first_signIn.equals("000") && first_signIn != null) {
+                        //change the vlaue in database, (100) means the child finishes user manual for unit interface only.
+                        r.ref.child("Children").child(child_after_signin.id_child).child("first_signIn").setValue("100");
+                        playAudio(audio.unit_Tip_One);
+                        first_signIn = "100";
+                    }
                 }
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
@@ -253,11 +244,7 @@ public class unit_interface extends child_menu {
             m.title.setText(unitName);
 
         } else if (intent.getString("preIntent").equals("childHome")) {
-            Log.i("ifStm", "Iam here");
             this.unitID = intent.getString("id");
-            Log.i("Unitid", this.unitID);
-        } else {
-            Log.i("ifStm", "noone");
         }
 
         instructions.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
@@ -297,7 +284,6 @@ public class unit_interface extends child_menu {
         try {
             aduio_CannotStartLesson.setDataSource(audio.unit_Tip_three);
             aduio_CannotStartLesson.prepare();
-            Log.i("iComeHere", "lol");
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -345,7 +331,6 @@ public class unit_interface extends child_menu {
         childUnitInfo test3obj = new childUnitInfo(0, null, test3Stars, test3, null);
         test3obj.setNextLesson(lesson5);
         test3obj.setNext2lesson(lesson6);
-        Log.i("Lesson1", lesson1.isClickable() + " ");
         lesson1.setClickable(true);
         lessonsInfo.add(lesson1obj);
         lessonsInfo.add(lesson2obj);
@@ -422,7 +407,6 @@ public class unit_interface extends child_menu {
                     for (final childUnitInfo childUnitInfo : lessonsInfo) {
                         childUnitInfo.Lesson.setText(lessons.get(lessonsInfo.indexOf(childUnitInfo)));
                         childUnitInfo.setLetters(lessons.get(lessonsInfo.indexOf(childUnitInfo)));
-                        Log.i("Score", lessonsInfo.get(0).getLetters() + " stars");
                     }
                     int j = 0;
                     //set test buttons
@@ -476,7 +460,6 @@ public class unit_interface extends child_menu {
                                                                                     for (childUnitInfo obj : lessonsInfo) {
                                                                                         if (obj.getLessonId() != null) {
                                                                                             if (obj.getLessonId().equals(Lkey)) {
-                                                                                                Log.i("Score", score.child("score").getValue(Integer.class) + " ");
                                                                                                 if (obj != null && score.child("score").getValue() != null) {
                                                                                                     obj.setScore(score.child("score").getValue(Integer.class));
                                                                                                 }
@@ -579,7 +562,6 @@ public class unit_interface extends child_menu {
                     r.ref.child("child_takes_test").child(childID).child(unitID).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            Log.i("Lesson1", lesson1.isClickable() + " ");
 
                             for (final DataSnapshot data2 : dataSnapshot.getChildren()) {
                                 final String childTests = data2.getKey();
@@ -596,11 +578,8 @@ public class unit_interface extends child_menu {
                                                         String testletter = test.child("test_letters").getValue(String.class);
                                                         for (childUnitInfo test : testInfo) {
                                                             String letter = test.getLetters();
-                                                            // Log.i("let", letter+" ");
-//                                                            Log.i("try", letter.contains(testletter) + " " + letter + " " + testletter);
                                                             if (letter.equals(testletter)) {
                                                                 test.setLessonId(testkey);
-                                                                Log.i("TestID", test.getLessonId() + " ");
                                                             }
 
                                                         }
@@ -616,14 +595,12 @@ public class unit_interface extends child_menu {
                                                                             if (ID.equals(testkey)) {
                                                                                 if (data2.child("score").getValue() != null) {
                                                                                     test.setScore(data2.child("score").getValue(Integer.class));
-                                                                                    Log.i("TestID", test.getScore() + " " + test.getLetters() + " " + test.getLessonId());
                                                                                 }
                                                                             }
                                                                         }
                                                                     }
                                                                     for (childUnitInfo childUnitInfo_lessonID : testInfo) {
                                                                         if (childUnitInfo_lessonID.getLessonId() != null) {
-                                                                            Log.i("allinfogaingh", childUnitInfo_lessonID.getScore() + " " + childUnitInfo_lessonID.getLessonId() + " " + childUnitInfo_lessonID.getLetters());
                                                                             if (childUnitInfo_lessonID.getScore() < 4 && childUnitInfo_lessonID.getScore() > 0) {
                                                                                 childUnitInfo_lessonID.getStars().setImageResource(R.drawable.one_gold_stars_group);
                                                                             } else if (childUnitInfo_lessonID.getScore() > 3 && childUnitInfo_lessonID.getScore() < 8) {
@@ -714,12 +691,9 @@ public class unit_interface extends child_menu {
 
 
         } catch (IOException e) {
-            Log.d("5", "inside IOException ");
         } catch (IllegalArgumentException e) {
-            Log.d("5", " inside IllegalArgumentException");
         } catch (Exception e) {
             e.printStackTrace();
-            Log.d("5", "Inside exception");
         }
     }
 
@@ -747,6 +721,20 @@ public class unit_interface extends child_menu {
         }
 
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        try {
+            instructions.stop();
+            instructions.release();
+        } catch (Exception e) {
+            System.err.println("Unable to stop activity");
+        }
+
+    }
+
+
 
     private ArrayList<Intent> fillTest(int random, int random2, int rand) {
         ArrayList<Intent> rTest = new ArrayList<Intent>();
@@ -821,6 +809,7 @@ public class unit_interface extends child_menu {
         fIntent.putExtra("startTime", startTime);
         fIntent.putExtra("Rand", Rand);
         fIntent.putExtra("first_signIn", first_signIn);
+        finish();
         startActivity(fIntent);
     }
 
@@ -857,23 +846,30 @@ public class unit_interface extends child_menu {
     }
 
     public void lesson_user_manual_interface_redirection(int x){
-        if(first_signIn.equals("000") || first_signIn.equals("100") || first_signIn.equals("101") ) {
-            //The value of first_signIn string means that the child did not enters the lesson yet,
-            // so lesson user manual video must appear
-            lessonUMIntent.putExtra("Lessonltr",lessonsInfo.get(x).getLesson().getText().toString());
-            lessonUMIntent.putExtra("unitID", unitID);
-            lessonUMIntent.putExtra("first_signIn", first_signIn);
-            startActivity(lessonUMIntent);
+        try{
+            if(first_signIn.equals("000") || first_signIn.equals("100") || first_signIn.equals("101") ) {
+                //The value of first_signIn string means that the child did not enters the lesson yet,
+                // so lesson user manual video must appear
+                lessonUMIntent.putExtra("Lessonltr",lessonsInfo.get(x).getLesson().getText().toString());
+                lessonUMIntent.putExtra("unitID", unitID);
+                lessonUMIntent.putExtra("first_signIn", first_signIn);
+                finish();
+                startActivity(lessonUMIntent);
+            }
+            else {
+                //The value of first_signIn string means that the child has entered the lesson ,
+                // so child will be redirected to the lesson interface directly (no user manual video is played)
+                lessonIntent.putExtra("Lessonltr",lessonsInfo.get(x).getLesson().getText().toString());
+                lessonIntent.putExtra("unitID", unitID);
+                finish();
+                startActivity(lessonIntent);
+            }
         }
-        else {
-            //The value of first_signIn string means that the child has entered the lesson ,
-            // so child will be redirected to the lesson interface directly (no user manual video is played)
-            lessonIntent.putExtra("Lessonltr",lessonsInfo.get(x).getLesson().getText().toString());
-            lessonIntent.putExtra("unitID", unitID);
-            startActivity(lessonIntent);
+        catch(Exception e){
+
+        }
 
 
-        }
 
     }//end of function
 }

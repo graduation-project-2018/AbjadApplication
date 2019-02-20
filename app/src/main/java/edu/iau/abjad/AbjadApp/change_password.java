@@ -30,11 +30,11 @@ import com.google.firebase.database.ValueEventListener;
 public class change_password extends menu_educator {
     menu_variables m = new menu_variables();
     FirebaseUser user;
+    String id_edu;
     EditText current_pass, new_pass, confirm_pass;
     String curr, new_p , con_pass;
     firebase_connection r = new firebase_connection();
     String node, email;
-    FirebaseAuth Uath;
     Button save_changes;
     int counter =0;
     @Override
@@ -56,6 +56,8 @@ public class change_password extends menu_educator {
 
          user = FirebaseAuth.getInstance().getCurrentUser();
          node = "Educators";
+
+         id_edu = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
 
 
@@ -108,7 +110,8 @@ public class change_password extends menu_educator {
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               onBackPressed();
+                finish();
+                startActivity(new Intent(getApplicationContext(),educator_home.class));
             }
         });
 
@@ -116,6 +119,7 @@ public class change_password extends menu_educator {
          save_changes.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View view) {
+                 counter =0;
                  curr = current_pass.getText().toString();
                  new_p = new_pass.getText().toString();
                  con_pass = confirm_pass.getText().toString();
@@ -136,12 +140,17 @@ public class change_password extends menu_educator {
                      counter++;
                  }
                  if(new_p.equals(con_pass) == false){
-                     confirm_pass.setError("الكلمتنين غير متطابقتين");
+                     confirm_pass.setError("كلمتا المرور غير متطابقتان");
                      confirm_pass.requestFocus();
                      counter++;
                  }
+                 if(new_p.length()<6){
+                     new_pass.setError("كلمة المرور يجب أن لا تقل عن 6 خانات");
+                     new_pass.requestFocus();
+                     counter++;
+                 }
                  if(counter == 0){
-                     Query query = r.ref.child(node).orderByKey().equalTo(signin_new.id_edu);
+                     Query query = r.ref.child(node).orderByKey().equalTo(id_edu);
                      query.addListenerForSingleValueEvent(new ValueEventListener() {
                          @Override
                          public void onDataChange(DataSnapshot dataSnapshot) {
@@ -150,7 +159,6 @@ public class change_password extends menu_educator {
                                  for(DataSnapshot info : dataSnapshot.getChildren()){
                                      email = info.child("email").getValue().toString();
                                  }
-                                 System.out.println("الايميل"+ email);
                                  AuthCredential credential = EmailAuthProvider
                                          .getCredential(email, curr);
                                  user.reauthenticate(credential)
@@ -164,6 +172,9 @@ public class change_password extends menu_educator {
                                                              if (task.isSuccessful()) {
                                                                  Toast.makeText(getApplicationContext(),
                                                                          "تم تغيير كلمة السر بنجاح", Toast.LENGTH_SHORT).show();
+                                                                 new_pass.setText("");
+                                                                 current_pass.setText("");
+                                                                 confirm_pass.setText("");
 
                                                              } else {
                                                                  if(task.getException().getMessage().startsWith("The given password is invalid")){

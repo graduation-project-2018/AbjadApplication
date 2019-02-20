@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -29,11 +30,13 @@ public class SignUp extends AppCompatActivity {
     EditText email,confirm_email,Pass,Cpass;
     boolean condition=true;
     private FirebaseAuth mAuth;
+    String id_edu;
     firebase_connection r;
     Pattern ArabicLetters,ps;
     Educator educator;
     ImageView back_btn;
     private Intent educatorHome;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +48,8 @@ public class SignUp extends AppCompatActivity {
         confirm_email = (EditText) findViewById(R.id.confirm_email);
         Pass = (EditText) findViewById(R.id.PassFieldSU);
         Cpass = (EditText) findViewById(R.id.CPassFieldSU);
+        progressBar = findViewById(R.id.signup_pg);
+
         ArabicLetters = Pattern.compile("^[ءئ ؤ إآ ى لآ لأ  لإ أ-ي ]+$");
         r = new firebase_connection();
         educatorHome= new Intent(getApplicationContext(),educator_home.class);
@@ -56,10 +61,12 @@ public class SignUp extends AppCompatActivity {
             public void onClick(View v) {
                 // take the user to the previous Activity
                 finish();
-                Intent intent = new Intent(SignUp.this, signin_new.class);
+                Intent intent = new Intent(getApplicationContext(), signin_new.class);
                 startActivity(intent);
             }
         });
+
+        progressBar.setVisibility(View.INVISIBLE);
 
         int screenSize = getResources().getConfiguration().screenLayout &
                 Configuration.SCREENLAYOUT_SIZE_MASK;
@@ -106,7 +113,7 @@ public class SignUp extends AppCompatActivity {
         SignUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                progressBar.setVisibility(View.VISIBLE);
                 condition = true;
 
                 if (email.getText().toString().trim().isEmpty()) {
@@ -144,11 +151,9 @@ public class SignUp extends AppCompatActivity {
                 }
                 if(condition==true){
                     addEducatorInfo();
+
                 }
             }
-
-
-
 
         });
 
@@ -159,13 +164,13 @@ public class SignUp extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()) {
-                            Toast.makeText(SignUp.this, "تمت إضافة حساب المربي بنجاح", Toast.LENGTH_LONG).show();
-                            signin_new.id_edu = mAuth.getCurrentUser().getUid();
+                            Toast.makeText(getApplicationContext(), "تمت إضافة حساب المربي بنجاح", Toast.LENGTH_LONG).show();
+                            id_edu = mAuth.getCurrentUser().getUid();
                             educator = new Educator(email.getText().toString().trim());
                             r.ref.addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
-                                    r.ref.child("Educators").child(signin_new.id_edu).setValue(educator);
+                                    r.ref.child("Educators").child(id_edu).setValue(educator);
                                 }@Override
                                 public void onCancelled(DatabaseError databaseError) {
                                 }
@@ -175,13 +180,15 @@ public class SignUp extends AppCompatActivity {
                         }
 
                         else{
-                            FirebaseAuthException e  = (FirebaseAuthException) task.getException();
-                             if(e.getMessage().contains("email address")){
-                                 email.setError("البريد الإلكتروني المدخل تم استخدامه من قبل مستخدم آخر");
-                                 email.requestFocus();
-                             }
-                             else Toast.makeText(SignUp.this,e.getMessage(), Toast.LENGTH_LONG).show();
-
+                            try{
+                                FirebaseAuthException e  = (FirebaseAuthException) task.getException();
+                                if(e.getMessage().contains("email address")){
+                                    email.setError("البريد الإلكتروني المدخل تم استخدامه من قبل مستخدم آخر");
+                                    email.requestFocus();
+                                }
+                                else Toast.makeText(getApplicationContext(),e.getMessage(), Toast.LENGTH_LONG).show();
+                            }catch(Exception e){
+                            }Toast.makeText(getApplicationContext(),"الرجاء توفير إتصال بالانترنت", Toast.LENGTH_LONG).show();
                         }
                     }
                 });

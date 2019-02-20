@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +23,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.Picasso;
 
 public class ResetPassword extends AppCompatActivity {
     Button submit;
@@ -29,10 +33,9 @@ public class ResetPassword extends AppCompatActivity {
     EditText email;
     firebase_connection r = new firebase_connection();
     String emailAddress;
-    String node;
     TextView ResetPassword;
-    ImageView back_btn;
-
+    ImageView back_btn, reset_pass_bg;
+    ProgressBar reset_pass_progress_bar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,8 +48,25 @@ public class ResetPassword extends AppCompatActivity {
         email = (EditText) findViewById(R.id.email_reset);
         ResetPassword = findViewById(R.id.ResetPassword);
         back_btn = findViewById(R.id.back_btn_in_reset);
+        reset_pass_bg = findViewById(R.id.reset_pass_bg);
+        reset_pass_progress_bar = findViewById(R.id.resrt_pass_pg);
+        reset_pass_progress_bar.setVisibility(View.VISIBLE);
 
-        final FirebaseAuth auth = FirebaseAuth.getInstance();
+        String reset_pass_bg_URL="https://firebasestorage.googleapis.com/v0/b/abjad-a0f5e.appspot.com/o/backgrounds%2Fbgg.jpg?alt=media&token=f3eaa0cd-2a2e-4b5d-b865-2e8ec71decc1";
+
+        // Display signIn background
+        Picasso.get().load(reset_pass_bg_URL).fit().memoryPolicy(MemoryPolicy.NO_CACHE).into(reset_pass_bg,new Callback() {
+            @Override
+            public void onSuccess(){
+                reset_pass_progress_bar.setVisibility(View.INVISIBLE);
+            }
+
+            @Override
+            public void onError(Exception e) {
+
+            }
+
+        });
 
         err.setVisibility(View.INVISIBLE);
 
@@ -88,48 +108,48 @@ public class ResetPassword extends AppCompatActivity {
             public void onClick(View v) {
                 // take the user to the previous Activity
                 finish();
-                Intent intent = new Intent(ResetPassword.this, signin_new.class);
+                Intent intent = new Intent(getApplicationContext(), signin_new.class);
                 startActivity(intent);
             }
         });
 
-        node = "Educators";
+
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                final FirebaseAuth auth = FirebaseAuth.getInstance();
                 emailAddress = email.getText().toString();
+                System.out.println("email"+ emailAddress);
 
-                Query query = r.ref.child(node).orderByChild("email").equalTo(emailAddress);
-                query.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        if(dataSnapshot.exists()){
-                            err.setVisibility(View.INVISIBLE);
-                            auth.sendPasswordResetEmail(emailAddress)
-                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            if (task.isSuccessful()) {
-                                                Toast.makeText(getApplicationContext(),
-                                                        "تم إرسال رابط تعيين كلمة المرور على بريدك الإلكتروني", Toast.LENGTH_SHORT).show();
-                                            }
-                                        }
-                                    });
-                        }
-                        else{
-                            email.setError("الرجاء إدخال البريد الإلكتروني الذي قمت بالتسجيل به مسبقا");
-                            email.requestFocus();
-                            err.setVisibility(View.VISIBLE);
-                        }
-                    }
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
+                if(emailAddress.isEmpty()){
+                    email.setError("الرجاء إدخال البريد الإلكتروني الذي قمت بالتسجيل به مسبقا");
+                    email.requestFocus();
+                    err.setVisibility(View.VISIBLE);
+                    return;
+                }
 
-                    }
-                });
-            }
+                err.setVisibility(View.INVISIBLE);
+                auth.sendPasswordResetEmail(emailAddress)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(getApplicationContext(),
+                                            "تم إرسال رابط تعيين كلمة المرور على بريدك الإلكتروني", Toast.LENGTH_SHORT).show();
+                                    finish();
+                                    Intent intent = new Intent(getApplicationContext(), signin_new.class);
+                                    startActivity(intent);
+                                }
+                                else{
+                                    email.setError("الرجاء إدخال البريد الإلكتروني الذي قمت بالتسجيل به مسبقا");
+                                    email.requestFocus();
+                                    err.setVisibility(View.VISIBLE);
+                                }
+                            }
+                        });
+
+            }// onClick
         });
     }
 

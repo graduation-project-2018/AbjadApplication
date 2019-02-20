@@ -16,6 +16,8 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,6 +25,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 public class child_after_signin extends AppCompatActivity {
@@ -30,15 +36,17 @@ public class child_after_signin extends AppCompatActivity {
     menu_variables m = new menu_variables();
     ArrayList <children> children = new ArrayList<children>();
     TextView  noChildlabel;
+    FirebaseAuth Uath;
+    String id_edu;
     firebase_connection r = new firebase_connection();
     static String id_child ;
     childrenAdapter adapter;
     GridView gv;
     DatabaseReference db,db2;
-    ProgressBar loading;
+    ProgressBar loading, background_pg;
     Guideline gr,gl ;
     String x  ;
-    ImageView back;
+    ImageView back, background;
 
 
     @Override
@@ -55,7 +63,27 @@ public class child_after_signin extends AppCompatActivity {
         gl = findViewById(R.id.gridViewGL);
         gr = findViewById(R.id.gridView2GL);
         noChildlabel = findViewById(R.id.NoChildren);
-        noChildlabel.setText("لا يوجد أطفال مسجلين حاليا, لإضافة طفل جديد الرجاء الرجوع لقسم المربي");
+        background = findViewById(R.id.child_afterSignIn_bg);
+        background_pg = findViewById(R.id.child_afterSignIn_pg);
+        background_pg.setVisibility(View.VISIBLE);
+
+        String bg_URL = "https://firebasestorage.googleapis.com/v0/b/abjad-a0f5e.appspot.com/o/backgrounds%2Fbg.png?alt=media&token=09ef4269-f272-4528-a21c-856a8451990a";
+
+        // Display select user background
+        Picasso.get().load(bg_URL).fit().into(background,new Callback() {
+            @Override
+            public void onSuccess(){
+                background_pg.setVisibility(View.INVISIBLE);
+            }
+
+            @Override
+            public void onError(Exception e) {
+
+            }
+
+        });
+
+        noChildlabel.setText("لا يوجد أطفال مسجلين حالياً، لإضافة طفل جديد الرجاء الرجوع لقسم المربي");
         int screenSize = getResources().getConfiguration().screenLayout &
                 Configuration.SCREENLAYOUT_SIZE_MASK;
         switch(screenSize) {
@@ -81,7 +109,11 @@ public class child_after_signin extends AppCompatActivity {
 
         }//end of switch
 
+try{
+    id_edu = FirebaseAuth.getInstance().getCurrentUser().getUid();
+}catch (Exception e){
 
+}
 
 
 
@@ -94,9 +126,9 @@ public class child_after_signin extends AppCompatActivity {
         });
 
         // to avoid craching
-        if(signin_new.id_edu != null) {
+        if(id_edu != null) {
 
-            db = FirebaseDatabase.getInstance().getReference().child("educator_home").child(signin_new.id_edu).child("children");
+            db = FirebaseDatabase.getInstance().getReference().child("educator_home").child(id_edu).child("children");
             db.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -129,7 +161,7 @@ public class child_after_signin extends AppCompatActivity {
         }
     }//end of fetch_children function
     public void checkNumOfChildren(){
-        db2 = FirebaseDatabase.getInstance().getReference().child("educator_home").child(signin_new.id_edu).child("childrenNumber");
+        db2 = FirebaseDatabase.getInstance().getReference().child("educator_home").child(id_edu).child("childrenNumber");
         db2.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

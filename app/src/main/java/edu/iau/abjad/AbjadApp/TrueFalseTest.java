@@ -90,7 +90,12 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                Intent intent = new Intent(getApplicationContext(), unit_interface.class);
+                intent.putExtra("unitID",unitID);
+                intent.putExtra("preIntent","trueFalse");
+                setResult(RESULT_OK, intent);
+                finish();
+                startActivity(intent);
             }
         });
 
@@ -389,6 +394,22 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
 
     }
 
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        try{
+            test_sentence_audio.stop();
+            feedback_audio.stop();
+            test_sentence_audio.release();
+            feedback_audio.release();
+            anim.stop();
+        }catch(Exception e){
+
+        }
+
+    }
+
     public void setOnCompleteListener(MediaPlayer obj){
         obj.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
@@ -426,8 +447,10 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
         //Move to unit interface when child close the app while test or lesson
         Intent intent = new Intent(getApplicationContext(), unit_interface.class);
         intent.putExtra("unitID",unitID);
+        intent.putExtra("preIntent","trueFalse");
         setResult(RESULT_OK, intent);
         finish();
+        startActivity(intent);
 
     }
 

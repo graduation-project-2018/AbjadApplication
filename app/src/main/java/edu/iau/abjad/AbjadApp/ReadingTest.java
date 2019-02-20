@@ -186,25 +186,35 @@ public class ReadingTest extends child_menu {
                 test_audio.start();
             }
         });
+try{
+    feedback_audio.setOnPreparedListener(new MediaPlayer.OnPreparedListener(){
+        @Override
+        public void onPrepared(MediaPlayer player) {
+            // Called when the MediaPlayer is ready to play
 
-        feedback_audio.setOnPreparedListener(new MediaPlayer.OnPreparedListener(){
-            @Override
-            public void onPrepared(MediaPlayer player) {
-                // Called when the MediaPlayer is ready to play
-
-                if( child_score == 10){
-                    abjad.setBackgroundResource(R.drawable.abjad_happy);
-                    anim =(AnimationDrawable) abjad.getBackground();
-                }
-                anim.start();
-                feedback_audio.start();
+            if( child_score == 10){
+                abjad.setBackgroundResource(R.drawable.abjad_happy);
+                anim =(AnimationDrawable) abjad.getBackground();
             }
-        });
+            anim.start();
+            feedback_audio.start();
+        }
+    });
+
+}catch (Exception e){
+
+}
+
 
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                Intent intent = new Intent(getApplicationContext(), unit_interface.class);
+                intent.putExtra("unitID",unitID);
+                intent.putExtra("preIntent","readingTest");
+                setResult(RESULT_OK, intent);
+                finish();
+                startActivity(intent);
             }
         });
 
@@ -629,6 +639,20 @@ public class ReadingTest extends child_menu {
 
     }
 
+   /* @Override
+    protected void onPause() {
+        super.onPause();
+        try{
+            //mSpeechRecognizer.cancel();
+           // mSpeechRecognizer.destroy();
+            test_audio.release();
+            feedback_audio.release();
+            anim.stop();
+        }catch (Exception e){
+        }
+
+    }*/
+
     public void listen_word_feedback(int globalCost, int word_length, double max_match){
         if(globalCost == 1 && word_length ==3){
             playAudio_feedback(audio_URLs.perfect_only_one_mistake);
@@ -785,8 +809,10 @@ public class ReadingTest extends child_menu {
         //Move to unit interface when child close the app while test or lesson
         Intent intent = new Intent(getApplicationContext(), unit_interface.class);
         intent.putExtra("unitID",unitID);
+        intent.putExtra("preIntent","readingTest");
         setResult(RESULT_OK, intent);
         finish();
+        startActivity(intent);
 
     }
 

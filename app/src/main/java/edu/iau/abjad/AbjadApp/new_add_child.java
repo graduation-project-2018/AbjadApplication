@@ -71,7 +71,7 @@ public class new_add_child extends menu_educator {
         ps = Pattern.compile("^[a-zA-Z ]+$");
         radioGroup = (RadioGroup) findViewById(R.id.genderRadioGroup);
         addBtn = (Button)findViewById(R.id.addBtn);
-        intent = new Intent(this, new_child_photo.class);
+        intent = new Intent(getApplicationContext(), new_child_photo.class);
         genderError = (TextView)findViewById(R.id.genderEr);
         addBtn.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -177,7 +177,7 @@ public class new_add_child extends menu_educator {
         LayoutInflater inflater = this.getLayoutInflater();
         View mView = getLayoutInflater().inflate(R.layout.activity_adding_child_pop_up,null);
         Button ok_btn =  mView.findViewById(R.id.ok_btn);
-        i = new Intent(new_add_child.this, educator_home.class);
+        i = new Intent(getApplicationContext(), educator_home.class);
         mBuilder.setView(mView);
         final AlertDialog dialog = mBuilder.create();
         dialog.setCanceledOnTouchOutside(false);

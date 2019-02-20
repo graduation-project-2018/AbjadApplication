@@ -7,32 +7,17 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
+
 
 public class menu_educator extends AppCompatActivity {
     protected DrawerLayout mDrawerLayout;
@@ -106,7 +91,8 @@ public class menu_educator extends AppCompatActivity {
         home_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(menu_educator.this, educator_home.class);
+                Intent intent = new Intent(getApplicationContext(), educator_home.class);
+                finish();
                 startActivity(intent);
             }
         });
@@ -118,39 +104,40 @@ public class menu_educator extends AppCompatActivity {
                 switch (item.getItemId()){
                     case R.id.move_to_child_section:{
                         Intent intent = new Intent(getApplicationContext(), child_after_signin.class);
+                        finish();
                         startActivity(intent);
                         return true;
                     }
                     case R.id.edit_profile:{
                         Intent intent = new Intent(getApplicationContext(), educator_profile.class);
+                        finish();
                         startActivity(intent);
                         return true;
                     }
                     case R.id.change_pass:{
                         Intent intent = new Intent(getApplicationContext(), change_password.class);
+                        finish();
                         startActivity(intent);
                         return true;
                     }
                     case R.id.add_child:{
                         Intent intent = new Intent(getApplicationContext(), new_add_child.class);
+                        finish();
                         startActivity(intent);
                         return true;
-                    }
-                    case R.id.delete_edu:{
-                        popUpDelete();
-                        return true;
-
                     }
 
                     case R.id.sign_out:{
                         FirebaseAuth.getInstance().signOut();
                         Intent intent = new Intent(getApplicationContext(), signin_new.class);
+                        finish();
                         startActivity(intent);
                         return true;
 
                     }
                     case R.id.contact_us:{
                         Intent intent = new Intent(getApplicationContext(), contact_us.class);
+                        finish();
                         startActivity(intent);
 
 
@@ -179,119 +166,6 @@ public class menu_educator extends AppCompatActivity {
         return true;
     }
 
-    public void popUpDelete(){
-        AlertDialog.Builder mBuilder = new AlertDialog.Builder(menu_educator.this);
-        LayoutInflater inflater = this.getLayoutInflater();
-        View mView = getLayoutInflater().inflate(R.layout.activity_delete_popup,null);
-        Button cancel_btn = (Button) mView.findViewById(R.id.cancel_btn_delete);
-        Button  confirm= (Button) mView.findViewById(R.id.submit_btn_delete);
-        TextView label = (TextView)mView.findViewById(R.id.delete_label);
-
-        label.setText("هل أنت متأكد من حذف حسابك ؟");
-
-        mBuilder.setView(mView);
-        final AlertDialog dialog = mBuilder.create();
 
 
-        dialog.show();
-        Window window =dialog.getWindow();
-        window.setLayout(width,height);
-        cancel_btn.setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
-
-
-        confirm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                 final String edu_ID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                r.ref.child("Educators").child(edu_ID).removeValue().addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.e("NotFound edu", e.getMessage());
-                    }
-                });
-
-                r.ref.child("educator_home").child(edu_ID).removeValue().addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.e("NotFound", e.getMessage());
-                    }
-                });
-                r.ref.child("Children").addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        for (final DataSnapshot s : dataSnapshot.getChildren()) {
-                            final String childKey = s.getKey();
-                            final DatabaseReference child_eduhome = r.ref.child("Children").child(childKey).child("educator_id");
-                            final ValueEventListener eventListenerhome = new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-
-                                        String educator = s.child("Children").child(childKey).child("educator_id").getValue(String.class);
-                                        if (educator.equals(edu_ID)) {
-                                            r.ref.child("Children").child(childKey).removeValue().addOnFailureListener(new OnFailureListener() {
-                                                @Override
-                                                public void onFailure(@NonNull Exception e) {
-                                                    Log.e("NotFound",e.getMessage());
-                                                }
-                                            });
-
-                                            r.ref.child("child_takes_lesson").child(childKey).removeValue().addOnFailureListener(new OnFailureListener() {
-                                                @Override
-                                                public void onFailure(@NonNull Exception e) {
-                                                    Log.e("NotFound",e.getMessage());
-                                                }
-                                            });
-                                            r.ref.child("child_takes_test").child(childKey).removeValue().addOnFailureListener(new OnFailureListener() {
-                                                @Override
-                                                public void onFailure(@NonNull Exception e) {
-                                                    Log.e("NotFound",e.getMessage());
-                                                }
-                                            });
-                                        }
-                                    }
-
-
-                                }
-
-                                @Override
-                                public void onCancelled(DatabaseError databaseError) {
-
-                                }
-                            };
-                            child_eduhome.addValueEventListener(eventListenerhome);
-
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-                final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Intent usr = new Intent(getApplicationContext(), signin_new.class);
-                            startActivity(usr);
-                            finish();
-                            Toast.makeText(menu_educator.this, "تم حذف المستخدم بنجاح", Toast.LENGTH_LONG).show();
-
-                        } else {
-                            Log.e("Error", "deletion");
-                        }
-
-                    }
-
-
-                });
-
-            }
-        }); }}
+}// end class

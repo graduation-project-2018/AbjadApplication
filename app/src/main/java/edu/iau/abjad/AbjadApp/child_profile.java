@@ -37,6 +37,8 @@ public class child_profile extends child_menu {
     firebase_connection r;
     child_info_new child;
     DatabaseReference read;
+    FirebaseAuth Uath;
+    String edu_id;
     Button saveChanges;
     Pattern ArabicLetters;
     String oldFname;
@@ -86,6 +88,9 @@ public class child_profile extends child_menu {
                 onBackPressed();
             }
         });
+
+        //get educator id;
+        edu_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         int screenSize = getResources().getConfiguration().screenLayout &
                 Configuration.SCREENLAYOUT_SIZE_MASK;
@@ -179,6 +184,7 @@ public class child_profile extends child_menu {
 
                 r.ref.child("Children").child(child_after_signin.id_child).child("first_name").setValue(newFname);
                 r.ref.child("Children").child(child_after_signin.id_child).child("last_name").setValue(newLname);
+                r.ref.child("educator_home").child(edu_id).child("children").child(child_after_signin.id_child).child("first_name").setValue(newFname);
                 Toast.makeText(child_profile.this, " تم حفظ التغييرات بنجاح", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getApplicationContext(),child_home.class);
                 startActivity(intent);

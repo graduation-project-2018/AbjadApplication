@@ -163,7 +163,12 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-             onBackPressed();
+                Intent intent = new Intent(getApplicationContext(), unit_interface.class);
+                intent.putExtra("unitID",unitID);
+                intent.putExtra("preIntent","Lesson");
+                setResult(RESULT_OK, intent);
+                finish();
+                startActivity(intent);
             }
         });
 
@@ -179,7 +184,6 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                 nextLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,32);
                 prevLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,32);
                 m.setTitle_XLarge();
-                Log.i("scsize","X Large" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_LARGE:
                 word_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,60);
@@ -187,7 +191,6 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                 nextLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,22);
                 prevLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,22);
                 m.setTitle_Large();
-                Log.i("scsize","Large" );
 
                 break;
             case Configuration.SCREENLAYOUT_SIZE_NORMAL:
@@ -196,7 +199,6 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                 nextLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
                 prevLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
                 m.setTitle_Normal();
-                Log.i("scsize","Normal" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_SMALL:
                 word_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
@@ -204,7 +206,6 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                 nextLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,8);
                 prevLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,8);
                 m.setTitle_Small();
-                Log.i("scsize","Small" );
                 break;
             default:
                 word_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
@@ -266,7 +267,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
 
                                     check_alef();
                                     check_ta();
-                                    Picasso.get().load(wordsArrayList.get(words_counter).pic_file).
+                                    Picasso.get().load(wordsArrayList.get(words_counter).pic_file).fit().
                                             memoryPolicy(MemoryPolicy.NO_CACHE).into(lesson_pic,new Callback() {
                                         @Override
                                         public void onSuccess(){
@@ -282,29 +283,33 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                                     playAudio(audio_URLs.lesson_begin);
                                     loading_label.setVisibility(View.INVISIBLE);
 
+                                    try{
+                                        // On complete listener that fire when the instruction audio finish to start the lesson audio.
+                                        lesson_audio.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                                            @Override
+                                            public void onCompletion(MediaPlayer mediaPlayer) {
+                                                //this flag to prevent calling this method multiple times.
+                                                if(flag == false)
+                                                    return;
 
-                                    // On complete listener that fire when the instruction audio finish to start the lesson audio.
-                                    lesson_audio.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                                        @Override
-                                        public void onCompletion(MediaPlayer mediaPlayer) {
-                                            //this flag to prevent calling this method multiple times.
-                                            if(flag == false)
-                                                return;
+                                                anim.stop();
+                                                flag = false;
 
-                                            anim.stop();
-                                            flag = false;
+                                                try{
+                                                    a1.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                                                    a1.setDataSource(wordsArrayList.get(words_counter).audio_file);
+                                                    a1.prepareAsync();
+                                                }catch (Exception e){
 
-                                         try{
-                                             a1.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                                             a1.setDataSource(wordsArrayList.get(words_counter).audio_file);
-                                             a1.prepareAsync();
-                                         }catch (Exception e){
+                                                }
+                                                startTime = Calendar.getInstance().getTimeInMillis();
 
-                                         }
-                                            startTime = Calendar.getInstance().getTimeInMillis();
+                                            }
+                                        });
+                                    }catch(Exception e){
 
-                                        }
-                                    });
+                                    }
+
 
                                   setOnCompleteListener(a1);
 
@@ -414,7 +419,6 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
 
                                     @Override
                                     public void onCancelled(DatabaseError databaseError) {
-                                        Log.w(null, "Failed to read value.", databaseError.toException());
                                     }
                                 });
                             }
@@ -422,18 +426,14 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                             @Override
                             public void onCancelled(DatabaseError error) {
                                 // Failed to read value
-                                Log.w(null, "Failed to read value.", error.toException());
                             }
                         });
                     }
                 }
-                else{
-                    Log.d( "1","Not Exist!!!!!");
-                }
+
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.w(" ", "loadPost:onCancelled", databaseError.toException());
             }
         });
 
@@ -453,33 +453,30 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
             mSpeechRecognizer.setRecognitionListener(new RecognitionListener() {
                 @Override
                 public void onReadyForSpeech(Bundle bundle) {
-                    Log.d("5"," onReadyForSpeech function");
                 }
 
                 @Override
                 public void onBeginningOfSpeech() {
-                    Log.d("5"," onBeginningOfSpeech function");
+
                 }
 
                 @Override
                 public void onRmsChanged(float v) {
-                    Log.d("4"," on onRmsChanged fuction");
+
                 }
 
                 @Override
                 public void onBufferReceived(byte[] bytes) {
-                    Log.d("4"," on Buffer Received fuction");
+
                 }
 
                 @Override
                 public void onEndOfSpeech() {
-                    Log.d("3"," At end of speech function");
 
                 }
 
                 @Override
                 public void onError(int i) {
-                    Log.d("6"," On Error function");
                     if(isEndOfSpeech){
                         return;
                     }
@@ -540,14 +537,14 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                     ArrayList<String> matches = bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
                     float[] scores = bundle.getFloatArray(SpeechRecognizer.CONFIDENCE_SCORES);
                     for (int i =0 ; i < scores.length ;i++){
-                        Log.d( "1" ,"confidence scores " + scores[i]);
+                       // Log.d( "1" ,"confidence scores " + scores[i]);
                     }
 
 
 
                     // find the phrase exactly
                     for(int i =0 ; i< matches.size(); i++){
-                        Log.d("2", "Results " + matches.get(i));
+                       // Log.d("2", "Results " + matches.get(i));
                         if(matches.get(i).compareTo(word)== 0){
                             Log.d("2", "Matching true!! ");
                             fullScore();
@@ -683,14 +680,14 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
             lesson_audio.prepareAsync();
         }
         catch (IOException e){
-            Log.d("5","inside IOException ");
+           // Log.d("5","inside IOException ");
         }
         catch (IllegalArgumentException e){
-            Log.d("5"," inside IllegalArgumentException");
+          //  Log.d("5"," inside IllegalArgumentException");
         }
         catch (Exception e) {
             e.printStackTrace();
-            Log.d("5","Inside exception");
+          //  Log.d("5","Inside exception");
         }
     }
     public void playAudioInstructions(String url){
@@ -702,14 +699,14 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
 
         }
         catch (IOException e){
-            Log.d("5","inside IOException ");
+           // Log.d("5","inside IOException ");
         }
         catch (IllegalArgumentException e){
-            Log.d("5"," inside IllegalArgumentException");
+           // Log.d("5"," inside IllegalArgumentException");
         }
         catch (Exception e) {
             e.printStackTrace();
-            Log.d("5","Inside exception");
+           // Log.d("5","Inside exception");
         }
     }
     @Override
@@ -725,14 +722,25 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
             mSpeechRecognizer.cancel();
             mSpeechRecognizer.destroy();
             anim.stop();
-
-
-            System.out.println("onStop function");
         }catch (Exception e){
-            System.err.println("Unable to stop activity");
         }
 
     }
+
+  /*  @Override
+    protected void onPause() {
+        super.onPause();
+        try{
+            lesson_audio.release();
+            audio_instruction.release();
+            a1.release();
+            //mSpeechRecognizer.cancel();
+           // mSpeechRecognizer.destroy();
+            anim.stop();
+        }catch (Exception e){
+        }
+
+    }*/
     public void check_alef(){
         if(word.indexOf('أ')!= -1 || word.indexOf('إ')!= -1 || word.indexOf('آ')!= -1){
             word = word.replace('أ','ا');
@@ -845,8 +853,11 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
         //Move to unit interface when child close the app while test or lesson
         Intent intent = new Intent(getApplicationContext(), unit_interface.class);
         intent.putExtra("unitID",unitID);
+        intent.putExtra("preIntent","Lesson");
         setResult(RESULT_OK, intent);
         finish();
+        startActivity(intent);
+
 
 
     }
@@ -995,9 +1006,8 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                 abjad.setBackgroundResource(R.drawable.abjad_speak);
                 anim =(AnimationDrawable) abjad.getBackground();
                 if(move_child){
-                    Intent intent = new Intent(Lesson.this, unit_interface.class);
+                    Intent intent = new Intent(getApplicationContext(), unit_interface.class);
                     intent.putExtra("unitID",unitID);
-                    Log.i("unitID with move", unitID);
                     setResult(RESULT_OK, intent);
                     finish();
 
@@ -1029,7 +1039,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
             word_label.setVisibility(View.VISIBLE);
             sentence_label.setVisibility(View.INVISIBLE);
             word_label.setText(word);
-            Picasso.get().load(wordsArrayList.get(words_counter).pic_file).memoryPolicy(MemoryPolicy.NO_CACHE).into(lesson_pic,new Callback() {
+            Picasso.get().load(wordsArrayList.get(words_counter).pic_file).fit().memoryPolicy(MemoryPolicy.NO_CACHE).into(lesson_pic,new Callback() {
                 @Override
                 public void onSuccess(){
                     lesson_pic_progress_bar.setVisibility(View.INVISIBLE);
@@ -1047,7 +1057,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
             sentence_label.setVisibility(View.VISIBLE);
             word = wordsArrayList.get(words_counter).content;
             sentence_label.setText(word);
-            Picasso.get().load(wordsArrayList.get(words_counter).pic_file).memoryPolicy(MemoryPolicy.NO_CACHE).into(lesson_pic,new Callback() {
+            Picasso.get().load(wordsArrayList.get(words_counter).pic_file).fit().memoryPolicy(MemoryPolicy.NO_CACHE).into(lesson_pic,new Callback() {
                 @Override
                 public void onSuccess(){
                     lesson_pic_progress_bar.setVisibility(View.INVISIBLE);
@@ -1065,12 +1075,13 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
             if(child_skip_exercise){
                 computeChildScore();
             }
-            Intent intent = new Intent(Lesson.this, unit_interface.class);
+            Intent intent = new Intent(getApplicationContext(), unit_interface.class);
             intent.putExtra("unitID",unitID);
             intent.putExtra("preIntent","Lesson");
             setResult(RESULT_OK, intent);
-            startActivity(intent);
             finish();
+            startActivity(intent);
+
         }
         check_alef();
         check_ta();
@@ -1088,12 +1099,14 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                 anim.start();
                 audio_instruction.start();
                     score_img.setVisibility(View.VISIBLE);
-                 Picasso.get().load(image).into(score_img);
+                 Picasso.get().load(image).fit().into(score_img);
 
 
             }
         });
     }
+
+
 
 
 

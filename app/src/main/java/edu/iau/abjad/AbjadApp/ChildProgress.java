@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,8 +26,8 @@ public class ChildProgress extends menu_educator {
     private TextView nDoneTest;
     private TextView highestScoreTest;
     private firebase_connection lesson_unloked,lesson,lesson_comp,letterLesson;
-    private firebase_connection test,nTest;
-    private firebase_connection child,deleteChild_Children,deleteChild_edu,deleteChild_lesson,deleteChild_test;
+    private firebase_connection test;
+    private firebase_connection child;
     private String childID;
     private   String name;
     private long unlookedLesson,testNo;
@@ -77,11 +76,6 @@ public class ChildProgress extends menu_educator {
         child = new firebase_connection();
         Bundle b=getIntent().getExtras();
         childID=b.getString("child_ID");
-        deleteChild_Children=new firebase_connection();
-        deleteChild_edu=new firebase_connection();
-        deleteChild_lesson=new firebase_connection();
-        deleteChild_test=new firebase_connection();
-        nTest=new firebase_connection();
         dleastTime=100000.00;
         sLeastTime="";
         sHighstScoreLesson="";
@@ -96,10 +90,6 @@ public class ChildProgress extends menu_educator {
         small = 10;
         default_size = 16;
         lastName="";
-
-        final String lessonh="";
-        final Intent educatorHome=new Intent(this,educator_home.class);
-        final Intent changePassword =new Intent(this, change_password.class );
 
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -201,7 +191,7 @@ public class ChildProgress extends menu_educator {
                 highestScoreTest.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
                 m.setTitle_Default();
         }
-        final Intent c=new Intent(this,select_user_type.class);
+
         child.ref.child("Children").child(childID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -223,7 +213,6 @@ public class ChildProgress extends menu_educator {
 
                 for (final DataSnapshot snapshot:dataSnapshot.getChildren()){
                     final String unitId=snapshot.getKey();
-                    Log.i("unitId",unitId);
                     if (unitId!=null){
                         DatabaseReference nLeson=lesson_unloked.ref.child(childID).child(unitId);
                         ValueEventListener unlokedLessonNo_Event=new ValueEventListener() {
@@ -233,7 +222,6 @@ public class ChildProgress extends menu_educator {
                                 nUnlokedLesson.setText(unlookedLesson+" ");
                                 for(final DataSnapshot s:snapshot.getChildren()){
                                     final String lessonKey=s.getKey();
-                                    Log.i("lessonKey",s.getKey()+" ");
                                     DatabaseReference complete=lesson_comp.ref.child(childID).child(unitId).child(lessonKey);
                                     ValueEventListener completeEvent=new ValueEventListener() {
                                         @Override
@@ -251,7 +239,6 @@ public class ChildProgress extends menu_educator {
 
                                                     lett=dataSnapshot.child(lessonKey)
                                                             .child("lesson_letter").getValue().toString();
-                                                    Log.i("time",dTime+" m");
                                                     if(status.equals("مكتمل")){
                                                         icomplete++;
                                                     }
@@ -286,7 +273,6 @@ public class ChildProgress extends menu_educator {
                                                     nTimer.setText(dleastTime+" "+(dleastTime<1?"ثانية":" دقيقة"));
                                                     highestScoreLesson.setText(ihighestLessonScore+" /7");
                                                     nDoneLesson.setText(icomplete+" ");
-                                                    Log.i("status",status);
                                                 }
 
                                                 @Override
@@ -333,7 +319,6 @@ public class ChildProgress extends menu_educator {
 
                 for (final DataSnapshot snapshot:dataSnapshot.getChildren()){
                     final String unitId=snapshot.getKey();
-                    Log.i("unitId",unitId);
                     if (unitId!=null){
                         DatabaseReference nLeson=lesson_unloked.ref.child(childID).child(unitId);
                         ValueEventListener unlokedLessonNo_Event=new ValueEventListener() {
@@ -343,7 +328,6 @@ public class ChildProgress extends menu_educator {
                                 nDoneTest.setText(testNo+" ");
                                 for(final DataSnapshot s:snapshot.getChildren()){
                                     final String TestId=s.getKey();
-                                    Log.i("lessonKey",s.getKey()+" ");
                                     DatabaseReference complete=lesson_comp.ref.child(childID).child(unitId).child(TestId);
                                     ValueEventListener completeEvent=new ValueEventListener() {
                                         @Override
@@ -354,21 +338,16 @@ public class ChildProgress extends menu_educator {
                                                 @Override
                                                 public void onDataChange(DataSnapshot dataSnapshot1) {
                                                     final int iTestScore=s.child("score").getValue(Integer.class);
-                                                    Log.i("TestID",TestId);
-                                                    Log.i("TestID",dataSnapshot1.child(TestId).child("test_letters").getValue(String.class)+" ");
+
 
                                                     lettTest=dataSnapshot1.child(TestId).child("test_letters").getValue().toString();
-                                                    Log.i("dsdasd",lettTest+"" );
                                                     if(iTestScore>=ihighestScore){
-                                                        Log.i("score",iTestScore+ " ");
                                                         ihighestScore=iTestScore;
 
                                                         // sHighstScoreTest=lettTest+" ";
                                                         testScore.add(new childUnitInfo(iTestScore,lettTest,dTime));
 
                                                     }
-
-                                                    Log.i("score3",ihighestScore+ " ");
                                                     for(childUnitInfo child: testScore){
                                                         if(ihighestScore==child.score&& (!sHighstScoreTest.contains(child.letters))){
                                                             sHighstScoreTest+=child.letters+" / ";
@@ -377,9 +356,8 @@ public class ChildProgress extends menu_educator {
                                                     if(sHighstScoreTest.length()!=0) {
                                                         //sHighstScoreTest.replace("_","،");
                                                         // sHighstScoreTest=
-                                                        Log.i("sHighstScore",sHighstScoreTest.substring(0,sHighstScoreTest.length()-1));
+                                                       // Log.i("sHighstScore",sHighstScoreTest.substring(0,sHighstScoreTest.length()-1));
                                                     }
-                                                    Log.i("fffff",sHighstScoreTest+" ");
                                                     highestScoreTest.setText(ihighestScore+" /10");
                                                 }
                                                 @Override
@@ -421,58 +399,6 @@ public class ChildProgress extends menu_educator {
             }
         });
 
-       /* test.ref.child("child_takes_test").child(childID).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(final DataSnapshot dataSnapshot) {
-                for(final DataSnapshot snshot:dataSnapshot.getChildren()){
-                    final String unitId_test=snshot.getKey();
-                    Log.i("unitIDTest",unitId_test);
-                    if (unitId_test!=null){
-                        DatabaseReference test_done=nTest.ref.child(childID).child(unitId_test);
-                        ValueEventListener unlokedLessonNo_Event=new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot2) {
-                                testNo+=snshot.child(unitId_test).getChildrenCount();
-                                Log.i("TesNo",testNo+" "+snshot.child(unitId_test).getChildrenCount());
-                                nDoneTest.setText(testNo+" ");
-                                Log.i("unitIDTest",unitId_test);
-                                Log.i("Tests",snshot.child(unitId_test).getChildrenCount()+" ");
-                                for(final DataSnapshot s:snshot.getChildren()) {
-                                    final String testKey = s.getKey();
-                                    Log.i("lessonKey", s.getKey() + " ");
-                                    final DatabaseReference highestScore = lesson_comp.ref.child(childID).child(unitId_test).child(testKey);
-                                    ValueEventListener TestEvent = new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(DataSnapshot dataSnapshot) {
-                                            int iscore = s.child("score").getValue(Integer.class);
-                                            if (iscore > ihighestScore) {
-                                                ihighestScore = iscore;
-
-                                            }
-
-                                            highestScoreTest.setText(ihighestScore + " ");
-                                            Log.i("score", iscore + " /10");
-                                        }
-
-                                        @Override
-                                        public void onCancelled(DatabaseError databaseError) {
-
-                                        }
-                                    };
-                                    highestScore.addValueEventListener(TestEvent);
-                                } }
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-                        };test_done.addValueEventListener(unlokedLessonNo_Event);
-                    }}}
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });*/
     }
 
     private String arabicToDecimal(String number) {

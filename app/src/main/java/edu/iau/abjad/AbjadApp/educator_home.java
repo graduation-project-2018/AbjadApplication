@@ -23,8 +23,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.exoplayer2.source.dash.manifest.UtcTimingElement;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -39,6 +41,7 @@ import java.util.ArrayList;
 public class educator_home extends menu_educator {
     menu_variables m = new menu_variables();
     Button btn;
+    String id_edu;
    firebase_connection r = new firebase_connection();
    ArrayList <children> children = new ArrayList<children>();
    childrenAdapter adapter;
@@ -67,16 +70,18 @@ public class educator_home extends menu_educator {
         View contentView = inflater.inflate(R.layout.activity_educator_home, null, false);
 
         mDrawerLayout.addView(contentView, 0);
-        btn = (Button) findViewById(R.id.add_new_child_btn);
+        btn = findViewById(R.id.add_new_child_btn);
 
-        gv = (GridView)findViewById(R.id.gv);
+        gv = findViewById(R.id.gv);
         gv.setNumColumns(2);
         first_time = true;
-        label = (TextView) findViewById(R.id.NoChildren);
-        label.setText("لا يوجد لديك أطفال مسجلين حاليا, لإضافة طفل جديد لطفا اضغط زر الإضافة");
+        label = findViewById(R.id.NoChildren);
+        label.setText("لا يوجد لديك أطفال مسجلين حالياً، لإضافة طفل جديد لطفاً اضغط زر الإضافة.");
         gl = findViewById(R.id.gridViewGL);
         gr = findViewById(R.id.gridView2GL);
         loading = findViewById(R.id.loading);
+
+        id_edu = FirebaseAuth.getInstance().getCurrentUser().getUid();
         int screenSize = getResources().getConfiguration().screenLayout &
                 Configuration.SCREENLAYOUT_SIZE_MASK;
 
@@ -105,15 +110,14 @@ public class educator_home extends menu_educator {
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 finish();
-                startActivity(new Intent(educator_home.this,select_user_type.class));
+                startActivity(new Intent(getApplicationContext(),select_user_type.class));
             }
         });
         // to avoid craching
 
-        if(signin_new.id_edu != null) {
-            db = FirebaseDatabase.getInstance().getReference().child("educator_home").child(signin_new.id_edu).child("children");
+        if(id_edu != null) {
+            db = FirebaseDatabase.getInstance().getReference().child("educator_home").child(id_edu).child("children");
             db.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -134,7 +138,8 @@ public class educator_home extends menu_educator {
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(educator_home.this, new_add_child.class);
+                    Intent intent = new Intent(getApplicationContext(), new_add_child.class);
+                    finish();
                     startActivity(intent);
 
                 }
@@ -225,11 +230,11 @@ public void children_changed(DataSnapshot dataSnapshot, String status){
     @Override
     public void onBackPressed() {
         finish();
-        startActivity(new Intent(educator_home.this,select_user_type.class));
+        startActivity(new Intent(getApplicationContext(),select_user_type.class));
     }
 
     public void checkNumOfChildren(){
-        db2 = FirebaseDatabase.getInstance().getReference().child("educator_home").child(signin_new.id_edu).child("childrenNumber");
+        db2 = FirebaseDatabase.getInstance().getReference().child("educator_home").child(id_edu).child("childrenNumber");
         db2.addListenerForSingleValueEvent(new ValueEventListener() {
 
             @Override

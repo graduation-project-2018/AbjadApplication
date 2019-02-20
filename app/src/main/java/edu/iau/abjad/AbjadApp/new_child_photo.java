@@ -26,9 +26,12 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Callback;
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -39,6 +42,8 @@ public class new_child_photo extends menu_educator  {
     private ImageView childImg;
     private ImageView next;
     private ImageView pre;
+    DatabaseReference db2;
+    String id_edu;
     private ArrayList<String> imgsUri;
     private firebase_connection FBchildPhotoUri, r;
     private int imgCont;
@@ -51,7 +56,8 @@ public class new_child_photo extends menu_educator  {
     String gender;
     String category;
     ProgressBar loading;
-    int width, height;
+    int width, height,current_child_number;
+    String x;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +77,8 @@ public class new_child_photo extends menu_educator  {
         FBchildPhotoUri = new firebase_connection();
         imgIndex = 0;
         photo_url="";
+        x="";
+        current_child_number =0;
         loading = findViewById(R.id.loading);
         addChild = findViewById(R.id.addChild);
         r=new firebase_connection();
@@ -81,6 +89,26 @@ public class new_child_photo extends menu_educator  {
             completeObj=(child_info_new)childObj.getSerializable("object");
             gender = completeObj.gender;
         }
+        id_edu = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        db2 = FirebaseDatabase.getInstance().getReference().child("educator_home").child(id_edu).child("childrenNumber");
+        db2.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    x = dataSnapshot.getValue().toString();
+                    current_child_number = Integer.parseInt(x);
+
+                } else {
+                    x = "0";
+                    current_child_number = Integer.parseInt(x);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
 
         int screenSize = getResources().getConfiguration().screenLayout &
                 Configuration.SCREENLAYOUT_SIZE_MASK;
@@ -166,11 +194,11 @@ public class new_child_photo extends menu_educator  {
                         // get random ID from firebase, then use that ID to add the new child
                         String push_id = r.ref.push().getKey();
                         r.ref.child("Children").child(push_id).setValue(completeObj);
-                        r.ref.child("Children").child(push_id).child("educator_id").setValue(signin_new.id_edu);
-                        signin_new.current_child_number++;
-                        r.ref.child("educator_home").child(signin_new.id_edu).child("childrenNumber").setValue( signin_new.current_child_number.toString());
-                        r.ref.child("educator_home").child(signin_new.id_edu).child("children").child(push_id).child("photo_URL").setValue(photo_url);
-                        r.ref.child("educator_home").child(signin_new.id_edu).child("children").child(push_id).child("first_name").setValue(completeObj.first_name);
+                        r.ref.child("Children").child(push_id).child("educator_id").setValue(id_edu);
+                        current_child_number++;
+                        r.ref.child("educator_home").child(id_edu).child("childrenNumber").setValue(current_child_number);
+                        r.ref.child("educator_home").child(id_edu).child("children").child(push_id).child("photo_URL").setValue(photo_url);
+                        r.ref.child("educator_home").child(id_edu).child("children").child(push_id).child("first_name").setValue(completeObj.first_name);
                         Toast.makeText(getApplicationContext(), "تمت إضافة الطفل بنجاح", Toast.LENGTH_LONG).show();
                         popUp_move_or_add();
 
@@ -237,7 +265,7 @@ public class new_child_photo extends menu_educator  {
     }
     public void hide_loading_label(){
 
-        Picasso.get().load(imgsUri.get(imgIndex))
+        Picasso.get().load(imgsUri.get(imgIndex)).fit().memoryPolicy(MemoryPolicy.NO_CACHE)
                 .into(childImg, new Callback() {
                     @Override
                     public void onSuccess() {
@@ -271,6 +299,8 @@ public class new_child_photo extends menu_educator  {
 
         mBuilder.setView(mView);
         final AlertDialog dialog = mBuilder.create();
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setCancelable(false);
         dialog.show();
         Window window =dialog.getWindow();
         window.setLayout(width,height);

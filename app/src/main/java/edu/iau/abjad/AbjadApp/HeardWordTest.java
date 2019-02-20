@@ -174,7 +174,12 @@ public class HeardWordTest extends child_menu  {
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                Intent intent = new Intent(getApplicationContext(), unit_interface.class);
+                intent.putExtra("unitID",unitID);
+                intent.putExtra("preIntent","heardTest");
+                setResult(RESULT_OK, intent);
+                finish();
+                startActivity(intent);
             }
         });
 
@@ -451,13 +456,20 @@ public class HeardWordTest extends child_menu  {
     protected void onStop() {
         super.onStop();
         test_audio.release();
-        test_audio.release();
-        audio_feedback.reset();
         audio_feedback.release();
         test_audio = null;
         audio_feedback = null;
         anim.stop();
-        System.out.println("inside onStop inside test");
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        test_audio.release();
+        audio_feedback.release();
+        anim.stop();
+
     }
 
     public void setOnCompleteListener(MediaPlayer obj){
@@ -497,8 +509,10 @@ public class HeardWordTest extends child_menu  {
         //Move to unit interface when child close the app while test or lesson
         Intent intent = new Intent(getApplicationContext(), unit_interface.class);
         intent.putExtra("unitID",unitID);
+        intent.putExtra("preIntent","heardTest");
         setResult(RESULT_OK, intent);
         finish();
+        startActivity(intent);
 
     }
 
@@ -537,8 +551,9 @@ public class HeardWordTest extends child_menu  {
             Rand.remove(nextTest);
             nextTest.putExtra("Rand",Rand);
             nextTest.putExtra("first_signIn", first_signIn);
-            startActivity(nextTest);
             finish();
+            startActivity(nextTest);
+
 
         }
         else{
@@ -551,8 +566,9 @@ public class HeardWordTest extends child_menu  {
             setResult(RESULT_OK, intent);
             System.out.println("Testttt ID: "+ test_id);
             m.test_score(test_id,unitID, startTime);
-            startActivity(intent);
             finish();
+            startActivity(intent);
+
         }
 
     }

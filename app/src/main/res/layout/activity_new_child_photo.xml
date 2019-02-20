@@ -163,7 +163,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent="0.295" />
+        app:layout_constraintGuide_percent="0.37" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline8"
@@ -171,7 +171,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent="0.7" />
+        app:layout_constraintGuide_percent="0.64" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline9"
