@@ -4,23 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
-import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
@@ -75,8 +65,8 @@ public class child_home extends child_menu {
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
                 startActivity(new Intent(getApplicationContext(),child_after_signin.class));
+                finish();
             }
         });
 
@@ -176,8 +166,8 @@ public class child_home extends child_menu {
                 intentOfUnit.putExtra("preIntent","childHome");
                 intentOfUnit.putExtra("first_signIn", first_signIn);
                 setResult(RESULT_OK,intentOfUnit);
-                finish();
                 startActivity(intentOfUnit);
+                finish();
             }
         });
         family.setOnClickListener(new View.OnClickListener() {
@@ -189,8 +179,8 @@ public class child_home extends child_menu {
                 intentOfUnit.putExtra("preIntent","childHome");
                 intentOfUnit.putExtra("first_signIn", first_signIn);
                 setResult(RESULT_OK,intentOfUnit);
-                finish();
                 startActivity(intentOfUnit);
+                finish();
             }
         });
         homeLand.setOnClickListener(new View.OnClickListener() {
@@ -202,16 +192,16 @@ public class child_home extends child_menu {
                 intentOfUnit.putExtra("preIntent","childHome");
                 intentOfUnit.putExtra("first_signIn", first_signIn);
                 setResult(RESULT_OK,intentOfUnit);
-                finish();
                 startActivity(intentOfUnit);
+                finish();
             }
         });
     }
 
     @Override
     public void onBackPressed() {
-        finish();
         startActivity(new Intent(getApplicationContext(),child_after_signin.class));
+        finish();
     }
 }
 

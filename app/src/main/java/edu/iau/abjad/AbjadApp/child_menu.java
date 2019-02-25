@@ -31,13 +31,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -87,7 +82,11 @@ public class child_menu extends AppCompatActivity {
         current_child_number =0;
         x="";
 
-        id_edu = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        try{
+            id_edu = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        }catch (Exception e){
+
+        }
 
         db2 = FirebaseDatabase.getInstance().getReference().child("educator_home").child(id_edu).child("childrenNumber");
         db2.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -113,27 +112,22 @@ public class child_menu extends AppCompatActivity {
             case Configuration.SCREENLAYOUT_SIZE_XLARGE:
                 width = 820;
                 height = 520;
-                Log.i("scsize","X Large" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_LARGE:
                 width = 820;
                 height = 520;
-                Log.i("scsize","Large" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_NORMAL:
                 width = 1300;
                 height = 700;
-                Log.i("scsize","Normal" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_SMALL:
-                Log.i("scsize","Small" );
                 width = 1300;
                 height = 700;
                 break;
             default:
                 width = 1000;
                 height = 600;
-                Log.i("scsize","Default screen" );
         }//end switch
 
 
@@ -155,8 +149,8 @@ public class child_menu extends AppCompatActivity {
                 switch (item.getItemId()){
                     case R.id.edit_profile:{
                         Intent intent = new Intent(getApplicationContext(), change_profile_photo.class);
-                        finish();
                         startActivity(intent);
+                        finish();
                         return true;
                     }
 
@@ -171,17 +165,16 @@ public class child_menu extends AppCompatActivity {
                     }
 
                     case R.id.sign_out:{
-                        finish();
                         Intent intent = new Intent(getApplicationContext(), select_user_type.class);
-                        finish();
                         startActivity(intent);
+                        finish();
                         return true;
                     }
                     case R.id.lesson_um:{
                         Intent intent = new Intent(getApplicationContext(), um.class);
                         intent.putExtra("Lessonltr","");
-                        finish();
                         startActivity(intent);
+                        finish();
                         return true;
                     }
 
@@ -197,8 +190,8 @@ public class child_menu extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), child_home.class);
-                finish();
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -257,8 +250,8 @@ public class child_menu extends AppCompatActivity {
                                                     else if(i==4){
                                                         Intent intent = new Intent(getApplicationContext(), child_profile.class);
                                                         intent.putExtra("email", edu_email);
-                                                        finish();
                                                         startActivity(intent);
+                                                        finish();
 
                                                     }
                                                 } else {
@@ -277,8 +270,8 @@ public class child_menu extends AppCompatActivity {
 
                             } else {
                                 Intent usr = new Intent(getApplicationContext(), signin_new.class);
-                                finish();
                                 startActivity(usr);
+                                finish();
                                 Toast.makeText(getApplicationContext(), "تم حذف الطفل بنجاح", Toast.LENGTH_LONG).show();
 
                             }
@@ -376,10 +369,10 @@ public class child_menu extends AppCompatActivity {
                                         };child_eduhome.addValueEventListener(eventListenerhome);
 
                                     }
-                                    finish();
                                     Toast.makeText(getApplicationContext(),"تم حذف الطفل بنجاح",Toast.LENGTH_LONG).show();
                                     Intent usr=new Intent(getApplicationContext(),child_after_signin.class);
                                     startActivity(usr);
+                                    finish();
 
                                 }
 

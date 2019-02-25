@@ -94,8 +94,8 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
                 intent.putExtra("unitID",unitID);
                 intent.putExtra("preIntent","trueFalse");
                 setResult(RESULT_OK, intent);
-                finish();
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -120,23 +120,23 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
             case Configuration.SCREENLAYOUT_SIZE_XLARGE:
                 sentenceLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,60);
                 m.setTitle_XLarge();
-                Log.i("scsize","X Large" );
+              //  Log.i("scsize","X Large" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_LARGE:
                 sentenceLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,50);
                 m.setTitle_Large();
-                Log.i("scsize","Large" );
+             //   Log.i("scsize","Large" );
 
                 break;
             case Configuration.SCREENLAYOUT_SIZE_NORMAL:
                 sentenceLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,33);
                 m.setTitle_Normal();
-                Log.i("scsize","Normal" );
+             //   Log.i("scsize","Normal" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_SMALL:
                 sentenceLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,27);
                 m.setTitle_Small();
-                Log.i("scsize","Small" );
+           //     Log.i("scsize","Small" );
                 break;
             default:
                 sentenceLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
@@ -449,8 +449,8 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
         intent.putExtra("unitID",unitID);
         intent.putExtra("preIntent","trueFalse");
         setResult(RESULT_OK, intent);
-        finish();
         startActivity(intent);
+        finish();
 
     }
 
@@ -490,8 +490,8 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
         intent.putExtra("unitID",unitID);
         intent.putExtra("preIntent","trueFalse");
         setResult(RESULT_OK, intent);
-        finish();
         startActivity(intent);
+        finish();
 
     }
 

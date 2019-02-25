@@ -103,55 +103,60 @@ import java.text.DecimalFormat;
 
     public void  test_score(final String test_id, final String unitID, final long startTime){
         if(endtest){
-            double time = EndTime - startTime;
-            time = (time/1000)/60;
-            actual_time = new DecimalFormat("##.##").format(time);
-            total_tests_score=total_tests_score/4;
-            Query query =  r.ref.child("child_takes_test").child(child_after_signin.id_child).child(unitID).orderByKey().equalTo(test_id);
-            query.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    if(dataSnapshot.exists()){
-                        try{
-                            DatabaseReference read_score =  r.ref.child("child_takes_test").child(child_after_signin.id_child).child(unitID).child(test_id);
-                            read_score.addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
+            try{
+                double time = EndTime - startTime;
+                time = (time/1000)/60;
+                actual_time = new DecimalFormat("##.##").format(time);
+                total_tests_score=total_tests_score/4;
+                Query query =  r.ref.child("child_takes_test").child(child_after_signin.id_child).child(unitID).orderByKey().equalTo(test_id);
+                query.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists()){
+                            try{
+                                DatabaseReference read_score =  r.ref.child("child_takes_test").child(child_after_signin.id_child).child(unitID).child(test_id);
+                                read_score.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
 
-                                    for (final DataSnapshot info: dataSnapshot.getChildren()){
-                                        currentScore = Integer.valueOf(dataSnapshot.child("score").getValue().toString());
-                                        childTime = dataSnapshot.child("time").getValue().toString();
+                                        for (final DataSnapshot info: dataSnapshot.getChildren()){
+                                            currentScore = Integer.valueOf(dataSnapshot.child("score").getValue().toString());
+                                            childTime = dataSnapshot.child("time").getValue().toString();
+                                        }
+                                        if(currentScore<total_tests_score){
+                                            r.ref.child("child_takes_test").child(child_after_signin.id_child)
+                                                    .child(unitID).child(test_id).child("score").setValue(total_tests_score);
+                                            r.ref.child("child_takes_test").child(child_after_signin.id_child)
+                                                    .child(unitID).child(test_id).child("time").setValue(actual_time);
+                                        }
                                     }
-                                    if(currentScore<total_tests_score){
-                                        r.ref.child("child_takes_test").child(child_after_signin.id_child)
-                                                .child(unitID).child(test_id).child("score").setValue(total_tests_score);
-                                        r.ref.child("child_takes_test").child(child_after_signin.id_child)
-                                                .child(unitID).child(test_id).child("time").setValue(actual_time);
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+                                        System.out.println("Path score not exists!!! inside on cancel function");
                                     }
-                                }
-                                @Override
-                                public void onCancelled(DatabaseError databaseError) {
-                                    System.out.println("Path score not exists!!! inside on cancel function");
-                                }
-                            });
+                                });
+                            }
+                            catch (Exception e){
+                                System.out.println("Can't convert string to double");
+                            }
                         }
-                        catch (Exception e){
-                            System.out.println("Can't convert string to double");
+                        else{
+
+                            r.ref.child("child_takes_test").child(child_after_signin.id_child).child(unitID).child(test_id).child("score").setValue(total_tests_score);
+                            r.ref.child("child_takes_test").child(child_after_signin.id_child).child(unitID).child(test_id).child("time").setValue(actual_time);
                         }
                     }
-                    else{
-
-                        r.ref.child("child_takes_test").child(child_after_signin.id_child).child(unitID).child(test_id).child("score").setValue(total_tests_score);
-                        r.ref.child("child_takes_test").child(child_after_signin.id_child).child(unitID).child(test_id).child("time").setValue(actual_time);
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
                     }
-                }
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                }
-            });
-        }
-    }
+                });
+            }catch (Exception e){
+
+            }
+
+        }// end if endtest
+    } // end function
 
 
-}
+}// end class
 

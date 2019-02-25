@@ -140,8 +140,8 @@ public class signin_new extends AppCompatActivity implements View.OnClickListene
                     if(task.isSuccessful())
                     {
                         id_edu= Uath.getCurrentUser().getUid();
-                        finish();
                         startActivity(Itn);
+                        finish();
                     }
                     else
                     {
@@ -150,7 +150,7 @@ public class signin_new extends AppCompatActivity implements View.OnClickListene
                             ChildEmail.requestFocus();
                         }
                         else if(task.getException().getMessage().startsWith("There is no user record")){
-                            ChildEmail.setError("لا يوجد مستخدم بهذا الحساب ، الرجاء التحقق من البريد الإلكتروني");
+                            ChildEmail.setError("لا يوجد مستخدم بهذا الحساب ، الرجاء التحقق من البريد الإلكتروني أو الضغط على (إنشاء حساب جديد)");
                             ChildEmail.requestFocus();
                         }
                         else if (task.getException().getMessage().startsWith("The password is invalid")){
@@ -168,13 +168,13 @@ public class signin_new extends AppCompatActivity implements View.OnClickListene
         switch (view.getId()) {
 
             case R.id.ResetPassword:
-                finish();
                 Intent intent = new Intent(getApplicationContext(), ResetPassword.class);
                 startActivity(intent);
+                finish();
                 break;
             case R.id.create_new_account:
-                finish();
                 startActivity(new Intent(getApplicationContext(),SignUp.class));
+                finish();
                 break;
 
             case R.id.submit_btn_reset:
@@ -187,10 +187,6 @@ public class signin_new extends AppCompatActivity implements View.OnClickListene
 
     @Override
     public void onBackPressed() {
-        finish();
-        startActivity(new Intent(getApplicationContext(), signin_new.class));
-
+       finish();
     }
-
-
 }

@@ -50,27 +50,27 @@ public class menu_educator extends AppCompatActivity {
             case Configuration.SCREENLAYOUT_SIZE_XLARGE:
                 width = 820;
                 height = 520;
-                Log.i("scsize","X Large" );
+             //   Log.i("scsize","X Large" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_LARGE:
                 width = 820;
                 height = 520;
-                Log.i("scsize","Large" );
+           //     Log.i("scsize","Large" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_NORMAL:
                 width = 1300;
                 height = 700;
-                Log.i("scsize","Normal" );
+            //    Log.i("scsize","Normal" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_SMALL:
-                Log.i("scsize","Small" );
+           //     Log.i("scsize","Small" );
                 width = 1300;
                 height = 700;
                 break;
             default:
                 width = 1000;
                 height = 600;
-                Log.i("scsize","Default screen" );
+              //  Log.i("scsize","Default screen" );
         }//end switch
 
         menu_btn = findViewById(R.id.menu_icon);
@@ -92,8 +92,8 @@ public class menu_educator extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), educator_home.class);
-                finish();
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -104,43 +104,40 @@ public class menu_educator extends AppCompatActivity {
                 switch (item.getItemId()){
                     case R.id.move_to_child_section:{
                         Intent intent = new Intent(getApplicationContext(), child_after_signin.class);
-                        finish();
                         startActivity(intent);
+                        finish();
                         return true;
                     }
                     case R.id.edit_profile:{
                         Intent intent = new Intent(getApplicationContext(), educator_profile.class);
-                        finish();
                         startActivity(intent);
+                        finish();
                         return true;
                     }
                     case R.id.change_pass:{
                         Intent intent = new Intent(getApplicationContext(), change_password.class);
-                        finish();
                         startActivity(intent);
+                        finish();
                         return true;
                     }
                     case R.id.add_child:{
                         Intent intent = new Intent(getApplicationContext(), new_add_child.class);
-                        finish();
                         startActivity(intent);
+                        finish();
                         return true;
                     }
 
                     case R.id.sign_out:{
                         FirebaseAuth.getInstance().signOut();
                         Intent intent = new Intent(getApplicationContext(), signin_new.class);
-                        finish();
                         startActivity(intent);
+                        finish();
                         return true;
-
                     }
                     case R.id.contact_us:{
                         Intent intent = new Intent(getApplicationContext(), contact_us.class);
-                        finish();
                         startActivity(intent);
-
-
+                        finish();
                         return true;
 
                     }

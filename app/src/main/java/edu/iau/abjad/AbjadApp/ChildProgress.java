@@ -423,8 +423,8 @@ public class ChildProgress extends menu_educator {
 
     @Override
     public void onBackPressed() {
-        finish();
         startActivity(new Intent(getApplicationContext(),educator_home.class));
+        finish();
 
     }
 }

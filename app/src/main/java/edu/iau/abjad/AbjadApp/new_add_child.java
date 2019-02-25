@@ -90,7 +90,7 @@ public class new_add_child extends menu_educator {
                 lastName.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray, 0);
                 width = 820;
                 height = 520;
-                Log.i("scsize","X Large" );
+             //   Log.i("scsize","X Large" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_LARGE:
                 m.setButton_text_Large(addBtn);
@@ -99,7 +99,7 @@ public class new_add_child extends menu_educator {
                 lastName.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray_2x, 0);
                 width = 820;
                 height = 520;
-                Log.i("scsize","Large" );
+            //    Log.i("scsize","Large" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_NORMAL:
                 m.setButton_text_Normal(addBtn);
@@ -108,7 +108,7 @@ public class new_add_child extends menu_educator {
                 lastName.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray_15x, 0);
                 width = 1300;
                 height = 700;
-                Log.i("scsize","Normal" );
+              //  Log.i("scsize","Normal" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_SMALL:
                 m.setButton_text_Small(addBtn);
@@ -117,7 +117,7 @@ public class new_add_child extends menu_educator {
                 lastName.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray_1x, 0);
                 width = 1300;
                 height = 700;
-                Log.i("scsize","Small" );
+             //   Log.i("scsize","Small" );
                 break;
             default:
                 m.setButton_text_Default(addBtn);
@@ -126,7 +126,7 @@ public class new_add_child extends menu_educator {
                 lastName.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray_1x, 0);
                 width = 1000;
                 height = 600;
-                Log.i("scsize","Default screen" );
+             //   Log.i("scsize","Default screen" );
         }//end switch
 
         back_btn.setOnClickListener(new View.OnClickListener() {
@@ -168,6 +168,7 @@ public class new_add_child extends menu_educator {
             extras.putSerializable("object", child);
             intent.putExtras(extras);
             startActivity(intent);
+            finish();
         }
     }
 
@@ -191,6 +192,7 @@ public class new_add_child extends menu_educator {
             public void onClick(View view) {
                 dialog.dismiss();
                 startActivity(i);
+                finish();
             }
         });
 

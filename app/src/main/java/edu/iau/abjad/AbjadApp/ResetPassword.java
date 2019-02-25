@@ -89,9 +89,9 @@ public class ResetPassword extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // take the user to the previous Activity
-                finish();
                 Intent intent = new Intent(getApplicationContext(), signin_new.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -119,9 +119,9 @@ public class ResetPassword extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(getApplicationContext(),
                                             "تم إرسال رابط تعيين كلمة المرور على بريدك الإلكتروني", Toast.LENGTH_SHORT).show();
-                                    finish();
                                     Intent intent = new Intent(getApplicationContext(), signin_new.class);
                                     startActivity(intent);
+                                    finish();
                                 }
                                 else{
                                     email.setError("الرجاء إدخال البريد الإلكتروني الذي قمت بالتسجيل به مسبقا");
@@ -137,8 +137,8 @@ public class ResetPassword extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        finish();
         startActivity(new Intent(getApplicationContext(),signin_new.class));
+        finish();
 
     }
 }

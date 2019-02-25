@@ -7,7 +7,6 @@ import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,7 +56,11 @@ public class change_password extends menu_educator {
          user = FirebaseAuth.getInstance().getCurrentUser();
          node = "Educators";
 
-         id_edu = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        try{
+            id_edu = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        }catch (Exception e){
+
+        }
 
 
 
@@ -71,7 +74,7 @@ public class change_password extends menu_educator {
                 m.auth_setRight_icon_XLarge(null,current_pass);
                 m.auth_setRight_icon_XLarge(null,new_pass);
                 m.auth_setRight_icon_XLarge(null,confirm_pass);
-                Log.i("scsize","X Large" );
+
                 break;
             case Configuration.SCREENLAYOUT_SIZE_LARGE:
                 m.setButton_text_Large(save_changes);
@@ -79,7 +82,7 @@ public class change_password extends menu_educator {
                 m.auth_setRight_icon_Large(null,current_pass);
                 m.auth_setRight_icon_Large(null,new_pass);
                 m.auth_setRight_icon_Large(null,confirm_pass);
-                Log.i("scsize","Large" );
+
 
                 break;
             case Configuration.SCREENLAYOUT_SIZE_NORMAL:
@@ -88,7 +91,7 @@ public class change_password extends menu_educator {
                 m.auth_setRight_icon_Normal(null,current_pass);
                 m.auth_setRight_icon_Normal(null,new_pass);
                 m.auth_setRight_icon_Normal(null,confirm_pass);
-                Log.i("scsize","Normal" );
+
                 break;
             case Configuration.SCREENLAYOUT_SIZE_SMALL:
                m.setButton_text_Small(save_changes);
@@ -96,7 +99,7 @@ public class change_password extends menu_educator {
                 m.auth_setRight_icon_Small(null, current_pass);
                 m.auth_setRight_icon_Small(null, new_pass);
                 m.auth_setRight_icon_Small(null, confirm_pass);
-                Log.i("scsize","Small" );
+
                 break;
             default:
                 m.setButton_text_Default(save_changes);
@@ -110,8 +113,8 @@ public class change_password extends menu_educator {
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
                 startActivity(new Intent(getApplicationContext(),educator_home.class));
+                finish();
             }
         });
 
@@ -215,8 +218,8 @@ public class change_password extends menu_educator {
 
     @Override
     public void onBackPressed() {
-        finish();
         startActivity(new Intent(getApplicationContext(),educator_home.class));
+        finish();
 
     }
 }

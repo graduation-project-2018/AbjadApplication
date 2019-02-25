@@ -81,7 +81,14 @@ public class educator_home extends menu_educator {
         gr = findViewById(R.id.gridView2GL);
         loading = findViewById(R.id.loading);
 
-        id_edu = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        try{
+            id_edu = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        }catch (Exception e){
+
+        }
+
+
+
         int screenSize = getResources().getConfiguration().screenLayout &
                 Configuration.SCREENLAYOUT_SIZE_MASK;
 
@@ -110,8 +117,8 @@ public class educator_home extends menu_educator {
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
                 startActivity(new Intent(getApplicationContext(),select_user_type.class));
+                finish();
             }
         });
         // to avoid craching
@@ -139,8 +146,8 @@ public class educator_home extends menu_educator {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getApplicationContext(), new_add_child.class);
-                    finish();
                     startActivity(intent);
+                    finish();
 
                 }
             });//end of btn listener
@@ -229,8 +236,8 @@ public void children_changed(DataSnapshot dataSnapshot, String status){
 
     @Override
     public void onBackPressed() {
-        finish();
         startActivity(new Intent(getApplicationContext(),select_user_type.class));
+        finish();
     }
 
     public void checkNumOfChildren(){
@@ -264,6 +271,13 @@ public void children_changed(DataSnapshot dataSnapshot, String status){
         });
 
     }//end of function
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        finish();
+
+    }
 
 
 

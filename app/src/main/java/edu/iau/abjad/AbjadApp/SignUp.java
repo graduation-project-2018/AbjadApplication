@@ -60,9 +60,9 @@ public class SignUp extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // take the user to the previous Activity
-                finish();
                 Intent intent = new Intent(getApplicationContext(), signin_new.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -77,35 +77,35 @@ public class SignUp extends AppCompatActivity {
                 confirm_email.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.email_icon, 0);
                 m.auth_setRight_icon_XLarge(email,Pass);
                 Cpass.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.password_gray, 0);
-                Log.i("scsize","X Large" );
+               // Log.i("scsize","X Large" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_LARGE:
                 m.setButton_text_Large(SignUpBtn);
                 confirm_email.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.email_icon_2x, 0);
                 m.auth_setRight_icon_Large(email,Pass);
                 Cpass.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.password_2x, 0);
-                Log.i("scsize","Large" );
+              //  Log.i("scsize","Large" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_NORMAL:
                 m.setButton_text_Normal(SignUpBtn);
                 confirm_email.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.email_icon_15x, 0);
                 m.auth_setRight_icon_Normal(email,Pass);
                 Cpass.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.password_15x, 0);
-                Log.i("scsize","Normal" );
+             //   Log.i("scsize","Normal" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_SMALL:
                 m.setButton_text_Small(SignUpBtn);
                 confirm_email.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.email_icon_1x, 0);
                 m.auth_setRight_icon_Small(email,Pass);
                 Cpass.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.password_1x, 0);
-                Log.i("scsize","Small" );
+            //    Log.i("scsize","Small" );
                 break;
             default:
                 m.setButton_text_Default(SignUpBtn);
                 confirm_email.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.email_icon_1x, 0);
                 m.auth_setRight_icon_Default(email,Pass);
                 Cpass.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.password_1x, 0);
-                Log.i("scsize","Default screen" );
+            //    Log.i("scsize","Default screen" );
         }//end switch
 
 
@@ -175,8 +175,8 @@ public class SignUp extends AppCompatActivity {
                                 public void onCancelled(DatabaseError databaseError) {
                                 }
                             });
-                            finish();
                             startActivity(educatorHome);
+                            finish();
                         }
 
                         else{
@@ -195,8 +195,8 @@ public class SignUp extends AppCompatActivity {
     }
     @Override
     public void onBackPressed() {
-        finish();
         startActivity(new Intent(getApplicationContext(),signin_new.class));
+        finish();
 
     }
 

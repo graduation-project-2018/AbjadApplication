@@ -125,8 +125,8 @@ public class unit_interface extends child_menu {
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
                 startActivity(new Intent(getApplicationContext(), child_home.class));
+                finish();
             }
         });
 
@@ -809,17 +809,15 @@ public class unit_interface extends child_menu {
         fIntent.putExtra("startTime", startTime);
         fIntent.putExtra("Rand", Rand);
         fIntent.putExtra("first_signIn", first_signIn);
-        finish();
         startActivity(fIntent);
+        finish();
     }
 
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        finish();
         startActivity(new Intent(getApplicationContext(), child_home.class));
-
+        finish();
     }
 
     @Override
@@ -840,8 +838,8 @@ public class unit_interface extends child_menu {
     protected void onRestart() {
         super.onRestart();
         Intent intent = getIntent();
-        finish();
         startActivity(intent);
+        finish();
 
     }
 
@@ -853,16 +851,16 @@ public class unit_interface extends child_menu {
                 lessonUMIntent.putExtra("Lessonltr",lessonsInfo.get(x).getLesson().getText().toString());
                 lessonUMIntent.putExtra("unitID", unitID);
                 lessonUMIntent.putExtra("first_signIn", first_signIn);
-                finish();
                 startActivity(lessonUMIntent);
+                finish();
             }
             else {
                 //The value of first_signIn string means that the child has entered the lesson ,
                 // so child will be redirected to the lesson interface directly (no user manual video is played)
                 lessonIntent.putExtra("Lessonltr",lessonsInfo.get(x).getLesson().getText().toString());
                 lessonIntent.putExtra("unitID", unitID);
-                finish();
                 startActivity(lessonIntent);
+                finish();
             }
         }
         catch(Exception e){

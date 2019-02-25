@@ -84,12 +84,23 @@ public class new_child_photo extends menu_educator  {
         r=new firebase_connection();
         backEducatorHome = new Intent(this,educator_home.class);
 
-        childObj = getIntent().getExtras();
-        if(childObj!=null){
-            completeObj=(child_info_new)childObj.getSerializable("object");
-            gender = completeObj.gender;
+        try{
+            childObj = getIntent().getExtras();
+            if(childObj!=null){
+                completeObj=(child_info_new)childObj.getSerializable("object");
+                gender = completeObj.gender;
+            }
+        }catch (Exception e){
+
         }
-        id_edu = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+
+
+        try{
+            id_edu= FirebaseAuth.getInstance().getCurrentUser().getUid();
+        }catch (Exception e){
+
+        }
 
         db2 = FirebaseDatabase.getInstance().getReference().child("educator_home").child(id_edu).child("childrenNumber");
         db2.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -119,7 +130,7 @@ public class new_child_photo extends menu_educator  {
                 width = 820;
                 height = 520;
 
-                Log.i("scsize","X Large" );
+              //  Log.i("scsize","X Large" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_LARGE:
                 m.setButton_text_Large(addChild);
@@ -127,7 +138,7 @@ public class new_child_photo extends menu_educator  {
                 width = 820;
                 height = 520;
 
-                Log.i("scsize","Large" );
+               // Log.i("scsize","Large" );
 
                 break;
             case Configuration.SCREENLAYOUT_SIZE_NORMAL:
@@ -136,7 +147,7 @@ public class new_child_photo extends menu_educator  {
                 width = 1300;
                 height = 850;
 
-                Log.i("scsize","Normal" );
+            //    Log.i("scsize","Normal" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_SMALL:
                 m.setButton_text_Small(addChild);
@@ -144,7 +155,7 @@ public class new_child_photo extends menu_educator  {
                 width = 1300;
                 height = 850;
 
-                Log.i("scsize","Small" );
+             //   Log.i("scsize","Small" );
                 break;
             default:
                 m.setButton_text_Default(addChild);
@@ -164,7 +175,8 @@ public class new_child_photo extends menu_educator  {
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                startActivity(new Intent(getApplicationContext(),new_add_child.class));
+                finish();
             }
         });
 
@@ -238,34 +250,42 @@ public class new_child_photo extends menu_educator  {
         pre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // load();
-                loading.setVisibility(View.VISIBLE);
-                imgIndex--;
-                if (imgIndex < imgCont & imgIndex > 0) {
-                    hide_loading_label();
 
-                    photo_url=imgsUri.get(imgIndex);
+                try{
+                    // load();
+                    loading.setVisibility(View.VISIBLE);
+                    imgIndex--;
+                    if (imgIndex < imgCont & imgIndex > 0) {
+                        hide_loading_label();
 
-                } else if (imgIndex == -1) {
-                    imgIndex = 5;
-                    hide_loading_label();
+                        photo_url=imgsUri.get(imgIndex);
 
-                    photo_url=imgsUri.get(imgIndex);
+                    } else if (imgIndex == -1) {
+                        imgIndex = 5;
+                        hide_loading_label();
 
-                } else {
-                    imgIndex = 0;
-                    hide_loading_label();
+                        photo_url=imgsUri.get(imgIndex);
 
-                    photo_url=imgsUri.get(imgIndex);
+                    } else {
+                        imgIndex = 0;
+                        hide_loading_label();
+
+                        photo_url=imgsUri.get(imgIndex);
+                    }
+                }catch (IndexOutOfBoundsException e){
 
                 }
+                catch (Exception e){
+
+                }
+
             }
         });
         //load();
     }
     public void hide_loading_label(){
 
-        Picasso.get().load(imgsUri.get(imgIndex)).fit().memoryPolicy(MemoryPolicy.NO_CACHE)
+        Picasso.get().load(imgsUri.get(imgIndex)).fit()
                 .into(childImg, new Callback() {
                     @Override
                     public void onSuccess() {
@@ -291,8 +311,8 @@ public class new_child_photo extends menu_educator  {
         move_to_child_section_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
                 startActivity(new Intent(getApplicationContext(),child_after_signin.class));
+                finish();
 
             }
         });
@@ -307,16 +327,16 @@ public class new_child_photo extends menu_educator  {
         add_another_child_btn.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
                 startActivity(new Intent(getApplicationContext(),new_add_child.class));
+                finish();
             }
         });
 
         move_to_edu_scetion_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
                 startActivity(new Intent(getApplicationContext(),educator_home.class));
+                finish();
             }
         });
 
@@ -325,8 +345,8 @@ public class new_child_photo extends menu_educator  {
 
     @Override
     public void onBackPressed() {
+        startActivity(new Intent(getApplicationContext(),new_add_child.class));
         finish();
-        startActivity(new Intent(getApplicationContext(),educator_home.class));
 
     }
 

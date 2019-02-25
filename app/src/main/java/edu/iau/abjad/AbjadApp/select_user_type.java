@@ -28,7 +28,6 @@ import java.util.Arrays;
 
 public class select_user_type extends AppCompatActivity {
     TextView eduLabel, childLabel;
-    ImageView back_btn;
     Random rand = new Random();
     String[]  edu_auth_arabic_numbers = {"١٢٠٠","٣٠٠٠","١٢٠","٥٥","٢١٠","٤٤","٩٩","٨٧","٥١٠٠","١١٠٠"};
     String[] edu_auth_numbers = {"1200", "3000", "120", "55", "210","44","99","87","5100","1100"};
@@ -59,17 +58,10 @@ public class select_user_type extends AppCompatActivity {
         ImageView EduIcon = findViewById(R.id.educator_Btn);
         eduLabel = findViewById(R.id.educatortext);
         childLabel = findViewById(R.id.childtext);
-        back_btn = findViewById(R.id.back_select_user_type);
 
 
-        back_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-                FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(getApplicationContext(),signin_new.class));
-            }
-        });
+
+
 
         int screenSize = getResources().getConfiguration().screenLayout &
                 Configuration.SCREENLAYOUT_SIZE_MASK;
@@ -79,12 +71,12 @@ public class select_user_type extends AppCompatActivity {
                 childLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,50);
                 width = 820;
                 height = 520;
-                Log.i("scsize","X Large" );
+               // Log.i("scsize","X Large" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_LARGE:
                 eduLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,40);
                 childLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,40);
-                Log.i("scsize","Large" );
+              //  Log.i("scsize","Large" );
                 width = 820;
                 height = 520;
 
@@ -94,29 +86,29 @@ public class select_user_type extends AppCompatActivity {
                 childLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
                 width = 1200;
                 height = 700;
-                Log.i("scsize","Normal" );
+            //    Log.i("scsize","Normal" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_SMALL:
                 eduLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
                 childLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
                 width = 1200;
                 height = 700;
-                Log.i("scsize","Small" );
+            //    Log.i("scsize","Small" );
                 break;
             default:
                 eduLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
                 childLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
                 width = 1000;
                 height = 600;
-                Log.i("scsize","Default screen" );
+            //    Log.i("scsize","Default screen" );
         }//end switch
 
 
         ChildIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
                 startActivity(intentOfChild);
+                finish();
             }
         });
         EduIcon.setOnClickListener(new View.OnClickListener() {
@@ -131,8 +123,6 @@ public class select_user_type extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         finish();
-        FirebaseAuth.getInstance().signOut();
-        startActivity(new Intent(getApplicationContext(),signin_new.class));
     }
 
     public void popUp_edu(){
@@ -156,15 +146,15 @@ public class select_user_type extends AppCompatActivity {
                 //get the index of chosen number that displayed to the user
                 int returned_index = arrayList_num.indexOf(num);
                 if(returned_index == chosen_element){
-                    finish();
                     startActivity(intentOfEdu);
+                    finish();
                 }
                 // user enter the number wrong or in Arabic
                 else {
                     int returned_index2 = arrayList_num_arabic.indexOf(num);
                     if (returned_index2 == chosen_element) {
-                        finish();
                         startActivity(intentOfEdu);
+                        finish();
                     } else {
                         num_field.setError("الرقم غير صحيح");
                         num_field.requestFocus();

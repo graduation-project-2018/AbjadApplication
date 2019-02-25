@@ -74,8 +74,8 @@ public class um extends AppCompatActivity {
                     }
                 intent.putExtra("Lessonltr",letter);
                 intent.putExtra("unitID", unitID);
-                finish();
                 startActivity(intent);
+                    finish();
                 }
 
             }
@@ -85,13 +85,13 @@ public class um extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
-        finish();
         startActivity(new Intent(getApplicationContext(),child_home.class));
+        finish();
     }
 
     @Override
     public void onBackPressed() {
-        finish();
         startActivity(new Intent(getApplicationContext(),child_home.class));
+        finish();
     }
 }//end of class

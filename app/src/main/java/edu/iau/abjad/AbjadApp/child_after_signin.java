@@ -59,6 +59,7 @@ public class child_after_signin extends AppCompatActivity {
         gv = (GridView)findViewById(R.id.gv);
         gv.setNumColumns(2);
         loading = findViewById(R.id.loading);
+        loading.setVisibility(View.VISIBLE);
         gl = findViewById(R.id.gridViewGL);
         gr = findViewById(R.id.gridView2GL);
         noChildlabel = findViewById(R.id.NoChildren);
@@ -92,19 +93,19 @@ public class child_after_signin extends AppCompatActivity {
 
         }//end of switch
 
-try{
-    id_edu = FirebaseAuth.getInstance().getCurrentUser().getUid();
-}catch (Exception e){
+            try{
+                id_edu = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            }catch (Exception e){
 
-}
+            }
 
 
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
                 startActivity(new Intent(getApplicationContext(),select_user_type.class));
+                finish();
             }
         });
 
@@ -239,8 +240,16 @@ try{
 
     @Override
     public void onBackPressed() {
-        finish();
         startActivity(new Intent(getApplicationContext(),select_user_type.class));
+        finish();
 
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        finish();
+
+    }
+
 }//end of class

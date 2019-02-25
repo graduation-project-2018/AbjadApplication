@@ -6,7 +6,6 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,15 +65,19 @@ public class change_profile_photo extends child_menu {
         imgsUrl = new ArrayList<String>();
         SaveChanges=(Button)findViewById(R.id.SaveChangeImg);
 
-        id_edu =FirebaseAuth.getInstance().getCurrentUser().getUid();
+        try{
+            id_edu = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        }catch (Exception e){
+
+        }
 
 
 
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
                 startActivity(new Intent(getApplicationContext(),child_home.class));
+                finish();
             }
         });
 
@@ -84,27 +87,18 @@ public class change_profile_photo extends child_menu {
             case Configuration.SCREENLAYOUT_SIZE_XLARGE:
                 m.setButton_text_XLarge(SaveChanges);
                 m.setTitle_XLarge();
-
-                Log.i("scsize","X Large" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_LARGE:
                 m.setButton_text_Large(SaveChanges);
                 m.setTitle_Large();
-
-                Log.i("scsize","Large" );
-
                 break;
             case Configuration.SCREENLAYOUT_SIZE_NORMAL:
                 m.setButton_text_Normal(SaveChanges);
                 m.setTitle_Normal();
-
-                Log.i("scsize","Normal" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_SMALL:
                 m.setButton_text_Small(SaveChanges);
                 m.setTitle_Small();
-
-                Log.i("scsize","Small" );
                 break;
             default:
                 m.setButton_text_Default(SaveChanges);
@@ -115,95 +109,99 @@ public class change_profile_photo extends child_menu {
 
 
 
+                try{
+                    r.ref.child("Children").child(child_after_signin.id_child).child("gender").addValueEventListener(new ValueEventListener()
+                    {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if(dataSnapshot.exists()){
+                                gender = dataSnapshot.getValue().toString();
+                                if(gender.equals("ذكر")){
 
-                r.ref.child("Children").child(child_after_signin.id_child).child("gender").addValueEventListener(new ValueEventListener()
-                {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        if(dataSnapshot.exists()){
-                            gender = dataSnapshot.getValue().toString();
-                            if(gender.equals("ذكر")){
-
-                                gender = "boys";
-                            }
-                            else {
-                                gender = "girls";
-                            }
-                        }//end of if block
-                        FBchildPhotoUrl.ref.child("ChildPhoto").child(gender).addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                for (DataSnapshot childSnapShot : dataSnapshot.getChildren()) {
-
-                                    photo_url = childSnapShot.getValue().toString();
-                                    imgsUrl.add( photo_url);
+                                    gender = "boys";
                                 }
-                                imgCont = (int)dataSnapshot.getChildrenCount();
-                                loading.setVisibility(View.VISIBLE);
-                                hide_loading_label();
+                                else {
+                                    gender = "girls";
+                                }
+                            }//end of if block
+                            FBchildPhotoUrl.ref.child("ChildPhoto").child(gender).addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    for (DataSnapshot childSnapShot : dataSnapshot.getChildren()) {
 
-                                photo_url = imgsUrl.get(0);
-                            }
+                                        photo_url = childSnapShot.getValue().toString();
+                                        imgsUrl.add( photo_url);
+                                    }
+                                    imgCont = (int)dataSnapshot.getChildrenCount();
+                                    loading.setVisibility(View.VISIBLE);
+                                    hide_loading_label();
 
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
+                                    photo_url = imgsUrl.get(0);
+                                }
 
-                            }
-                        });
-                // load();
-                next.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
 
-                    @Override
-                    public void onClick(View v) {
-                        // load();
-                       loading.setVisibility(View.VISIBLE);
-                        imgIndex++;
-                        if (imgIndex < imgCont) {
-                            hide_loading_label();
-                            photo_url=imgsUrl.get(imgIndex);
-                        } else {
-                            imgIndex = 0;
-                           hide_loading_label();
-                           photo_url=imgsUrl.get(imgIndex);
+                                }
+                            });
+                            // load();
+                            next.setOnClickListener(new View.OnClickListener() {
+
+                                @Override
+                                public void onClick(View v) {
+                                    // load();
+                                    loading.setVisibility(View.VISIBLE);
+                                    imgIndex++;
+                                    if (imgIndex < imgCont) {
+                                        hide_loading_label();
+                                        photo_url=imgsUrl.get(imgIndex);
+                                    } else {
+                                        imgIndex = 0;
+                                        hide_loading_label();
+                                        photo_url=imgsUrl.get(imgIndex);
+
+                                    }
+
+                                }
+                            });
+                            //load();
+                            pre.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    // load();
+                                    loading.setVisibility(View.VISIBLE);
+                                    imgIndex--;
+                                    if (imgIndex < imgCont & imgIndex > 0) {
+                                        hide_loading_label();
+                                        photo_url=imgsUrl.get(imgIndex);
+
+                                    } else if (imgIndex == -1) {
+                                        imgIndex = 5;
+                                        hide_loading_label();
+                                        photo_url=imgsUrl.get(imgIndex);
+
+                                    } else {
+                                        imgIndex = 0;
+                                        hide_loading_label();
+                                        photo_url=imgsUrl.get(imgIndex);
+
+                                    }
+                                }
+                            });
 
                         }
 
-                    }
-                });
-                //load();
-                pre.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        // load();
-                        loading.setVisibility(View.VISIBLE);
-                        imgIndex--;
-                        if (imgIndex < imgCont & imgIndex > 0) {
-                           hide_loading_label();
-                           photo_url=imgsUrl.get(imgIndex);
-
-                        } else if (imgIndex == -1) {
-                            imgIndex = 5;
-                            hide_loading_label();
-                            photo_url=imgsUrl.get(imgIndex);
-
-                        } else {
-                            imgIndex = 0;
-                            hide_loading_label();
-                            photo_url=imgsUrl.get(imgIndex);
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            Toast.makeText(getApplicationContext(), "حصل خطأ خلال تحميل الصور", Toast.LENGTH_LONG).show();
 
                         }
-                    }
-                });
 
-            }
+                    });
+                }catch (Exception e){
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(getApplicationContext(), "حصل خطأ خلال تحميل الصور", Toast.LENGTH_LONG).show();
+                }
 
-            }
-
-        });
         //load();
 
 
@@ -214,8 +212,8 @@ public class change_profile_photo extends child_menu {
                 r.ref.child("educator_home").child(id_edu).child("children").child(child_after_signin.id_child).child("photo_URL").setValue(photo_url);
                 Toast.makeText(getApplicationContext(), "تم تغيير الصورة بنجاح", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getApplicationContext(),child_home.class);
-                finish();
                 startActivity(intent);
+                finish();
 
             }
         });
@@ -226,7 +224,7 @@ public class change_profile_photo extends child_menu {
 
     public void hide_loading_label(){
 
-        Picasso.get().load(imgsUrl.get(imgIndex)).fit().memoryPolicy(MemoryPolicy.NO_CACHE)
+        Picasso.get().load(imgsUrl.get(imgIndex)).fit()
                 .into(childImg, new Callback() {
                     @Override
                     public void onSuccess() {
@@ -250,8 +248,8 @@ public class change_profile_photo extends child_menu {
     }
     @Override
     public void onBackPressed() {
-        finish();
         startActivity(new Intent(getApplicationContext(),child_home.class));
+        finish();
 
     }
 

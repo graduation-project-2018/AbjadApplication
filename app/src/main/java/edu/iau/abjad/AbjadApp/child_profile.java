@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.util.Log;
 import android.widget.*;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -90,7 +89,12 @@ public class child_profile extends child_menu {
         });
 
         //get educator id;
-        edu_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        try{
+            edu_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        }catch (Exception e){
+
+        }
+
 
         int screenSize = getResources().getConfiguration().screenLayout &
                 Configuration.SCREENLAYOUT_SIZE_MASK;
@@ -101,38 +105,30 @@ public class child_profile extends child_menu {
                 // change the right icon of Edit text based on screen size
                 FNChild.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray, 0);
                 LNChild.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray, 0);
-                Log.i("scsize","X Large" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_LARGE:
                 m.setButton_text_Large(saveChanges);
                 m.setTitle_Large();
                 FNChild.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray_2x, 0);
                 LNChild.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray_2x, 0);
-                Log.i("scsize","Large" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_NORMAL:
                 m.setButton_text_Normal(saveChanges);
                 m.setTitle_Normal();
                 FNChild.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray_15x, 0);
                 LNChild.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray_15x, 0);
-
-                Log.i("scsize","Normal" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_SMALL:
                 m.setButton_text_Small(saveChanges);
                 m.setTitle_Small();
                 FNChild.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray_1x, 0);
                 LNChild.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray_1x, 0);
-                Log.i("scsize","Small" );
                 break;
             default:
                 m.setButton_text_Default(saveChanges);
                 m.setTitle_Default();
                 FNChild.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray_1x, 0);
                 LNChild.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.child_gray_1x, 0);
-
-
-                Log.i("scsize","Default screen" );
         }//end switch
 
     }//end of onCreate
@@ -147,29 +143,34 @@ public class child_profile extends child_menu {
 
     public void getCurrentChildInfo(){
 
-        Query query = r.ref.child("Children").child(child_after_signin.id_child);
-        query.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    oldLname = dataSnapshot.child("last_name").getValue().toString();
-                    oldFname  = dataSnapshot.child("first_name").getValue().toString();
-                    photo_URL = dataSnapshot.child("photo_URL").getValue().toString();
-                    FNChild .setText(oldFname);
-                    LNChild.setText(oldLname);
-                    Picasso.get().load(photo_URL).into(ChildImage);
-                }
-                else{
-                    Toast.makeText(child_profile.this, "المستخدم غير موجود", Toast.LENGTH_LONG).show();
-                }
+        try{
+            Query query = r.ref.child("Children").child(child_after_signin.id_child);
+            query.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        oldLname = dataSnapshot.child("last_name").getValue().toString();
+                        oldFname  = dataSnapshot.child("first_name").getValue().toString();
+                        photo_URL = dataSnapshot.child("photo_URL").getValue().toString();
+                        FNChild .setText(oldFname);
+                        LNChild.setText(oldLname);
+                        Picasso.get().load(photo_URL).into(ChildImage);
+                    }
+                    else{
+                        Toast.makeText(child_profile.this, "المستخدم غير موجود", Toast.LENGTH_LONG).show();
+                    }
 
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-                Toast.makeText(child_profile.this, "" + databaseError, Toast.LENGTH_LONG).show();
-            }
-        });
+                    Toast.makeText(child_profile.this, "" + databaseError, Toast.LENGTH_LONG).show();
+                }
+            });
+        }catch (Exception e){
+
+        }
+
 
 
     }//end of getCurrentChildInfo function
@@ -188,6 +189,7 @@ public class child_profile extends child_menu {
                 Toast.makeText(child_profile.this, " تم حفظ التغييرات بنجاح", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getApplicationContext(),child_home.class);
                 startActivity(intent);
+                finish();
 
     }//end of editChild function
 
@@ -225,8 +227,8 @@ public class child_profile extends child_menu {
 
     @Override
     public void onBackPressed() {
-        finish();
         startActivity(new Intent(getApplicationContext(),child_home.class));
+        finish();
 
     }
 

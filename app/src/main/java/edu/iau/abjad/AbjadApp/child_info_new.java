@@ -5,11 +5,11 @@ import java.io.Serializable;
 
 public class child_info_new implements Serializable {
 
-    String first_name;
-    String last_name;
-    String gender;
-    String photo_URL;
-    String first_signIn;
+   public String first_name;
+   public String last_name;
+   public String gender;
+   public String photo_URL;
+   public String first_signIn;
 
     public child_info_new(String fname, String lname, String cgender, String photo, String f_signIn){
 

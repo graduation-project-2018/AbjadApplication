@@ -123,8 +123,8 @@ public class MatchingTest extends child_menu {
                 intent.putExtra("unitID",unitID);
                 intent.putExtra("preIntent","matchingTest");
                 setResult(RESULT_OK, intent);
-                finish();
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -252,7 +252,6 @@ public class MatchingTest extends child_menu {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (final DataSnapshot snapshot: dataSnapshot.getChildren()){
                     final String key=snapshot.getKey();
-                    Log.i("KeyTest",key);
                     DatabaseReference getCurrentTestId=rfb.ref.child("Tests").child("test_letters");
                     ValueEventListener CurrIDEvent=new ValueEventListener() {
                         @Override
@@ -299,13 +298,22 @@ public class MatchingTest extends child_menu {
                 WordsNumber[2]=r.nextInt(3);
             }
             Picasso.get().load(Content.get(WordsNumber[2]).Pic).fit().memoryPolicy(MemoryPolicy.NO_CACHE).into(Pic3);
+            try{
+                if(first_signIn !=null){
+                    if(first_signIn.equals("110") || first_signIn.equals("100")){
+                        playAudio(voice.MatchingTest_first_Inst);
+                    }
+                    else{
+                        playAudio(voice.MatchingTestInst);
+                    }
+                } else{
+                    playAudio(voice.MatchingTestInst);
+                }
 
-            if(first_signIn.equals("110") || first_signIn.equals("100")){
-               playAudio(voice.MatchingTest_first_Inst);
+            }catch(Exception e){
+                    System.out.println("Matching test catch");
             }
-            else{
-                playAudio(voice.MatchingTestInst);
-            }
+
 
             loading_label_large.setVisibility(View.INVISIBLE);
             loading_label_normal.setVisibility(View.INVISIBLE);
@@ -319,7 +327,7 @@ for (int i =0 ; i<Checking.length ; i++){
 
         @Override
         public void onCancelled(DatabaseError error) {
-            Log.w(null, "Failed to read value.", error.toException());
+          //  Log.w(null, "Failed to read value.", error.toException());
         }
     });
                                 }
@@ -345,9 +353,9 @@ View.OnClickListener RestartListener = new View.OnClickListener() {
     @Override
     public void onClick(View view) {
         Text1.setText("");
-        Text1.setBackgroundColor(getColor(R.color.normal));
-        Text2.setBackgroundColor(getColor(R.color.normal));
-        Text3.setBackgroundColor(getColor(R.color.normal));
+        Text1.setBackgroundColor(0xFFe6e6e6);
+        Text2.setBackgroundColor(0xFFe6e6e6);
+        Text3.setBackgroundColor(0xFFe6e6e6);
         Text1.setEnabled(true);
         Text2.setText("");
         Text2.setEnabled(true);
@@ -380,10 +388,10 @@ View.OnClickListener RestartListener = new View.OnClickListener() {
 
                 }
                 if(correct==true){
-                    Text1.setBackgroundColor(getColor(R.color.correct));
+                    Text1.setBackgroundColor(0xFF9bf5aa);
                     correct=false;
                 }
-                else {Text1.setBackgroundColor(getColor(R.color.wrong));
+                else {Text1.setBackgroundColor(0xFFf98e8e);
                 }
                 for(int j = 0 ; j<Checking.length ; j++){
                     if(Checking[1].Pic.equals(Content.get(j).Pic)){
@@ -394,10 +402,10 @@ View.OnClickListener RestartListener = new View.OnClickListener() {
                         }
                     }}
                 if(correct==true){
-                    Text2.setBackgroundColor(getColor(R.color.correct));
+                    Text2.setBackgroundColor(0xFF9bf5aa);
                     correct=false;
                 }
-                else{ Text2.setBackgroundColor(getColor(R.color.wrong));
+                else{ Text2.setBackgroundColor(0xFFf98e8e);
 
                 }
                 for(int j = 0 ; j<Checking.length ; j++){
@@ -411,10 +419,10 @@ View.OnClickListener RestartListener = new View.OnClickListener() {
 
                 }
                 if(correct==true){
-                    Text3.setBackgroundColor(getColor(R.color.correct));
+                    Text3.setBackgroundColor(0xFF9bf5aa);
                     correct=false;
                 }
-                else {Text3.setBackgroundColor(getColor(R.color.wrong));
+                else {Text3.setBackgroundColor(0xFFf98e8e);
                 }
 
                 if(counter==3){
@@ -458,7 +466,7 @@ View.OnClickListener RestartListener = new View.OnClickListener() {
             ClipData data = ClipData.newPlainText("","");
             View.DragShadowBuilder myShadowBuilder = new View.DragShadowBuilder(view);
             view.startDrag(data,myShadowBuilder,view,0);
-            view.setBackgroundColor(getColor(R.color.normal));
+            view.setBackgroundColor(0xFFe6e6e6);
             return true;
         }
     };
@@ -605,16 +613,16 @@ View.OnDragListener dragListener1 = new View.OnDragListener() {
 
         }
         catch (IOException e){
-            Log.d("5","inside IOException ");
+           // Log.d("5","inside IOException ");
         }
 
         catch (IllegalArgumentException e){
-            Log.d("5"," inside IllegalArgumentException");
+          //  Log.d("5"," inside IllegalArgumentException");
         }
 
         catch (Exception e) {
             e.printStackTrace();
-            Log.d("5","Inside exception");
+           // Log.d("5","Inside exception");
         }
     }
 
@@ -723,8 +731,8 @@ View.OnDragListener dragListener1 = new View.OnDragListener() {
         intent.putExtra("unitID",unitID);
         intent.putExtra("preIntent","matchingTest");
         setResult(RESULT_OK, intent);
-        finish();
         startActivity(intent);
+        finish();
 
     }
 
@@ -734,8 +742,8 @@ View.OnDragListener dragListener1 = new View.OnDragListener() {
         intent.putExtra("unitID",unitID);
         intent.putExtra("preIntent","matchingTest");
         setResult(RESULT_OK, intent);
-        finish();
         startActivity(intent);
+        finish();
 
     }
 

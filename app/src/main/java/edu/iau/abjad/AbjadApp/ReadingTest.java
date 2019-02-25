@@ -75,6 +75,7 @@ public class ReadingTest extends child_menu {
     ProgressBar loading_label;
     firebase_connection Test_Id,testIdq2;
     String Test_letter, unitID, first_signIn;
+    int counter_of_OnErrorsCalls;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -121,6 +122,10 @@ public class ReadingTest extends child_menu {
         next=findViewById(R.id.next);
         nextLabel = findViewById(R.id.nextLabel_test);
 
+        // this counter to count the number of calling OnError function and play in the
+        // second call "to hear you" audio to help child record in correct way
+        counter_of_OnErrorsCalls =0;
+
         //to get the test letter and unit ID from Unit interface.
         Intent  unitIntent =getIntent();
         Bundle letter_and_unitID = unitIntent.getExtras();
@@ -145,14 +150,14 @@ public class ReadingTest extends child_menu {
                 sentence_test_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,65);
                 nextLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,32);
                 m.setTitle_XLarge();
-                Log.i("scsize","X Large" );
+             //   Log.i("scsize","X Large" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_LARGE:
                 word_test_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,60);
                 sentence_test_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,50);
                 nextLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,22);
                 m.setTitle_Large();
-                Log.i("scsize","Large" );
+             //   Log.i("scsize","Large" );
 
                 break;
             case Configuration.SCREENLAYOUT_SIZE_NORMAL:
@@ -160,14 +165,14 @@ public class ReadingTest extends child_menu {
                 sentence_test_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,33);
                 nextLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
                 m.setTitle_Normal();
-                Log.i("scsize","Normal" );
+            //    Log.i("scsize","Normal" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_SMALL:
                 word_test_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
                 sentence_test_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
                 nextLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,8);
                 m.setTitle_Small();
-                Log.i("scsize","Small" );
+            //    Log.i("scsize","Small" );
                 break;
             default:
                 word_test_label.setTextSize(TypedValue.COMPLEX_UNIT_SP,35);
@@ -213,8 +218,8 @@ try{
                 intent.putExtra("unitID",unitID);
                 intent.putExtra("preIntent","readingTest");
                 setResult(RESULT_OK, intent);
-                finish();
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -245,7 +250,6 @@ try{
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (final DataSnapshot snapshot: dataSnapshot.getChildren()){
                     final String key=snapshot.getKey();
-                    Log.i("KeyTest",key);
                     DatabaseReference getCurrentTestId=testIdq2.ref.child("Tests").child("test_letters");
                     ValueEventListener CurrIDEvent=new ValueEventListener() {
                         @Override
@@ -305,7 +309,7 @@ try{
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.w(null, "Failed to find test.", databaseError.toException());
+              //  Log.w(null, "Failed to find test.", databaseError.toException());
 
             }
         }); }
@@ -342,49 +346,53 @@ try{
 
         //******* Starting speech recognition code ********
 
-        mSpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(this); //takes context as a parameter.
+        mSpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(getApplicationContext()); //takes context as a parameter.
 
         // we need intent to listen to the speech
         mSpeechRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                 RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE,"edu.iau.abjad.AbjadApp");
 
-        //set the language that we want to listen for.
+                //set the language that we want to listen for.
         mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "ar-SA");
 
         mSpeechRecognizer.setRecognitionListener(new RecognitionListener() {
             @Override
             public void onReadyForSpeech(Bundle bundle) {
-                Log.d("5"," onReadyForSpeech function");
+               // Log.d("5"," onReadyForSpeech function");
             }
 
             @Override
             public void onBeginningOfSpeech() {
-                Log.d("5"," onBeginningOfSpeech function");
+                //Log.d("5"," onBeginningOfSpeech function");
             }
 
             @Override
             public void onRmsChanged(float v) {
-                Log.d("4"," on onRmsChanged fuction");
+               // Log.d("4"," on onRmsChanged fuction");
             }
 
             @Override
             public void onBufferReceived(byte[] bytes) {
-                Log.d("4"," on Buffer Received fuction");
+
+                //Log.d("4"," on Buffer Received fuction");
             }
 
             @Override
             public void onEndOfSpeech() {
-                Log.d("3"," At end of speech function");
+              //  Log.d("3"," At end of speech function");
 
             }
 
             @Override
             public void onError(int i) {
-                Log.d("6"," On Error function");
+              //  Log.d("6"," On Error function");
                 if(isEndOfSpeech){
                     return;
                 }
+
+                counter_of_OnErrorsCalls++;
 
                 switch (i){
                     case 1:
@@ -419,7 +427,14 @@ try{
 
                 }
 
-                playAudio_feedback(audio_URLs.not_hearing_you);
+                if(counter_of_OnErrorsCalls == 2){
+                    playAudio_feedback(audio_URLs.to_hear_you);
+                }
+                else{
+                    playAudio_feedback(audio_URLs.not_hearing_you);
+                }
+
+
                 setOnCompleteListener(feedback_audio);
             }
             @Override
@@ -432,16 +447,16 @@ try{
                 ArrayList<String> matches = bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
                 float[] scores = bundle.getFloatArray(SpeechRecognizer.CONFIDENCE_SCORES);
                 for (int i = 0; i < scores.length; i++) {
-                    Log.d("1", "confidence scores " + scores[i]);
+                  //  Log.d("1", "confidence scores " + scores[i]);
                 }
 
 
                 // find the phrase exactly
                 for (int i = 0; i < matches.size(); i++) {
-                    Log.d("2", "Results " + matches.get(i));
+                  //  Log.d("2", "Results " + matches.get(i));
                     if (matches.get(i).compareTo(word) == 0) {
                         fullScore();
-                        Log.d("2",  "Matching true!! ");
+                    //    Log.d("2",  "Matching true!! ");
                         found = true;
                         break;
                     }
@@ -572,16 +587,16 @@ try{
 
         }
         catch (IOException e){
-            Log.d("5","inside IOException ");
+          //  Log.d("5","inside IOException ");
         }
 
         catch (IllegalArgumentException e){
-            Log.d("5"," inside IllegalArgumentException");
+          //  Log.d("5"," inside IllegalArgumentException");
         }
 
         catch (Exception e) {
             e.printStackTrace();
-            Log.d("5","Inside exception");
+          //  Log.d("5","Inside exception");
         }
     }
     public void playAudio_feedback(String url){
@@ -593,16 +608,16 @@ try{
 
         }
         catch (IOException e){
-            Log.d("5","inside IOException ");
+           // Log.d("5","inside IOException ");
         }
 
         catch (IllegalArgumentException e){
-            Log.d("5"," inside IllegalArgumentException");
+           // Log.d("5"," inside IllegalArgumentException");
         }
 
         catch (Exception e) {
             e.printStackTrace();
-            Log.d("5","Inside exception");
+          //  Log.d("5","Inside exception");
         }
     }
 
@@ -811,8 +826,8 @@ try{
         intent.putExtra("unitID",unitID);
         intent.putExtra("preIntent","readingTest");
         setResult(RESULT_OK, intent);
-        finish();
         startActivity(intent);
+        finish();
 
     }
 
@@ -852,8 +867,8 @@ try{
         intent.putExtra("unitID",unitID);
         intent.putExtra("preIntent","readingTest");
         setResult(RESULT_OK, intent);
-        finish();
         startActivity(intent);
+        finish();
 
     }
 

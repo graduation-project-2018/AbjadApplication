@@ -97,8 +97,8 @@ public class contact_us extends menu_educator{
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
                 startActivity(new Intent(getApplicationContext(),educator_home.class));
+                finish();
             }
         });
 
@@ -192,8 +192,8 @@ public class contact_us extends menu_educator{
 
     @Override
     public void onBackPressed() {
-        finish();
         startActivity(new Intent(getApplicationContext(),educator_home.class));
+        finish();
 
     }
 }//end of class

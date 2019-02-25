@@ -117,14 +117,12 @@ public class HeardWordTest extends child_menu  {
                 w2.setTextSize(TypedValue.COMPLEX_UNIT_SP,70);
                 w3.setTextSize(TypedValue.COMPLEX_UNIT_SP,70);
                 m.setTitle_XLarge();
-                Log.i("scsize","X Large" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_LARGE:
                 w1.setTextSize(TypedValue.COMPLEX_UNIT_SP,60);
                 w2.setTextSize(TypedValue.COMPLEX_UNIT_SP,60);
                 w3.setTextSize(TypedValue.COMPLEX_UNIT_SP,60);
                 m.setTitle_Large();
-                Log.i("scsize","Large" );
 
                 break;
             case Configuration.SCREENLAYOUT_SIZE_NORMAL:
@@ -132,14 +130,12 @@ public class HeardWordTest extends child_menu  {
                 w2.setTextSize(TypedValue.COMPLEX_UNIT_SP,40);
                 w3.setTextSize(TypedValue.COMPLEX_UNIT_SP,40);
                 m.setTitle_Normal();
-                Log.i("scsize","Normal" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_SMALL:
                 w1.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
                 w2.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
                 w3.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
                 m.setTitle_Small();
-                Log.i("scsize","Small" );
                 break;
             default:
                 w1.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
@@ -178,8 +174,8 @@ public class HeardWordTest extends child_menu  {
                 intent.putExtra("unitID",unitID);
                 intent.putExtra("preIntent","heardTest");
                 setResult(RESULT_OK, intent);
-                finish();
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -224,7 +220,6 @@ public class HeardWordTest extends child_menu  {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (final DataSnapshot snapshot: dataSnapshot.getChildren()){
                     final String key=snapshot.getKey();
-                    Log.i("KeyTest",key);
                     DatabaseReference getCurrentTestId=r.ref.child("Tests").child("test_letters");
                     ValueEventListener CurrIDEvent=new ValueEventListener() {
                         @Override
@@ -306,7 +301,7 @@ public class HeardWordTest extends child_menu  {
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
-                Log.w(null, "Failed to read value.", databaseError.toException());
+               // Log.w(null, "Failed to read value.", databaseError.toException());
             }
         });
                             }
@@ -406,16 +401,14 @@ public class HeardWordTest extends child_menu  {
 
         }
         catch (IOException e){
-            Log.d("5","inside IOException ");
         }
 
         catch (IllegalArgumentException e){
-            Log.d("5"," inside IllegalArgumentException");
         }
 
         catch (Exception e) {
             e.printStackTrace();
-            Log.d("5","Inside exception");
+           // Log.d("5","Inside exception");
         }
     }
 
@@ -454,23 +447,21 @@ public class HeardWordTest extends child_menu  {
 
     @Override
     protected void onStop() {
-        super.onStop();
-        test_audio.release();
-        audio_feedback.release();
-        test_audio = null;
-        audio_feedback = null;
-        anim.stop();
+        try{
+            super.onStop();
+            test_audio.release();
+            audio_feedback.release();
+            test_audio = null;
+            audio_feedback = null;
+            anim.stop();
+        }catch (Exception e){
+
+        }
+
 
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        test_audio.release();
-        audio_feedback.release();
-        anim.stop();
 
-    }
 
     public void setOnCompleteListener(MediaPlayer obj){
         obj.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
@@ -511,8 +502,8 @@ public class HeardWordTest extends child_menu  {
         intent.putExtra("unitID",unitID);
         intent.putExtra("preIntent","heardTest");
         setResult(RESULT_OK, intent);
-        finish();
         startActivity(intent);
+        finish();
 
     }
 
@@ -551,8 +542,8 @@ public class HeardWordTest extends child_menu  {
             Rand.remove(nextTest);
             nextTest.putExtra("Rand",Rand);
             nextTest.putExtra("first_signIn", first_signIn);
-            finish();
             startActivity(nextTest);
+            finish();
 
 
         }
@@ -566,8 +557,8 @@ public class HeardWordTest extends child_menu  {
             setResult(RESULT_OK, intent);
             System.out.println("Testttt ID: "+ test_id);
             m.test_score(test_id,unitID, startTime);
-            finish();
             startActivity(intent);
+            finish();
 
         }
 
@@ -579,8 +570,8 @@ public class HeardWordTest extends child_menu  {
         intent.putExtra("unitID",unitID);
         intent.putExtra("preIntent","heardTest");
         setResult(RESULT_OK, intent);
-        finish();
         startActivity(intent);
+        finish();
 
     }
 

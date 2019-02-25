@@ -64,7 +64,12 @@ public class educator_profile extends menu_educator {
         email = findViewById(R.id.emailTxt);
         saveBtn = (Button)findViewById(R.id.saveChangesBtn);
 
-        id_edu= FirebaseAuth.getInstance().getCurrentUser().getUid();
+        try{
+            id_edu= FirebaseAuth.getInstance().getCurrentUser().getUid();
+        }catch (Exception e){
+
+        }
+
 
         int screenSize = getResources().getConfiguration().screenLayout &
                 Configuration.SCREENLAYOUT_SIZE_MASK;
@@ -74,38 +79,33 @@ public class educator_profile extends menu_educator {
                 // change the right icon of Edit text based on screen size
                 m.auth_setRight_icon_XLarge(email,null);
                 m.setButton_text_XLarge(saveBtn);
-                Log.i("scsize","X Large" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_LARGE:
                 m.setTitle_Large();
                 m.auth_setRight_icon_Large(email,null);
                 m.setButton_text_Large(saveBtn);
-                Log.i("scsize","Large" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_NORMAL:
                 m.setTitle_Normal();
                 m.auth_setRight_icon_Normal(email,null);
                 m.setButton_text_Normal(saveBtn);
-                Log.i("scsize","Normal" );
                 break;
             case Configuration.SCREENLAYOUT_SIZE_SMALL:
                 m.setTitle_Small();
                 m.auth_setRight_icon_Small(email,null);
                 m.setButton_text_Small(saveBtn);
-                Log.i("scsize","Small" );
                 break;
             default:
                 m.setTitle_Default();
                 m.auth_setRight_icon_Default(email,null);
                 m.setButton_text_Default(saveBtn);
-                Log.i("scsize","Default screen" );
         }//end switch
 
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
                 startActivity(new Intent(getApplicationContext(),educator_home.class));
+                finish();
             }
         });
 
@@ -201,6 +201,7 @@ public class educator_profile extends menu_educator {
                                         Toast.makeText(educator_profile.this, " تم حفظ التغييرات بنجاح", Toast.LENGTH_LONG).show();
                                         Intent intent = new Intent(getApplicationContext(), educator_home.class);
                                         startActivity(intent);
+                                        finish();
                                     }
                                     else{
                                         Toast.makeText(educator_profile.this,"حدث خطأ خلال تغيير البريد الإلكتروني الرجاء المحاولة لاحقا", Toast.LENGTH_LONG).show();
@@ -217,7 +218,7 @@ public class educator_profile extends menu_educator {
 
     @Override
     public void onBackPressed() {
-        finish();
         startActivity(new Intent(educator_profile.this,educator_home.class));
+        finish();
     }
 }//end of the class

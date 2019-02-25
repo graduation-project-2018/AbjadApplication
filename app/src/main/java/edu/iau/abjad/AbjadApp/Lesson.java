@@ -82,6 +82,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
     boolean child_skip_exercise;
     ProgressBar loading_label, lesson_pic_progress_bar;
     String img_score_one, img_score_two, img_score_three, img_score_four, img_score_five, img_score_six, img_score_seven;
+    int counter_of_OnErrorsCalls;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -127,9 +128,15 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
         lesson_pic =  findViewById(R.id.lesson_pic);
         loading_label = findViewById(R.id.loading_label);
         lesson_pic_progress_bar = findViewById(R.id.lesson_pic_progress_bar);
+        mic_btn = findViewById(R.id.mic_btn);
         words_counter =0;
         speaker_btn = findViewById (R.id.speaker_btn);
         child_score = 0;
+
+        // this counter to count the number of calling OnError function and play in the
+        // second call "to hear you" audio to help child record in correct way
+        counter_of_OnErrorsCalls =0;
+
         //set animation for Abjad
         abjad = findViewById(R.id.abjad);
         abjad.setBackgroundResource(R.drawable.abjad_speak);
@@ -167,8 +174,8 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                 intent.putExtra("unitID",unitID);
                 intent.putExtra("preIntent","Lesson");
                 setResult(RESULT_OK, intent);
-                finish();
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -235,7 +242,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
         });
 
 
-
+        mic_btn.setEnabled(false);
 
 
         //getting the lesson ID of the selected letter in Unit interface.
@@ -262,8 +269,8 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                                     wordsArrayList.add(obj);
                                     word = wordsArrayList.get(words_counter).content;
                                     word_label.setText(word);
-                                    //word = "هذه طائرة ورقية";
-                                    //sentence_label.setText(word);
+                                   // word = "اشترى أحمد لعبة";
+                                   // sentence_label.setText(word);
 
                                     check_alef();
                                     check_ta();
@@ -299,6 +306,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                                                     a1.setAudioStreamType(AudioManager.STREAM_MUSIC);
                                                     a1.setDataSource(wordsArrayList.get(words_counter).audio_file);
                                                     a1.prepareAsync();
+                                                    mic_btn.setEnabled(true);
                                                 }catch (Exception e){
 
                                                 }
@@ -347,6 +355,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                                     next_lesson_btn.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View view) {
+                                            counter_of_OnErrorsCalls =0;
                                             words_counter++;
                                        move_to_word_listener();
                                             prev_lesson_btn.setVisibility(View.VISIBLE);
@@ -358,6 +367,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                                     nextLabel.setOnClickListener(new View.OnClickListener(){
                                         @Override
                                         public void onClick(View view) {
+                                            counter_of_OnErrorsCalls =0;
                                             words_counter++;
                                             move_to_word_listener();
                                             prev_lesson_btn.setVisibility(View.VISIBLE);
@@ -370,6 +380,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                                     prev_lesson_btn.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View view) {
+                                            counter_of_OnErrorsCalls =0;
                                             words_counter--;
                                             move_to_word_listener();
                                             lesson_pic_progress_bar.setVisibility(View.VISIBLE);
@@ -387,6 +398,7 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                                    prevLabel.setOnClickListener(new View.OnClickListener(){
                                         @Override
                                         public void onClick(View view) {
+                                            counter_of_OnErrorsCalls =0;
                                             words_counter--;
                                             move_to_word_listener();
                                             lesson_pic_progress_bar.setVisibility(View.VISIBLE);
@@ -443,13 +455,14 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
 
 
       // ******* Starting speech recognition code ********
-            mic_btn = (Button) findViewById(R.id.mic_btn);
-            mSpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(this); //takes context as a parameter.
+
+            mSpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(getApplicationContext()); //takes context as a parameter.
 
             // we need intent to listen to the speech
             mSpeechRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
             mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                     RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE,"edu.iau.abjad.AbjadApp");
 
             //set the language that we want to listen for (Arabic)
             mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "ar-SA");
@@ -485,6 +498,8 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                         return;
                     }
 
+                    counter_of_OnErrorsCalls++;
+
                     switch (i){
                         case 1:
                             System.out.println("ERROR_NETWORK_TIMEOUT");
@@ -519,16 +534,31 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                     }
 
                     // play 'not hearing you' audio
-                    try{
-                        a1.reset();
-                        a1.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                        a1.setDataSource(audio_URLs.not_hearing_you);
-                        a1.prepareAsync();
-                        setOnCompleteListener(a1);
+                    if(counter_of_OnErrorsCalls==2){
+                        try{
+                            a1.reset();
+                            a1.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                            a1.setDataSource(audio_URLs.to_hear_you);
+                            a1.prepareAsync();
+                            setOnCompleteListener(a1);
 
-                    }catch(Exception e){
+                        }catch(Exception e){
 
+                        }
+                    }// end if
+                    else{
+                        try{
+                            a1.reset();
+                            a1.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                            a1.setDataSource(audio_URLs.not_hearing_you);
+                            a1.prepareAsync();
+                            setOnCompleteListener(a1);
+
+                        }catch(Exception e){
+
+                        }
                     }
+
 
                 }
 
@@ -541,16 +571,16 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
                     ArrayList<String> matches = bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
                     float[] scores = bundle.getFloatArray(SpeechRecognizer.CONFIDENCE_SCORES);
                     for (int i =0 ; i < scores.length ;i++){
-                       // Log.d( "1" ,"confidence scores " + scores[i]);
+                        System.out.println("confidence scores: " + scores[i]);
                     }
 
 
 
                     // find the phrase exactly
                     for(int i =0 ; i< matches.size(); i++){
-                       // Log.d("2", "Results " + matches.get(i));
+                        System.out.println("Results: " + matches.get(i));
                         if(matches.get(i).compareTo(word)== 0){
-                            Log.d("2", "Matching true!! ");
+                            System.out.println("Matching true!! ");
                             fullScore();
                             found = true;
                             break;
@@ -859,8 +889,8 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
         intent.putExtra("unitID",unitID);
         intent.putExtra("preIntent","Lesson");
         setResult(RESULT_OK, intent);
-        finish();
         startActivity(intent);
+        finish();
 
 
 
@@ -1083,8 +1113,8 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
             intent.putExtra("unitID",unitID);
             intent.putExtra("preIntent","Lesson");
             setResult(RESULT_OK, intent);
-            finish();
             startActivity(intent);
+            finish();
 
         }
         check_alef();
@@ -1116,8 +1146,8 @@ public class Lesson extends child_menu implements MediaPlayer.OnPreparedListener
         intent.putExtra("unitID",unitID);
         intent.putExtra("preIntent","Lesson");
         setResult(RESULT_OK, intent);
-        finish();
         startActivity(intent);
+        finish();
 
     }
 
