@@ -349,6 +349,11 @@ public class new_child_photo extends menu_educator  {
         finish();
 
     }
+    @Override
+    public void onPause() {
+        super.onPause();
+        finish();
 
+    }
 
 }

@@ -68,7 +68,6 @@ public class splash_screen extends AppCompatActivity {
 
         // check user status in splash screen
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        user.getIdToken(false);
         if (user != null) {
             // user is already signed in
             Intent intent = new Intent(getApplicationContext(), select_user_type.class);

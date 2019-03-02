@@ -222,4 +222,10 @@ public class change_password extends menu_educator {
         finish();
 
     }
+    @Override
+    public void onPause() {
+        super.onPause();
+        finish();
+
+    }
 }

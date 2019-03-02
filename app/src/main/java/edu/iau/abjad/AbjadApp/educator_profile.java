@@ -221,4 +221,11 @@ public class educator_profile extends menu_educator {
         startActivity(new Intent(educator_profile.this,educator_home.class));
         finish();
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        finish();
+
+    }
 }//end of the class

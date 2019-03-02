@@ -240,6 +240,11 @@ public class new_add_child extends menu_educator {
         }
     }//end of checkGender function
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        finish();
 
+    }
 
 }

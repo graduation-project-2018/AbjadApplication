@@ -105,25 +105,21 @@ public class menu_educator extends AppCompatActivity {
                     case R.id.move_to_child_section:{
                         Intent intent = new Intent(getApplicationContext(), child_after_signin.class);
                         startActivity(intent);
-                        finish();
                         return true;
                     }
                     case R.id.edit_profile:{
                         Intent intent = new Intent(getApplicationContext(), educator_profile.class);
                         startActivity(intent);
-                        finish();
                         return true;
                     }
                     case R.id.change_pass:{
                         Intent intent = new Intent(getApplicationContext(), change_password.class);
                         startActivity(intent);
-                        finish();
                         return true;
                     }
                     case R.id.add_child:{
                         Intent intent = new Intent(getApplicationContext(), new_add_child.class);
                         startActivity(intent);
-                        finish();
                         return true;
                     }
 
@@ -137,7 +133,6 @@ public class menu_educator extends AppCompatActivity {
                     case R.id.contact_us:{
                         Intent intent = new Intent(getApplicationContext(), contact_us.class);
                         startActivity(intent);
-                        finish();
                         return true;
 
                     }

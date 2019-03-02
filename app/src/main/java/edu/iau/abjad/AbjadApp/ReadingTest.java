@@ -76,6 +76,9 @@ public class ReadingTest extends child_menu {
     firebase_connection Test_Id,testIdq2;
     String Test_letter, unitID, first_signIn;
     int counter_of_OnErrorsCalls;
+
+    int starttingTime =0;
+    menu_variables m2 ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,11 +116,11 @@ public class ReadingTest extends child_menu {
         // this flag to prevent playing word audio in all cases, it should be played only if child can't read correctly.
         word_audio_flag = false;
         Rand = new ArrayList<Intent>();
+        m2 =new menu_variables(ReadingTest.this);
 
         //Alaa
         Test_Id=new firebase_connection();
         testIdq2=new firebase_connection();
-
         speaker_btn.setVisibility(View.INVISIBLE);
         next=findViewById(R.id.next);
         nextLabel = findViewById(R.id.nextLabel_test);
@@ -126,15 +129,16 @@ public class ReadingTest extends child_menu {
         // second call "to hear you" audio to help child record in correct way
         counter_of_OnErrorsCalls =0;
 
+
         //to get the test letter and unit ID from Unit interface.
         Intent  unitIntent =getIntent();
         Bundle letter_and_unitID = unitIntent.getExtras();
         if(letter_and_unitID !=null){
             Test_letter = letter_and_unitID.getString("test_letter");
             unitID = letter_and_unitID.getString("unitID");
-            startTime = letter_and_unitID.getLong("startTime");
             Rand = (ArrayList)letter_and_unitID.get("Rand");
             first_signIn = letter_and_unitID.getString("first_signIn");
+            starttingTime =letter_and_unitID.getInt("starttingTime");
             if(letter_and_unitID.getInt("score") != 0){
                 total_score_of_prev_tests = letter_and_unitID.getInt("score");
             }
@@ -180,6 +184,8 @@ public class ReadingTest extends child_menu {
                 nextLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
                 m.setTitle_Default();
         }//end switch
+
+        m2.t.start();
 
         test_audio.setOnPreparedListener(new MediaPlayer.OnPreparedListener(){
             @Override
@@ -654,20 +660,6 @@ try{
 
     }
 
-   /* @Override
-    protected void onPause() {
-        super.onPause();
-        try{
-            //mSpeechRecognizer.cancel();
-           // mSpeechRecognizer.destroy();
-            test_audio.release();
-            feedback_audio.release();
-            anim.stop();
-        }catch (Exception e){
-        }
-
-    }*/
-
     public void listen_word_feedback(int globalCost, int word_length, double max_match){
         if(globalCost == 1 && word_length ==3){
             playAudio_feedback(audio_URLs.perfect_only_one_mistake);
@@ -832,11 +824,13 @@ try{
     }
 
     public void next_test_or_go_home(){
+        m2.t.interrupt();
+        int timeTillNow = m2.counter + starttingTime;
         if(Rand.size()!=0){
             Intent nextTest=Rand.get(0);
             nextTest.putExtra("unitID", unitID);
             nextTest.putExtra("test_letter", Test_letter);
-            nextTest.putExtra("startTime", startTime);
+            nextTest.putExtra("starttingTime",timeTillNow);
             // this to pass the score of this test and previous test/s "if exist" to the next test
             total_score_of_prev_tests = total_score_of_prev_tests + reading_child_score;
             nextTest.putExtra("score", total_score_of_prev_tests);
@@ -851,11 +845,13 @@ try{
             m.EndTime= Calendar.getInstance().getTimeInMillis();
             m.total_tests_score = total_score_of_prev_tests + reading_child_score;
             Intent intent = new Intent(getApplicationContext(), unit_interface.class);
+            m2.total_tests_score = total_score_of_prev_tests + reading_child_score;
+            m2.endtest=true;
+            m2.test_score(test_id,unitID, timeTillNow);
             intent.putExtra("unitID",unitID);
             intent.putExtra("preIntent","readingTest");
             setResult(RESULT_OK, intent);
             System.out.println("Testttt ID: "+ test_id);
-            m.test_score(test_id, unitID,startTime);
             startActivity(intent);
             finish();
         }

@@ -17,11 +17,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Arrays;
@@ -177,6 +181,7 @@ public class select_user_type extends AppCompatActivity {
         });
 
     }// end Popup edu
+
 
 
 }

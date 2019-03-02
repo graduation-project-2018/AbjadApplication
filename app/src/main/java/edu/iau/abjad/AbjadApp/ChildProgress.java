@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -39,7 +38,7 @@ public class ChildProgress extends menu_educator {
     ArrayList <childUnitInfo> lessonScores;
     ArrayList <childUnitInfo> testScore, timeCom;
     int xLarge, large, normal, small, default_size;
-
+    private TextView leastTestTime, ShortestTimeTest;
 
 
     @Override
@@ -55,7 +54,6 @@ public class ChildProgress extends menu_educator {
         final View contentView = inflater.inflate(R.layout.activity_child_progress, null, false);
         sTime=""; sLeastTime="";sHighstScoreLesson="";sHighstScoreTest="";lett="";
         mDrawerLayout.addView(contentView, 0);
-
 
 
 
@@ -90,6 +88,8 @@ public class ChildProgress extends menu_educator {
         small = 10;
         default_size = 16;
         lastName="";
+        leastTestTime = findViewById(R.id.ShortestTimeTest);
+        ShortestTimeTest = findViewById(R.id.ShortestTimeTest_label);
 
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,6 +124,8 @@ public class ChildProgress extends menu_educator {
                 highestScoreLesson.setTextSize(TypedValue.COMPLEX_UNIT_SP,xLarge);
                 nDoneTest.setTextSize(TypedValue.COMPLEX_UNIT_SP,xLarge);
                 highestScoreTest.setTextSize(TypedValue.COMPLEX_UNIT_SP,xLarge);
+                leastTestTime.setTextSize(TypedValue.COMPLEX_UNIT_SP,xLarge);
+                ShortestTimeTest.setTextSize(TypedValue.COMPLEX_UNIT_SP,xLarge);
                 m.setTitle_XLarge();
                 break;
             case Configuration.SCREENLAYOUT_SIZE_LARGE:
@@ -140,6 +142,8 @@ public class ChildProgress extends menu_educator {
                 highestScoreLesson.setTextSize(TypedValue.COMPLEX_UNIT_SP,large);
                 nDoneTest.setTextSize(TypedValue.COMPLEX_UNIT_SP,large);
                 highestScoreTest.setTextSize(TypedValue.COMPLEX_UNIT_SP,large);
+                leastTestTime.setTextSize(TypedValue.COMPLEX_UNIT_SP,large);
+                ShortestTimeTest.setTextSize(TypedValue.COMPLEX_UNIT_SP,large);
                 m.setTitle_Large();
                 break;
             case Configuration.SCREENLAYOUT_SIZE_NORMAL:
@@ -157,6 +161,8 @@ public class ChildProgress extends menu_educator {
                 highestScoreLesson.setTextSize(TypedValue.COMPLEX_UNIT_SP,normal);
                 nDoneTest.setTextSize(TypedValue.COMPLEX_UNIT_SP,normal);
                 highestScoreTest.setTextSize(TypedValue.COMPLEX_UNIT_SP,normal);
+                leastTestTime.setTextSize(TypedValue.COMPLEX_UNIT_SP,normal);
+                ShortestTimeTest.setTextSize(TypedValue.COMPLEX_UNIT_SP,normal);
                 m.setTitle_Normal();
                 break;
             case Configuration.SCREENLAYOUT_SIZE_SMALL:
@@ -173,6 +179,8 @@ public class ChildProgress extends menu_educator {
                 highestScoreLesson.setTextSize(TypedValue.COMPLEX_UNIT_SP,small);
                 nDoneTest.setTextSize(TypedValue.COMPLEX_UNIT_SP,small);
                 highestScoreTest.setTextSize(TypedValue.COMPLEX_UNIT_SP,small);
+                leastTestTime.setTextSize(TypedValue.COMPLEX_UNIT_SP,small);
+                ShortestTimeTest.setTextSize(TypedValue.COMPLEX_UNIT_SP,small);
                 m.setTitle_Small();
                 break;
             default:
@@ -189,6 +197,8 @@ public class ChildProgress extends menu_educator {
                 highestScoreLesson.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
                 nDoneTest.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
                 highestScoreTest.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+                leastTestTime.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+                ShortestTimeTest.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
                 m.setTitle_Default();
         }
 
@@ -205,6 +215,46 @@ public class ChildProgress extends menu_educator {
 
             }
         });
+
+        // To read the least test time
+        test.ref.child("child_takes_test").child(childID).addListenerForSingleValueEvent(new ValueEventListener() {
+            Boolean exists = false;
+            Double leastTime = 1000000.0000;
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (final DataSnapshot snapshot:dataSnapshot.getChildren()){
+                    final String unitId=snapshot.getKey();
+                    if (unitId!=null){
+                        exists=true;
+                        for(final DataSnapshot s:snapshot.getChildren()){
+                            String TestId=s.getKey( );
+
+                            String time = s.child("time").getValue().toString();
+
+                            double time2 = Double.valueOf(time);
+                            if(time2<leastTime){
+                                leastTime=time2;
+                            }
+
+                        }//end of for loop
+                    }//end of if block
+
+                }//for loop to get
+                if(exists) {
+                    leastTestTime.setText(leastTime.toString());
+                    if (leastTime < 1.0) {
+                        leastTestTime.setText((int) (leastTime * 60) + " " + "ثانية");
+                    } else {
+                        leastTestTime.setText(leastTime + " " + "دقيقة");
+                    }
+                }
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });//end of query to find least test time
 
         //get data from firebase and set Text view
         lesson.ref.child("child_takes_lesson").child(childID).addValueEventListener(new ValueEventListener() {
@@ -271,7 +321,12 @@ public class ChildProgress extends menu_educator {
                                                         if(sHighstScoreLesson.length()!=0){
                                                             sHighstScoreLesson=sHighstScoreLesson.substring(0,sHighstScoreLesson.length()-1);
                                                         }
-                                                        nTimer.setText(dleastTime+" "+(dleastTime<1?"ثانية":" دقيقة"));
+                                                        if (dleastTime<1.0){
+                                                            nTimer.setText((int)(dleastTime*60)+" "+"ثانية");
+                                                        }
+                                                        else{
+                                                            nTimer.setText(dleastTime+" "+"دقيقة");
+                                                        }
                                                         highestScoreLesson.setText(ihighestLessonScore+" /7");
                                                         nDoneLesson.setText(icomplete+" ");
                                                     }catch (Exception e){
@@ -424,6 +479,13 @@ public class ChildProgress extends menu_educator {
     @Override
     public void onBackPressed() {
         startActivity(new Intent(getApplicationContext(),educator_home.class));
+        finish();
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
         finish();
 
     }

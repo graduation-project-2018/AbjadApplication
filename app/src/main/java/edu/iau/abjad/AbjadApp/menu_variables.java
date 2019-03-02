@@ -1,5 +1,6 @@
 package edu.iau.abjad.AbjadApp;
 
+import android.app.Activity;
 import android.util.TypedValue;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -22,8 +23,43 @@ import java.text.DecimalFormat;
     long EndTime;
     String  childTime;
     int currentScore ;
-    String actual_time;
     int total_tests_score;
+    int counter =0;
+    Activity act;
+
+    public menu_variables( ) {
+
+
+    }
+    public menu_variables( Activity act) {
+
+        this.act = act;
+    }
+    Thread t = new Thread(){
+        @Override
+        public void run(){
+            while(!isInterrupted()){
+                try {
+                    Thread.sleep(1000);// 1000 milliseconds = 1 second
+
+                    act.runOnUiThread(new Runnable(){
+                        @Override
+                        public void run(){
+
+                            counter++;
+
+                        }//end of run function
+                    });
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+            }//end of while loop
+
+        }//end of run function
+
+
+    };//end of Thread block
 
     firebase_connection r = new firebase_connection();
     public void setTitle_XLarge(){
@@ -101,12 +137,13 @@ import java.text.DecimalFormat;
         s.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
     }
 
-    public void  test_score(final String test_id, final String unitID, final long startTime){
+    public void  test_score(final String test_id, final String unitID, final int finishedTime){
         if(endtest){
-            try{
-                double time = EndTime - startTime;
-                time = (time/1000)/60;
-                actual_time = new DecimalFormat("##.##").format(time);
+            try{ ///
+
+                DecimalFormat df = new DecimalFormat("##.##");
+                final double finalTime = Double.valueOf(df.format(finishedTime/60.0));
+
                 total_tests_score=total_tests_score/4;
                 Query query =  r.ref.child("child_takes_test").child(child_after_signin.id_child).child(unitID).orderByKey().equalTo(test_id);
                 query.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -127,7 +164,7 @@ import java.text.DecimalFormat;
                                             r.ref.child("child_takes_test").child(child_after_signin.id_child)
                                                     .child(unitID).child(test_id).child("score").setValue(total_tests_score);
                                             r.ref.child("child_takes_test").child(child_after_signin.id_child)
-                                                    .child(unitID).child(test_id).child("time").setValue(actual_time);
+                                                    .child(unitID).child(test_id).child("time").setValue(finalTime);//
                                         }
                                     }
                                     @Override
@@ -143,7 +180,7 @@ import java.text.DecimalFormat;
                         else{
 
                             r.ref.child("child_takes_test").child(child_after_signin.id_child).child(unitID).child(test_id).child("score").setValue(total_tests_score);
-                            r.ref.child("child_takes_test").child(child_after_signin.id_child).child(unitID).child(test_id).child("time").setValue(actual_time);
+                            r.ref.child("child_takes_test").child(child_after_signin.id_child).child(unitID).child(test_id).child("time").setValue(finalTime);//
                         }
                     }
                     @Override
@@ -155,7 +192,7 @@ import java.text.DecimalFormat;
             }
 
         }// end if endtest
-    } // end function
+    } // end function test_score_2
 
 
 }// end class

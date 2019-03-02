@@ -196,4 +196,5 @@ public class contact_us extends menu_educator{
         finish();
 
     }
+
 }//end of class

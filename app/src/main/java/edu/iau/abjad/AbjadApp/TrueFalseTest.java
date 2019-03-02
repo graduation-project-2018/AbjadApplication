@@ -52,6 +52,8 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
     int total_score_of_prev_tests;
     ArrayList<Intent> Rand;
     ProgressBar  loading_label;
+    int starttingTime =0;
+    menu_variables m2 ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +82,7 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
         flag2 = true;
         finish_child_score= false;
         Rand = new ArrayList<Intent>();
+        m2 =new menu_variables(TrueFalseTest.this);
 
         Random rand = new Random();
         true_or_false = rand.nextInt(2);
@@ -108,6 +111,7 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
             startTime = letter_and_unitID.getLong("startTime");
             Rand = (ArrayList)letter_and_unitID.get("Rand");
             first_signIn = letter_and_unitID.getString("first_signIn");
+            starttingTime =letter_and_unitID.getInt("starttingTime");
             if(letter_and_unitID.getInt("score") != 0){
                 total_score_of_prev_tests = letter_and_unitID.getInt("score");
             }
@@ -143,6 +147,7 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
                 m.setTitle_Default();
 
         }//end switch
+        m2.t.start();
 
        test_sentence_audio.setOnPreparedListener(new MediaPlayer.OnPreparedListener(){
             @Override
@@ -455,11 +460,13 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
     }
 
     public void next_test_or_go_home() {
+        m2.t.interrupt();
+        int timeTillNow = m2.counter + starttingTime;
         if(Rand.size()!=0){
             Intent nextTest=Rand.get(0);
             nextTest.putExtra("unitID", unitID);
             nextTest.putExtra("test_letter", Test_letter);
-            nextTest.putExtra("startTime", startTime);
+            nextTest.putExtra("starttingTime",timeTillNow);
             // this to pass the score of this test and previous test/s "if exist" to the next test
             total_score_of_prev_tests = total_score_of_prev_tests + true_false_test_score;
             nextTest.putExtra("score", total_score_of_prev_tests);
@@ -474,11 +481,13 @@ public class TrueFalseTest extends child_menu implements MediaPlayer.OnPreparedL
             m.EndTime= Calendar.getInstance().getTimeInMillis();
             m.total_tests_score = total_score_of_prev_tests + true_false_test_score;
             Intent intent = new Intent(getApplicationContext(), unit_interface.class);
+            m2.total_tests_score = total_score_of_prev_tests + true_false_test_score;
+            m2.endtest=true;
+            m2.test_score(test_id,unitID, timeTillNow);
             intent.putExtra("unitID",unitID);
             intent.putExtra("preIntent","readingTest");
             setResult(RESULT_OK, intent);
             System.out.println("Testttt ID: "+ test_id);
-            m.test_score(test_id, unitID,startTime);
             startActivity(intent);
             finish();
         }

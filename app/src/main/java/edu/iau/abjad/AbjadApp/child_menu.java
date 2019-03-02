@@ -88,23 +88,28 @@ public class child_menu extends AppCompatActivity {
 
         }
 
-        db2 = FirebaseDatabase.getInstance().getReference().child("educator_home").child(id_edu).child("childrenNumber");
-        db2.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    x = dataSnapshot.getValue().toString();
-                    current_child_number = Integer.parseInt(x);
 
-                } else {
-                    x = "0";
-                    current_child_number = Integer.parseInt(x);
+        try{
+            db2 = FirebaseDatabase.getInstance().getReference().child("educator_home").child(id_edu).child("childrenNumber");
+            db2.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        x = dataSnapshot.getValue().toString();
+                        current_child_number = Integer.parseInt(x);
+                    } else {
+                        x = "0";
+                        current_child_number = Integer.parseInt(x);
+                    }
                 }
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
+        }catch (Exception e){
+
+        }
+
 
         int screenSize = getResources().getConfiguration().screenLayout &
                 Configuration.SCREENLAYOUT_SIZE_MASK;
@@ -150,7 +155,6 @@ public class child_menu extends AppCompatActivity {
                     case R.id.edit_profile:{
                         Intent intent = new Intent(getApplicationContext(), change_profile_photo.class);
                         startActivity(intent);
-                        finish();
                         return true;
                     }
 
@@ -174,7 +178,7 @@ public class child_menu extends AppCompatActivity {
                         Intent intent = new Intent(getApplicationContext(), um.class);
                         intent.putExtra("Lessonltr","");
                         startActivity(intent);
-                        finish();
+                        myDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                         return true;
                     }
 

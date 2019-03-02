@@ -80,6 +80,7 @@ public class educator_home extends menu_educator {
         gl = findViewById(R.id.gridViewGL);
         gr = findViewById(R.id.gridView2GL);
         loading = findViewById(R.id.loading);
+        loading.setVisibility(View.VISIBLE);
 
         try{
             id_edu = FirebaseAuth.getInstance().getCurrentUser().getUid();

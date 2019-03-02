@@ -61,6 +61,8 @@ public class HeardWordTest extends child_menu  {
     long startTime;
     int total_score_of_prev_tests;
     ArrayList<Intent> Rand;
+    int starttingTime =0;
+    menu_variables m2 ;
 
 
     @Override
@@ -94,6 +96,7 @@ public class HeardWordTest extends child_menu  {
         test_id="";
         nextButn=findViewById(R.id.next_lesson2);
         Rand = new ArrayList<Intent>();
+        m2 =new menu_variables(HeardWordTest.this);
 
         //to get the test letter and unit ID from Unit interface.
         Intent  unitIntent = getIntent();
@@ -101,9 +104,9 @@ public class HeardWordTest extends child_menu  {
         if(letter_and_unitID !=null){
             Test_letter = letter_and_unitID.getString("test_letter");
             unitID = letter_and_unitID.getString("unitID");
-            startTime = letter_and_unitID.getLong("startTime");
             Rand = (ArrayList)letter_and_unitID.get("Rand");
             first_signIn = letter_and_unitID.getString("first_signIn");
+            starttingTime =letter_and_unitID.getInt("starttingTime");
             if(letter_and_unitID.getInt("score") != 0){
                 total_score_of_prev_tests = letter_and_unitID.getInt("score");
             }
@@ -144,6 +147,8 @@ public class HeardWordTest extends child_menu  {
                 m.setTitle_Default();
 
         }//end switch
+
+        m2.t.start();
 
         test_audio.setOnPreparedListener(new MediaPlayer.OnPreparedListener(){
             @Override
@@ -531,11 +536,13 @@ public class HeardWordTest extends child_menu  {
     }
 
     public void next_test_or_go_home(){
+        m2.t.interrupt();
+        int timeTillNow = m2.counter + starttingTime;
         if(Rand.size()!=0){
             Intent nextTest=Rand.get(0);
             nextTest.putExtra("unitID", unitID);
             nextTest.putExtra("test_letter", Test_letter);
-            nextTest.putExtra("startTime", startTime);
+            nextTest.putExtra("starttingTime",timeTillNow);
             // this to pass the score of this test and previous test/s "if exist" to the next test
             total_score_of_prev_tests = total_score_of_prev_tests + final_heard_child_score;
             nextTest.putExtra("score", total_score_of_prev_tests);
@@ -553,10 +560,12 @@ public class HeardWordTest extends child_menu  {
             m.EndTime= Calendar.getInstance().getTimeInMillis();
             Intent intent = new Intent(getApplicationContext(), unit_interface.class);
             intent.putExtra("unitID",unitID);
+            m2.total_tests_score = total_score_of_prev_tests + final_heard_child_score;
+            m2.endtest=true;
+            m2.test_score(test_id,unitID, timeTillNow);
             intent.putExtra("preIntent","readingTest");
             setResult(RESULT_OK, intent);
             System.out.println("Testttt ID: "+ test_id);
-            m.test_score(test_id,unitID, startTime);
             startActivity(intent);
             finish();
 

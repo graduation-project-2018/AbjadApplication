@@ -62,6 +62,8 @@ public class MatchingTest extends child_menu {
     int total_score_of_prev_tests;
     ArrayList<Intent> Rand;
     String first_signIn;
+    int starttingTime =0;
+    menu_variables m2 ;
 
 
     @Override
@@ -115,6 +117,7 @@ public class MatchingTest extends child_menu {
         counter=0;
         full_child_score = false;
         Rand = new ArrayList<Intent>();
+        m2 =new menu_variables(MatchingTest.this);
 
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,9 +137,9 @@ public class MatchingTest extends child_menu {
         if(letter_and_unitID !=null){
             Test_letter = letter_and_unitID.getString("test_letter");
             unitID = letter_and_unitID.getString("unitID");
-            startTime = letter_and_unitID.getLong("startTime");
             Rand = (ArrayList)letter_and_unitID.get("Rand");
             first_signIn = letter_and_unitID.getString("first_signIn");
+            starttingTime =letter_and_unitID.getInt("starttingTime");
             if(letter_and_unitID.getInt("score") != 0){
                 total_score_of_prev_tests = letter_and_unitID.getInt("score");
             }
@@ -205,6 +208,8 @@ public class MatchingTest extends child_menu {
                 loading_label_normal.setVisibility(View.VISIBLE);
 
         } //end
+
+        m2.t.start();
 
         Word1.setOnLongClickListener(longClickListener);
         Word2.setOnLongClickListener(longClickListener);
@@ -687,11 +692,13 @@ View.OnDragListener dragListener1 = new View.OnDragListener() {
                     rfb.ref.child("Children").child(child_after_signin.id_child).child("first_signIn").setValue("101");
                 }
                 if(test_finish){
+                    m2.t.interrupt();
+                    int timeTillNow = m2.counter + starttingTime;
                     if(Rand.size()!=0){
                         Intent nextTest=Rand.get(0);
                         nextTest.putExtra("unitID", unitID);
                         nextTest.putExtra("test_letter", Test_letter);
-                        nextTest.putExtra("startTime", startTime);
+                        nextTest.putExtra("starttingTime",timeTillNow);
                         // this to pass the score of this test and previous test/s "if exist" to the next test
                         total_score_of_prev_tests = total_score_of_prev_tests + score;
                         nextTest.putExtra("score", total_score_of_prev_tests);
@@ -705,11 +712,13 @@ View.OnDragListener dragListener1 = new View.OnDragListener() {
                         m.total_tests_score = total_score_of_prev_tests + score;
                         m.EndTime= Calendar.getInstance().getTimeInMillis();
                         Intent intent = new Intent(getApplicationContext(), unit_interface.class);
+                        m2.total_tests_score = total_score_of_prev_tests + score;
+                        m2.endtest=true;
+                        m2.test_score(test_id,unitID, timeTillNow);
                         intent.putExtra("unitID",unitID);
                         intent.putExtra("preIntent","readingTest");
                         setResult(RESULT_OK, intent);
                         System.out.println("Testttt ID: "+ test_id);
-                        m.test_score(test_id, unitID, startTime);
                         startActivity(intent);
                         finish();
                     }

@@ -806,7 +806,8 @@ public class unit_interface extends child_menu {
         startTime = Calendar.getInstance().getTimeInMillis();
         fIntent.putExtra("unitID", unitID);
         fIntent.putExtra("test_letter", test_letter);
-        fIntent.putExtra("startTime", startTime);
+        int starttingTime = 0;
+        fIntent.putExtra("starttingTime",starttingTime);
         fIntent.putExtra("Rand", Rand);
         fIntent.putExtra("first_signIn", first_signIn);
         startActivity(fIntent);
